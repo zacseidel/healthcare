@@ -1,5 +1,81 @@
 return_horizons <- function() c(3L, 12L, 24L)
 
+index_price_history <- function(prices, ticker, as_of, months) {
+  ticker <- normalize_ticker(ticker)
+  from <- lubridate::`%m-%`(as.Date(as_of), lubridate::period(months, "month"))
+  eligible <- prices |>
+    dplyr::filter(!is.na(close), close > 0, date >= from, date <= as.Date(as_of)) |>
+    dplyr::arrange(date) |>
+    dplyr::distinct(date, .keep_all = TRUE)
+  if (!nrow(eligible)) {
+    return(tibble::tibble(
+      ticker = character(), horizon_months = integer(), date = as.Date(character()),
+      indexed_price = double()
+    ))
+  }
+  eligible |>
+    dplyr::transmute(
+      ticker = .env$ticker, horizon_months = as.integer(months), date,
+      indexed_price = close / dplyr::first(close) * 100
+    )
+}
+
+performance_chart_data <- function(tickers, as_of, horizons = c(24L, 6L), benchmark = "SPY") {
+  tickers <- unique(c(normalize_ticker(benchmark), vapply(tickers, normalize_ticker, character(1))))
+  purrr::map_dfr(horizons, function(months) {
+    purrr::map_dfr(tickers, function(ticker) {
+      index_price_history(read_prices(ticker), ticker, as_of, months)
+    })
+  })
+}
+
+deep_dive_tickers <- function(report = read_report()) {
+  unique(c(report$earnings_summaries, report$company_overviews, report$news))
+}
+
+plot_price_performance <- function(data, months, benchmark = "SPY") {
+  rows <- dplyr::filter(data, horizon_months == as.integer(months))
+  if (!nrow(rows)) {
+    graphics::plot.new()
+    graphics::text(0.5, 0.5, "No saved price history is available.")
+    return(invisible(NULL))
+  }
+  series <- unique(rows$ticker)
+  stocks <- setdiff(series, benchmark)
+  stock_colors <- if (length(stocks)) {
+    stats::setNames(grDevices::hcl.colors(length(stocks), "Dark 3"), stocks)
+  } else {
+    character()
+  }
+  colors <- c(stock_colors, stats::setNames("#202020", benchmark))
+  styles <- stats::setNames(rep(1L, length(series)), series)
+  widths <- stats::setNames(rep(1.6, length(series)), series)
+  if (benchmark %in% series) {
+    styles[[benchmark]] <- 2L
+    widths[[benchmark]] <- 2.8
+  }
+  y_range <- range(rows$indexed_price, na.rm = TRUE)
+  if (diff(y_range) == 0) y_range <- y_range + c(-1, 1)
+  graphics::plot(
+    range(rows$date), y_range, type = "n", xlab = NULL,
+    ylab = "Indexed price (start = 100)", main = paste(months, "months")
+  )
+  graphics::abline(h = 100, col = "#B8B8B8", lty = 3)
+  for (ticker in series) {
+    ticker_rows <- dplyr::filter(rows, .data$ticker == .env$ticker)
+    graphics::lines(
+      ticker_rows$date, ticker_rows$indexed_price,
+      col = colors[[ticker]], lty = styles[[ticker]], lwd = widths[[ticker]]
+    )
+  }
+  graphics::legend(
+    "topleft", legend = series, col = colors[series], lty = styles[series],
+    lwd = widths[series], bty = "n", ncol = if (length(series) > 5) 2 else 1,
+    cex = 0.8
+  )
+  invisible(rows)
+}
+
 price_on_or_before <- function(prices, target_date) {
   target_date <- as.Date(target_date)
   eligible <- dplyr::filter(prices, !is.na(close), close > 0, .data$date <= target_date)
@@ -27,8 +103,8 @@ weighted_return <- function(price_return, market_cap) {
   stats::weighted.mean(price_return[eligible], market_cap[eligible])
 }
 
-build_snapshot <- function(report = read_report(), categories = read_categories(), companies = read_companies()) {
-  membership <- dplyr::filter(categories$categories, category %in% report$categories)
+build_snapshot <- function(report = read_report(), companies = read_companies()) {
+  membership <- dplyr::filter(companies$categories, category %in% report$categories)
   tickers <- unique(membership$ticker)
   provider <- read_company_data() |>
     dplyr::filter(ticker %in% tickers) |>
@@ -82,7 +158,7 @@ build_snapshot <- function(report = read_report(), categories = read_categories(
     dplyr::arrange(type, horizon_months, rank, category, ticker)
 }
 
-validate_snapshot <- function(snapshot, as_of, settings = read_categories()$settings) {
+validate_snapshot <- function(snapshot, as_of, settings = read_settings()$settings) {
   stocks <- dplyr::filter(snapshot, type == "stock") |>
     dplyr::distinct(ticker, price_date, market_cap, market_cap_date)
   stale_prices <- dplyr::filter(
@@ -128,7 +204,7 @@ previous_snapshot <- function(report_date) {
   ))
 }
 
-compare_snapshots <- function(current, previous, settings = read_categories()$settings$notable_changes) {
+compare_snapshots <- function(current, previous, settings = read_settings()$settings$notable_changes) {
   if (is.null(previous) || !nrow(previous)) {
     return(tibble::tibble(
       change_type = "baseline", horizon_months = NA_integer_, subject = "First report",
@@ -225,11 +301,43 @@ compare_snapshots <- function(current, previous, settings = read_categories()$se
     dplyr::arrange(horizon_months, change_type, subject)
 }
 
+default_news_tickers <- function(current, previous, top_n = 5L) {
+  current_ranks <- current |>
+    dplyr::filter(type == "stock", !is.na(overall_rank)) |>
+    dplyr::distinct(ticker, horizon_months, overall_rank)
+  top <- current_ranks |>
+    dplyr::filter(overall_rank <= as.integer(top_n)) |>
+    dplyr::arrange(horizon_months, overall_rank, ticker) |>
+    dplyr::pull(ticker) |>
+    unique()
+  if (is.null(previous) || !nrow(previous)) return(top)
+  previous_ranks <- previous |>
+    dplyr::filter(type == "stock", !is.na(overall_rank)) |>
+    dplyr::distinct(ticker, horizon_months, overall_rank)
+  changes <- dplyr::inner_join(
+    dplyr::rename(current_ranks, current_rank = overall_rank),
+    dplyr::rename(previous_ranks, previous_rank = overall_rank),
+    by = c("ticker", "horizon_months")
+  ) |>
+    dplyr::mutate(rank_change = previous_rank - current_rank)
+  positive <- changes |>
+    dplyr::filter(rank_change > 0) |>
+    dplyr::arrange(dplyr::desc(rank_change), horizon_months, current_rank, ticker) |>
+    dplyr::slice_head(n = 1) |>
+    dplyr::pull(ticker)
+  negative <- changes |>
+    dplyr::filter(rank_change < 0) |>
+    dplyr::arrange(rank_change, horizon_months, current_rank, ticker) |>
+    dplyr::slice_head(n = 1) |>
+    dplyr::pull(ticker)
+  unique(c(positive, negative, top))
+}
+
 prepare_analysis <- function(report = read_report()) {
-  categories <- read_categories()
+  settings <- read_settings()
   companies <- read_companies()
-  snapshot <- build_snapshot(report, categories, companies)
-  validate_snapshot(snapshot, report$report_date, categories$settings)
+  snapshot <- build_snapshot(report, companies)
+  validate_snapshot(snapshot, report$report_date, settings$settings)
   previous <- previous_snapshot(report$report_date)
   category_table <- dplyr::filter(snapshot, type == "category") |>
     dplyr::select(category, horizon_months, price_return, rank, market_cap, company_count, market_cap_coverage) |>
@@ -245,13 +353,14 @@ prepare_analysis <- function(report = read_report()) {
       values_from = c(price_return, rank, overall_rank), names_glue = "{.value}_{horizon_months}m"
     ) |>
     dplyr::arrange(category, rank_3m, name)
-  top_n <- as.integer(categories$settings$notable_changes$top_stocks %||% 5)
+  top_n <- as.integer(settings$settings$notable_changes$top_stocks %||% 5)
   top_stocks <- dplyr::filter(snapshot, type == "stock", overall_rank <= top_n) |>
     dplyr::distinct(ticker, name, horizon_months, price_return, overall_rank) |>
     dplyr::arrange(horizon_months, overall_rank)
   list(
-    report = report, categories_input = categories, companies_input = companies,
-    snapshot = snapshot, previous = previous, changes = compare_snapshots(snapshot, previous, categories$settings$notable_changes),
-    categories = category_table, stocks = stock_table, top_stocks = top_stocks
+    report = report, settings_input = settings, companies_input = companies,
+    snapshot = snapshot, previous = previous, changes = compare_snapshots(snapshot, previous, settings$settings$notable_changes),
+    categories = category_table, stocks = stock_table, top_stocks = top_stocks,
+    price_performance = performance_chart_data(deep_dive_tickers(report), report$report_date)
   )
 }

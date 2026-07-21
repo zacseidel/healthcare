@@ -102,7 +102,7 @@ refresh_news <- function(tickers = read_report()$news, as_of = read_report()$rep
     cli::cli_inform("No news tickers are selected in inputs/current_report.md.")
     return(invisible(empty_news()))
   }
-  days <- as.integer(read_categories()$settings$news_window_days %||% 7)
+  days <- as.integer(read_settings()$settings$news_window_days %||% 7)
   purrr::map_dfr(tickers, function(ticker) {
     news_error <- NULL
     articles <- tryCatch(
@@ -139,7 +139,7 @@ review_news <- function(tickers = read_report()$news, as_of = read_report()$repo
   since <- if (new_only) new_news_since(as_of) else NULL
   articles <- purrr::map_dfr(
     tickers, read_news, as_of = as_of,
-    days = read_categories()$settings$news_window_days %||% 7, new_since = since
+    days = read_settings()$settings$news_window_days %||% 7, new_since = since
   )
   print(dplyr::select(articles, ticker, first_seen_date, publisher, title, source), n = Inf)
   invisible(articles)

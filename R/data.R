@@ -38,48 +38,71 @@ read_markdown_yaml <- function(path) {
   list(metadata = metadata, body = trimws(body), path = normalizePath(path, winslash = "/"))
 }
 
-read_categories <- function(path = "inputs/categories.md") {
+write_markdown_yaml <- function(path, metadata, body = "") {
+  path <- if (file.exists(path)) path else project_path(path)
+  yaml <- strsplit(trimws(yaml::as.yaml(metadata, indent.mapping.sequence = TRUE)), "\n", fixed = TRUE)[[1]]
+  lines <- c("---", yaml, "---")
+  if (nzchar(trimws(body))) lines <- c(lines, "", body)
+  writeLines(lines, path, useBytes = TRUE)
+  invisible(normalizePath(path, winslash = "/"))
+}
+
+read_settings <- function(path = "inputs/settings.md") {
   document <- read_markdown_yaml(path)
-  categories <- purrr::imap_dfr(document$metadata$categories, function(tickers, category) {
-    tibble::tibble(category = category, ticker = toupper(unlist(tickers, use.names = FALSE)))
-  }) |>
-    dplyr::distinct()
-  list(settings = document$metadata$settings %||% list(), categories = categories, path = document$path)
+  list(settings = document$metadata$settings %||% list(), path = document$path)
 }
 
 read_companies <- function(path = "inputs/companies.md") {
   document <- read_markdown_yaml(path)
-  companies <- purrr::imap_dfr(document$metadata$companies, function(company, ticker) {
-    tibble::tibble(
-      ticker = normalize_ticker(ticker),
-      name = as.character(company$name %||% ticker),
-      exchange = as.character(company$exchange %||% "NYSE"),
-      description = as.character(company$description %||% "")
-    )
+  membership <- purrr::imap_dfr(document$metadata, function(entries, category) {
+    purrr::imap_dfr(entries, function(company, ticker) {
+      company <- as.character(company)
+      separator <- regexpr(";", company, fixed = TRUE)[[1]]
+      if (length(company) != 1 || is.na(company) || separator < 1) {
+        stop("Each company must use 'Ticker: Name; Description' in category '", category, "'.", call. = FALSE)
+      }
+      tibble::tibble(
+        category = category,
+        ticker = normalize_ticker(ticker),
+        name = trimws(substr(company, 1, separator - 1)),
+        exchange = "NYSE",
+        description = trimws(substr(company, separator + 1, nchar(company)))
+      )
+    })
   })
-  list(companies = companies, path = document$path)
+  definitions <- membership |>
+    dplyr::distinct(ticker, name, exchange, description)
+  conflicts <- definitions |>
+    dplyr::count(ticker) |>
+    dplyr::filter(n > 1)
+  if (nrow(conflicts)) {
+    stop("A ticker has conflicting company details: ", paste(conflicts$ticker, collapse = ", "), call. = FALSE)
+  }
+  list(
+    companies = dplyr::select(definitions, ticker, name, exchange, description),
+    categories = dplyr::distinct(dplyr::select(membership, category, ticker)),
+    path = document$path
+  )
 }
 
 read_report <- function(path = "inputs/current_report.md") {
   document <- read_markdown_yaml(path)
-  category_input <- read_categories()
   company_input <- read_companies()
   metadata <- document$metadata
   categories <- as.character(unlist(
-    metadata$categories %||% unique(category_input$categories$category),
+    metadata$categories %||% unique(company_input$categories$category),
     use.names = FALSE
   ))
-  if (length(setdiff(categories, category_input$categories$category)) > 0) {
+  if (length(setdiff(categories, company_input$categories$category)) > 0) {
     stop("The report contains an unknown category.", call. = FALSE)
   }
   selected <- function(field) toupper(unlist(metadata[[field]] %||% character(), use.names = FALSE))
   selections <- c(selected("earnings_summaries"), selected("company_overviews"), selected("news"))
-  allowed <- category_input$categories |>
+  allowed <- company_input$categories |>
     dplyr::filter(category %in% categories) |>
     dplyr::pull(ticker) |>
     unique()
   if (length(setdiff(selections, allowed)) > 0) stop("A report selection is outside its categories.", call. = FALSE)
-  if (length(setdiff(allowed, company_input$companies$ticker)) > 0) stop("A category contains an unknown ticker.", call. = FALSE)
   list(
     report_name = as.character(metadata$report_name %||% "Healthcare Weekly Monitor"),
     report_date = as.Date(metadata$report_date %||% Sys.Date()),
@@ -92,8 +115,8 @@ read_report <- function(path = "inputs/current_report.md") {
   )
 }
 
-report_tickers <- function(report = read_report(), categories = read_categories()) {
-  categories$categories |>
+report_tickers <- function(report = read_report(), companies = read_companies()) {
+  companies$categories |>
     dplyr::filter(category %in% report$categories) |>
     dplyr::pull(ticker) |>
     unique()
@@ -183,7 +206,7 @@ load_api_key <- function() {
 .api_state$last_request <- NULL
 
 massive_get <- function(endpoint, query = list()) {
-  delay <- as.numeric(read_categories()$settings$api_delay_seconds %||% 13)
+  delay <- as.numeric(read_settings()$settings$api_delay_seconds %||% 13)
   if (!is.null(.api_state$last_request)) {
     elapsed <- as.numeric(difftime(Sys.time(), .api_state$last_request, units = "secs"))
     if (elapsed < delay) Sys.sleep(delay - elapsed)
@@ -215,7 +238,7 @@ update_company <- function(ticker, as_of = Sys.Date(), force = FALSE) {
   ticker <- normalize_ticker(ticker)
   saved <- read_company_data()
   existing <- dplyr::filter(saved, .data$ticker == .env$ticker)
-  refresh_days <- as.integer(read_categories()$settings$company_info_refresh_days %||% 28)
+  refresh_days <- as.integer(read_settings()$settings$company_info_refresh_days %||% 28)
   if (!force && nrow(existing) == 1 && existing$market_cap_date >= as.Date(as_of) - refresh_days) return(existing)
   result <- massive_get(paste0("/v3/reference/tickers/", ticker))$results
   row <- tibble::tibble(
@@ -234,7 +257,7 @@ update_prices <- function(ticker, as_of = Sys.Date(), force = FALSE) {
   ticker <- normalize_ticker(ticker)
   saved <- read_prices(ticker)
   if (!force && nrow(saved) > 0 && max(saved$date) >= as.Date(as_of)) return(saved)
-  years <- as.integer(read_categories()$settings$price_history_years %||% 3)
+  years <- as.integer(read_settings()$settings$price_history_years %||% 3)
   from <- if (nrow(saved) == 0) {
     lubridate::`%m-%`(as.Date(as_of), lubridate::period(years, "year"))
   } else {

@@ -19,6 +19,19 @@ read_earnings <- function() {
   calendar
 }
 
+default_earnings_tickers <- function(report = read_report(), earnings = read_earnings(),
+                                     window = read_settings()$settings$earnings_window_days %||% 7L) {
+  earnings |>
+    dplyr::filter(
+      ticker %in% report_tickers(report),
+      !is.na(latest_report_date),
+      latest_report_date >= report$report_date - as.integer(window),
+      latest_report_date <= report$report_date
+    ) |>
+    dplyr::pull(ticker) |>
+    unique()
+}
+
 write_earnings <- function(calendar) {
   dir.create(dirname(earnings_path()), recursive = TRUE, showWarnings = FALSE)
   readr::write_csv(calendar, earnings_path(), na = "")
@@ -258,15 +271,18 @@ refresh_company_earnings <- function(ticker, as_of = read_report()$report_date) 
   row
 }
 
-refresh_earnings <- function(tickers = report_tickers(), as_of = read_report()$report_date) {
-  purrr::map_dfr(seq_along(tickers), function(index) {
+refresh_earnings <- function(tickers = report_tickers(), as_of = read_report()$report_date,
+                             populate_report = TRUE) {
+  results <- purrr::map_dfr(seq_along(tickers), function(index) {
     cli::cli_inform("Refreshing earnings for {tickers[[index]]} ({index}/{length(tickers)})")
     refresh_company_earnings(tickers[[index]], as_of)
   })
+  if (isTRUE(populate_report)) populate_current_report()
+  results
 }
 
 review_earnings <- function(as_of = read_report()$report_date) {
-  window <- as.integer(read_categories()$settings$earnings_window_days %||% 7)
+  window <- as.integer(read_settings()$settings$earnings_window_days %||% 7)
   companies <- read_companies()$companies
   calendar <- read_earnings() |>
     dplyr::filter(ticker %in% report_tickers()) |>

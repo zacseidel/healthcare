@@ -13,8 +13,8 @@ Setup restores the locked R packages, creates local data folders, and checks tha
 
 ## Files you edit
 
-- `inputs/categories.md`: report settings and ticker membership by category.
-- `inputs/companies.md`: report names, exchanges, and editable company descriptions.
+- `inputs/settings.md`: report and data-refresh settings.
+- `inputs/companies.md`: category membership, report names, and editable company descriptions.
 - `inputs/current_report.md`: this week's date, categories, and optional earnings, overview, and news selections.
 
 Everything under `data/` is generated. Reports are saved under `reports/drafts/DATE/` and `reports/final/DATE/`.
@@ -31,7 +31,11 @@ refresh_earnings()
 review_earnings()
 ```
 
-Then edit `inputs/current_report.md` to choose the earnings summaries, company overviews, and news that belong in the report. If news is selected, run:
+`refresh_earnings()` populates `inputs/current_report.md` with the default earnings and news selections. Earnings defaults to companies that reported during the configured seven-day window. News defaults to the largest positive and negative overall-rank movers since the prior final report plus the configured top stocks at each report horizon. You can also refresh those selections without downloading earnings by running `populate_current_report()`.
+
+Then edit `inputs/current_report.md` to add or remove earnings summaries, company overviews, and news as needed.
+
+If news is selected, run:
 
 ```r
 refresh_news()
@@ -70,9 +74,10 @@ Massive API calls wait at least 13 seconds by default. Company reference data is
 ## Report contents
 
 - Market-cap-weighted category returns for 3, 12, and 24 months.
+- Indexed price-performance charts for deep-dive stocks versus SPY over 24 and 6 months.
 - Company returns and ranks within each category.
-- Current top-five companies for each horizon.
-- Changes in category leaders, category ranks, company ranks, and top-five membership.
+- Current top-three companies for each horizon.
+- Changes in category leaders, category ranks, company ranks, and top-three membership.
 - Earnings expected during the next seven days.
 - Selected recent earnings summaries, timestamped key moments, company overviews, and news.
 

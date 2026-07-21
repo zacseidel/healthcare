@@ -50,6 +50,24 @@ knitr::kable(category_table)
 
 Category returns use the most recently saved market capitalizations as weights.
 
+## Stock performance vs. SPY
+
+Deep-dive stocks selected for earnings summaries, company overviews, or news are shown here. Prices are indexed to 100 at the beginning of each window so companies with different share prices can be compared directly. SPY is shown as a dashed black line.
+
+```{r, fig.width=10, fig.height=6}
+available_series <- unique(result$price_performance$ticker)
+if (!"SPY" %in% available_series) {
+  cat("SPY price history is not available yet. Run `weekly_refresh()` to download it.\n")
+} else {
+  local({
+    old_par <- graphics::par(mfrow = c(2, 1), mar = c(3.5, 4.5, 3, 1), oma = c(0, 0, 1, 0))
+    on.exit(graphics::par(old_par), add = TRUE)
+    plot_price_performance(result$price_performance, 24)
+    plot_price_performance(result$price_performance, 6)
+  })
+}
+```
+
 ## Current top stocks
 
 ```{r, results='asis'}

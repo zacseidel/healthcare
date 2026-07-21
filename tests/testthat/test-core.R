@@ -1,11 +1,42 @@
 test_that("editable inputs define a valid report universe", {
-  categories <- read_categories()
+  settings <- read_settings()
   companies <- read_companies()
   report <- read_report()
   expect_setequal(companies$companies$ticker, c("UNH", "CVS", "LLY", "DH", "AGL", "SOLV"))
-  expect_true(all(categories$categories$ticker %in% companies$companies$ticker))
+  expect_true(all(companies$categories$ticker %in% companies$companies$ticker))
   expect_setequal(report_tickers(report), companies$companies$ticker)
-  expect_equal(categories$settings$api_delay_seconds, 13)
+  expect_equal(settings$settings$api_delay_seconds, 13)
+  expect_length(report$earnings_summaries, 0)
+  expect_setequal(report$news, c("AGL", "CVS", "UNH", "LLY", "SOLV"))
+  expect_equal(companies$categories$category[companies$categories$ticker == "DH"], "Healthcare Technology")
+  expect_equal(companies$companies$name[companies$companies$ticker == "DH"], "Definitive Healthcare")
+  expect_equal(
+    companies$companies$description[companies$companies$ticker == "DH"],
+    "Healthcare commercial-intelligence and analytics platform serving provider, life-sciences, and related markets."
+  )
+})
+
+test_that("default news selects the largest rank movers and top stocks", {
+  current <- tibble::tibble(
+    type = "stock", ticker = c("AAA", "BBB", "CCC", "DDD"),
+    horizon_months = 3L, overall_rank = 1:4
+  )
+  previous <- tibble::tibble(
+    type = "stock", ticker = c("AAA", "BBB", "CCC", "DDD"),
+    horizon_months = 3L, overall_rank = c(4L, 2L, 1L, 3L)
+  )
+  expect_equal(default_news_tickers(current, previous, top_n = 2), c("AAA", "CCC", "BBB"))
+  expect_equal(default_news_tickers(current, NULL, top_n = 2), c("AAA", "BBB"))
+})
+
+test_that("default earnings selects companies that reported in the configured window", {
+  report <- read_report()
+  report$report_date <- as.Date("2026-07-16")
+  earnings <- tibble::tibble(
+    ticker = c("UNH", "CVS", "LLY"),
+    latest_report_date = as.Date(c("2026-07-09", "2026-07-08", "2026-07-17"))
+  )
+  expect_equal(default_earnings_tickers(report, earnings, window = 7), "UNH")
 })
 
 test_that("per-ticker filters select the requested ticker, not the whole table", {
@@ -41,6 +72,25 @@ test_that("returns use prices on or before target dates", {
   result <- price_on_or_before(prices, "2026-01-30")
   expect_equal(result$date, as.Date("2026-01-29"))
   expect_equal(result$close, 100)
+})
+
+test_that("price histories are indexed to 100 within each chart window", {
+  prices <- tibble::tibble(
+    date = as.Date(c("2025-12-31", "2026-01-01", "2026-02-01", "2026-07-01")),
+    close = c(50, 100, 125, 150)
+  )
+  indexed <- index_price_history(prices, "UNH", "2026-07-16", 6)
+  expect_equal(indexed$date, as.Date(c("2026-02-01", "2026-07-01")))
+  expect_equal(indexed$indexed_price, c(100, 120))
+})
+
+test_that("deep-dive stocks combine all selected report sections", {
+  report <- list(
+    earnings_summaries = c("UNH", "LLY"),
+    company_overviews = c("LLY", "DH"),
+    news = c("CVS", "UNH")
+  )
+  expect_equal(deep_dive_tickers(report), c("UNH", "LLY", "DH", "CVS"))
 })
 
 test_that("category returns use market-cap weights", {

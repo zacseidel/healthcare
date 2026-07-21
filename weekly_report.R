@@ -7,15 +7,45 @@ source("tools/news.R")
 weekly_refresh <- function(report_path = "inputs/current_report.md") {
   report <- read_report(report_path)
   results <- refresh_market_data(report_tickers(report), report$report_date)
+  cli::cli_inform("Refreshing SPY benchmark prices")
+  benchmark_status <- tryCatch(
+    { update_prices("SPY", report$report_date); "ok" },
+    error = function(error) conditionMessage(error)
+  )
+  results <- dplyr::bind_rows(
+    results,
+    tibble::tibble(ticker = "SPY", company = "benchmark", prices = benchmark_status)
+  )
   validate_snapshot(build_snapshot(report), report$report_date)
   invisible(results)
+}
+
+populate_current_report <- function(report_path = "inputs/current_report.md") {
+  document <- read_markdown_yaml(report_path)
+  report <- read_report(report_path)
+  settings <- read_settings()$settings
+  snapshot <- build_snapshot(report)
+  document$metadata$earnings_summaries <- default_earnings_tickers(
+    report, window = settings$earnings_window_days %||% 7L
+  )
+  document$metadata$news <- default_news_tickers(
+    snapshot,
+    previous_snapshot(report$report_date),
+    settings$notable_changes$top_stocks %||% 5L
+  )
+  write_markdown_yaml(document$path, document$metadata, document$body)
+  cli::cli_alert_success("Populated default earnings and news selections in {document$path}.")
+  invisible(list(
+    earnings_summaries = document$metadata$earnings_summaries,
+    news = document$metadata$news
+  ))
 }
 
 prepare_report <- function(report_path = "inputs/current_report.md") {
   analysis <- prepare_analysis(read_report(report_path))
   report <- analysis$report
   companies <- analysis$companies_input$companies
-  settings <- analysis$categories_input$settings
+  settings <- analysis$settings_input$settings
   calendar <- read_earnings() |>
     dplyr::filter(ticker %in% report_tickers(report)) |>
     dplyr::left_join(dplyr::select(companies, ticker, name), by = "ticker")
@@ -111,7 +141,7 @@ render_report <- function(report_path, folder, filename) {
 archive_inputs <- function(folder, analysis, suffix = "") {
   files <- c(
     report = analysis$report$path,
-    categories = analysis$categories_input$path,
+    settings = analysis$settings_input$path,
     companies = analysis$companies_input$path
   )
   for (name in names(files)) {
@@ -144,4 +174,4 @@ final_report <- function(report_path = "inputs/current_report.md", overwrite = F
   invisible(rendered)
 }
 
-message("Loaded: weekly_refresh(), refresh_earnings(), review_earnings(), draft_report(), final_report(), and optional research tools.")
+message("Loaded: weekly_refresh(), refresh_earnings(), populate_current_report(), review_earnings(), draft_report(), final_report(), and optional research tools.")

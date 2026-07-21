@@ -13,15 +13,9 @@ settings:
   notable_changes:
     category_rank_change: 2
     stock_rank_change: 5
-    top_stocks: 5
-categories:
-  Managed Care: [UNH, CVS]
-  Biopharma: [LLY]
-  Healthcare Technology: [DH]
-  Healthcare Services: [AGL]
-  Medical Technology: [SOLV]
+    top_stocks: 3
 ---
 
-# Categories
+# Settings
 
-Edit category names and ticker membership in the YAML above. A ticker may appear in more than one category.
+Edit report and data-refresh settings in the YAML above.

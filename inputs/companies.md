@@ -1,31 +1,18 @@
 ---
-companies:
-  UNH:
-    name: UnitedHealth
-    exchange: NYSE
-    description: Diversified healthcare company operating UnitedHealthcare insurance businesses and the Optum health-services platform.
-  CVS:
-    name: CVS Health
-    exchange: NYSE
-    description: Healthcare services company spanning CVS Pharmacy, Caremark, and Aetna health insurance.
-  LLY:
-    name: Lilly
-    exchange: NYSE
-    description: Global biopharmaceutical company with major businesses in diabetes, obesity, oncology, immunology, and neuroscience.
-  DH:
-    name: Definitive Healthcare
-    exchange: NYSE
-    description: Healthcare commercial-intelligence and analytics platform serving provider, life-sciences, and related markets.
-  AGL:
-    name: Agilon
-    exchange: NYSE
-    description: Primary-care platform partnering with physicians to manage Medicare patients under value-based care arrangements.
-  SOLV:
-    name: Solventum
-    exchange: NYSE
-    description: Diversified medical-technology company serving medical-surgical, dental, health-information, and purification markets.
+Managed Care:
+  UNH: UnitedHealth; Diversified healthcare company operating UnitedHealthcare insurance businesses and the Optum health-services platform.
+  CVS: CVS Health; Healthcare services company spanning CVS Pharmacy, Caremark, and Aetna health insurance.
+Biopharma:
+  LLY: Lilly; Global biopharmaceutical company with major businesses in diabetes, obesity, oncology, immunology, and neuroscience.
+Healthcare Technology:
+  DH: Definitive Healthcare; Healthcare commercial-intelligence and analytics platform serving provider, life-sciences, and related markets.
+Healthcare Services:
+  AGL: Agilon; Primary-care platform partnering with physicians to manage Medicare patients under value-based care arrangements.
+Medical Technology:
+  SOLV: Solventum; Diversified medical-technology company serving medical-surgical, dental, health-information, and purification markets.
 ---
 
 # Companies
 
-Edit the report name, exchange, and description for each company in the YAML above.
+Group companies by category in the YAML above. Use `Ticker: Name; Description` for each company.
+A ticker may appear in more than one category.
