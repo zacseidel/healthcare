@@ -1,0 +1,9 @@
+project:
+  type: default
+  execute-dir: project
+
+format:
+  html:
+    toc: true
+    theme: cosmo
+

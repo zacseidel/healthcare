@@ -1,0 +1,164 @@
+---
+title: "Healthcare Weekly Monitor"
+format:
+  html:
+    toc: true
+    embed-resources: true
+params:
+  report_path: "inputs/current_report.md"
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{r}
+source("weekly_report.R")
+result <- prepare_report(params$report_path)
+report <- result$report
+```
+
+# `r report$report_name`
+
+**Report date:** `r report$report_date`
+
+`r report$body`
+
+## Notable changes
+
+```{r, results='asis'}
+if (!nrow(result$changes)) cat("No configured performance changes were identified.\n")
+for (detail in result$changes$detail) cat("- ", detail, "\n", sep = "")
+```
+
+## Category performance
+
+```{r}
+category_table <- result$categories |>
+  dplyr::transmute(
+    Category = category, Companies = company_count,
+    `Market cap` = scales::dollar(market_cap, scale = 1e-9, suffix = "B", accuracy = 0.1),
+    `3 months` = scales::percent(price_return_3m, accuracy = 0.1), `3m rank` = rank_3m,
+    `3m coverage` = scales::percent(market_cap_coverage_3m, accuracy = 1),
+    `12 months` = scales::percent(price_return_12m, accuracy = 0.1), `12m rank` = rank_12m,
+    `12m coverage` = scales::percent(market_cap_coverage_12m, accuracy = 1),
+    `24 months` = scales::percent(price_return_24m, accuracy = 0.1), `24m rank` = rank_24m,
+    `24m coverage` = scales::percent(market_cap_coverage_24m, accuracy = 1)
+  )
+knitr::kable(category_table)
+```
+
+Category returns use the most recently saved market capitalizations as weights.
+
+## Current top stocks
+
+```{r, results='asis'}
+for (horizon in return_horizons()) {
+  cat("### ", horizon, " months\n\n", sep = "")
+  table <- result$top_stocks |>
+    dplyr::filter(horizon_months == horizon) |>
+    dplyr::transmute(Rank = overall_rank, Company = name, Ticker = ticker,
+                     Return = scales::percent(price_return, accuracy = 0.1))
+  print(knitr::kable(table)); cat("\n\n")
+}
+```
+
+## Companies by category
+
+```{r, results='asis'}
+for (category_name in report$categories) {
+  cat("### ", category_name, "\n\n", sep = "")
+  table <- result$stocks |>
+    dplyr::filter(category == category_name) |>
+    dplyr::transmute(
+      Company = name, Ticker = ticker,
+      `Market cap` = scales::dollar(market_cap, scale = 1e-9, suffix = "B", accuracy = 0.1),
+      `3 months` = scales::percent(price_return_3m, accuracy = 0.1), `3m rank` = rank_3m,
+      `12 months` = scales::percent(price_return_12m, accuracy = 0.1), `12m rank` = rank_12m,
+      `24 months` = scales::percent(price_return_24m, accuracy = 0.1), `24m rank` = rank_24m
+    )
+  print(knitr::kable(table)); cat("\n\n")
+}
+```
+
+## Upcoming earnings
+
+```{r}
+if (!nrow(result$upcoming_earnings)) {
+  cat("No saved earnings dates fall within the next seven days.\n")
+} else {
+  knitr::kable(dplyr::transmute(
+    result$upcoming_earnings, Company = name, Ticker = ticker,
+    Date = next_earnings_date, Status = next_date_status
+  ))
+}
+```
+
+## Selected earnings highlights
+
+```{r, results='asis'}
+if (!length(result$earnings_summaries)) cat("No earnings summaries were selected.\n")
+for (item in result$earnings_summaries) {
+  name <- result$companies_input$companies$name[match(item$ticker, result$companies_input$companies$ticker)]
+  cat("### ", name, " (", item$ticker, ")\n\n", sep = "")
+  if (is.na(item$summary)) cat(item$message, "\n\n") else {
+    cat("**Reported:** ", format(item$report_date), "\n\n", item$summary, "\n\n", sep = "")
+    if (!is.na(item$source_url)) cat("[Google Finance source](", item$source_url, ")\n\n", sep = "")
+  }
+}
+```
+
+## Selected company overviews
+
+```{r, results='asis'}
+if (!length(result$overviews)) cat("No company overviews were selected.\n")
+for (item in result$overviews) {
+  cat("### ", item$name, " (", item$ticker, ")\n\n", item$description, "\n\n", sep = "")
+  if (!is.na(item$provider_description) && nzchar(item$provider_description)) cat(item$provider_description, "\n\n")
+}
+```
+
+## Selected news
+
+```{r, results='asis'}
+if (!length(result$news)) cat("No company news was selected.\n")
+for (item in result$news) {
+  cat("### ", item$name, " (", item$ticker, ")\n\n", sep = "")
+  if (!nrow(item$articles)) cat("No newly saved news was available since the prior final report.\n\n")
+  for (index in seq_len(nrow(item$articles))) {
+    article_date <- if (is.na(item$articles$published_date[[index]])) {
+      paste0("first seen ", item$articles$first_seen_date[[index]])
+    } else {
+      as.character(item$articles$published_date[[index]])
+    }
+    cat("- [", item$articles$title[[index]], "](", item$articles$url[[index]], ") — ",
+        item$articles$publisher[[index]], ", ", article_date, "\n", sep = "")
+  }
+  cat("\n")
+}
+```
+
+```{r, results='asis'}
+warnings <- result$scraper_warnings
+if (isTRUE(result$show_scraper_warnings) && !is.null(warnings) && nrow(warnings)) {
+  labels <- c(google_earnings = "Google Finance earnings", google_news = "Google Finance news")
+  cat("## Data collection warnings\n\n")
+  cat("The following Google Finance scrapes did not succeed on their most recent run. ",
+      "The report used saved or fallback data where available; check the selectors if this persists.\n\n", sep = "")
+  for (index in seq_len(nrow(warnings))) {
+    source_label <- labels[[warnings$source[[index]]]] %||% warnings$source[[index]]
+    detail <- if (is.na(warnings$detail[[index]])) "" else paste0(" — ", warnings$detail[[index]])
+    cat("- **", warnings$ticker[[index]], "** (", source_label, ", last checked ",
+        warnings$checked_at[[index]], ")", detail, "\n", sep = "")
+  }
+  cat("\n")
+}
+```
+
+## Methodology
+
+- Returns are split-adjusted price returns for the 3-, 12-, and 24-month periods ending on the report date.
+- Category returns are market-cap-weighted averages of company returns; raw share prices are not averaged.
+- Rankings are calculated independently for each horizon.
+- Notable changes compare with the latest earlier final report.
+- Rendering reads saved local files and makes no external requests.
