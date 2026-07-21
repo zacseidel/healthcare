@@ -7,7 +7,10 @@ project_root <- function(start = getwd()) {
   if (!is.null(override)) return(normalizePath(override, winslash = "/", mustWork = TRUE))
   current <- normalizePath(start, winslash = "/", mustWork = TRUE)
   repeat {
-    if (file.exists(file.path(current, "healthcare-stock-monitor.Rproj"))) return(current)
+    if (file.exists(file.path(current, "healthcare-stock-monitor.Rproj"))) {
+      options(healthcare.project_root = current)
+      return(current)
+    }
     parent <- dirname(current)
     if (identical(parent, current)) stop("Cannot locate the project root.", call. = FALSE)
     current <- parent

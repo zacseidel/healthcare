@@ -1,4 +1,5 @@
 source("R/data.R")
+invisible(project_root())
 source("R/analysis.R")
 source("tools/earnings.R")
 source("tools/discovery.R")

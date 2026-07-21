@@ -1,3 +1,19 @@
+test_that("project root remains available after the working directory changes", {
+  old_root <- getOption("healthcare.project_root")
+  old_directory <- getwd()
+  on.exit({
+    setwd(old_directory)
+    options(healthcare.project_root = old_root)
+  }, add = TRUE)
+
+  options(healthcare.project_root = NULL)
+  setwd(root)
+  expect_equal(project_root(), root)
+
+  setwd(tempdir())
+  expect_equal(project_root(), root)
+})
+
 test_that("editable inputs define a valid report universe", {
   settings <- read_settings()
   companies <- read_companies()
