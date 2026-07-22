@@ -14,6 +14,24 @@ test_that("project root remains available after the working directory changes", 
   expect_equal(project_root(), root)
 })
 
+test_that("weekly report can be sourced from outside the project", {
+  script <- file.path(root, "weekly_report.R")
+  expression <- sprintf(
+    "setwd(tempdir()); source(%s); cat(project_root())",
+    deparse(script)
+  )
+  output <- system2(
+    file.path(R.home("bin"), "Rscript"),
+    c("--vanilla", "-e", shQuote(expression)),
+    stdout = TRUE,
+    stderr = TRUE
+  )
+  status <- attr(output, "status") %||% 0L
+
+  expect_equal(status, 0L, info = paste(output, collapse = "\n"))
+  expect_true(any(grepl(normalizePath(root, winslash = "/"), output, fixed = TRUE)))
+})
+
 test_that("editable inputs define a valid report universe", {
   settings <- read_settings()
   companies <- read_companies()

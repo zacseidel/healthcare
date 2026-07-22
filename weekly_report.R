@@ -1,9 +1,48 @@
-source("R/data.R")
-invisible(project_root())
-source("R/analysis.R")
-source("tools/earnings.R")
-source("tools/discovery.R")
-source("tools/news.R")
+.healthcare_project_root <- getOption("healthcare.project_root")
+
+if (is.null(.healthcare_project_root)) {
+  .healthcare_source_files <- vapply(sys.frames(), function(frame) {
+    path <- frame$ofile
+    if (is.null(path) || length(path) != 1L || is.na(path)) "" else as.character(path)
+  }, character(1))
+  .healthcare_source_files <- .healthcare_source_files[nzchar(.healthcare_source_files)]
+  .healthcare_starts <- c(
+    dirname(normalizePath(rev(.healthcare_source_files), winslash = "/", mustWork = FALSE)),
+    getwd()
+  )
+
+  for (.healthcare_start in unique(.healthcare_starts)) {
+    .healthcare_current <- normalizePath(.healthcare_start, winslash = "/", mustWork = FALSE)
+    repeat {
+      if (file.exists(file.path(.healthcare_current, "healthcare-stock-monitor.Rproj"))) {
+        .healthcare_project_root <- .healthcare_current
+        break
+      }
+      .healthcare_parent <- dirname(.healthcare_current)
+      if (identical(.healthcare_parent, .healthcare_current)) break
+      .healthcare_current <- .healthcare_parent
+    }
+    if (!is.null(.healthcare_project_root)) break
+  }
+}
+
+if (is.null(.healthcare_project_root)) {
+  stop(
+    "Cannot locate the project root. Open healthcare-stock-monitor.Rproj or source weekly_report.R by its full path.",
+    call. = FALSE
+  )
+}
+
+.healthcare_project_root <- normalizePath(.healthcare_project_root, winslash = "/", mustWork = TRUE)
+options(healthcare.project_root = .healthcare_project_root)
+
+source(file.path(.healthcare_project_root, "R", "data.R"))
+source(file.path(.healthcare_project_root, "R", "analysis.R"))
+source(file.path(.healthcare_project_root, "tools", "earnings.R"))
+source(file.path(.healthcare_project_root, "tools", "discovery.R"))
+source(file.path(.healthcare_project_root, "tools", "news.R"))
+
+rm(list = ls(pattern = "^\\.healthcare_", all.names = TRUE))
 
 weekly_refresh <- function(report_path = "inputs/current_report.md") {
   report <- read_report(report_path)
