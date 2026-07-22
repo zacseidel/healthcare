@@ -29,7 +29,10 @@ source("weekly_report.R")
 weekly_refresh()
 refresh_earnings()
 review_earnings()
+report_status()
 ```
+
+`report_status()` is a pre-flight check. It reads local files only and reports, per company, the last saved price and its age, the market-cap age, the cached exchange, the next earnings date, and how many news articles fall in the window — followed by anything that would block or degrade a report: stale prices or market caps, missing exchanges or earnings records, price history shorter than the longest return horizon, a missing benchmark, failed scrapes, and companies selected for news with none saved.
 
 `refresh_earnings()` populates `inputs/current_report.md` with the default earnings and news selections. Earnings defaults to companies that reported during the configured seven-day window. News defaults to the largest positive and negative overall-rank movers since the prior final report plus the configured top stocks at each report horizon. You can also refresh those selections without downloading earnings by running `populate_current_report()`.
 
@@ -69,6 +72,8 @@ refresh_earnings(c("UNH", "CVS"))
 
 If Google does not provide a transcript summary or key moments for a completed call, the earnings calendar records that explicitly. Reports show a short unavailable message rather than failing or substituting an older call summary.
 
+Each company's exchange is discovered from the market-data provider and cached in `data/companies.csv`, so `inputs/companies.md` never lists one. Google Finance URLs are built from that cache, and a ticker missing from it is looked up on demand. If the provider reports an exchange Google Finance does not recognise, the report records a warning and you can set the correct name under `exchange_overrides` in `inputs/settings.md`.
+
 Massive API calls wait at least 13 seconds by default. Company reference data is reused for 28 days; prices are updated only through the report date.
 
 ## Report contents
@@ -77,7 +82,10 @@ Massive API calls wait at least 13 seconds by default. Company reference data is
 - Indexed price-performance charts for deep-dive stocks versus SPY over 24 and 6 months.
 - Company returns and ranks within each category.
 - Current top-three companies for each horizon.
+- Price change since the previous final report: market-cap-weighted per category, plus the largest company gains and declines.
 - Changes in category leaders, category ranks, company ranks, and top-three membership.
+- Changes in the returns themselves, which rank comparisons miss when everything moves together.
+- Companies added to or removed from a category since the previous final report.
 - Earnings expected during the next seven days.
 - Selected recent earnings summaries, timestamped key moments, company overviews, and news.
 
@@ -85,6 +93,8 @@ Category results are weighted averages of company returns. Raw share prices are 
 
 ## Saved history
 
-Each draft saves its HTML report, exact snapshot, and copies of all three editable inputs. A final report does the same and becomes the comparison baseline for the next report.
+Reports are named for their date and the largest companies whose earnings calls they summarise, ordered by market capitalisation: `2026-07-23_UNH-CVS-DH.html` for a final, `2026-07-23_UNH-CVS-DH-02.html` for draft 2. A report with no rendered earnings summary is named for its date alone. Draft numbers keep counting up even when the earnings selections change the rest of the name.
+
+Each draft saves its HTML report, exact snapshot, copies of all three editable inputs, and a `manifest.md` recording the input schema version those copies were written with. A final report does the same and becomes the comparison baseline for the next report.
 
 Final snapshots and input copies can be committed to Git. Drafts, downloaded data, browser credentials, secrets, and final HTML files remain local.

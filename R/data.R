@@ -28,8 +28,16 @@ normalize_ticker <- function(ticker) {
   ticker
 }
 
+is_absolute_path <- function(path) grepl("^(/|~|[A-Za-z]:[/\\\\])", path)
+
+# Root-relative paths are resolved against the project; absolute paths are used as
+# given, including files that do not exist yet.
+resolve_input_path <- function(path) {
+  if (file.exists(path) || is_absolute_path(path)) path else project_path(path)
+}
+
 read_markdown_yaml <- function(path) {
-  path <- if (file.exists(path)) path else project_path(path)
+  path <- resolve_input_path(path)
   lines <- readLines(path, warn = FALSE, encoding = "UTF-8")
   separators <- which(trimws(lines) == "---")
   if (length(separators) < 2 || separators[[1]] != 1) {
@@ -42,7 +50,7 @@ read_markdown_yaml <- function(path) {
 }
 
 write_markdown_yaml <- function(path, metadata, body = "") {
-  path <- if (file.exists(path)) path else project_path(path)
+  path <- resolve_input_path(path)
   yaml <- strsplit(trimws(yaml::as.yaml(metadata, indent.mapping.sequence = TRUE)), "\n", fixed = TRUE)[[1]]
   lines <- c("---", yaml, "---")
   if (nzchar(trimws(body))) lines <- c(lines, "", body)
@@ -68,13 +76,12 @@ read_companies <- function(path = "inputs/companies.md") {
         category = category,
         ticker = normalize_ticker(ticker),
         name = trimws(substr(company, 1, separator - 1)),
-        exchange = "NYSE",
         description = trimws(substr(company, separator + 1, nchar(company)))
       )
     })
   })
   definitions <- membership |>
-    dplyr::distinct(ticker, name, exchange, description)
+    dplyr::distinct(ticker, name, description)
   conflicts <- definitions |>
     dplyr::count(ticker) |>
     dplyr::filter(n > 1)
@@ -82,7 +89,7 @@ read_companies <- function(path = "inputs/companies.md") {
     stop("A ticker has conflicting company details: ", paste(conflicts$ticker, collapse = ", "), call. = FALSE)
   }
   list(
-    companies = dplyr::select(definitions, ticker, name, exchange, description),
+    companies = dplyr::select(definitions, ticker, name, description),
     categories = dplyr::distinct(dplyr::select(membership, category, ticker)),
     path = document$path
   )
@@ -134,17 +141,20 @@ read_company_data <- function() {
     return(tibble::tibble(
       ticker = character(), provider_name = character(), market_cap = double(),
       market_cap_date = as.Date(character()), sic_code = character(),
-      sic_description = character(), website = character(), provider_description = character(),
-      updated_at = character()
+      sic_description = character(), exchange = character(), website = character(),
+      provider_description = character(), updated_at = character()
     ))
   }
-  readr::read_csv(
+  companies <- readr::read_csv(
     path, show_col_types = FALSE,
     col_types = readr::cols(
       ticker = readr::col_character(), market_cap = readr::col_double(),
       market_cap_date = readr::col_date(), .default = readr::col_character()
     )
   )
+  # Caches written before the exchange column existed still need to read cleanly.
+  if (!"exchange" %in% names(companies)) companies$exchange <- NA_character_
+  companies
 }
 
 write_company_data <- function(companies) {
@@ -181,15 +191,25 @@ record_scraper_status <- function(ticker, source, status, detail = NA_character_
   invisible(row)
 }
 
+empty_prices <- function() tibble::tibble(
+  ticker = character(), date = as.Date(character()), open = double(), high = double(),
+  low = double(), close = double(), volume = double(), vwap = double(),
+  transactions = double(), retrieved_at = character()
+)
+
 read_prices <- function(ticker) {
   path <- price_path(ticker)
-  if (!file.exists(path)) return(tibble::tibble(ticker = character(), date = as.Date(character()), close = double()))
+  # The empty tibble must carry the full schema: update_prices() binds downloaded rows
+  # onto it, so a short schema here would reorder columns on a ticker's first download.
+  if (!file.exists(path)) return(empty_prices())
   readr::read_csv(
     path, show_col_types = FALSE,
+    # Older files may carry columns the writer no longer produces, such as `adjusted`.
+    # Selecting at read time skips them entirely rather than parsing and discarding them.
+    col_select = dplyr::any_of(names(empty_prices())),
     col_types = readr::cols(
-      ticker = readr::col_character(), date = readr::col_date(), retrieved_at = readr::col_character(),
-      adjusted = readr::col_skip(),
-      .default = readr::col_double()
+      ticker = readr::col_character(), date = readr::col_date(),
+      retrieved_at = readr::col_character(), .default = readr::col_double()
     )
   ) |>
     dplyr::arrange(date)
@@ -198,6 +218,7 @@ read_prices <- function(ticker) {
 load_api_key <- function() {
   if (file.exists(project_path(".env"))) readRenviron(project_path(".env"))
   key <- Sys.getenv("MASSIVE_API_KEY")
+  # POLYGON_API_KEY is the pre-rename spelling, still accepted for older .env files.
   if (!nzchar(key)) key <- Sys.getenv("POLYGON_API_KEY")
   if (!nzchar(key) || identical(key, "your_api_key_here")) {
     stop("Add your Massive API key to .env (MASSIVE_API_KEY=...).", call. = FALSE)
@@ -242,13 +263,22 @@ update_company <- function(ticker, as_of = Sys.Date(), force = FALSE) {
   saved <- read_company_data()
   existing <- dplyr::filter(saved, .data$ticker == .env$ticker)
   refresh_days <- as.integer(read_settings()$settings$company_info_refresh_days %||% 28)
-  if (!force && nrow(existing) == 1 && existing$market_cap_date >= as.Date(as_of) - refresh_days) return(existing)
+  # A missing exchange forces a refresh even within the TTL: it is needed to build
+  # Google Finance URLs, and older caches predate the column.
+  # isTRUE guards a missing market_cap_date, which would otherwise make the condition
+  # NA and abort with "missing value where TRUE/FALSE needed".
+  fresh <- isTRUE(
+    nrow(existing) == 1 && !is.na(existing$exchange[[1]]) &&
+      existing$market_cap_date >= as.Date(as_of) - refresh_days
+  )
+  if (!force && fresh) return(existing)
   result <- massive_get(paste0("/v3/reference/tickers/", ticker))$results
   row <- tibble::tibble(
     ticker = ticker, provider_name = result$name %||% ticker,
     market_cap = as.numeric(result$market_cap %||% NA_real_), market_cap_date = Sys.Date(),
     sic_code = as.character(result$sic_code %||% NA_character_),
     sic_description = result$sic_description %||% NA_character_,
+    exchange = as.character(result$primary_exchange %||% NA_character_),
     website = result$homepage_url %||% NA_character_,
     provider_description = result$description %||% NA_character_, updated_at = utc_now()
   )

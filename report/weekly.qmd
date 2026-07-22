@@ -24,6 +24,58 @@ report <- result$report
 
 `r report$body`
 
+## Since the previous report
+
+```{r, results='asis'}
+if (is.null(result$previous_date)) {
+  cat("No earlier final report is available; this report establishes the baseline.\n")
+} else {
+  cat("Price change from ", format(result$previous_date), " to ", format(report$report_date),
+      ".\n\n", sep = "")
+}
+```
+
+```{r}
+moves <- result$weekly_moves
+if (!is.null(result$previous_date) && nrow(moves)) {
+  knitr::kable(
+    dplyr::filter(moves, type == "category") |>
+      dplyr::arrange(dplyr::desc(price_move)) |>
+      dplyr::transmute(Category = name, Change = format_percent(price_move)),
+    caption = "Category change, market-cap weighted"
+  )
+}
+```
+
+```{r, results='asis'}
+stock_moves <- dplyr::filter(moves, type == "stock", !is.na(price_move)) |>
+  dplyr::distinct(ticker, name, price_move)
+if (!is.null(result$previous_date) && nrow(stock_moves)) {
+  shown <- result$movers_shown
+  # Direction follows the sign of the move, not the row's position in the ranking:
+  # taking the head and tail of a list would label an unchanged company "Declined".
+  gained <- dplyr::filter(stock_moves, price_move > 0) |>
+    dplyr::arrange(dplyr::desc(price_move)) |>
+    utils::head(shown) |>
+    dplyr::mutate(Direction = "Gained")
+  declined <- dplyr::filter(stock_moves, price_move < 0) |>
+    dplyr::arrange(price_move) |>
+    utils::head(shown) |>
+    dplyr::mutate(Direction = "Declined")
+  table <- dplyr::bind_rows(gained, declined)
+  if (!nrow(table)) {
+    cat("No company price changed since the previous report.\n\n")
+  } else {
+    print(knitr::kable(
+      dplyr::transmute(table, Direction, Company = name, Ticker = ticker,
+                       Change = format_percent(price_move)),
+      caption = "Largest company moves"
+    ))
+    cat("\n\n")
+  }
+}
+```
+
 ## Notable changes
 
 ```{r, results='asis'}
@@ -52,7 +104,7 @@ Category returns use the most recently saved market capitalizations as weights.
 
 ## Stock performance vs. SPY
 
-Deep-dive stocks selected for earnings summaries, company overviews, or news are shown here. Prices are indexed to 100 at the beginning of each window so companies with different share prices can be compared directly. SPY is shown as a dashed black line.
+Deep-dive stocks selected for earnings summaries, company overviews, or news are shown here. Prices are indexed to 100 at a single shared date so companies with different share prices can be compared directly. That date is the latest first-observation among the plotted series, so a company with a shorter saved history moves the origin for every line rather than starting from a different one; each chart states the date it uses. SPY is shown as a dashed black line.
 
 ```{r, fig.width=10, fig.height=6}
 available_series <- unique(result$price_performance$ticker)
@@ -159,7 +211,10 @@ for (item in result$news) {
 ```{r, results='asis'}
 warnings <- result$scraper_warnings
 if (isTRUE(result$show_scraper_warnings) && !is.null(warnings) && nrow(warnings)) {
-  labels <- c(google_earnings = "Google Finance earnings", google_news = "Google Finance news")
+  labels <- c(
+    google_earnings = "Google Finance earnings", google_news = "Google Finance news",
+    exchange = "Exchange lookup"
+  )
   cat("## Data collection warnings\n\n")
   cat("The following Google Finance scrapes did not succeed on their most recent run. ",
       "The report used saved or fallback data where available; check the selectors if this persists.\n\n", sep = "")
@@ -176,6 +231,8 @@ if (isTRUE(result$show_scraper_warnings) && !is.null(warnings) && nrow(warnings)
 ## Methodology
 
 - Returns are split-adjusted price returns for the 3-, 12-, and 24-month periods ending on the report date.
+- A return is blank when saved price history does not reach back through its horizon; `weekly_refresh()` warns when that happens.
+- Chart series are indexed to 100 at one shared date, stated beneath each chart, so lines with different history lengths share an origin.
 - Category returns are market-cap-weighted averages of company returns; raw share prices are not averaged.
 - Rankings are calculated independently for each horizon.
 - Notable changes compare with the latest earlier final report.

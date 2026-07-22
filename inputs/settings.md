@@ -14,8 +14,24 @@ settings:
     category_rank_change: 2
     stock_rank_change: 5
     top_stocks: 3
+    return_delta_threshold: 0.05
+    movers_shown: 3
+  exchange_overrides: {}
 ---
 
 # Settings
 
 Edit report and data-refresh settings in the YAML above.
+
+`price_history_years` is how much history to request when a ticker is first downloaded. A
+provider may hold less; `weekly_refresh()` warns when saved history does not reach back
+through the longest return horizon, and returns for that horizon are left blank.
+
+Exchanges are discovered automatically and cached in `data/companies.csv`; they are not
+listed in `inputs/companies.md`. Use `exchange_overrides` only when the provider reports
+an exchange Google Finance does not recognise, for example:
+
+```yaml
+exchange_overrides:
+  TICKER: NASDAQ
+```

@@ -38,10 +38,44 @@ write_earnings <- function(calendar) {
   invisible(calendar)
 }
 
+# Google Finance addresses quotes by its own exchange names, not by the ISO MIC
+# codes the market-data provider returns in `primary_exchange`.
+google_exchange_names <- c(
+  XNYS = "NYSE", XNAS = "NASDAQ", XASE = "NYSEAMERICAN",
+  ARCX = "NYSEARCA", BATS = "BATS"
+)
+
+# Exchange is provider data, not an editorial choice, so it lives in the downloaded
+# company cache rather than in inputs/companies.md. Unknown tickers are looked up on
+# demand; the company refresh interval makes repeat calls free.
+google_exchange <- function(ticker) {
+  ticker <- normalize_ticker(ticker)
+  override <- read_settings()$settings$exchange_overrides[[ticker]]
+  if (!is.null(override) && nzchar(as.character(override))) return(as.character(override))
+  company <- dplyr::filter(read_company_data(), .data$ticker == .env$ticker)
+  if (!nrow(company) || is.na(company$exchange[[1]])) company <- update_company(ticker)
+  code <- if (nrow(company)) company$exchange[[1]] else NA_character_
+  if (is.na(code) || !nzchar(code)) {
+    record_scraper_status(ticker, "exchange", "failed", "No primary exchange was returned; assuming NYSE.")
+    return("NYSE")
+  }
+  if (!code %in% names(google_exchange_names)) {
+    record_scraper_status(
+      ticker, "exchange", "failed",
+      paste0("Exchange code '", code, "' has no Google Finance name; assuming NYSE.")
+    )
+    return("NYSE")
+  }
+  record_scraper_status(ticker, "exchange", "ok")
+  unname(google_exchange_names[[code]])
+}
+
 google_finance_url <- function(ticker) {
-  companies <- read_companies()$companies
-  exchange <- companies$exchange[match(normalize_ticker(ticker), companies$ticker)] %||% "NYSE"
-  paste0("https://www.google.com/finance/beta/quote/", ticker, ":", exchange, "?tab=earnings&hl=en")
+  ticker <- normalize_ticker(ticker)
+  paste0(
+    "https://www.google.com/finance/beta/quote/", ticker, ":", google_exchange(ticker),
+    "?tab=earnings&hl=en"
+  )
 }
 
 start_google_browser <- function() {

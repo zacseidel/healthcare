@@ -17,10 +17,9 @@ data/earnings-summaries/*
 !data/earnings-summaries/.gitkeep
 data/news/*
 !data/news/.gitkeep
-data/companies/*
 reports/drafts/*
 !reports/drafts/.gitkeep
-reports/final/*/report.html
+reports/final/*/*.html
 
 
 /.quarto/

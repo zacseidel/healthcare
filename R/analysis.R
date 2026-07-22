@@ -1,31 +1,87 @@
 return_horizons <- function() c(3L, 12L, 24L)
 
-index_price_history <- function(prices, ticker, as_of, months) {
-  ticker <- normalize_ticker(ticker)
-  from <- lubridate::`%m-%`(as.Date(as_of), lubridate::period(months, "month"))
-  eligible <- prices |>
+empty_indexed_prices <- function() tibble::tibble(
+  ticker = character(), horizon_months = integer(), date = as.Date(character()),
+  window_from = as.Date(character()), base_date = as.Date(character()),
+  indexed_price = double()
+)
+
+window_start <- function(as_of, months) {
+  lubridate::`%m-%`(as.Date(as_of), lubridate::period(months, "month"))
+}
+
+window_prices <- function(prices, as_of, months) {
+  from <- window_start(as_of, months)
+  prices |>
     dplyr::filter(!is.na(close), close > 0, date >= from, date <= as.Date(as_of)) |>
     dplyr::arrange(date) |>
     dplyr::distinct(date, .keep_all = TRUE)
-  if (!nrow(eligible)) {
-    return(tibble::tibble(
-      ticker = character(), horizon_months = integer(), date = as.Date(character()),
-      indexed_price = double()
-    ))
-  }
+}
+
+# `base_date` is the date every series on a chart is indexed from. Passing it keeps
+# series with different history lengths comparable; without it each series would be
+# indexed to its own first bar, which silently shifts the origin between lines.
+index_price_history <- function(prices, ticker, as_of, months, base_date = NULL) {
+  ticker <- normalize_ticker(ticker)
+  eligible <- window_prices(prices, as_of, months)
+  if (!nrow(eligible)) return(empty_indexed_prices())
+  if (is.null(base_date)) base_date <- dplyr::first(eligible$date)
+  base_date <- as.Date(base_date)
+  base <- price_on_or_before(eligible, base_date)
+  if (is.na(base$close)) return(empty_indexed_prices())
+  eligible <- dplyr::filter(eligible, date >= base_date)
+  if (!nrow(eligible)) return(empty_indexed_prices())
+  from <- window_start(as_of, months)
   eligible |>
     dplyr::transmute(
       ticker = .env$ticker, horizon_months = as.integer(months), date,
-      indexed_price = close / dplyr::first(close) * 100
+      window_from = .env$from, base_date = .env$base_date,
+      indexed_price = close / base$close * 100
     )
+}
+
+# The latest first-observation across the series: the earliest date on which every
+# series with data in the window can be indexed from a common origin.
+common_base_date <- function(price_history, as_of, months) {
+  starts <- vapply(price_history, function(prices) {
+    eligible <- window_prices(prices, as_of, months)
+    if (nrow(eligible)) as.numeric(dplyr::first(eligible$date)) else NA_real_
+  }, numeric(1))
+  if (all(is.na(starts))) return(as.Date(NA))
+  as.Date(max(starts, na.rm = TRUE), origin = "1970-01-01")
 }
 
 performance_chart_data <- function(tickers, as_of, horizons = c(24L, 6L), benchmark = "SPY") {
   tickers <- unique(c(normalize_ticker(benchmark), vapply(tickers, normalize_ticker, character(1))))
+  price_history <- stats::setNames(lapply(tickers, read_prices), tickers)
   purrr::map_dfr(horizons, function(months) {
+    base_date <- common_base_date(price_history, as_of, months)
+    if (is.na(base_date)) return(empty_indexed_prices())
     purrr::map_dfr(tickers, function(ticker) {
-      index_price_history(read_prices(ticker), ticker, as_of, months)
+      index_price_history(price_history[[ticker]], ticker, as_of, months, base_date)
     })
+  })
+}
+
+# price_history_years asks the provider for a window; it may hold less. Returns are
+# NA when a series does not reach back far enough, so short histories are reported
+# rather than quietly shrinking the comparison.
+empty_price_coverage <- function() tibble::tibble(
+  ticker = character(), first_date = as.Date(character()),
+  required_from = as.Date(character()), horizon_months = integer(), covers = logical()
+)
+
+price_coverage <- function(tickers, as_of, months = max(return_horizons())) {
+  if (!length(tickers)) return(empty_price_coverage())
+  required_from <- window_start(as_of, months)
+  purrr::map_dfr(tickers, function(ticker) {
+    prices <- read_prices(ticker)
+    first_date <- if (nrow(prices)) min(prices$date, na.rm = TRUE) else as.Date(NA)
+    tibble::tibble(
+      ticker = normalize_ticker(ticker), first_date = first_date,
+      required_from = required_from, horizon_months = as.integer(months),
+      covers = !is.na(first_date) & first_date <= required_from
+    )
   })
 }
 
@@ -56,10 +112,24 @@ plot_price_performance <- function(data, months, benchmark = "SPY") {
   }
   y_range <- range(rows$indexed_price, na.rm = TRUE)
   if (diff(y_range) == 0) y_range <- y_range + c(-1, 1)
+  base_date <- min(rows$base_date, na.rm = TRUE)
+  window_from <- min(rows$window_from, na.rm = TRUE)
+  # A series with less saved history than the window moves the shared origin for every
+  # line, so say when that has happened rather than showing a silently shorter chart.
+  caption <- paste("All series indexed to 100 at", format(base_date))
+  if (base_date > window_from) {
+    caption <- paste0(
+      caption, " — the shortest saved history starts here; the ",
+      months, "-month window opens ", format(window_from)
+    )
+  }
+  # xlab must be "" rather than NULL: NULL leaves the default, which deparses to the
+  # calling expression and prints "range(rows$date)" under the axis.
   graphics::plot(
-    range(rows$date), y_range, type = "n", xlab = NULL,
+    range(rows$date), y_range, type = "n", xlab = "",
     ylab = "Indexed price (start = 100)", main = paste(months, "months")
   )
+  graphics::mtext(caption, side = 3, line = 0.2, cex = 0.75)
   graphics::abline(h = 100, col = "#B8B8B8", lty = 3)
   for (ticker in series) {
     ticker_rows <- dplyr::filter(rows, .data$ticker == .env$ticker)
@@ -189,19 +259,116 @@ snapshot_path <- function(report_date, final = TRUE, version = NULL) {
   if (final) file.path(root, "snapshot.csv") else file.path(root, sprintf("snapshot-%02d.csv", version))
 }
 
-previous_snapshot <- function(report_date) {
+previous_final_folder <- function(report_date) {
   root <- project_path("reports", "final")
   if (!dir.exists(root)) return(NULL)
   folders <- list.dirs(root, recursive = FALSE, full.names = TRUE)
   dates <- suppressWarnings(as.Date(basename(folders)))
   eligible <- which(!is.na(dates) & dates < as.Date(report_date))
   if (!length(eligible)) return(NULL)
-  path <- file.path(folders[eligible[which.max(dates[eligible])]], "snapshot.csv")
+  folders[eligible[which.max(dates[eligible])]]
+}
+
+# The companies.md archived with the previous final report, used to report watchlist
+# changes. Archives written by an older input schema cannot be parsed and are ignored.
+previous_companies <- function(report_date) {
+  folder <- previous_final_folder(report_date)
+  if (is.null(folder)) return(NULL)
+  path <- file.path(folder, "companies.md")
+  if (!file.exists(path)) return(NULL)
+  tryCatch(read_companies(path), error = function(error) NULL)
+}
+
+previous_snapshot <- function(report_date) {
+  folder <- previous_final_folder(report_date)
+  if (is.null(folder)) return(NULL)
+  path <- file.path(folder, "snapshot.csv")
   if (!file.exists(path)) return(NULL)
   readr::read_csv(path, show_col_types = FALSE, col_types = readr::cols(
     report_date = readr::col_date(), market_cap_date = readr::col_date(),
     price_date = readr::col_date(), .default = readr::col_guess()
   ))
+}
+
+format_percent <- function(value, accuracy = 0.1) {
+  ifelse(is.na(value), "n/a", sprintf(paste0("%.", max(0, -log10(accuracy)), "f%%"), value * 100))
+}
+
+format_points <- function(value, accuracy = 0.1) {
+  ifelse(
+    is.na(value), "n/a",
+    sprintf(paste0("%+.", max(0, -log10(accuracy)), "f pts"), value * 100)
+  )
+}
+
+# Price change between the previous report date and this one. Horizon returns cannot
+# answer "what moved this week" because a 3-month return barely registers a one-week
+# move, so this is measured directly from saved prices.
+period_price_moves <- function(snapshot, from_date, to_date) {
+  empty <- tibble::tibble(
+    type = character(), category = character(), ticker = character(),
+    name = character(), market_cap = double(), price_move = double()
+  )
+  if (is.null(from_date) || is.na(from_date)) return(empty)
+  stocks <- snapshot |>
+    dplyr::filter(type == "stock") |>
+    dplyr::distinct(category, ticker, name, market_cap)
+  if (!nrow(stocks)) return(empty)
+  moves <- purrr::map_dfr(unique(stocks$ticker), function(ticker) {
+    prices <- read_prices(ticker)
+    start <- price_on_or_before(prices, from_date)
+    end <- price_on_or_before(prices, to_date)
+    tibble::tibble(
+      ticker = ticker,
+      price_move = if (is.na(start$close) || is.na(end$close)) NA_real_ else end$close / start$close - 1
+    )
+  })
+  stock_rows <- stocks |>
+    dplyr::left_join(moves, by = "ticker") |>
+    dplyr::mutate(type = "stock")
+  category_rows <- stock_rows |>
+    dplyr::group_by(category) |>
+    dplyr::summarise(
+      price_move = weighted_return(price_move, market_cap),
+      market_cap = sum(market_cap[!is.na(market_cap) & market_cap > 0], na.rm = TRUE),
+      .groups = "drop"
+    ) |>
+    dplyr::transmute(
+      type = "category", category, ticker = NA_character_, name = category,
+      market_cap, price_move
+    )
+  dplyr::bind_rows(category_rows, dplyr::select(stock_rows, dplyr::all_of(names(empty)))) |>
+    dplyr::arrange(type, dplyr::desc(price_move))
+}
+
+# Membership differences against the companies.md archived with the previous final.
+compare_membership <- function(current, previous) {
+  empty <- tibble::tibble(
+    change_type = character(), horizon_months = integer(),
+    subject = character(), detail = character()
+  )
+  if (is.null(previous)) return(empty)
+  now <- dplyr::distinct(current$categories, category, ticker)
+  before <- dplyr::distinct(previous$categories, category, ticker)
+  label <- function(ticker) {
+    name <- current$companies$name[match(ticker, current$companies$ticker)]
+    if (is.na(name)) name <- previous$companies$name[match(ticker, previous$companies$ticker)]
+    if (is.na(name)) ticker else paste0(name, " (", ticker, ")")
+  }
+  added <- dplyr::anti_join(now, before, by = c("category", "ticker"))
+  removed <- dplyr::anti_join(before, now, by = c("category", "ticker"))
+  dplyr::bind_rows(
+    if (nrow(added)) tibble::tibble(
+      change_type = "watchlist_added", horizon_months = NA_integer_,
+      subject = vapply(added$ticker, label, character(1)),
+      detail = paste0(vapply(added$ticker, label, character(1)), " was added to ", added$category, ".")
+    ) else empty,
+    if (nrow(removed)) tibble::tibble(
+      change_type = "watchlist_removed", horizon_months = NA_integer_,
+      subject = vapply(removed$ticker, label, character(1)),
+      detail = paste0(vapply(removed$ticker, label, character(1)), " was removed from ", removed$category, ".")
+    ) else empty
+  )
 }
 
 compare_snapshots <- function(current, previous, settings = read_settings()$settings$notable_changes) {
@@ -230,12 +397,28 @@ compare_snapshots <- function(current, previous, settings = read_settings()$sett
       previous_rank = dplyr::min_rank(dplyr::desc(previous_return))
     ) |>
     dplyr::ungroup()
+  delta_threshold <- as.numeric(settings$return_delta_threshold %||% 0.05)
   category_shifts <- categories |>
     dplyr::filter(abs(previous_rank - current_rank) >= category_threshold) |>
     dplyr::transmute(
       change_type = "category_rank", horizon_months, subject = name,
       detail = paste0(name, " moved from #", previous_rank, " to #", current_rank,
                       " in ", horizon_months, "-month performance.")
+    )
+  # Rank movement alone misses a week where everything moved together, so report
+  # changes in the return itself as well.
+  category_returns <- categories |>
+    dplyr::filter(
+      !is.na(current_return), !is.na(previous_return),
+      abs(current_return - previous_return) >= delta_threshold
+    ) |>
+    dplyr::transmute(
+      change_type = "category_return", horizon_months, subject = name,
+      detail = paste0(
+        name, " ", horizon_months, "-month return moved from ",
+        format_percent(previous_return), " to ", format_percent(current_return),
+        " (", format_points(current_return - previous_return), ")."
+      )
     )
   extremes <- purrr::map_dfr(return_horizons(), function(horizon) {
     rows <- dplyr::filter(categories, horizon_months == horizon, !is.na(current_rank), !is.na(previous_rank))
@@ -275,6 +458,20 @@ compare_snapshots <- function(current, previous, settings = read_settings()$sett
       detail = paste0(name, " moved from #", previous_rank, " to #", current_rank,
                       " within ", category, " on ", horizon_months, "-month performance.")
     )
+  stock_returns <- stocks |>
+    dplyr::distinct(ticker, name, horizon_months, current_return, previous_return) |>
+    dplyr::filter(
+      !is.na(current_return), !is.na(previous_return),
+      abs(current_return - previous_return) >= delta_threshold
+    ) |>
+    dplyr::transmute(
+      change_type = "stock_return", horizon_months, subject = name,
+      detail = paste0(
+        name, " ", horizon_months, "-month return moved from ",
+        format_percent(previous_return), " to ", format_percent(current_return),
+        " (", format_points(current_return - previous_return), ")."
+      )
+    )
   overall <- stocks |>
     dplyr::select(ticker, name, horizon_months, current_return, previous_return) |>
     dplyr::distinct() |>
@@ -296,7 +493,9 @@ compare_snapshots <- function(current, previous, settings = read_settings()$sett
         detail = paste0(name, " left the top ", top_n, " for the ", horizon_months, "-month period.")
       )
   )
-  dplyr::bind_rows(extremes, category_shifts, stock_shifts, top_changes) |>
+  dplyr::bind_rows(
+    extremes, category_shifts, category_returns, stock_shifts, stock_returns, top_changes
+  ) |>
     dplyr::distinct(detail, .keep_all = TRUE) |>
     dplyr::arrange(horizon_months, change_type, subject)
 }
@@ -357,9 +556,21 @@ prepare_analysis <- function(report = read_report()) {
   top_stocks <- dplyr::filter(snapshot, type == "stock", overall_rank <= top_n) |>
     dplyr::distinct(ticker, name, horizon_months, price_return, overall_rank) |>
     dplyr::arrange(horizon_months, overall_rank)
+  previous_date <- if (is.null(previous) || !nrow(previous)) {
+    NULL
+  } else {
+    max(previous$report_date, na.rm = TRUE)
+  }
+  changes <- dplyr::bind_rows(
+    compare_snapshots(snapshot, previous, settings$settings$notable_changes),
+    compare_membership(companies, previous_companies(report$report_date))
+  )
   list(
     report = report, settings_input = settings, companies_input = companies,
-    snapshot = snapshot, previous = previous, changes = compare_snapshots(snapshot, previous, settings$settings$notable_changes),
+    snapshot = snapshot, previous = previous, previous_date = previous_date,
+    changes = changes,
+    weekly_moves = period_price_moves(snapshot, previous_date, report$report_date),
+    movers_shown = as.integer(settings$settings$notable_changes$movers_shown %||% 3),
     categories = category_table, stocks = stock_table, top_stocks = top_stocks,
     price_performance = performance_chart_data(deep_dive_tickers(report), report$report_date)
   )
