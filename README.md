@@ -7,7 +7,7 @@ A small RStudio workflow for producing weekly healthcare stock reports from edit
 1. Open the project's `.Rproj` file in RStudio.
 2. Run `source("setup.R")`.
 3. Add `MASSIVE_API_KEY=...` to `.env`.
-4. Open and run `weekly_report.R`.
+4. Run `source("refresh.R")`.
 
 Setup restores the locked R packages, creates local data folders, and checks that Quarto is installed. It works the same way on macOS, Windows, and Linux.
 
@@ -15,42 +15,56 @@ Setup restores the locked R packages, creates local data folders, and checks tha
 
 - `inputs/settings.md`: report and data-refresh settings.
 - `inputs/companies.md`: category membership, report names, and editable company descriptions.
-- `inputs/current_report.md`: this week's date, categories, and optional earnings, overview, and news selections.
+- `inputs/current_report.md`: categories and optional earnings, overview, and news selections. The workflow writes the current date automatically.
 
 Everything under `data/` is generated. Reports are saved under `reports/drafts/DATE/` and `reports/final/DATE/`.
 
 ## Weekly workflow
 
-Run:
+Run one command:
+
+```r
+source("refresh.R")
+```
+
+This opens or reconnects to the dedicated Google Finance browser and pauses once for you
+to confirm that it is open and signed in. It then sets the report date to today, refreshes
+market data and earnings, chooses the default earnings and news selections, refreshes the
+selected news, runs the pre-flight checks, and creates a draft. Recoverable stage failures
+become warnings and the remaining independent stages continue.
+
+The most recent run is retained as `refresh_results` in the R session. If anything
+looks incomplete, inspect the stage summary and per-ticker results with:
+
+```r
+refresh_results$status
+refresh_results$stages$market_data$value
+read_scraper_status() |> dplyr::filter(status != "ok")
+```
+
+For a read-only summary that does not repeat any downloads, run
+`refresh_diagnostics()`.
+
+The report date is always the date the workflow starts; you do not set it manually. To skip
+rendering while troubleshooting, load the functions and call the workflow directly:
 
 ```r
 source("weekly_report.R")
-
-weekly_refresh()
-refresh_earnings()
-review_earnings()
-report_status()
+refresh_report(create_draft = FALSE)
 ```
 
-`report_status()` is a pre-flight check. It reads local files only and reports, per company, the last saved price and its age, the market-cap age, the cached exchange, the next earnings date, and how many news articles fall in the window — followed by anything that would block or degrade a report: stale prices or market caps, missing exchanges or earnings records, price history shorter than the longest return horizon, a missing benchmark, failed scrapes, and companies selected for news with none saved.
+The automatic earnings selection includes companies that reported during the configured
+seven-day window. News defaults to the largest positive and negative overall-rank movers
+since the prior final report plus the configured top stocks at each report horizon. Google
+Finance “At a glance” cards are used first, with Massive as the fallback. Saved URLs retain
+their first-seen dates, and reports show only articles first seen after the prior final report.
 
-`refresh_earnings()` populates `inputs/current_report.md` with the default earnings and news selections. Earnings defaults to companies that reported during the configured seven-day window. News defaults to the largest positive and negative overall-rank movers since the prior final report plus the configured top stocks at each report horizon. You can also refresh those selections without downloading earnings by running `populate_current_report()`.
-
-Then edit `inputs/current_report.md` to add or remove earnings summaries, company overviews, and news as needed.
-
-If news is selected, run:
-
-```r
-refresh_news()
-review_news()
-```
-
-News refreshes use the signed-in Google Finance “At a glance” article cards first. Massive is called only when Google is unavailable or returns no article cards. Saved URLs are retained with a first-seen date, and reports show only articles first seen after the prior finalized report. Use `review_news(new_only = FALSE)` to inspect the full saved window.
-
-Create as many drafts as needed, then save the final report:
+`report_status()` is the pre-flight check used by the workflow. It reports each company’s
+data ages, cached exchange, next earnings date, and saved-news count, followed by anything
+that would block or degrade the report. The automatic run creates a draft but never a final
+report. After reviewing the draft, save the approved final report with:
 
 ```r
-draft_report()
 final_report()
 ```
 

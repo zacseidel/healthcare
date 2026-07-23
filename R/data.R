@@ -227,6 +227,20 @@ load_api_key <- function() {
   key
 }
 
+api_error_message <- function(error) {
+  message <- conditionMessage(error)
+  keys <- c(Sys.getenv("MASSIVE_API_KEY"), Sys.getenv("POLYGON_API_KEY"))
+  for (key in keys[nzchar(keys)]) {
+    message <- gsub(key, "<redacted>", message, fixed = TRUE)
+  }
+  gsub(
+    "([?&]apiKey=)[^&[:space:]]+",
+    "\\1<redacted>",
+    message,
+    perl = TRUE
+  )
+}
+
 .api_state <- new.env(parent = emptyenv())
 .api_state$last_request <- NULL
 
@@ -324,8 +338,8 @@ refresh_market_data <- function(tickers = report_tickers(), as_of = read_report(
   results <- purrr::map_dfr(seq_along(tickers), function(index) {
     ticker <- tickers[[index]]
     cli::cli_inform("Refreshing {ticker} ({index}/{length(tickers)})")
-    company <- tryCatch({ update_company(ticker, as_of); "ok" }, error = function(error) conditionMessage(error))
-    prices <- tryCatch({ update_prices(ticker, as_of); "ok" }, error = function(error) conditionMessage(error))
+    company <- tryCatch({ update_company(ticker, as_of); "ok" }, error = api_error_message)
+    prices <- tryCatch({ update_prices(ticker, as_of); "ok" }, error = api_error_message)
     tibble::tibble(ticker = ticker, company = company, prices = prices)
   })
   print(results)

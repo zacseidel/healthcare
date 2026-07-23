@@ -55,12 +55,30 @@ weekly_refresh <- function(report_path = "inputs/current_report.md") {
   cli::cli_inform("Refreshing SPY benchmark prices")
   benchmark_status <- tryCatch(
     { update_prices("SPY", report$report_date); "ok" },
-    error = function(error) conditionMessage(error)
+    error = api_error_message
   )
   results <- dplyr::bind_rows(
     results,
     tibble::tibble(ticker = "SPY", company = "benchmark", prices = benchmark_status)
   )
+  failures <- dplyr::filter(
+    results,
+    prices != "ok" | (ticker != "SPY" & company != "ok")
+  )
+  if (nrow(failures)) {
+    details <- purrr::pmap_chr(failures, function(ticker, company, prices) {
+      failed <- character()
+      if (ticker != "SPY" && company != "ok") failed <- c(failed, paste0("company: ", company))
+      if (prices != "ok") failed <- c(failed, paste0("prices: ", prices))
+      paste0(ticker, " [", paste(failed, collapse = "; "), "]")
+    })
+    warning(
+      "Market data refresh failed for ", nrow(failures), " ticker",
+      if (nrow(failures) == 1L) "" else "s", ": ",
+      paste(details, collapse = " | "),
+      call. = FALSE
+    )
+  }
   validate_snapshot(build_snapshot(report), report$report_date)
   coverage <- price_coverage(c(report_tickers(report), "SPY"), report$report_date)
   short <- dplyr::filter(coverage, !covers)
@@ -93,6 +111,19 @@ populate_current_report <- function(report_path = "inputs/current_report.md") {
     earnings_summaries = document$metadata$earnings_summaries,
     news = document$metadata$news
   ))
+}
+
+set_current_report_date <- function(report_date = Sys.Date(),
+                                    report_path = "inputs/current_report.md") {
+  report_date <- as.Date(report_date)
+  if (length(report_date) != 1L || is.na(report_date)) {
+    stop("report_date must be one valid date.", call. = FALSE)
+  }
+  document <- read_markdown_yaml(report_path)
+  document$metadata$report_date <- as.character(report_date)
+  write_markdown_yaml(document$path, document$metadata, document$body)
+  cli::cli_inform("Report date set to {format(report_date)}.")
+  invisible(report_date)
 }
 
 prepare_report <- function(report_path = "inputs/current_report.md") {
@@ -261,6 +292,47 @@ report_status <- function(report_path = "inputs/current_report.md") {
   invisible(list(overview = overview, coverage = coverage, problems = problems))
 }
 
+refresh_diagnostics <- function(report_path = "inputs/current_report.md") {
+  report <- read_report(report_path)
+  tickers <- c(report_tickers(report), "SPY")
+  prices <- purrr::map_dfr(tickers, function(ticker) {
+    saved <- read_prices(ticker)
+    tibble::tibble(
+      ticker = ticker,
+      last_price_date = if (nrow(saved)) max(saved$date, na.rm = TRUE) else as.Date(NA),
+      retrieved_at = if (nrow(saved) && "retrieved_at" %in% names(saved)) {
+        saved$retrieved_at[[nrow(saved)]]
+      } else {
+        NA_character_
+      }
+    )
+  })
+  scraper_failures <- read_scraper_status() |>
+    dplyr::filter(status != "ok") |>
+    dplyr::select(ticker, source, detail, checked_at)
+  last_run <- get0("refresh_results", envir = .GlobalEnv, inherits = FALSE)
+
+  cli::cli_h1("Refresh diagnostics")
+  cli::cli_inform("Configured report date: {format(report$report_date)}")
+  print(prices, n = Inf)
+  if (nrow(scraper_failures)) {
+    cli::cli_inform("Recorded scraper failures:")
+    print(scraper_failures, n = Inf)
+  } else {
+    cli::cli_inform("No scraper failures are currently recorded.")
+  }
+  if (!is.null(last_run$status)) {
+    cli::cli_inform("Most recent workflow stages:")
+    print(last_run$status, n = Inf)
+  }
+  invisible(list(
+    report_date = report$report_date,
+    prices = prices,
+    scraper_failures = scraper_failures,
+    workflow = last_run$status %||% NULL
+  ))
+}
+
 next_draft_version <- function(report_date) {
   folder <- project_path("reports", "drafts", as.character(as.Date(report_date)))
   files <- if (dir.exists(folder)) list.files(folder, "-[0-9]+\\.html$") else character()
@@ -350,4 +422,116 @@ final_report <- function(report_path = "inputs/current_report.md", overwrite = F
   invisible(rendered)
 }
 
-message("Loaded: weekly_refresh(), refresh_earnings(), populate_current_report(), review_earnings(), report_status(), draft_report(), final_report(), and optional research tools.")
+run_refresh_stage <- function(label, action) {
+  cli::cli_h2(label)
+  tryCatch(
+    {
+      warnings <- character()
+      value <- withCallingHandlers(
+        action(),
+        warning = function(condition) {
+          warnings <<- c(warnings, conditionMessage(condition))
+        }
+      )
+      list(
+        status = if (length(warnings)) "warning" else "ok",
+        value = value,
+        detail = if (length(warnings)) paste(unique(warnings), collapse = "; ") else NA_character_
+      )
+    },
+    error = function(error) {
+      detail <- conditionMessage(error)
+      warning(label, " failed — ", detail, call. = FALSE)
+      list(status = "failed", value = NULL, detail = detail)
+    }
+  )
+}
+
+skipped_refresh_stage <- function(detail) {
+  list(status = "skipped", value = NULL, detail = detail)
+}
+
+refresh_report <- function(report_path = "inputs/current_report.md",
+                           confirm_browser = interactive(),
+                           create_draft = TRUE) {
+  stages <- list()
+  stages$browser <- run_refresh_stage(
+    "Browser check",
+    function() ensure_google_browser(confirm = confirm_browser)
+  )
+  cli::cli_h2("Report date")
+  report_date <- set_current_report_date(Sys.Date(), report_path)
+  stages$report_date <- list(
+    status = "ok",
+    value = report_date,
+    detail = NA_character_
+  )
+  stages$market_data <- run_refresh_stage(
+    "Market data",
+    function() weekly_refresh(report_path)
+  )
+
+  if (identical(stages$browser$status, "ok")) {
+    stages$earnings <- run_refresh_stage("Earnings", function() {
+      report <- read_report(report_path)
+      refresh_earnings(
+        report_tickers(report),
+        report$report_date,
+        populate_report = FALSE
+      )
+    })
+  } else {
+    stages$earnings <- skipped_refresh_stage("Browser was not ready.")
+  }
+
+  stages$selections <- run_refresh_stage(
+    "Automatic report selections",
+    function() populate_current_report(report_path)
+  )
+
+  if (identical(stages$browser$status, "ok")) {
+    stages$news <- run_refresh_stage("News", function() {
+      report <- read_report(report_path)
+      refresh_news(report$news, report$report_date)
+    })
+  } else {
+    stages$news <- skipped_refresh_stage("Browser was not ready.")
+  }
+
+  stages$status <- run_refresh_stage(
+    "Pre-flight report status",
+    function() report_status(report_path)
+  )
+  if (identical(stages$status$status, "ok") &&
+      length(stages$status$value$problems)) {
+    stages$status$status <- "warning"
+    stages$status$detail <- paste(stages$status$value$problems, collapse = "; ")
+  }
+
+  stages$draft <- if (isTRUE(create_draft)) {
+    run_refresh_stage("Draft report", function() draft_report(report_path))
+  } else {
+    skipped_refresh_stage("Draft creation was disabled.")
+  }
+
+  status <- tibble::tibble(
+    stage = names(stages),
+    status = vapply(stages, `[[`, character(1), "status"),
+    detail = vapply(stages, `[[`, character(1), "detail")
+  )
+  issues <- dplyr::filter(status, status %in% c("warning", "failed"))
+  if (nrow(issues)) {
+    cli::cli_alert_warning(
+      "Refresh finished with {nrow(issues)} stage{?s} requiring review."
+    )
+    print(issues, n = Inf)
+  } else {
+    cli::cli_alert_success("Refresh completed successfully.")
+  }
+  if (identical(stages$draft$status, "ok")) {
+    cli::cli_inform("Review the draft, then run final_report() when it is approved.")
+  }
+  invisible(list(status = status, stages = stages, draft = stages$draft$value))
+}
+
+message("Loaded: refresh_report(), refresh_diagnostics(), weekly_refresh(), refresh_earnings(), populate_current_report(), review_earnings(), report_status(), draft_report(), final_report(), and optional research tools.")

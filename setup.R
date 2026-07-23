@@ -22,4 +22,4 @@ if (!nzchar(Sys.which("quarto"))) {
   )
 }
 
-message("Setup complete. Add your Massive API key to .env, then open weekly_report.R.")
+message("Setup complete. Add your Massive API key to .env, then run source(\"refresh.R\").")

@@ -102,18 +102,57 @@ start_google_browser <- function() {
   invisible(profile)
 }
 
+google_browser_ready <- function(timeout_seconds = 2) {
+  tryCatch({
+    response <- httr2::request("http://127.0.0.1:9222/json/version") |>
+      httr2::req_timeout(timeout_seconds) |>
+      httr2::req_perform()
+    httr2::resp_status(response) == 200L
+  }, error = function(error) FALSE)
+}
+
+ensure_google_browser <- function(confirm = interactive(), wait_seconds = 30) {
+  if (!google_browser_ready()) {
+    cli::cli_inform("Opening the dedicated Google Finance browser.")
+    start_google_browser()
+    deadline <- Sys.time() + wait_seconds
+    while (!google_browser_ready() && Sys.time() < deadline) Sys.sleep(0.5)
+  }
+  if (!google_browser_ready()) {
+    stop(
+      "The Google Finance browser did not become ready on debugging port 9222.",
+      call. = FALSE
+    )
+  }
+  if (isTRUE(confirm)) {
+    cli::cli_inform(c(
+      "i" = "Confirm that Google Finance is open and signed in in the dedicated Chrome window.",
+      "i" = "The saved browser profile normally keeps you signed in between runs."
+    ))
+    answer <- readline("Press Enter to continue, or type q to stop: ")
+    if (tolower(trimws(answer)) %in% c("q", "quit")) {
+      stop("Refresh cancelled before browser-dependent steps.", call. = FALSE)
+    }
+  }
+  cli::cli_alert_success("Google Finance browser is ready.")
+  invisible(TRUE)
+}
+
 fetch_google_finance_page <- function(ticker, wait_for, wait_seconds = 20) {
   remote <- chromote::ChromeRemote$new(host = "127.0.0.1", port = 9222L)
   browser <- chromote::Chromote$new(browser = remote)
   session <- browser$new_session()
   on.exit(session$close(), add = TRUE)
   session$go_to(google_finance_url(ticker))
+  wait_for <- as.character(wait_for)
+  wait_markers <- jsonlite::toJSON(wait_for, auto_unbox = FALSE)
   deadline <- Sys.time() + wait_seconds
   repeat {
     ready <- session$Runtime$evaluate(
       paste0(
-        "document.readyState === 'complete' && document.body && document.body.innerText.includes(",
-        jsonlite::toJSON(wait_for, auto_unbox = TRUE), ")"
+        "document.readyState === 'complete' && document.body && ",
+        wait_markers,
+        ".some(marker => document.body.innerText.includes(marker))"
       ),
       returnByValue = TRUE
     )$result$value
@@ -125,7 +164,11 @@ fetch_google_finance_page <- function(ticker, wait_for, wait_seconds = 20) {
 }
 
 fetch_google_earnings <- function(ticker, wait_seconds = 20) {
-  fetch_google_finance_page(ticker, "Last report", wait_seconds)
+  fetch_google_finance_page(
+    ticker,
+    c("Last report", "Previous report", "Next call", "Next earnings", "At a glance"),
+    wait_seconds
+  )
 }
 
 parse_display_date <- function(text, as_of = Sys.Date()) {
@@ -151,12 +194,17 @@ date_after_label <- function(text, label, as_of) {
   parse_display_date(substr(text, location[[2]] + 1L, min(nchar(text), location[[2]] + 120L)), as_of)
 }
 
+date_after_labels <- function(text, labels, as_of) {
+  dates <- as.Date(vapply(labels, function(label) {
+    as.character(date_after_label(text, label, as_of))
+  }, character(1)))
+  available <- which(!is.na(dates))
+  if (length(available)) dates[[available[[1]]]] else as.Date(NA)
+}
+
 parse_google_earnings <- function(html, ticker, as_of = Sys.Date()) {
   document <- rvest::read_html(html)
   page_text <- gsub("[[:space:]]+", " ", rvest::html_text2(document))
-  if (!grepl("Last report", page_text, fixed = TRUE)) {
-    stop("Google Finance earnings data was not found.", call. = FALSE)
-  }
   transcript_label <- rvest::html_element(document, xpath = "//*[normalize-space(text())='Call transcript']")
   transcript_summary <- NA_character_
   if (!inherits(transcript_label, "xml_missing")) {
@@ -187,15 +235,41 @@ parse_google_earnings <- function(html, ticker, as_of = Sys.Date()) {
   })
   key_moments <- key_moments |>
     dplyr::distinct(title, timestamp, blurb)
+  latest_report_date <- date_after_labels(
+    page_text,
+    c("Last report", "Previous report"),
+    as_of
+  )
+  next_earnings_date <- date_after_labels(
+    page_text,
+    c("Next call", "Next earnings"),
+    as_of
+  )
+  if (is.na(latest_report_date) && is.na(next_earnings_date) &&
+      is.na(transcript_summary) && !nrow(key_moments)) {
+    stop(
+      "Google Finance earnings labels were not found on the loaded page.",
+      call. = FALSE
+    )
+  }
   tibble::tibble(
     ticker = normalize_ticker(ticker),
-    latest_report_date = date_after_label(page_text, "Last report", as_of),
-    next_earnings_date = date_after_label(page_text, "Next call", as_of),
+    latest_report_date = latest_report_date,
+    next_earnings_date = next_earnings_date,
     summary = transcript_summary,
     summary_status = if (is.na(transcript_summary)) "not_provided" else "available",
     key_moments = list(key_moments),
     source_url = google_finance_url(ticker)
   )
+}
+
+save_google_earnings_diagnostic <- function(ticker, html) {
+  if (is.null(html) || !nzchar(html)) return(NA_character_)
+  folder <- project_path(".browser", "diagnostics")
+  dir.create(folder, recursive = TRUE, showWarnings = FALSE)
+  path <- file.path(folder, paste0("google-earnings-", normalize_ticker(ticker), ".html"))
+  writeLines(html, path, useBytes = TRUE)
+  normalizePath(path, winslash = "/", mustWork = TRUE)
 }
 
 fetch_yahoo_date <- function(ticker) {
@@ -267,10 +341,20 @@ refresh_company_earnings <- function(ticker, as_of = read_report()$report_date) 
   saved <- read_earnings()
   old <- dplyr::filter(saved, .data$ticker == .env$ticker)
   google_error <- NULL
+  google_html <- NULL
   google <- tryCatch(
-    parse_google_earnings(fetch_google_earnings(ticker), ticker, as_of),
+    {
+      google_html <- fetch_google_earnings(ticker)
+      parse_google_earnings(google_html, ticker, as_of)
+    },
     error = function(error) { google_error <<- conditionMessage(error); NULL }
   )
+  if (is.null(google) && !is.null(google_html)) {
+    diagnostic <- save_google_earnings_diagnostic(ticker, google_html)
+    if (!is.na(diagnostic)) {
+      google_error <- paste0(google_error, " Saved page: ", diagnostic)
+    }
+  }
   record_scraper_status(
     ticker, "google_earnings", if (is.null(google)) "failed" else "ok", google_error
   )
@@ -311,6 +395,25 @@ refresh_earnings <- function(tickers = report_tickers(), as_of = read_report()$r
     cli::cli_inform("Refreshing earnings for {tickers[[index]]} ({index}/{length(tickers)})")
     refresh_company_earnings(tickers[[index]], as_of)
   })
+  failures <- read_scraper_status() |>
+    dplyr::filter(
+      ticker %in% tickers,
+      source == "google_earnings",
+      status != "ok"
+    ) |>
+    dplyr::select(ticker, detail, checked_at)
+  if (nrow(failures)) {
+    cli::cli_inform("Google Finance earnings failures:")
+    print(failures, n = Inf)
+    warning(
+      "Google Finance earnings scraping failed for ",
+      nrow(failures),
+      " of ",
+      length(tickers),
+      " companies. Yahoo or cached dates were retained when available.",
+      call. = FALSE
+    )
+  }
   if (isTRUE(populate_report)) populate_current_report()
   results
 }

@@ -246,11 +246,24 @@ validate_snapshot <- function(snapshot, as_of, settings = read_settings()$settin
   problems <- character()
   if (length(stale_prices)) problems <- c(problems, paste("stale prices:", paste(unique(stale_prices), collapse = ", ")))
   if (length(stale_caps)) problems <- c(problems, paste("stale market caps:", paste(unique(stale_caps), collapse = ", ")))
-  if (nrow(low_coverage)) {
-    labels <- paste0(low_coverage$category, " ", low_coverage$horizon_months, "m")
-    problems <- c(problems, paste("low category coverage:", paste(labels, collapse = ", ")))
-  }
   if (length(problems)) stop("Report data check failed — ", paste(problems, collapse = "; "), call. = FALSE)
+  if (nrow(low_coverage)) {
+    labels <- paste0(
+      low_coverage$category, " ", low_coverage$horizon_months, "m (",
+      ifelse(
+        is.na(low_coverage$market_cap_coverage),
+        "unknown",
+        sprintf("%.0f%%", 100 * low_coverage$market_cap_coverage)
+      ),
+      ")"
+    )
+    warning(
+      "Report data warning — low category coverage: ",
+      paste(labels, collapse = ", "),
+      ". Available returns will still be reported.",
+      call. = FALSE
+    )
+  }
   invisible(snapshot)
 }
 

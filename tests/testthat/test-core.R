@@ -51,6 +51,64 @@ test_that("weekly report can be sourced from outside the project", {
   expect_true(any(grepl(normalizePath(root, winslash = "/"), output, fixed = TRUE)))
 })
 
+test_that("the report date can be set without changing other report inputs", {
+  temporary_report <- tempfile(fileext = ".md")
+  file.copy(file.path(root, "inputs", "current_report.md"), temporary_report)
+  on.exit(unlink(temporary_report), add = TRUE)
+  before <- read_markdown_yaml(temporary_report)
+
+  expect_message(
+    set_current_report_date("2026-08-06", temporary_report),
+    "Report date set"
+  )
+  after <- read_markdown_yaml(temporary_report)
+
+  expect_equal(after$metadata$report_date, "2026-08-06")
+  expect_equal(after$metadata$categories, before$metadata$categories)
+  expect_equal(after$body, before$body)
+})
+
+test_that("the automated refresh does not accept a manually supplied report date", {
+  expect_false("report_date" %in% names(formals(refresh_report)))
+})
+
+test_that("refresh stages turn failures into warnings and preserve status", {
+  successful <- suppressMessages(run_refresh_stage("Working stage", function() 42))
+  expect_equal(successful$status, "ok")
+  expect_equal(successful$value, 42)
+
+  warned <- expect_warning(
+    suppressMessages(run_refresh_stage("Warning stage", function() {
+      warning("partial data", call. = FALSE)
+      24
+    })),
+    "partial data"
+  )
+  expect_equal(warned$status, "warning")
+  expect_equal(warned$value, 24)
+  expect_match(warned$detail, "partial data")
+
+  failed <- expect_warning(
+    suppressMessages(run_refresh_stage("Broken stage", function() stop("test failure"))),
+    "Broken stage failed.*test failure"
+  )
+  expect_equal(failed$status, "failed")
+  expect_match(failed$detail, "test failure")
+
+  skipped <- skipped_refresh_stage("Not needed.")
+  expect_equal(skipped$status, "skipped")
+  expect_equal(skipped$detail, "Not needed.")
+})
+
+test_that("API errors redact credentials", {
+  message <- api_error_message(simpleError(
+    "Request failed: https://api.massive.com/v2/aggs?apiKey=secret-value&limit=10"
+  ))
+
+  expect_false(grepl("secret-value", message, fixed = TRUE))
+  expect_match(message, "apiKey=<redacted>", fixed = TRUE)
+})
+
 test_that("editable inputs define a valid report universe", {
   settings <- read_settings()
   companies <- read_companies()
@@ -402,6 +460,54 @@ test_that("price coverage flags histories shorter than the longest horizon", {
   expect_true(is.na(price_coverage("MISSING", as_of = "2026-07-16", months = 24)$first_date))
 })
 
+test_that("low category coverage warns without blocking available returns", {
+  snapshot <- tibble::tibble(
+    type = c("stock", "category"),
+    ticker = c("NEW", NA_character_),
+    category = c("Healthcare Technology", "Healthcare Technology"),
+    horizon_months = c(24L, 24L),
+    price_date = as.Date(c("2026-07-16", "2026-07-16")),
+    market_cap = c(100, 100),
+    market_cap_date = as.Date(c("2026-07-16", "2026-07-16")),
+    market_cap_coverage = c(0, 0.5)
+  )
+  settings <- list(
+    maximum_price_age_days = 7,
+    maximum_market_cap_age_days = 35,
+    minimum_market_cap_coverage = 0.8
+  )
+
+  result <- expect_warning(
+    validate_snapshot(snapshot, "2026-07-16", settings),
+    "low category coverage.*Healthcare Technology 24m \\(50%\\)"
+  )
+
+  expect_identical(result, snapshot)
+})
+
+test_that("stale core market data remains a blocking validation error", {
+  snapshot <- tibble::tibble(
+    type = c("stock", "category"),
+    ticker = c("STALE", NA_character_),
+    category = c("Managed Care", "Managed Care"),
+    horizon_months = c(3L, 3L),
+    price_date = as.Date(c("2026-06-01", "2026-06-01")),
+    market_cap = c(100, 100),
+    market_cap_date = as.Date(c("2026-07-16", "2026-07-16")),
+    market_cap_coverage = c(1, 1)
+  )
+  settings <- list(
+    maximum_price_age_days = 7,
+    maximum_market_cap_age_days = 35,
+    minimum_market_cap_coverage = 0.8
+  )
+
+  expect_error(
+    validate_snapshot(snapshot, "2026-07-16", settings),
+    "Report data check failed.*stale prices: STALE"
+  )
+})
+
 test_that("deep-dive stocks combine all selected report sections", {
   report <- list(
     earnings_summaries = c("UNH", "LLY"),
@@ -435,6 +541,44 @@ test_that("missing Google transcript content is an explicit non-error result", {
   expect_true(is.na(result$summary))
   expect_equal(result$summary_status, "not_provided")
   expect_equal(nrow(result$key_moments[[1]]), 0)
+})
+
+test_that("Google earnings accepts upcoming-only and alternate date labels", {
+  upcoming_only <- paste0(
+    "<html><body><nav>Earnings</nav>",
+    "<section>Next earnings August 6, 2026</section>",
+    "</body></html>"
+  )
+  upcoming <- parse_google_earnings(upcoming_only, "CVS", as.Date("2026-07-23"))
+  expect_true(is.na(upcoming$latest_report_date))
+  expect_equal(upcoming$next_earnings_date, as.Date("2026-08-06"))
+
+  alternate <- paste0(
+    "<html><body><nav>Earnings</nav>",
+    "<section>Previous report May 1, 2026</section>",
+    "<section>Next call August 1, 2026</section>",
+    "</body></html>"
+  )
+  result <- parse_google_earnings(alternate, "CVS", as.Date("2026-07-23"))
+  expect_equal(result$latest_report_date, as.Date("2026-05-01"))
+  expect_equal(result$next_earnings_date, as.Date("2026-08-01"))
+})
+
+test_that("failed Google earnings pages can be saved for local diagnosis", {
+  old_root <- getOption("healthcare.project_root")
+  temporary_root <- tempfile("healthcare-")
+  dir.create(temporary_root)
+  options(healthcare.project_root = temporary_root)
+  on.exit({
+    options(healthcare.project_root = old_root)
+    unlink(temporary_root, recursive = TRUE)
+  }, add = TRUE)
+
+  path <- save_google_earnings_diagnostic("CVS", "<html>blocked</html>")
+
+  expect_true(file.exists(path))
+  expect_match(readLines(path), "blocked")
+  expect_match(path, "google-earnings-CVS.html", fixed = TRUE)
 })
 
 test_that("saved earnings Markdown includes summary and key moments", {

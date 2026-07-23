@@ -26,6 +26,9 @@ Edit report and data-refresh settings in the YAML above.
 `price_history_years` is how much history to request when a ticker is first downloaded. A
 provider may hold less; `weekly_refresh()` warns when saved history does not reach back
 through the longest return horizon, and returns for that horizon are left blank.
+Category coverage below `minimum_market_cap_coverage` also produces a warning rather than
+blocking the report; available companies are still included and the coverage percentage
+is shown in the report.
 
 Exchanges are discovered automatically and cached in `data/companies.csv`; they are not
 listed in `inputs/companies.md`. Use `exchange_overrides` only when the provider reports
