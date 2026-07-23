@@ -14,6 +14,25 @@ test_that("project root remains available after the working directory changes", 
   expect_equal(project_root(), root)
 })
 
+test_that("project root accepts a renamed RStudio project file", {
+  old_root <- getOption("healthcare.project_root")
+  renamed_root <- tempfile("healthcareintel-")
+  nested_directory <- file.path(renamed_root, "reports", "drafts")
+  dir.create(nested_directory, recursive = TRUE)
+  file.create(file.path(renamed_root, "healthcareintel.Rproj"))
+  on.exit({
+    options(healthcare.project_root = old_root)
+    unlink(renamed_root, recursive = TRUE)
+  }, add = TRUE)
+
+  options(healthcare.project_root = NULL)
+
+  expect_equal(
+    project_root(nested_directory),
+    normalizePath(renamed_root, winslash = "/")
+  )
+})
+
 test_that("weekly report can be sourced from outside the project", {
   script <- file.path(root, "weekly_report.R")
   expression <- sprintf(

@@ -14,7 +14,12 @@ if (is.null(.healthcare_project_root)) {
   for (.healthcare_start in unique(.healthcare_starts)) {
     .healthcare_current <- normalizePath(.healthcare_start, winslash = "/", mustWork = FALSE)
     repeat {
-      if (file.exists(file.path(.healthcare_current, "healthcare-stock-monitor.Rproj"))) {
+      .healthcare_project_files <- list.files(
+        .healthcare_current,
+        pattern = "\\.Rproj$",
+        ignore.case = TRUE
+      )
+      if (length(.healthcare_project_files)) {
         .healthcare_project_root <- .healthcare_current
         break
       }
@@ -28,7 +33,7 @@ if (is.null(.healthcare_project_root)) {
 
 if (is.null(.healthcare_project_root)) {
   stop(
-    "Cannot locate the project root. Open healthcare-stock-monitor.Rproj or source weekly_report.R by its full path.",
+    "Cannot locate the project root. Open the project's .Rproj file or source weekly_report.R by its full path.",
     call. = FALSE
   )
 }

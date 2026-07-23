@@ -7,7 +7,8 @@ project_root <- function(start = getwd()) {
   if (!is.null(override)) return(normalizePath(override, winslash = "/", mustWork = TRUE))
   current <- normalizePath(start, winslash = "/", mustWork = TRUE)
   repeat {
-    if (file.exists(file.path(current, "healthcare-stock-monitor.Rproj"))) {
+    project_files <- list.files(current, pattern = "\\.Rproj$", ignore.case = TRUE)
+    if (length(project_files)) {
       options(healthcare.project_root = current)
       return(current)
     }

@@ -4,7 +4,7 @@ A small RStudio workflow for producing weekly healthcare stock reports from edit
 
 ## Setup
 
-1. Open `healthcare-stock-monitor.Rproj` in RStudio.
+1. Open the project's `.Rproj` file in RStudio.
 2. Run `source("setup.R")`.
 3. Add `MASSIVE_API_KEY=...` to `.env`.
 4. Open and run `weekly_report.R`.
