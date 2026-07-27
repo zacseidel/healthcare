@@ -33,30 +33,78 @@ read_news <- function(ticker, as_of = Sys.Date(), days = 7, new_since = NULL) {
   dplyr::arrange(articles, dplyr::desc(first_seen_date), source_rank, dplyr::desc(published_date), title)
 }
 
+# Labels Google Finance has used (or may localize to) for the news module. The
+# parser matches these case-insensitively so a wording tweak does not break it.
+google_news_section_labels <- c("At a glance", "In the news", "Top stories", "Latest news")
+
+# Relative timestamps and separators that appear inside a news card but are not
+# the headline or the publisher (e.g. "2 days ago", "•", "Yesterday").
+is_news_metadata <- function(text) {
+  is.na(text) | !nzchar(text) |
+    grepl("^\\s*[•·|•·\\-]+\\s*$", text) |
+    grepl("^\\s*(just now|yesterday|today)\\s*$", text, ignore.case = TRUE) |
+    grepl("^\\s*\\d+\\s*(second|minute|hour|day|week|month|year)s?\\s*ago\\s*$", text, ignore.case = TRUE)
+}
+
+# Locate the container holding the news cards by matching any known section
+# label (case-insensitively) and taking its parent. Returns NULL when no label
+# is present so the caller can fall back to the Massive news API rather than
+# scraping unrelated links from the rest of the page.
+google_news_container <- function(document) {
+  for (label in google_news_section_labels) {
+    node <- rvest::html_element(
+      document,
+      xpath = sprintf(
+        "//*[translate(normalize-space(text()), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')='%s']",
+        tolower(label)
+      )
+    )
+    if (!inherits(node, "xml_missing")) {
+      parent <- rvest::html_element(node, xpath = "..")
+      if (!inherits(parent, "xml_missing")) return(parent)
+    }
+  }
+  NULL
+}
+
 parse_google_news <- function(html, ticker, seen_date = Sys.Date()) {
   document <- rvest::read_html(html)
-  label <- rvest::html_element(document, xpath = "//*[normalize-space(text())='At a glance']")
-  if (inherits(label, "xml_missing")) stop("Google Finance news cards were not found.", call. = FALSE)
-  links <- rvest::html_elements(rvest::html_element(label, xpath = ".."), "a")
+  container <- google_news_container(document)
+  if (is.null(container)) return(empty_news())
+  links <- rvest::html_elements(container, "a")
   articles <- purrr::map_dfr(seq_along(links), function(index) {
     link <- links[[index]]
-    title_node <- rvest::html_element(link, ".pGmFU")
-    title <- if (inherits(title_node, "xml_missing")) NA_character_ else trimws(rvest::html_text2(title_node))
     url <- rvest::html_attr(link, "href")
+    if (is.na(url) || !grepl("^https?://", url)) return(tibble::tibble())
+    # Drop Google's own navigation/chrome (sign-in, settings, ...) but keep the
+    # one internal link that is an article: the "/url?q=<publisher>" redirect.
+    if (grepl("^https?://([^/]*\\.)?google\\.", url) && !grepl("^https?://[^/]*/url\\?", url)) {
+      return(tibble::tibble())
+    }
     pieces <- rvest::html_elements(link, xpath = ".//*[not(*)]") |>
       rvest::html_text2() |>
       trimws()
-    pieces <- pieces[nzchar(pieces) & pieces != title]
-    if (is.na(title) || !nzchar(title) || is.na(url) || !grepl("^https?://", url)) return(tibble::tibble())
+    pieces <- pieces[!is_news_metadata(pieces)]
+    pieces <- pieces[!duplicated(pieces)]
+    if (!length(pieces)) return(tibble::tibble())
+    # The headline is the longest text in the card; the publisher is the longest
+    # of the remaining lines. This survives Google rotating its hashed classes.
+    title_index <- which.max(nchar(pieces))
+    title <- pieces[[title_index]]
+    remaining <- pieces[-title_index]
+    publisher <- if (length(remaining)) remaining[[which.max(nchar(remaining))]] else NA_character_
+    if (is.na(title) || !nzchar(title)) return(tibble::tibble())
     tibble::tibble(
       ticker = normalize_ticker(ticker), published_date = as.Date(NA),
       first_seen_date = as.Date(seen_date), last_seen_date = as.Date(seen_date),
-      title = title, publisher = if (length(pieces)) pieces[[length(pieces)]] else NA_character_,
+      title = title, publisher = publisher,
       url = url, description = NA_character_, source = "google_finance", source_rank = index
     )
   })
   if (!nrow(articles)) return(empty_news())
-  dplyr::distinct(articles, url, .keep_all = TRUE)
+  articles <- dplyr::distinct(articles, url, .keep_all = TRUE)
+  articles$source_rank <- seq_len(nrow(articles))
+  articles
 }
 
 fetch_massive_news <- function(ticker, as_of, days) {
@@ -97,12 +145,30 @@ merge_news <- function(saved, observed) {
     dplyr::arrange(dplyr::desc(first_seen_date), source_rank, title)
 }
 
+# How many freshly scraped articles to keep from a single refresh, and how many
+# articles to retain in each ticker's cache overall. Both are overridable via
+# inputs/settings, mirroring news_window_days.
+news_per_refresh_default <- 5L
+news_cache_limit_default <- 25L
+
+# Keep only the most-recently-seen `limit` articles; drop anything older.
+trim_news_cache <- function(articles, limit) {
+  if (!nrow(articles) || is.null(limit) || is.na(limit) || limit < 0) return(articles)
+  articles <- dplyr::arrange(
+    articles,
+    dplyr::desc(first_seen_date), dplyr::desc(published_date), source_rank, title
+  )
+  utils::head(articles, limit)
+}
+
 refresh_news <- function(tickers = read_report()$news, as_of = read_report()$report_date) {
   if (!length(tickers)) {
     cli::cli_inform("No news tickers are selected in inputs/current_report.md.")
     return(invisible(empty_news()))
   }
   days <- as.integer(read_settings()$settings$news_window_days %||% 7)
+  per_refresh <- as.integer(read_settings()$settings$news_per_refresh %||% news_per_refresh_default)
+  cache_limit <- as.integer(read_settings()$settings$news_cache_limit %||% news_cache_limit_default)
   purrr::map_dfr(tickers, function(ticker) {
     news_error <- NULL
     articles <- tryCatch(
@@ -114,10 +180,11 @@ refresh_news <- function(tickers = read_report()$news, as_of = read_report()$rep
       record_scraper_status(ticker, "google_news", "failed", news_error %||% "No article cards were found.")
       articles <- fetch_massive_news(ticker, as_of, days)
     } else {
-      cli::cli_inform("Saved {nrow(articles)} Google Finance articles for {ticker}.")
       record_scraper_status(ticker, "google_news", "ok")
     }
-    combined <- merge_news(read_news(ticker, days = NULL), articles)
+    articles <- utils::head(articles, per_refresh)
+    cli::cli_inform("Saved {nrow(articles)} {articles$source[1] %||% 'news'} articles for {ticker}.")
+    combined <- trim_news_cache(merge_news(read_news(ticker, days = NULL), articles), cache_limit)
     dir.create(dirname(news_path(ticker)), recursive = TRUE, showWarnings = FALSE)
     readr::write_csv(combined, news_path(ticker), na = "")
     articles

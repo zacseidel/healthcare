@@ -96,6 +96,13 @@ read_companies <- function(path = "inputs/companies.md") {
   )
 }
 
+# The categories a report should cover, proposed straight from companies.md in the
+# order they appear there. Keeping the report's category list derived from
+# companies.md avoids the "unknown category" mismatch when categories are renamed.
+default_categories <- function(companies = read_companies()) {
+  unique(companies$categories$category)
+}
+
 read_report <- function(path = "inputs/current_report.md") {
   document <- read_markdown_yaml(path)
   company_input <- read_companies()
@@ -301,16 +308,86 @@ update_company <- function(ticker, as_of = Sys.Date(), force = FALSE) {
   row
 }
 
+# How much price history to keep. Never trim below the longest return horizon (a
+# 24-month return needs a base bar back that far), and honour price_history_years
+# when it asks for more. price_retention_from() also subtracts a buffer so the
+# base bar just before the window start survives and price_coverage() does not
+# report a spurious gap when the window edge lands on a weekend/holiday.
+price_retention_months <- function() {
+  years <- as.integer(read_settings()$settings$price_history_years %||% 2)
+  max(12L * years, max(return_horizons()))
+}
+
+price_retention_from <- function(as_of) {
+  buffer <- as.integer(read_settings()$settings$price_retention_buffer_days %||% 14)
+  window_start(as.Date(as_of), price_retention_months()) - buffer
+}
+
+trim_price_history <- function(prices, as_of) {
+  if (!nrow(prices)) return(prices)
+  dplyr::filter(prices, is.na(date) | date >= price_retention_from(as_of))
+}
+
+# Merge freshly downloaded bars onto a ticker's cache (new rows win on collision),
+# drop history older than the retention window, and persist the result.
+save_prices <- function(ticker, saved, downloaded, as_of) {
+  ticker <- normalize_ticker(ticker)
+  if (nrow(downloaded) > 0) {
+    saved <- dplyr::bind_rows(dplyr::mutate(saved, new = FALSE), dplyr::mutate(downloaded, new = TRUE)) |>
+      dplyr::arrange(date, dplyr::desc(new)) |>
+      dplyr::distinct(date, .keep_all = TRUE) |>
+      dplyr::select(-new) |>
+      dplyr::arrange(date)
+  }
+  saved <- trim_price_history(saved, as_of)
+  dir.create(dirname(price_path(ticker)), recursive = TRUE, showWarnings = FALSE)
+  readr::write_csv(saved, price_path(ticker), na = "")
+  saved
+}
+
+# Weekdays in [from, to]. Grouped-daily returns nothing for holidays anyway, but
+# skipping Saturdays/Sundays avoids obviously wasted, rate-limited calls.
+weekday_dates <- function(from, to) {
+  from <- as.Date(from); to <- as.Date(to)
+  if (from > to) return(as.Date(character()))
+  days <- seq(from, to, by = "day")
+  days[!(as.integer(format(days, "%u")) %in% c(6L, 7L))]
+}
+
+# One call returns every US stock's OHLC for a single day. For a small gap across
+# many tickers this beats one range call per ticker.
+fetch_grouped_daily <- function(date) {
+  massive_get(
+    paste0("/v2/aggs/grouped/locale/us/market/stocks/", as.Date(date)),
+    list(adjusted = "true")
+  )$results %||% list()
+}
+
+grouped_price_rows <- function(results, tickers, date, retrieved_at) {
+  # Compare on plain upper-case: grouped daily returns thousands of symbols, some
+  # in formats normalize_ticker() would reject and abort on. Only our own tickers
+  # (already validated) are kept, so the stored value still matches the cache.
+  keep <- toupper(trimws(tickers))
+  purrr::map_dfr(results, function(item) {
+    symbol <- toupper(trimws(as.character(item$T %||% "")))
+    if (!nzchar(symbol) || !(symbol %in% keep)) return(tibble::tibble())
+    tibble::tibble(
+      ticker = symbol, date = as.Date(date),
+      open = as.numeric(item$o), high = as.numeric(item$h), low = as.numeric(item$l),
+      close = as.numeric(item$c), volume = as.numeric(item$v),
+      vwap = as.numeric(item$vw %||% NA_real_), transactions = as.numeric(item$n %||% NA_real_),
+      retrieved_at = retrieved_at
+    )
+  })
+}
+
 update_prices <- function(ticker, as_of = Sys.Date(), force = FALSE) {
   ticker <- normalize_ticker(ticker)
   saved <- read_prices(ticker)
   if (!force && nrow(saved) > 0 && max(saved$date) >= as.Date(as_of)) return(saved)
-  years <- as.integer(read_settings()$settings$price_history_years %||% 3)
-  from <- if (nrow(saved) == 0) {
-    lubridate::`%m-%`(as.Date(as_of), lubridate::period(years, "year"))
-  } else {
-    max(saved$date) - 7
-  }
+  # A first download pulls the whole retention window; later runs re-pull the last
+  # week so late corrections/adjustments overwrite what we already have.
+  from <- if (nrow(saved) == 0) price_retention_from(as_of) else max(saved$date) - 7
   results <- massive_pages(
     paste0("/v2/aggs/ticker/", ticker, "/range/1/day/", from, "/", as.Date(as_of)),
     list(adjusted = "true", sort = "asc", limit = 50000)
@@ -322,26 +399,82 @@ update_prices <- function(ticker, as_of = Sys.Date(), force = FALSE) {
     volume = as.numeric(item$v), vwap = as.numeric(item$vw %||% NA_real_),
     transactions = as.numeric(item$n %||% NA_real_), retrieved_at = retrieved_at
   ))
-  if (nrow(downloaded) > 0) {
-    saved <- dplyr::bind_rows(dplyr::mutate(saved, new = FALSE), dplyr::mutate(downloaded, new = TRUE)) |>
-      dplyr::arrange(date, dplyr::desc(new)) |>
-      dplyr::distinct(date, .keep_all = TRUE) |>
-      dplyr::select(-new) |>
-      dplyr::arrange(date)
-  }
-  dir.create(dirname(price_path(ticker)), recursive = TRUE, showWarnings = FALSE)
-  readr::write_csv(saved, price_path(ticker), na = "")
-  saved
+  save_prices(ticker, saved, downloaded, as_of)
 }
 
 refresh_market_data <- function(tickers = report_tickers(), as_of = read_report()$report_date) {
-  results <- purrr::map_dfr(seq_along(tickers), function(index) {
+  # Upper-case for consistent keys/matching; per-ticker functions still validate
+  # each symbol individually (normalize_ticker() rejects vectors).
+  tickers <- unique(toupper(trimws(as.character(tickers))))
+  as_of <- as.Date(as_of)
+  overlap_days <- 7L
+  price_status <- setNames(rep(NA_character_, length(tickers)), tickers)
+
+  company_status <- setNames(character(length(tickers)), tickers)
+  for (index in seq_along(tickers)) {
     ticker <- tickers[[index]]
-    cli::cli_inform("Refreshing {ticker} ({index}/{length(tickers)})")
-    company <- tryCatch({ update_company(ticker, as_of); "ok" }, error = api_error_message)
-    prices <- tryCatch({ update_prices(ticker, as_of); "ok" }, error = api_error_message)
-    tibble::tibble(ticker = ticker, company = company, prices = prices)
-  })
+    cli::cli_inform("Refreshing company info for {ticker} ({index}/{length(tickers)})")
+    company_status[[ticker]] <- tryCatch({ update_company(ticker, as_of); "ok" }, error = api_error_message)
+  }
+
+  saved <- setNames(lapply(tickers, read_prices), tickers)
+  max_date <- as.Date(vapply(
+    saved, function(p) if (nrow(p)) as.numeric(max(p$date)) else NA_real_, numeric(1)
+  ), origin = "1970-01-01")
+
+  backfill <- tickers[is.na(max_date)]
+  incremental <- tickers[!is.na(max_date) & max_date < as_of]
+  current <- tickers[!is.na(max_date) & max_date >= as_of]
+
+  # One range call per ticker, with progress since each call is rate-limited.
+  update_one <- function(these) for (ticker in these) {
+    cli::cli_inform("Fetching prices for {ticker}")
+    price_status[[ticker]] <<- tryCatch({ update_prices(ticker, as_of); "ok" }, error = api_error_message)
+  }
+
+  # No cache yet: pull the full window per ticker (grouped would need hundreds of calls).
+  update_one(backfill)
+
+  if (length(incremental)) {
+    dates <- weekday_dates(min(max_date[incremental]) - overlap_days, as_of)
+    # Grouped costs one call per trading day; per-ticker costs one call per ticker.
+    # Take whichever is fewer.
+    if (length(dates) > 0 && length(dates) < length(incremental)) {
+      cli::cli_inform("Grouped daily fetch: {length(incremental)} tickers over {length(dates)} day{?s}.")
+      retrieved_at <- utc_now()
+      downloaded <- tryCatch(
+        purrr::map_dfr(dates, function(d) grouped_price_rows(fetch_grouped_daily(d), incremental, d, retrieved_at)),
+        error = function(error) structure(api_error_message(error), class = "grouped_error")
+      )
+      grouped_ok <- !inherits(downloaded, "grouped_error") && nrow(downloaded) > 0
+      if (grouped_ok) {
+        for (ticker in incremental) {
+          rows <- dplyr::filter(downloaded, .data$ticker == .env$ticker)
+          price_status[[ticker]] <- tryCatch({ save_prices(ticker, saved[[ticker]], rows, as_of); "ok" }, error = api_error_message)
+        }
+      } else {
+        # Grouped failed or returned nothing; fall back to reliable per-ticker range calls.
+        cli::cli_inform("Grouped daily fetch unavailable; falling back to per-ticker range calls.")
+        update_one(incremental)
+      }
+    } else {
+      update_one(incremental)
+    }
+  }
+
+  # Up-to-date tickers need no fetch, but still trim any history now older than the window.
+  retention_from <- price_retention_from(as_of)
+  for (ticker in current) {
+    prices <- saved[[ticker]]
+    if (nrow(prices) && min(prices$date, na.rm = TRUE) < retention_from) {
+      tryCatch({ save_prices(ticker, prices, empty_prices(), as_of) }, error = api_error_message)
+    }
+    price_status[[ticker]] <- "ok"
+  }
+
+  results <- tibble::tibble(
+    ticker = tickers, company = unname(company_status[tickers]), prices = unname(price_status[tickers])
+  )
   print(results)
   invisible(results)
 }

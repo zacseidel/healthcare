@@ -68,6 +68,100 @@ test_that("the report date can be set without changing other report inputs", {
   expect_equal(after$body, before$body)
 })
 
+# Builds a throwaway project whose inputs/ holds the given companies and report,
+# and makes it the working project so read_report() validates against those files
+# rather than the real inputs/. The caller restores the previous project with
+# on.exit(sandbox$restore()).
+sandbox_report <- function(categories, report_metadata) {
+  directory <- tempfile("report-")
+  dir.create(file.path(directory, "inputs"), recursive = TRUE)
+  file.create(file.path(directory, "healthcare-stock-monitor.Rproj"))
+
+  entries <- purrr::imap_chr(categories, function(tickers, category) {
+    paste(c(
+      paste0(category, ":"),
+      paste0("  ", tickers, ": ", tickers, " Inc; A company.")
+    ), collapse = "\n")
+  })
+  writeLines(
+    c("---", entries, "---", "", "# Companies"),
+    file.path(directory, "inputs", "companies.md")
+  )
+  write_markdown_yaml(file.path(directory, "inputs", "current_report.md"), report_metadata, "Report body.")
+
+  old_root <- getOption("healthcare.project_root")
+  old_directory <- setwd(directory)
+  options(healthcare.project_root = normalizePath(directory, winslash = "/"))
+  list(
+    report = "inputs/current_report.md",
+    restore = function() {
+      setwd(old_directory)
+      options(healthcare.project_root = old_root)
+    }
+  )
+}
+
+test_that("report categories are synced from companies.md", {
+  sandbox <- sandbox_report(
+    list(Care = c("AAA", "BBB"), Tech = "CCC"),
+    list(report_date = "2026-07-16", categories = list("Care", "Renamed"), news = list("AAA"))
+  )
+  on.exit(sandbox$restore(), add = TRUE)
+
+  # read_report() rejects the stale list, so the repair must not go through it.
+  expect_error(read_report(sandbox$report), "unknown category")
+  expect_message(
+    categories <- set_current_report_categories(sandbox$report),
+    "Report categories set to: Care, Tech"
+  )
+
+  expect_equal(categories, c("Care", "Tech"))
+  report <- read_report(sandbox$report)
+  expect_equal(report$categories, c("Care", "Tech"))
+  expect_equal(report$news, "AAA")
+})
+
+test_that("removing a category drops the selections it orphaned", {
+  sandbox <- sandbox_report(
+    list(Care = "AAA"),
+    list(
+      report_date = "2026-07-16", categories = list("Care", "Tech"),
+      earnings_summaries = list("CCC"), company_overviews = list(),
+      news = list("AAA", "CCC")
+    )
+  )
+  on.exit(sandbox$restore(), add = TRUE)
+
+  # Syncing categories alone would leave CCC behind and trip read_report()'s
+  # second guard, so the drop has to happen in the same pass.
+  expect_warning(
+    suppressMessages(set_current_report_categories(sandbox$report)),
+    "Dropped 1 report selection outside the current categories: CCC"
+  )
+
+  report <- read_report(sandbox$report)
+  expect_equal(report$categories, "Care")
+  expect_equal(report$news, "AAA")
+  expect_equal(report$earnings_summaries, character())
+})
+
+test_that("syncing categories leaves an already-current report alone", {
+  sandbox <- sandbox_report(
+    list(Care = c("AAA", "BBB")),
+    list(report_date = "2026-07-16", categories = list("Care"), news = list("BBB"))
+  )
+  on.exit(sandbox$restore(), add = TRUE)
+  before <- read_markdown_yaml(sandbox$report)
+
+  # No warning: nothing is orphaned, so no selection is dropped.
+  expect_warning(suppressMessages(set_current_report_categories(sandbox$report)), NA)
+  after <- read_markdown_yaml(sandbox$report)
+
+  expect_equal(after$metadata$categories, before$metadata$categories)
+  expect_equal(after$metadata$news, before$metadata$news)
+  expect_equal(after$body, before$body)
+})
+
 test_that("the automated refresh does not accept a manually supplied report date", {
   expect_false("report_date" %in% names(formals(refresh_report)))
 })
@@ -312,6 +406,40 @@ test_that("week-over-week moves are measured from prices and weighted by market 
   expect_equal(dplyr::filter(moves, type == "category")$price_move, 0.07)
 
   expect_equal(nrow(period_price_moves(snapshot, NULL, "2026-07-16")), 0)
+})
+
+test_that("price history is trimmed to the retention window but keeps the longest-horizon base", {
+  as_of <- as.Date("2026-07-24")
+  # Weekly bars spanning three years; only ~2 years + buffer should survive.
+  prices <- tibble::tibble(
+    ticker = "LLY", date = seq(as.Date("2023-01-06"), as_of, by = "week"),
+    open = 1, high = 1, low = 1, close = 1, volume = 1, vwap = 1, transactions = 1, retrieved_at = "x"
+  )
+  trimmed <- trim_price_history(prices, as_of)
+  expect_true(nrow(trimmed) < nrow(prices))
+  # Retention reaches at least the 24-month coverage boundary (minus the buffer),
+  # so the longest return still finds a base bar.
+  required_from <- window_start(as_of, max(return_horizons()))
+  expect_true(min(trimmed$date) <= required_from)
+  expect_true(min(trimmed$date) >= price_retention_from(as_of))
+})
+
+test_that("grouped daily rows are filtered to requested tickers", {
+  results <- list(
+    list(T = "LLY", o = 1, h = 2, l = 0.5, c = 1.5, v = 100, vw = 1.2, n = 10),
+    list(T = "AAPL", o = 9, h = 9, l = 9, c = 9, v = 9, vw = 9, n = 9),
+    list(T = "cvs", o = 3, h = 4, l = 2, c = 3.5, v = 50)
+  )
+  rows <- grouped_price_rows(results, c("LLY", "CVS"), as.Date("2026-07-24"), "retrieved")
+  expect_setequal(rows$ticker, c("LLY", "CVS"))
+  expect_equal(rows$close[rows$ticker == "LLY"], 1.5)
+  expect_true(is.na(rows$vwap[rows$ticker == "CVS"]))  # vw absent for CVS
+})
+
+test_that("weekday_dates skips weekends and handles empty ranges", {
+  days <- weekday_dates(as.Date("2026-07-17"), as.Date("2026-07-24"))  # Fri..Fri
+  expect_false(any(format(days, "%u") %in% c("6", "7")))
+  expect_length(weekday_dates(as.Date("2026-07-24"), as.Date("2026-07-20")), 0)
 })
 
 test_that("watchlist membership changes are reported against the previous final", {
@@ -610,6 +738,16 @@ test_that("Google Finance article cards provide titles publishers and URLs", {
   expect_equal(articles$source, rep("google_finance", 2))
   expect_equal(articles$source_rank, 1:2)
   expect_true(all(articles$first_seen_date == as.Date("2026-07-17")))
+})
+
+test_that("Google Finance news parsing survives class rotation and heading changes", {
+  html <- paste(readLines(file.path(root, "tests", "fixtures", "google_finance", "news-reclassed.html")), collapse = "\n")
+  articles <- parse_google_news(html, "LLY", as.Date("2026-07-17"))
+  expect_equal(nrow(articles), 2)
+  expect_equal(articles$title, c("Company raises full-year outlook", "New product launch expands addressable market"))
+  expect_equal(articles$publisher, c("Example News", "Example Journal"))
+  expect_equal(articles$url, c("https://example.com/article-one", "https://example.org/article-two"))
+  expect_equal(articles$source_rank, 1:2)
 })
 
 test_that("news history preserves first-seen dates and identifies new URLs", {

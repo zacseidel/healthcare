@@ -93,10 +93,14 @@ weekly_refresh <- function(report_path = "inputs/current_report.md") {
 }
 
 populate_current_report <- function(report_path = "inputs/current_report.md") {
+  companies <- read_companies()
+  # Propose categories from companies.md first, and persist them, so the read_report()
+  # below cannot fail on a stale category list this step is meant to refresh.
+  set_current_report_categories(report_path, companies)
   document <- read_markdown_yaml(report_path)
   report <- read_report(report_path)
   settings <- read_settings()$settings
-  snapshot <- build_snapshot(report)
+  snapshot <- build_snapshot(report, companies)
   document$metadata$earnings_summaries <- default_earnings_tickers(
     report, window = settings$earnings_window_days %||% 7L
   )
@@ -106,8 +110,9 @@ populate_current_report <- function(report_path = "inputs/current_report.md") {
     settings$notable_changes$top_stocks %||% 5L
   )
   write_markdown_yaml(document$path, document$metadata, document$body)
-  cli::cli_alert_success("Populated default earnings and news selections in {document$path}.")
+  cli::cli_alert_success("Populated default categories, earnings, and news selections in {document$path}.")
   invisible(list(
+    categories = document$metadata$categories,
     earnings_summaries = document$metadata$earnings_summaries,
     news = document$metadata$news
   ))
@@ -124,6 +129,40 @@ set_current_report_date <- function(report_date = Sys.Date(),
   write_markdown_yaml(document$path, document$metadata, document$body)
   cli::cli_inform("Report date set to {format(report_date)}.")
   invisible(report_date)
+}
+
+# Sync the report's category list to whatever companies.md defines, and drop any
+# ticker selection that category change orphaned. Reads the file directly (not
+# read_report(), which would reject the very mismatch this fixes) so it can repair
+# a stale report.
+set_current_report_categories <- function(report_path = "inputs/current_report.md",
+                                          companies = read_companies()) {
+  categories <- default_categories(companies)
+  covered <- unique(companies$categories$ticker[companies$categories$category %in% categories])
+  document <- read_markdown_yaml(report_path)
+  document$metadata$categories <- as.list(categories)
+
+  # Removing a category orphans its tickers, and read_report() also rejects a
+  # selection outside its categories — so syncing categories alone would just move
+  # the failure to the next guard, including inside populate_current_report(),
+  # which is the step that would otherwise rewrite these lists.
+  dropped <- character()
+  for (field in c("earnings_summaries", "company_overviews", "news")) {
+    selected <- toupper(unlist(document$metadata[[field]] %||% character(), use.names = FALSE))
+    dropped <- c(dropped, setdiff(selected, covered))
+    document$metadata[[field]] <- as.list(selected[selected %in% covered])
+  }
+
+  write_markdown_yaml(document$path, document$metadata, document$body)
+  cli::cli_inform("Report categories set to: {paste(categories, collapse = ', ')}.")
+  if (length(dropped)) {
+    dropped <- unique(dropped)
+    cli::cli_warn(c(
+      "Dropped {length(dropped)} report selection{?s} outside the current categories: {paste(dropped, collapse = ', ')}.",
+      "i" = "Restore the ticker in inputs/companies.md if the removal was not intended."
+    ))
+  }
+  invisible(categories)
 }
 
 prepare_report <- function(report_path = "inputs/current_report.md") {
@@ -465,6 +504,12 @@ refresh_report <- function(report_path = "inputs/current_report.md",
     status = "ok",
     value = report_date,
     detail = NA_character_
+  )
+  # Sync categories from companies.md before any stage reads the report, so a
+  # renamed/removed category cannot fail every downstream read.
+  stages$categories <- run_refresh_stage(
+    "Report categories",
+    function() set_current_report_categories(report_path)
   )
   stages$market_data <- run_refresh_stage(
     "Market data",

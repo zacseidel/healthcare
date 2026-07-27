@@ -15,7 +15,7 @@ Setup restores the locked R packages, creates local data folders, and checks tha
 
 - `inputs/settings.md`: report and data-refresh settings.
 - `inputs/companies.md`: category membership, report names, and editable company descriptions.
-- `inputs/current_report.md`: categories and optional earnings, overview, and news selections. The workflow writes the current date automatically.
+- `inputs/current_report.md`: categories and optional earnings, overview, and news selections. The workflow writes the current date automatically, and rewrites the category list to match `inputs/companies.md` — edit categories there, not here.
 
 Everything under `data/` is generated. Reports are saved under `reports/drafts/DATE/` and `reports/final/DATE/`.
 
@@ -28,10 +28,15 @@ source("refresh.R")
 ```
 
 This opens or reconnects to the dedicated Google Finance browser and pauses once for you
-to confirm that it is open and signed in. It then sets the report date to today, refreshes
-market data and earnings, chooses the default earnings and news selections, refreshes the
-selected news, runs the pre-flight checks, and creates a draft. Recoverable stage failures
-become warnings and the remaining independent stages continue.
+to confirm that it is open and signed in. It then sets the report date to today, syncs the
+report's categories to `inputs/companies.md`, refreshes market data and earnings, chooses
+the default earnings and news selections, refreshes the selected news, runs the pre-flight
+checks, and creates a draft. Recoverable stage failures become warnings and the remaining
+independent stages continue.
+
+The category sync runs before anything reads the report, so renaming or removing a category
+in `inputs/companies.md` does not fail the whole run. Selections orphaned by a removed
+category are dropped from `inputs/current_report.md` with a warning naming each ticker.
 
 The most recent run is retained as `refresh_results` in the R session. If anything
 looks incomplete, inspect the stage summary and per-ticker results with:
@@ -58,6 +63,9 @@ seven-day window. News defaults to the largest positive and negative overall-ran
 since the prior final report plus the configured top stocks at each report horizon. Google
 Finance “At a glance” cards are used first, with Massive as the fallback. Saved URLs retain
 their first-seen dates, and reports show only articles first seen after the prior final report.
+Each refresh keeps up to `news_per_refresh` new articles per company and retains the most
+recent `news_cache_limit` per company overall (five and twenty-five by default), dropping
+older ones so the news cache stays bounded.
 
 `report_status()` is the pre-flight check used by the workflow. It reports each company’s
 data ages, cached exchange, next earnings date, and saved-news count, followed by anything
@@ -88,7 +96,7 @@ If Google does not provide a transcript summary or key moments for a completed c
 
 Each company's exchange is discovered from the market-data provider and cached in `data/companies.csv`, so `inputs/companies.md` never lists one. Google Finance URLs are built from that cache, and a ticker missing from it is looked up on demand. If the provider reports an exchange Google Finance does not recognise, the report records a warning and you can set the correct name under `exchange_overrides` in `inputs/settings.md`.
 
-Massive API calls wait at least 13 seconds by default. Company reference data is reused for 28 days; prices are updated only through the report date.
+Massive API calls wait at least 13 seconds by default. Company reference data is reused for 28 days; prices are updated only through the report date. Because each call is rate-limited, a small price gap across several tickers is filled with the provider's grouped daily endpoint (one call per trading day for every ticker at once) instead of one call per ticker; first-time downloads and large gaps still use per-ticker range calls. Each refresh also trims price history to the retention window (`price_history_years`, two years by default and never shorter than the longest return horizon), so caches stay bounded rather than growing forever.
 
 ## Report contents
 
