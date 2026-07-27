@@ -27,8 +27,8 @@ Run one command:
 source("refresh.R")
 ```
 
-This opens or reconnects to the dedicated Google Finance browser and pauses once for you
-to confirm that it is open and signed in. It then sets the report date to today, syncs the
+This opens or reconnects to the dedicated Google Finance browser and checks whether that
+window is actually signed into Google, pausing only if it is not. It then sets the report date to today, syncs the
 report's categories to `inputs/companies.md`, refreshes market data and earnings, chooses
 the default earnings and news selections, refreshes the selected news, runs the pre-flight
 checks, and creates a draft. Recoverable stage failures become warnings and the remaining
@@ -78,6 +78,32 @@ final_report()
 
 Rendering uses local files only. It does not make API or browser requests.
 
+## When data is missing
+
+Incomplete data never cancels a report. Every data problem is a warning that names what is
+affected, in the console and in the report's own "Data coverage" section; the report is
+produced from whatever is available, with unavailable values left blank. A stale market cap
+means a company's weight is a little out of date, not that the week has no report.
+
+A ticker the market-data provider does not carry at all — delisted, renamed, or simply not
+covered — is reported by name and excluded from returns and category weights. Fix or remove it
+in `inputs/companies.md`.
+
+Coverage asks whether a horizon's return can be computed, not whether a calendar date is early
+enough — markets do not trade every day, so the bar nearest a 24-month-ago target is routinely
+a few days after it. A base bar up to `price_base_tolerance_days` (seven by default) later than
+the window edge is used, and the report says which companies that applied to.
+
+Two different things can shorten a history, and only one is worth acting on. A company that
+listed inside the window can never have a full-horizon return; its `list_date` is cached and
+the report says so rather than reporting a gap. Anything else short means the download is
+incomplete. Retention always keeps at least one month more than the longest horizon, so the
+cache is never trimmed flush to the window edge and builds a margin as it ages.
+
+News is scraped from each company's Google Finance quote page and falls back to the Massive
+news API. A working fallback is recorded as `fallback`, not `failed`, so `report_status()`
+flags only scrapes that produced nothing from either source.
+
 ## Research tools
 
 These are optional and never run during report rendering:
@@ -92,11 +118,21 @@ refresh_earnings(c("UNH", "CVS"))
 
 `start_google_browser()` opens a dedicated Chrome profile. Sign into Google in that window once. `refresh_earnings()` then saves the Google Finance transcript summary and any available “Key moments” cards, including their timestamps and blurbs. Yahoo is used as a fallback for upcoming dates.
 
+A company whose next earnings date is already known and still in the future is skipped: the
+call has not happened, so the page has nothing new to say. It is scraped again once that date
+arrives, or sooner if the last call's page was unavailable when it was last checked. Use
+`refresh_earnings(force = TRUE)` to scrape regardless.
+
+All scraping shares one browser tab for the whole run, released by `close_google_session()`
+when the scraping stages finish. If Chrome is managed by an IT policy that blocks remote
+debugging, the browser check fails with that as the likely cause and the run continues without
+Google data.
+
 If Google does not provide a transcript summary or key moments for a completed call, the earnings calendar records that explicitly. Reports show a short unavailable message rather than failing or substituting an older call summary.
 
 Each company's exchange is discovered from the market-data provider and cached in `data/companies.csv`, so `inputs/companies.md` never lists one. Google Finance URLs are built from that cache, and a ticker missing from it is looked up on demand. If the provider reports an exchange Google Finance does not recognise, the report records a warning and you can set the correct name under `exchange_overrides` in `inputs/settings.md`.
 
-Massive API calls wait at least 13 seconds by default. Company reference data is reused for 28 days; prices are updated only through the report date. Because each call is rate-limited, a small price gap across several tickers is filled with the provider's grouped daily endpoint (one call per trading day for every ticker at once) instead of one call per ticker; first-time downloads and large gaps still use per-ticker range calls. Each refresh also trims price history to the retention window (`price_history_years`, two years by default and never shorter than the longest return horizon), so caches stay bounded rather than growing forever.
+Massive API calls wait at least 13 seconds by default. Company reference data is reused for 28 days; prices are updated only through the report date. Because each call is rate-limited, a small price gap across several tickers is filled with the provider's grouped daily endpoint (one call per trading day for every ticker at once) instead of one call per ticker; first-time downloads and large gaps still use per-ticker range calls. A day that fails or returns nothing — a market holiday, or the current day before it settles — is reported and skipped rather than discarding the whole batch, and any ticker that appears on no day is retried individually. Each refresh also trims price history to the retention window (`price_history_years`, two years by default and never shorter than the longest return horizon), so caches stay bounded rather than growing forever.
 
 ## Report contents
 

@@ -572,6 +572,7 @@ test_that("price coverage flags histories shorter than the longest horizon", {
   file.create(file.path(temporary_root, "healthcare-stock-monitor.Rproj"))
   options(healthcare.project_root = temporary_root)
   on.exit(options(healthcare.project_root = old_root), add = TRUE)
+  file.copy(file.path(root, "inputs"), temporary_root, recursive = TRUE)
 
   write_prices <- function(ticker, first_date) {
     readr::write_csv(tibble::tibble(
@@ -580,11 +581,32 @@ test_that("price coverage flags histories shorter than the longest horizon", {
     ), file.path(temporary_root, "data", "prices", paste0(ticker, ".csv")))
   }
   write_prices("FULL", "2024-07-16")
-  write_prices("SHORT", "2024-07-22")
+  write_prices("LATE", "2024-07-22")
+  write_prices("SHORT", "2025-01-02")
+  write_prices("NEWLY", "2025-01-02")
+  write_company_data(tibble::tibble(
+    ticker = "NEWLY", provider_name = "Newly Listed", market_cap = 1e9,
+    market_cap_date = Sys.Date(), sic_code = NA_character_, sic_description = NA_character_,
+    exchange = "XNYS", website = NA_character_, provider_description = NA_character_,
+    list_date = as.Date("2025-01-02"), updated_at = "now"
+  ))
 
-  coverage <- price_coverage(c("FULL", "SHORT"), as_of = "2026-07-16", months = 24)
-  expect_equal(coverage$required_from, rep(as.Date("2024-07-16"), 2))
-  expect_equal(coverage$covers, c(TRUE, FALSE))
+  coverage <- price_coverage(
+    c("FULL", "LATE", "SHORT", "NEWLY"), as_of = "2026-07-16", months = 24, tolerance = 7
+  )
+  expect_equal(coverage$required_from, rep(as.Date("2024-07-16"), 4))
+  # Coverage means "the return can be computed", not "the calendar date is early
+  # enough": the bar nearest a 24-month target routinely falls days after it.
+  expect_equal(coverage$covers, c(TRUE, TRUE, FALSE, FALSE))
+  expect_equal(coverage$days_late, c(0L, 6L, 170L, 170L))
+  expect_equal(coverage$base_date[[2]], as.Date("2024-07-22"))
+
+  # A company that listed inside the window can never have a full-horizon return;
+  # that is a fact about the company, not an incomplete download.
+  expect_equal(coverage$expected_short, c(FALSE, FALSE, FALSE, TRUE))
+  expect_equal(unexplained_short_history(coverage), "SHORT")
+
+  expect_false(price_coverage("LATE", as_of = "2026-07-16", months = 24, tolerance = 0)$covers)
   expect_true(is.na(price_coverage("MISSING", as_of = "2026-07-16", months = 24)$first_date))
 })
 
@@ -613,7 +635,7 @@ test_that("low category coverage warns without blocking available returns", {
   expect_identical(result, snapshot)
 })
 
-test_that("stale core market data remains a blocking validation error", {
+test_that("stale core market data degrades the report instead of cancelling it", {
   snapshot <- tibble::tibble(
     type = c("stock", "category"),
     ticker = c("STALE", NA_character_),
@@ -630,10 +652,17 @@ test_that("stale core market data remains a blocking validation error", {
     minimum_market_cap_coverage = 0.8
   )
 
-  expect_error(
+  # A stale price or market cap must never cancel a report: the run that surfaces
+  # the gap is the same run that tells you what to fix.
+  result <- expect_warning(
     validate_snapshot(snapshot, "2026-07-16", settings),
-    "Report data check failed.*stale prices: STALE"
+    "stale prices: STALE.*still produced"
   )
+  expect_identical(result, snapshot)
+
+  issues <- snapshot_data_issues(snapshot, "2026-07-16", settings)
+  expect_true("stale prices" %in% issues$issue)
+  expect_equal(issues$subject[issues$issue == "stale prices"], "STALE")
 })
 
 test_that("deep-dive stocks combine all selected report sections", {
@@ -798,4 +827,194 @@ test_that("snapshot comparisons identify leaders and stock movement", {
 test_that("draft and final snapshots have obvious locations", {
   expect_match(snapshot_path("2026-07-16", FALSE, 2), "reports/drafts/2026-07-16/snapshot-02.csv", fixed = TRUE)
   expect_match(snapshot_path("2026-07-16"), "reports/final/2026-07-16/snapshot.csv", fixed = TRUE)
+})
+
+test_that("API response fields are read exactly, not by partial match", {
+  # Guards against `$` partial matching on a parsed JSON body: the provider omits
+  # `results` when nothing matched but still returns `resultsCount`, so
+  # `response$results` answered with the count. That number reached the row parsers
+  # and failed there as "$ operator is invalid for atomic vectors".
+  empty <- list(ticker = "SEM", queryCount = 0, resultsCount = 0, status = "DELAYED")
+  expect_identical(empty$results, 0)
+  expect_null(json_field(empty, "results"))
+  expect_identical(json_results(empty), list())
+  expect_null(json_field(empty, "next_url"))
+
+  populated <- list(results = list(list(t = 1, o = 2)), next_url = "https://example.test")
+  expect_length(json_results(populated), 1L)
+  expect_identical(json_field(populated, "next_url"), "https://example.test")
+
+  expect_identical(json_results("not a list"), list())
+  expect_null(json_field(42, "results"))
+})
+
+test_that("row parsers skip entries that are not objects", {
+  results <- list(0, list(T = "LLY", o = 1, h = 2, l = 0.5, c = 1.5, v = 100, vw = 1.2, n = 10))
+  rows <- grouped_price_rows(results, "LLY", as.Date("2026-07-24"), "retrieved")
+  expect_equal(nrow(rows), 1L)
+  expect_equal(rows$close, 1.5)
+})
+
+test_that("returns tolerate a base bar just inside the window edge", {
+  # The provider caps history at about two years from today, so a newly seeded cache
+  # starts after the 24-month edge and every 24-month return would otherwise be NA.
+  prices <- tibble::tibble(
+    ticker = "NEW",
+    date = as.Date(c("2024-07-29", "2025-07-16", "2026-07-16")),
+    close = c(100, 150, 200)
+  )
+  base <- price_base(prices, as.Date("2024-07-27"), tolerance = 7)
+  expect_equal(base$date, as.Date("2024-07-29"))
+  expect_equal(base$close, 100)
+
+  expect_true(is.na(price_base(prices, as.Date("2024-07-27"), tolerance = 0)$close))
+  # An exact or earlier bar still wins over a later one.
+  expect_equal(price_base(prices, as.Date("2025-07-20"), tolerance = 7)$date, as.Date("2025-07-16"))
+})
+
+test_that("companies the provider does not carry warn instead of blocking the report", {
+  # Four delisted tickers in companies.md failed validation for the whole watchlist,
+  # which failed both the market-data stage and the draft.
+  snapshot <- tibble::tibble(
+    type = c("stock", "stock", "category"),
+    ticker = c("GOOD", "GONE", NA_character_),
+    category = "Managed Care",
+    horizon_months = 3L,
+    price_date = as.Date(c("2026-07-16", NA, "2026-07-16")),
+    market_cap = c(100, NA, 100),
+    market_cap_date = as.Date(c("2026-07-16", NA, "2026-07-16")),
+    market_cap_coverage = c(1, 1, 1)
+  )
+  settings <- list(
+    maximum_price_age_days = 7, maximum_market_cap_age_days = 35,
+    minimum_market_cap_coverage = 0.8
+  )
+
+  result <- expect_warning(
+    validate_snapshot(snapshot, "2026-07-16", settings),
+    "no provider data: GONE.*still produced"
+  )
+  expect_identical(result, snapshot)
+
+  # A company with prices but a stale cap is a different finding, still not fatal.
+  stale <- snapshot
+  stale$price_date[[2]] <- as.Date("2026-07-16")
+  issues <- snapshot_data_issues(stale, "2026-07-16", settings)
+  expect_equal(issues$subject[issues$issue == "stale market caps"], "GONE")
+  expect_false("no provider data" %in% issues$issue)
+})
+
+test_that("news is read from the quote page, not the earnings tab", {
+  old_root <- getOption("healthcare.project_root")
+  temporary_root <- tempfile("healthcare-")
+  dir.create(file.path(temporary_root, "data"), recursive = TRUE)
+  file.create(file.path(temporary_root, "healthcare-stock-monitor.Rproj"))
+  options(healthcare.project_root = temporary_root)
+  on.exit(options(healthcare.project_root = old_root), add = TRUE)
+  file.copy(file.path(root, "inputs"), temporary_root, recursive = TRUE)
+
+  write_company_data(tibble::tibble(
+    ticker = "UNH", provider_name = "UnitedHealth", market_cap = 1e11,
+    market_cap_date = Sys.Date(), sic_code = NA_character_,
+    sic_description = NA_character_, exchange = "XNYS", website = NA_character_,
+    provider_description = NA_character_, updated_at = "now"
+  ))
+
+  expect_match(google_finance_url("UNH"), "tab=earnings", fixed = TRUE)
+  expect_false(grepl("tab=", google_finance_url("UNH", tab = NULL), fixed = TRUE))
+  expect_match(google_finance_url("UNH", tab = NULL), "quote/UNH:NYSE?hl=en", fixed = TRUE)
+})
+
+test_that("a working news fallback is not recorded as a failed scrape", {
+  old_root <- getOption("healthcare.project_root")
+  temporary_root <- tempfile("healthcare-")
+  dir.create(temporary_root)
+  file.create(file.path(temporary_root, "healthcare-stock-monitor.Rproj"))
+  options(healthcare.project_root = temporary_root)
+  on.exit(options(healthcare.project_root = old_root), add = TRUE)
+
+  record_scraper_status("UNH", "google_news", "fallback", "No article cards were found.")
+  record_scraper_status("CVS", "google_news", "failed", "No article cards were found.")
+  status <- read_scraper_status()
+  expect_setequal(status$ticker[status$status == "failed"], "CVS")
+  expect_setequal(status$ticker[status$status == "fallback"], "UNH")
+})
+
+test_that("sourcing the workflow leaves the caller's own variables alone", {
+  # weekly_report.R used to remove every `.healthcare_*` name in the global
+  # environment, including refresh.R's, which then warned about a missing object.
+  script <- file.path(root, "weekly_report.R")
+  expression <- sprintf(
+    ".healthcare_refresh_root <- getwd(); source(%s); cat(exists('.healthcare_refresh_root'))",
+    deparse(script)
+  )
+  output <- system2(
+    file.path(R.home("bin"), "Rscript"),
+    c("--vanilla", "-e", shQuote(expression)),
+    stdout = TRUE,
+    stderr = TRUE
+  )
+  expect_equal(attr(output, "status") %||% 0L, 0L, info = paste(output, collapse = "\n"))
+  expect_true(any(grepl("TRUE", output, fixed = TRUE)))
+})
+
+test_that("missing runtime packages fail before any scraping is attempted", {
+  expect_error(
+    check_dependencies(c("cli", "a.package.that.is.not.installed")),
+    "a.package.that.is.not.installed.*setup.R"
+  )
+  expect_silent(check_dependencies("cli"))
+})
+
+test_that("a known future earnings date is not re-scraped", {
+  as_of <- as.Date("2026-07-27")
+  row <- function(next_date, status) tibble::tibble(
+    ticker = "LLY", latest_report_date = as.Date("2026-04-30"),
+    next_earnings_date = as.Date(next_date), next_date_status = "Google displayed",
+    summary_date = as.Date("2026-04-30"), summary_file = "path.md",
+    summary_status = status, key_moments_count = 4L, updated_at = "now"
+  )
+
+  # The call has not happened yet and the last one was captured: nothing to learn.
+  expect_false(earnings_refresh_needed(row("2026-08-05", "available"), as_of))
+  # Google had no transcript for that call — a settled outcome, not a retry.
+  expect_false(earnings_refresh_needed(row("2026-08-05", "not_provided"), as_of))
+
+  # The date we were waiting for has arrived.
+  expect_true(earnings_refresh_needed(row("2026-07-27", "available"), as_of))
+  expect_true(earnings_refresh_needed(row("2026-07-01", "available"), as_of))
+  # We never managed to read the page, so the content may have filled in since.
+  expect_true(earnings_refresh_needed(row("2026-08-05", "page_unavailable"), as_of))
+  # Nothing known at all.
+  expect_true(earnings_refresh_needed(row(NA, "available"), as_of))
+  expect_true(earnings_refresh_needed(row("2026-08-05", NA_character_), as_of))
+  expect_true(earnings_refresh_needed(read_earnings()[0, ], as_of))
+})
+
+test_that("the price retention window is longer than the longest return horizon", {
+  # Retaining exactly the horizon leaves no bar behind the window edge, so a weekend
+  # or provider boundary at that edge blanks the longest return.
+  expect_gt(price_retention_months(), max(return_horizons()))
+  expect_lt(price_retention_from("2026-07-27"), window_start(as.Date("2026-07-27"), 24))
+})
+
+test_that("company caches written before the list_date column still read", {
+  old_root <- getOption("healthcare.project_root")
+  temporary_root <- tempfile("healthcare-")
+  dir.create(file.path(temporary_root, "data"), recursive = TRUE)
+  file.create(file.path(temporary_root, "healthcare-stock-monitor.Rproj"))
+  options(healthcare.project_root = temporary_root)
+  on.exit(options(healthcare.project_root = old_root), add = TRUE)
+
+  readr::write_csv(
+    tibble::tibble(
+      ticker = "UNH", provider_name = "UnitedHealth", market_cap = 1e11,
+      market_cap_date = Sys.Date(), sic_code = "6324", sic_description = "PLANS",
+      website = NA_character_, provider_description = NA_character_, updated_at = "now"
+    ),
+    file.path(temporary_root, "data", "companies.csv")
+  )
+  companies <- read_company_data()
+  expect_true("list_date" %in% names(companies))
+  expect_true(is.na(companies$list_date))
 })

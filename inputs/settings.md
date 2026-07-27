@@ -3,6 +3,7 @@ settings:
   api_delay_seconds: 13
   price_history_years: 2
   price_retention_buffer_days: 14
+  price_base_tolerance_days: 7
   company_info_refresh_days: 28
   maximum_price_age_days: 7
   maximum_market_cap_age_days: 35
@@ -33,7 +34,21 @@ years rather than growing forever. `price_retention_buffer_days` keeps a little 
 history just before the window start so the base bar for the longest return survives when
 the window edge falls on a weekend or holiday. A provider may hold less than requested;
 `weekly_refresh()` warns when saved history does not reach back through the longest return
-horizon, and returns for that horizon are left blank.
+horizon.
+
+Markets do not trade every calendar day, and the provider holds roughly two years of history
+measured from the current date whatever window is requested, so the bar nearest a 24-month-ago
+target routinely falls a few days after it. `price_base_tolerance_days` is how much later than
+the window edge a base bar may be and still be used; the report names the companies this
+applied to and how late the bar was. Set it to 0 to blank those returns instead. Returns are
+still left blank when no bar exists within the tolerance.
+
+Retention always keeps at least one month more than the longest return horizon regardless of
+`price_history_years`, so history is never trimmed flush to the window edge.
+
+`maximum_price_age_days`, `maximum_market_cap_age_days` and `minimum_market_cap_coverage` set
+when data is old enough to report. None of them block a report: they produce warnings naming
+the affected companies, and the report is produced from whatever is available.
 Category coverage below `minimum_market_cap_coverage` also produces a warning rather than
 blocking the report; available companies are still included and the coverage percentage
 is shown in the report.

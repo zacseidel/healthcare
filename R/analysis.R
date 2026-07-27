@@ -63,26 +63,63 @@ performance_chart_data <- function(tickers, as_of, horizons = c(24L, 6L), benchm
   })
 }
 
-# price_history_years asks the provider for a window; it may hold less. Returns are
-# NA when a series does not reach back far enough, so short histories are reported
-# rather than quietly shrinking the comparison.
+# The provider caps history at roughly two years from today whatever window is
+# requested, so on a newly seeded cache the earliest bar routinely lands a few days
+# *after* the 24-month edge — and the edge itself is often a weekend. Demanding a bar
+# on or before that date left every 24-month return blank on a fresh install. Accept
+# a base bar this many days late instead, and say so where it matters.
+price_base_tolerance_days <- function() {
+  as.integer(read_settings()$settings$price_base_tolerance_days %||% 7L)
+}
+
+# Coverage asks whether a horizon's return can actually be computed, not whether a
+# calendar date is early enough. Those are different questions: markets do not trade
+# every calendar day, so the bar nearest a 24-month-ago target routinely falls a few
+# days after it, and comparing raw dates reported almost every company as short.
+# `covers` is therefore decided by price_base() — the same function the return itself
+# uses — so the two can never disagree.
+#
+# `expected_short` separates a company that listed inside the window, which can never
+# have a full-horizon return, from one whose saved history is genuinely incomplete.
+# Only the latter is worth acting on.
 empty_price_coverage <- function() tibble::tibble(
   ticker = character(), first_date = as.Date(character()),
-  required_from = as.Date(character()), horizon_months = integer(), covers = logical()
+  required_from = as.Date(character()), horizon_months = integer(),
+  days_late = integer(), base_date = as.Date(character()),
+  listed_on = as.Date(character()), expected_short = logical(), covers = logical()
 )
 
-price_coverage <- function(tickers, as_of, months = max(return_horizons())) {
+price_coverage <- function(tickers, as_of, months = max(return_horizons()),
+                           tolerance = price_base_tolerance_days()) {
   if (!length(tickers)) return(empty_price_coverage())
+  # Force the default here rather than inside the loop below, where it would re-read
+  # settings once per ticker.
+  tolerance <- as.integer(tolerance)
   required_from <- window_start(as_of, months)
+  reference <- read_company_data()
   purrr::map_dfr(tickers, function(ticker) {
+    ticker <- normalize_ticker(ticker)
     prices <- read_prices(ticker)
     first_date <- if (nrow(prices)) min(prices$date, na.rm = TRUE) else as.Date(NA)
+    base <- price_base(prices, required_from, tolerance)
+    listed_on <- reference$list_date[match(ticker, reference$ticker)]
+    if (!length(listed_on)) listed_on <- as.Date(NA)
     tibble::tibble(
-      ticker = normalize_ticker(ticker), first_date = first_date,
+      ticker = ticker, first_date = first_date,
       required_from = required_from, horizon_months = as.integer(months),
-      covers = !is.na(first_date) & first_date <= required_from
+      days_late = as.integer(pmax(0L, as.integer(first_date - required_from))),
+      base_date = base$date, listed_on = listed_on,
+      expected_short = !is.na(listed_on) & listed_on > required_from,
+      covers = !is.na(base$close)
     )
   })
+}
+
+# Short history worth acting on: the saved download is incomplete, rather than the
+# company simply not having existed for the whole horizon.
+unexplained_short_history <- function(coverage) {
+  if (!nrow(coverage)) return(character())
+  unique(coverage$ticker[!coverage$covers & !coverage$expected_short])
 }
 
 deep_dive_tickers <- function(report = read_report()) {
@@ -154,11 +191,31 @@ price_on_or_before <- function(prices, target_date) {
     dplyr::select(date, close)
 }
 
+# The base bar for a horizon, preferring the last bar on or before the window edge.
+# When the cache simply does not reach that far back, the first bar shortly after it
+# is a better answer than NA — the return is then measured from a slightly shorter
+# window, and `start_date` records the date actually used.
+price_base <- function(prices, target_date, tolerance = price_base_tolerance_days()) {
+  target_date <- as.Date(target_date)
+  base <- price_on_or_before(prices, target_date)
+  if (!is.na(base$close)) return(base)
+  eligible <- dplyr::filter(
+    prices, !is.na(close), close > 0,
+    .data$date > target_date, .data$date <= target_date + tolerance
+  )
+  if (nrow(eligible) == 0) return(tibble::tibble(date = as.Date(NA), close = NA_real_))
+  dplyr::slice_min(eligible, .data$date, n = 1, with_ties = FALSE) |>
+    dplyr::select(date, close)
+}
+
 company_returns <- function(ticker, as_of) {
   prices <- read_prices(ticker)
   ending <- price_on_or_before(prices, as_of)
+  tolerance <- price_base_tolerance_days()
   purrr::map_dfr(return_horizons(), function(months) {
-    starting <- price_on_or_before(prices, lubridate::`%m-%`(as.Date(as_of), lubridate::period(months, "month")))
+    starting <- price_base(
+      prices, lubridate::`%m-%`(as.Date(as_of), lubridate::period(months, "month")), tolerance
+    )
     result <- if (is.na(starting$close) || is.na(ending$close)) NA_real_ else ending$close / starting$close - 1
     tibble::tibble(
       ticker = ticker, horizon_months = months, price_return = result,
@@ -228,39 +285,77 @@ build_snapshot <- function(report = read_report(), companies = read_companies())
     dplyr::arrange(type, horizon_months, rank, category, ticker)
 }
 
-validate_snapshot <- function(snapshot, as_of, settings = read_settings()$settings) {
+# A ticker with no price date *and* no market cap is one the provider does not carry
+# at all, not one whose data went stale. Treating the two the same let four delisted
+# symbols in companies.md block the entire report, so this is reported loudly and the
+# remaining companies are still analysed. Genuinely stale data still blocks.
+provider_missing_tickers <- function(stocks) {
+  dplyr::filter(stocks, is.na(price_date), is.na(market_cap) | market_cap <= 0)$ticker
+}
+
+# What is wrong with the data behind a snapshot, as a table rather than a message, so
+# the same findings can be warned about on the console and rendered in the report.
+snapshot_data_issues <- function(snapshot, as_of, settings = read_settings()$settings) {
+  empty <- tibble::tibble(issue = character(), subject = character(), detail = character())
   stocks <- dplyr::filter(snapshot, type == "stock") |>
     dplyr::distinct(ticker, price_date, market_cap, market_cap_date)
-  stale_prices <- dplyr::filter(
-    stocks, is.na(price_date) | price_date < as.Date(as_of) - as.integer(settings$maximum_price_age_days %||% 7)
-  )$ticker
-  stale_caps <- dplyr::filter(
-    stocks,
+  missing <- unique(provider_missing_tickers(stocks))
+  known <- dplyr::filter(stocks, !ticker %in% missing)
+  stale_prices <- unique(dplyr::filter(
+    known, is.na(price_date) | price_date < as.Date(as_of) - as.integer(settings$maximum_price_age_days %||% 7)
+  )$ticker)
+  stale_caps <- unique(dplyr::filter(
+    known,
     is.na(market_cap) | market_cap <= 0 | is.na(market_cap_date) |
       market_cap_date < as.Date(as_of) - as.integer(settings$maximum_market_cap_age_days %||% 35)
-  )$ticker
+  )$ticker)
   low_coverage <- dplyr::filter(
     snapshot, type == "category",
     is.na(market_cap_coverage) | market_cap_coverage < as.numeric(settings$minimum_market_cap_coverage %||% 0.8)
   )
-  problems <- character()
-  if (length(stale_prices)) problems <- c(problems, paste("stale prices:", paste(unique(stale_prices), collapse = ", ")))
-  if (length(stale_caps)) problems <- c(problems, paste("stale market caps:", paste(unique(stale_caps), collapse = ", ")))
-  if (length(problems)) stop("Report data check failed — ", paste(problems, collapse = "; "), call. = FALSE)
-  if (nrow(low_coverage)) {
-    labels <- paste0(
-      low_coverage$category, " ", low_coverage$horizon_months, "m (",
-      ifelse(
-        is.na(low_coverage$market_cap_coverage),
-        "unknown",
-        sprintf("%.0f%%", 100 * low_coverage$market_cap_coverage)
+  issue <- function(name, subject, detail) {
+    if (!length(subject)) return(empty)
+    tibble::tibble(issue = name, subject = paste(subject, collapse = ", "), detail = detail)
+  }
+  dplyr::bind_rows(
+    issue(
+      "no provider data", missing,
+      "Excluded from returns and category weights; correct or remove them in inputs/companies.md."
+    ),
+    issue(
+      "stale prices", stale_prices,
+      "Returns use the most recent saved bar, which is older than the configured limit."
+    ),
+    issue(
+      "stale market caps", stale_caps,
+      "Category weights use the last known market cap, which is older than the configured limit."
+    ),
+    issue(
+      "low category coverage",
+      if (!nrow(low_coverage)) character() else paste0(
+        low_coverage$category, " ", low_coverage$horizon_months, "m (",
+        ifelse(
+          is.na(low_coverage$market_cap_coverage),
+          "unknown", sprintf("%.0f%%", 100 * low_coverage$market_cap_coverage)
+        ), ")"
       ),
-      ")"
+      "Weighted returns cover less of the category's market cap than the configured minimum."
     )
+  )
+}
+
+# Incomplete data degrades a report; it does not cancel one. A stale market cap or a
+# missing price series makes some cells fall back or blank, and reporting that is far
+# more useful than refusing to produce anything — the run that surfaces the gap is the
+# same run that tells you what to fix. Every finding is a warning, and the snapshot is
+# always returned.
+validate_snapshot <- function(snapshot, as_of, settings = read_settings()$settings) {
+  issues <- snapshot_data_issues(snapshot, as_of, settings)
+  if (nrow(issues)) {
     warning(
-      "Report data warning — low category coverage: ",
-      paste(labels, collapse = ", "),
-      ". Available returns will still be reported.",
+      "Report data warning — ",
+      paste0(issues$issue, ": ", issues$subject, collapse = "; "),
+      ". The report is still produced from the data that is available.",
       call. = FALSE
     )
   }
@@ -549,6 +644,11 @@ prepare_analysis <- function(report = read_report()) {
   settings <- read_settings()
   companies <- read_companies()
   snapshot <- build_snapshot(report, companies)
+  # Companies the provider does not carry are named in the report rather than
+  # silently appearing as blank rows, so warnings survive into the rendered output.
+  provider_missing <- unique(provider_missing_tickers(
+    dplyr::distinct(dplyr::filter(snapshot, type == "stock"), ticker, price_date, market_cap)
+  ))
   validate_snapshot(snapshot, report$report_date, settings$settings)
   previous <- previous_snapshot(report$report_date)
   category_table <- dplyr::filter(snapshot, type == "category") |>
@@ -581,7 +681,9 @@ prepare_analysis <- function(report = read_report()) {
   list(
     report = report, settings_input = settings, companies_input = companies,
     snapshot = snapshot, previous = previous, previous_date = previous_date,
-    changes = changes,
+    changes = changes, provider_missing = provider_missing,
+    data_issues = snapshot_data_issues(snapshot, report$report_date, settings$settings),
+    coverage = price_coverage(c(report_tickers(report, companies), "SPY"), report$report_date),
     weekly_moves = period_price_moves(snapshot, previous_date, report$report_date),
     movers_shown = as.integer(settings$settings$notable_changes$movers_shown %||% 3),
     categories = category_table, stocks = stock_table, top_stocks = top_stocks,

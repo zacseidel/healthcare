@@ -116,11 +116,14 @@ fetch_massive_news <- function(ticker, as_of, days) {
   if (!length(results)) return(empty_news())
   purrr::map_dfr(seq_along(results), function(index) {
     item <- results[[index]]
+    if (!is.list(item)) return(tibble::tibble())
     tibble::tibble(
-    ticker = ticker, published_date = as.Date(substr(item$published_utc %||% "", 1, 10)),
+    ticker = ticker, published_date = as.Date(substr(json_field(item, "published_utc") %||% "", 1, 10)),
     first_seen_date = as.Date(as_of), last_seen_date = as.Date(as_of),
-    title = item$title %||% "Untitled", publisher = item$publisher$name %||% NA_character_,
-    url = item$article_url %||% NA_character_, description = item$description %||% NA_character_,
+    title = json_field(item, "title") %||% "Untitled",
+    publisher = json_field(json_field(item, "publisher"), "name") %||% NA_character_,
+    url = json_field(item, "article_url") %||% NA_character_,
+    description = json_field(item, "description") %||% NA_character_,
     source = "massive", source_rank = index
   )}) |>
     dplyr::filter(!is.na(url)) |>
@@ -172,13 +175,23 @@ refresh_news <- function(tickers = read_report()$news, as_of = read_report()$rep
   purrr::map_dfr(tickers, function(ticker) {
     news_error <- NULL
     articles <- tryCatch(
-      parse_google_news(fetch_google_finance_page(ticker, "At a glance"), ticker, as_of),
+      # News cards are on the main quote page, not the earnings tab, and the parser
+      # accepts any of the known section headings — so wait for any of them too.
+      parse_google_news(
+        fetch_google_finance_page(ticker, google_news_section_labels, tab = NULL),
+        ticker, as_of
+      ),
       error = function(error) { news_error <<- conditionMessage(error); empty_news() }
     )
     if (!nrow(articles)) {
       cli::cli_inform("Google Finance news unavailable for {ticker}; using Massive fallback.")
-      record_scraper_status(ticker, "google_news", "failed", news_error %||% "No article cards were found.")
       articles <- fetch_massive_news(ticker, as_of, days)
+      # A working fallback is not a failure to fix; only losing both sources is.
+      # Recording every fallback as "failed" listed every company as a broken scrape.
+      record_scraper_status(
+        ticker, "google_news", if (nrow(articles)) "fallback" else "failed",
+        news_error %||% "No article cards were found."
+      )
     } else {
       record_scraper_status(ticker, "google_news", "ok")
     }

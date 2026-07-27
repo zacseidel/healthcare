@@ -150,7 +150,8 @@ read_company_data <- function() {
       ticker = character(), provider_name = character(), market_cap = double(),
       market_cap_date = as.Date(character()), sic_code = character(),
       sic_description = character(), exchange = character(), website = character(),
-      provider_description = character(), updated_at = character()
+      provider_description = character(), list_date = as.Date(character()),
+      updated_at = character()
     ))
   }
   companies <- readr::read_csv(
@@ -160,8 +161,15 @@ read_company_data <- function() {
       market_cap_date = readr::col_date(), .default = readr::col_character()
     )
   )
-  # Caches written before the exchange column existed still need to read cleanly.
+  # Caches written before these columns existed still need to read cleanly. Naming a
+  # parser for a column the file may not have would warn on every older cache, so
+  # list_date is read as text and converted here.
   if (!"exchange" %in% names(companies)) companies$exchange <- NA_character_
+  companies$list_date <- if ("list_date" %in% names(companies)) {
+    suppressWarnings(as.Date(companies$list_date))
+  } else {
+    as.Date(NA)
+  }
   companies
 }
 
@@ -234,6 +242,22 @@ load_api_key <- function() {
   key
 }
 
+# A symbol the provider does not carry at all. Distinct from a stale or failed
+# download: no amount of retrying will help, and the fix is to correct
+# inputs/companies.md, so the report reports it instead of blocking on it.
+provider_ticker_not_found <- function(ticker) {
+  structure(
+    class = c("provider_ticker_not_found", "error", "condition"),
+    list(
+      message = paste0(
+        ticker, " was not found at the market-data provider ",
+        "(delisted, renamed, or not covered) — check inputs/companies.md."
+      ),
+      call = NULL
+    )
+  )
+}
+
 api_error_message <- function(error) {
   message <- conditionMessage(error)
   keys <- c(Sys.getenv("MASSIVE_API_KEY"), Sys.getenv("POLYGON_API_KEY"))
@@ -251,7 +275,27 @@ api_error_message <- function(error) {
 .api_state <- new.env(parent = emptyenv())
 .api_state$last_request <- NULL
 
-massive_get <- function(endpoint, query = list()) {
+# `$` on a list falls back to partial matching, and the provider omits `results`
+# entirely when a query matches nothing while still returning `resultsCount`. So
+# `response$results` answered with the count — the number 0 — which flowed into the
+# row parsers and failed there as "$ operator is invalid for atomic vectors" for any
+# ticker the provider does not carry, and killed every grouped-daily batch that
+# spanned a market holiday or the unsettled current day. Read response bodies only
+# through this, which matches names exactly and returns NULL when the key is absent.
+json_field <- function(body, name) {
+  if (!is.list(body) || is.null(names(body)) || !(name %in% names(body))) return(NULL)
+  body[[name]]
+}
+
+# `results` is a JSON array, so a well-formed empty response is an empty list.
+# Anything else (a scalar from a missing key, a lone object) is not a list of rows.
+json_results <- function(body) {
+  results <- json_field(body, "results")
+  if (is.null(results) || !is.list(results)) return(list())
+  results
+}
+
+massive_get <- function(endpoint, query = list(), timeout = 30) {
   delay <- as.numeric(read_settings()$settings$api_delay_seconds %||% 13)
   if (!is.null(.api_state$last_request)) {
     elapsed <- as.numeric(difftime(Sys.time(), .api_state$last_request, units = "secs"))
@@ -263,7 +307,7 @@ massive_get <- function(endpoint, query = list()) {
   request <- do.call(httr2::req_url_query, c(list(request), query, list(apiKey = load_api_key())))
   request |>
     httr2::req_user_agent("healthcare-weekly-report/1.0") |>
-    httr2::req_timeout(30) |>
+    httr2::req_timeout(timeout) |>
     httr2::req_perform() |>
     httr2::resp_body_json(simplifyVector = FALSE)
 }
@@ -272,8 +316,8 @@ massive_pages <- function(endpoint, query = list()) {
   output <- list()
   repeat {
     response <- massive_get(endpoint, query)
-    output <- c(output, response$results %||% list())
-    endpoint <- response$next_url %||% ""
+    output <- c(output, json_results(response))
+    endpoint <- json_field(response, "next_url") %||% ""
     if (!nzchar(endpoint)) break
     query <- list()
   }
@@ -294,15 +338,28 @@ update_company <- function(ticker, as_of = Sys.Date(), force = FALSE) {
       existing$market_cap_date >= as.Date(as_of) - refresh_days
   )
   if (!force && fresh) return(existing)
-  result <- massive_get(paste0("/v3/reference/tickers/", ticker))$results
+  response <- tryCatch(
+    massive_get(paste0("/v3/reference/tickers/", ticker)),
+    httr2_http_404 = function(condition) NULL
+  )
+  result <- json_field(response, "results")
+  # A 404 here is a watchlist problem, not a transient outage: the provider has no
+  # such symbol, usually because it was delisted or renamed. Say so, and let callers
+  # recognise it by class rather than by matching on "HTTP 404".
+  if (!is.list(result) || !length(result)) stop(provider_ticker_not_found(ticker))
   row <- tibble::tibble(
-    ticker = ticker, provider_name = result$name %||% ticker,
-    market_cap = as.numeric(result$market_cap %||% NA_real_), market_cap_date = Sys.Date(),
-    sic_code = as.character(result$sic_code %||% NA_character_),
-    sic_description = result$sic_description %||% NA_character_,
-    exchange = as.character(result$primary_exchange %||% NA_character_),
-    website = result$homepage_url %||% NA_character_,
-    provider_description = result$description %||% NA_character_, updated_at = utc_now()
+    ticker = ticker, provider_name = json_field(result, "name") %||% ticker,
+    market_cap = as.numeric(json_field(result, "market_cap") %||% NA_real_), market_cap_date = Sys.Date(),
+    sic_code = as.character(json_field(result, "sic_code") %||% NA_character_),
+    sic_description = json_field(result, "sic_description") %||% NA_character_,
+    exchange = as.character(json_field(result, "primary_exchange") %||% NA_character_),
+    website = json_field(result, "homepage_url") %||% NA_character_,
+    provider_description = json_field(result, "description") %||% NA_character_,
+    # When a company listed matters: a stock that IPO'd fourteen months ago cannot
+    # have a 24-month return, and that is a fact about the company rather than a gap
+    # in the download worth reporting as a problem.
+    list_date = suppressWarnings(as.Date(json_field(result, "list_date") %||% NA_character_)),
+    updated_at = utc_now()
   )
   write_company_data(dplyr::bind_rows(dplyr::filter(saved, .data$ticker != .env$ticker), row) |> dplyr::arrange(ticker))
   row
@@ -315,7 +372,12 @@ update_company <- function(ticker, as_of = Sys.Date(), force = FALSE) {
 # report a spurious gap when the window edge lands on a weekend/holiday.
 price_retention_months <- function() {
   years <- as.integer(read_settings()$settings$price_history_years %||% 2)
-  max(12L * years, max(return_horizons()))
+  # Never retain exactly the longest horizon. The base bar for that horizon sits on
+  # the window edge, so trimming to the same length leaves nothing behind it and any
+  # weekend, holiday or provider boundary at the edge blanks the return. Keeping a
+  # month more lets the cache build a real margin as it ages instead of staying
+  # permanently pinned to the edge.
+  max(12L * years, max(return_horizons()) + 1L)
 }
 
 price_retention_from <- function(as_of) {
@@ -355,12 +417,15 @@ weekday_dates <- function(from, to) {
 }
 
 # One call returns every US stock's OHLC for a single day. For a small gap across
-# many tickers this beats one range call per ticker.
+# many tickers this beats one range call per ticker. The payload carries every US
+# symbol, so it needs a longer timeout than a single-ticker range call. A market
+# holiday, or the current day before it settles, legitimately returns no rows.
 fetch_grouped_daily <- function(date) {
-  massive_get(
+  json_results(massive_get(
     paste0("/v2/aggs/grouped/locale/us/market/stocks/", as.Date(date)),
-    list(adjusted = "true")
-  )$results %||% list()
+    list(adjusted = "true"),
+    timeout = 120
+  ))
 }
 
 grouped_price_rows <- function(results, tickers, date, retrieved_at) {
@@ -369,6 +434,7 @@ grouped_price_rows <- function(results, tickers, date, retrieved_at) {
   # (already validated) are kept, so the stored value still matches the cache.
   keep <- toupper(trimws(tickers))
   purrr::map_dfr(results, function(item) {
+    if (!is.list(item)) return(tibble::tibble())
     symbol <- toupper(trimws(as.character(item$T %||% "")))
     if (!nzchar(symbol) || !(symbol %in% keep)) return(tibble::tibble())
     tibble::tibble(
@@ -393,7 +459,7 @@ update_prices <- function(ticker, as_of = Sys.Date(), force = FALSE) {
     list(adjusted = "true", sort = "asc", limit = 50000)
   )
   retrieved_at <- utc_now()
-  downloaded <- purrr::map_dfr(results, function(item) tibble::tibble(
+  downloaded <- purrr::map_dfr(results, function(item) if (!is.list(item)) tibble::tibble() else tibble::tibble(
     ticker = ticker, date = as.Date(as.POSIXct(as.numeric(item$t) / 1000, origin = "1970-01-01", tz = "UTC")),
     open = as.numeric(item$o), high = as.numeric(item$h), low = as.numeric(item$l), close = as.numeric(item$c),
     volume = as.numeric(item$v), vwap = as.numeric(item$vw %||% NA_real_),
@@ -426,10 +492,15 @@ refresh_market_data <- function(tickers = report_tickers(), as_of = read_report(
   incremental <- tickers[!is.na(max_date) & max_date < as_of]
   current <- tickers[!is.na(max_date) & max_date >= as_of]
 
-  # One range call per ticker, with progress since each call is rate-limited.
+  # One range call per ticker, with progress since each call is rate-limited. A
+  # download that returns no bars at all is not a success: the symbol is stale or
+  # the provider does not carry it, and reporting "ok" hid that behind NA returns.
   update_one <- function(these) for (ticker in these) {
     cli::cli_inform("Fetching prices for {ticker}")
-    price_status[[ticker]] <<- tryCatch({ update_prices(ticker, as_of); "ok" }, error = api_error_message)
+    price_status[[ticker]] <<- tryCatch(
+      if (nrow(update_prices(ticker, as_of))) "ok" else "no price history was returned",
+      error = api_error_message
+    )
   }
 
   # No cache yet: pull the full window per ticker (grouped would need hundreds of calls).
@@ -442,19 +513,41 @@ refresh_market_data <- function(tickers = report_tickers(), as_of = read_report(
     if (length(dates) > 0 && length(dates) < length(incremental)) {
       cli::cli_inform("Grouped daily fetch: {length(incremental)} tickers over {length(dates)} day{?s}.")
       retrieved_at <- utc_now()
-      downloaded <- tryCatch(
-        purrr::map_dfr(dates, function(d) grouped_price_rows(fetch_grouped_daily(d), incremental, d, retrieved_at)),
-        error = function(error) structure(api_error_message(error), class = "grouped_error")
-      )
-      grouped_ok <- !inherits(downloaded, "grouped_error") && nrow(downloaded) > 0
-      if (grouped_ok) {
+      # One bad day must not discard the whole batch: holidays return no rows, and a
+      # single timeout on a multi-megabyte payload used to send every ticker back to
+      # per-ticker calls with the reason thrown away.
+      failed_days <- character()
+      downloaded <- purrr::map_dfr(dates, function(day) tryCatch(
+        grouped_price_rows(fetch_grouped_daily(day), incremental, day, retrieved_at),
+        error = function(error) {
+          failed_days <<- c(failed_days, paste0(format(day), " (", api_error_message(error), ")"))
+          tibble::tibble()
+        }
+      ))
+      if (length(failed_days)) {
+        cli::cli_warn(c(
+          "Grouped daily fetch failed for {length(failed_days)} of {length(dates)} day{?s}.",
+          "*" = paste(failed_days, collapse = "; ")
+        ))
+      }
+      if (nrow(downloaded)) {
         for (ticker in incremental) {
           rows <- dplyr::filter(downloaded, .data$ticker == .env$ticker)
-          price_status[[ticker]] <- tryCatch({ save_prices(ticker, saved[[ticker]], rows, as_of); "ok" }, error = api_error_message)
+          price_status[[ticker]] <- tryCatch(
+            { save_prices(ticker, saved[[ticker]], rows, as_of); if (nrow(rows)) "ok" else NA_character_ },
+            error = api_error_message
+          )
+        }
+        # Grouped daily carries only symbols that traded, so a ticker absent from every
+        # day needs its own range call rather than being marked up to date.
+        missed <- incremental[is.na(price_status[incremental])]
+        if (length(missed)) {
+          cli::cli_inform("No grouped rows for {length(missed)} ticker{?s}; retrying individually.")
+          update_one(missed)
         }
       } else {
-        # Grouped failed or returned nothing; fall back to reliable per-ticker range calls.
-        cli::cli_inform("Grouped daily fetch unavailable; falling back to per-ticker range calls.")
+        # Grouped returned nothing usable; fall back to reliable per-ticker range calls.
+        cli::cli_inform("Grouped daily fetch returned no rows; falling back to per-ticker range calls.")
         update_one(incremental)
       }
     } else {

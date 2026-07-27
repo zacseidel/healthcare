@@ -47,7 +47,17 @@ source(file.path(.healthcare_project_root, "tools", "earnings.R"))
 source(file.path(.healthcare_project_root, "tools", "discovery.R"))
 source(file.path(.healthcare_project_root, "tools", "news.R"))
 
-rm(list = ls(pattern = "^\\.healthcare_", all.names = TRUE))
+# Remove only the names this file created. A pattern sweep also deleted the
+# caller's own bookkeeping variables — refresh.R's `.healthcare_refresh_root`
+# vanished mid-script, so its `rm()` warned about a missing object every run.
+rm(list = intersect(
+  c(
+    ".healthcare_project_root", ".healthcare_source_files", ".healthcare_starts",
+    ".healthcare_start", ".healthcare_current", ".healthcare_parent",
+    ".healthcare_project_files"
+  ),
+  ls(all.names = TRUE)
+))
 
 weekly_refresh <- function(report_path = "inputs/current_report.md") {
   report <- read_report(report_path)
@@ -61,9 +71,16 @@ weekly_refresh <- function(report_path = "inputs/current_report.md") {
     results,
     tibble::tibble(ticker = "SPY", company = "benchmark", prices = benchmark_status)
   )
+  # `!=` yields NA for a status that was never recorded, and dplyr::filter() drops
+  # NA rows — so a ticker that fell through every branch was silently reported clean.
+  failed <- function(status) is.na(status) | status != "ok"
+  results <- dplyr::mutate(
+    results,
+    prices = dplyr::coalesce(prices, "no price refresh was attempted")
+  )
   failures <- dplyr::filter(
     results,
-    prices != "ok" | (ticker != "SPY" & company != "ok")
+    failed(prices) | (ticker != "SPY" & failed(company))
   )
   if (nrow(failures)) {
     details <- purrr::pmap_chr(failures, function(ticker, company, prices) {
@@ -81,13 +98,20 @@ weekly_refresh <- function(report_path = "inputs/current_report.md") {
   }
   validate_snapshot(build_snapshot(report), report$report_date)
   coverage <- price_coverage(c(report_tickers(report), "SPY"), report$report_date)
-  short <- dplyr::filter(coverage, !covers)
+  short <- dplyr::filter(coverage, ticker %in% unexplained_short_history(coverage))
   if (nrow(short)) {
     cli::cli_warn(c(
-      "Saved price history does not reach back {max(return_horizons())} months for {nrow(short)} ticker{?s}.",
-      "i" = "Longest-horizon returns are NA and charts start later than the full window.",
+      "Saved price history cannot support a {max(return_horizons())}-month return for {nrow(short)} ticker{?s}.",
+      "i" = "That horizon is blank for them; every other horizon is unaffected.",
       "*" = paste0(short$ticker, " starts ", format(short$first_date), collapse = "; ")
     ))
+  }
+  recent <- dplyr::filter(coverage, expected_short)
+  if (nrow(recent)) {
+    cli::cli_inform(c("i" = paste0(
+      "Listed less than ", max(return_horizons()), " months ago, so that horizon is blank by nature: ",
+      paste(recent$ticker, collapse = ", "), "."
+    )))
   }
   invisible(results)
 }
@@ -299,17 +323,29 @@ report_status <- function(report_path = "inputs/current_report.md") {
   add <- function(label, values) {
     if (length(values)) problems <<- c(problems, paste0(label, ": ", paste(unique(values), collapse = ", ")))
   }
-  add("stale prices", overview$ticker[
-    is.na(overview$price_age) | overview$price_age > as.integer(settings$maximum_price_age_days %||% 7)
+  # A ticker with neither a price nor a market cap is one the provider does not carry;
+  # listing it under "stale" alongside genuinely stale companies obscured the fix,
+  # which is to correct inputs/companies.md.
+  unknown <- overview$ticker[is.na(overview$last_price) & is.na(overview$cap_age)]
+  known <- dplyr::filter(overview, !ticker %in% unknown)
+  add("not found at the provider — fix inputs/companies.md", unknown)
+  add("stale prices", known$ticker[
+    is.na(known$price_age) | known$price_age > as.integer(settings$maximum_price_age_days %||% 7)
   ])
-  add("stale market caps", overview$ticker[
-    is.na(overview$cap_age) | overview$cap_age > as.integer(settings$maximum_market_cap_age_days %||% 35)
+  add("stale market caps", known$ticker[
+    is.na(known$cap_age) | known$cap_age > as.integer(settings$maximum_market_cap_age_days %||% 35)
   ])
-  add("no cached exchange", overview$ticker[is.na(overview$exchange)])
-  add("no earnings record", setdiff(tickers, calendar$ticker))
-  add("history shorter than 24 months", coverage$ticker[!coverage$covers])
+  add("no cached exchange", setdiff(known$ticker[is.na(known$exchange)], unknown))
+  add("no earnings record", setdiff(setdiff(tickers, calendar$ticker), unknown))
+  add(
+    paste0("history cannot support a ", max(return_horizons()), "-month return"),
+    setdiff(unexplained_short_history(coverage), unknown)
+  )
   if (!file.exists(price_path("SPY"))) add("missing benchmark", "SPY")
-  if (nrow(status)) add("failed scrapes", status$ticker[status$status != "ok"])
+  if (nrow(status)) add("failed scrapes", status$ticker[status$status == "failed"])
+  # A working fallback needs no action, so it is reported but does not count as a
+  # problem that turns the refresh stage yellow.
+  fell_back <- if (nrow(status)) unique(status$ticker[status$status == "fallback"]) else character()
   selected_without_news <- intersect(report$news, overview$ticker[overview$saved_news == 0])
   add("selected for news but none saved", selected_without_news)
 
@@ -322,13 +358,19 @@ report_status <- function(report_path = "inputs/current_report.md") {
           else "Baseline: {basename(previous)}"
   ))
   print(overview, n = Inf)
+  if (length(fell_back)) {
+    cli::cli_inform(c("i" = "News came from the Massive fallback for: {paste(fell_back, collapse = ', ')}."))
+  }
   if (length(problems)) {
     cli::cli_alert_warning("Issues to review before drafting:")
     for (problem in problems) cli::cli_bullets(c(" " = problem))
   } else {
     cli::cli_alert_success("No issues found; ready to draft.")
   }
-  invisible(list(overview = overview, coverage = coverage, problems = problems))
+  invisible(list(
+    overview = overview, coverage = coverage, problems = problems,
+    provider_missing = unknown, news_fallback = fell_back
+  ))
 }
 
 refresh_diagnostics <- function(report_path = "inputs/current_report.md") {
@@ -348,14 +390,14 @@ refresh_diagnostics <- function(report_path = "inputs/current_report.md") {
   })
   scraper_failures <- read_scraper_status() |>
     dplyr::filter(status != "ok") |>
-    dplyr::select(ticker, source, detail, checked_at)
+    dplyr::select(ticker, source, status, detail, checked_at)
   last_run <- get0("refresh_results", envir = .GlobalEnv, inherits = FALSE)
 
   cli::cli_h1("Refresh diagnostics")
   cli::cli_inform("Configured report date: {format(report$report_date)}")
   print(prices, n = Inf)
   if (nrow(scraper_failures)) {
-    cli::cli_inform("Recorded scraper failures:")
+    cli::cli_inform("Scrapes that did not come from the primary source ('fallback' still produced articles):")
     print(scraper_failures, n = Inf)
   } else {
     cli::cli_inform("No scraper failures are currently recorded.")
@@ -490,9 +532,31 @@ skipped_refresh_stage <- function(detail) {
   list(status = "skipped", value = NULL, detail = detail)
 }
 
+# Every package the workflow needs at runtime. A partially restored library used to
+# show up only as a per-ticker scrape failure ("there is no package called
+# 'chromote'") repeated for every company, which reads like a scraper bug.
+REQUIRED_PACKAGES <- c(
+  "chromote", "cli", "dplyr", "httr2", "jsonlite", "lubridate", "purrr",
+  "readr", "rvest", "stringr", "tibble", "tidyr", "yaml"
+)
+
+check_dependencies <- function(packages = REQUIRED_PACKAGES) {
+  missing <- packages[!vapply(packages, requireNamespace, logical(1), quietly = TRUE)]
+  if (length(missing)) {
+    stop(
+      "Missing R package", if (length(missing) == 1L) "" else "s", ": ",
+      paste(missing, collapse = ", "),
+      ". Run setup.R (renv::restore()) before refreshing.",
+      call. = FALSE
+    )
+  }
+  invisible(packages)
+}
+
 refresh_report <- function(report_path = "inputs/current_report.md",
                            confirm_browser = interactive(),
                            create_draft = TRUE) {
+  check_dependencies()
   stages <- list()
   stages$browser <- run_refresh_stage(
     "Browser check",
@@ -516,7 +580,12 @@ refresh_report <- function(report_path = "inputs/current_report.md",
     function() weekly_refresh(report_path)
   )
 
-  if (identical(stages$browser$status, "ok")) {
+  # A warning here means the browser is usable but something was off — most often
+  # that the sign-in check could not confirm the session. Requiring exactly "ok"
+  # skipped both scraping stages outright for what is a degraded, not broken, state.
+  browser_usable <- stages$browser$status %in% c("ok", "warning")
+
+  if (browser_usable) {
     stages$earnings <- run_refresh_stage("Earnings", function() {
       report <- read_report(report_path)
       refresh_earnings(
@@ -534,7 +603,7 @@ refresh_report <- function(report_path = "inputs/current_report.md",
     function() populate_current_report(report_path)
   )
 
-  if (identical(stages$browser$status, "ok")) {
+  if (browser_usable) {
     stages$news <- run_refresh_stage("News", function() {
       report <- read_report(report_path)
       refresh_news(report$news, report$report_date)
@@ -542,6 +611,10 @@ refresh_report <- function(report_path = "inputs/current_report.md",
   } else {
     stages$news <- skipped_refresh_stage("Browser was not ready.")
   }
+
+  # Release the scraping tab before rendering: a live session left open across the
+  # Quarto render is what surfaced stray promise rejections inside the draft output.
+  if (browser_usable) try(close_google_session(), silent = TRUE)
 
   stages$status <- run_refresh_stage(
     "Pre-flight report status",

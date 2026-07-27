@@ -70,11 +70,15 @@ google_exchange <- function(ticker) {
   unname(google_exchange_names[[code]])
 }
 
-google_finance_url <- function(ticker) {
+# `tab` selects a sub-page of the quote. News lives on the main quote page, so
+# scraping it from the earnings tab — which is what a single hardcoded URL forced —
+# found no article cards for any company.
+google_finance_url <- function(ticker, tab = "earnings") {
   ticker <- normalize_ticker(ticker)
+  query <- if (is.null(tab)) "?hl=en" else paste0("?tab=", tab, "&hl=en")
   paste0(
     "https://www.google.com/finance/beta/quote/", ticker, ":", google_exchange(ticker),
-    "?tab=earnings&hl=en"
+    query
   )
 }
 
@@ -111,6 +115,78 @@ google_browser_ready <- function(timeout_seconds = 2) {
   }, error = function(error) FALSE)
 }
 
+# One Chrome connection and one tab for the whole session. Building a fresh
+# Chromote per page left each connection unreferenced but open; when R later
+# garbage-collected them their pending promises rejected, printing "session and
+# underlying target have been closed" several scrapes later — typically in the
+# middle of the draft render, far from the code that caused it.
+.google_browser <- new.env(parent = emptyenv())
+.google_browser$connection <- NULL
+.google_browser$session <- NULL
+
+google_session_alive <- function(session) {
+  if (is.null(session)) return(FALSE)
+  tryCatch(
+    isTRUE(session$Runtime$evaluate("1+1", returnByValue = TRUE)$result$value == 2),
+    error = function(error) FALSE
+  )
+}
+
+google_session <- function() {
+  if (google_session_alive(.google_browser$session)) return(.google_browser$session)
+  if (!requireNamespace("chromote", quietly = TRUE)) {
+    stop("The chromote package is required to read Google Finance. Run setup.R.", call. = FALSE)
+  }
+  # The connection is cached deliberately and not closed between pages: holding the
+  # reference is what keeps its promises from being orphaned.
+  if (is.null(.google_browser$connection)) {
+    remote <- chromote::ChromeRemote$new(host = "127.0.0.1", port = 9222L)
+    .google_browser$connection <- chromote::Chromote$new(browser = remote)
+  }
+  .google_browser$session <- tryCatch(
+    .google_browser$connection$new_session(),
+    error = function(error) {
+      .google_browser$connection <- NULL
+      stop("Could not open a tab in the Google Finance browser: ", conditionMessage(error), call. = FALSE)
+    }
+  )
+  .google_browser$session
+}
+
+close_google_session <- function() {
+  session <- .google_browser$session
+  .google_browser$session <- NULL
+  if (!is.null(session)) try(session$close(), silent = TRUE)
+  invisible(TRUE)
+}
+
+# Whether the dedicated profile is actually signed into Google. Port 9222 answering
+# only proves Chrome is running with debugging enabled; it says nothing about the
+# session, which is what the scrapes actually depend on.
+google_signed_in <- function(wait_seconds = 15) {
+  session <- google_session()
+  session$go_to("https://www.google.com/finance/?hl=en")
+  deadline <- Sys.time() + wait_seconds
+  repeat {
+    state <- tryCatch(
+      session$Runtime$evaluate(
+        paste0(
+          "(function(){",
+          "if (!document.body || document.readyState !== 'complete') return 'loading';",
+          "if (document.querySelector('a[href*=\"SignOutOptions\"], a[aria-label*=\"Google Account\"]')) return 'signed_in';",
+          "if (document.querySelector('a[href*=\"accounts.google.com/ServiceLogin\"], a[href*=\"accounts.google.com/signin\"]')) return 'signed_out';",
+          "return 'unknown';})()"
+        ),
+        returnByValue = TRUE
+      )$result$value,
+      error = function(error) "unknown"
+    )
+    if (!identical(state, "loading") || Sys.time() >= deadline) break
+    Sys.sleep(0.5)
+  }
+  if (identical(state, "loading")) "unknown" else state
+}
+
 ensure_google_browser <- function(confirm = interactive(), wait_seconds = 30) {
   if (!google_browser_ready()) {
     cli::cli_inform("Opening the dedicated Google Finance browser.")
@@ -120,42 +196,62 @@ ensure_google_browser <- function(confirm = interactive(), wait_seconds = 30) {
   }
   if (!google_browser_ready()) {
     stop(
-      "The Google Finance browser did not become ready on debugging port 9222.",
+      "The Google Finance browser did not become ready on debugging port 9222. ",
+      "If this machine's Chrome is managed, remote debugging may be blocked by policy.",
       call. = FALSE
     )
   }
+  state <- tryCatch(google_signed_in(), error = function(error) {
+    cli::cli_warn("Could not check the Google sign-in state: {conditionMessage(error)}")
+    "unknown"
+  })
+  if (identical(state, "signed_in")) {
+    cli::cli_alert_success("Google Finance browser is ready and signed in.")
+    return(invisible(list(ready = TRUE, signed_in = TRUE)))
+  }
+  cli::cli_warn(c(
+    if (identical(state, "signed_out")) {
+      "The dedicated Chrome window is not signed into Google."
+    } else {
+      "Could not confirm whether the dedicated Chrome window is signed into Google."
+    },
+    "i" = "Sign in in that window; earnings and news scrapes are degraded without it.",
+    "i" = "The saved browser profile normally keeps you signed in between runs."
+  ))
   if (isTRUE(confirm)) {
-    cli::cli_inform(c(
-      "i" = "Confirm that Google Finance is open and signed in in the dedicated Chrome window.",
-      "i" = "The saved browser profile normally keeps you signed in between runs."
-    ))
-    answer <- readline("Press Enter to continue, or type q to stop: ")
+    answer <- readline("Sign in, then press Enter to re-check, or type q to stop: ")
     if (tolower(trimws(answer)) %in% c("q", "quit")) {
       stop("Refresh cancelled before browser-dependent steps.", call. = FALSE)
     }
+    state <- tryCatch(google_signed_in(), error = function(error) "unknown")
+    if (identical(state, "signed_in")) {
+      cli::cli_alert_success("Google Finance browser is ready and signed in.")
+      return(invisible(list(ready = TRUE, signed_in = TRUE)))
+    }
+    cli::cli_warn("Still not signed in; continuing with degraded scrapes.")
   }
-  cli::cli_alert_success("Google Finance browser is ready.")
-  invisible(TRUE)
+  invisible(list(ready = TRUE, signed_in = FALSE))
 }
 
-fetch_google_finance_page <- function(ticker, wait_for, wait_seconds = 20) {
-  remote <- chromote::ChromeRemote$new(host = "127.0.0.1", port = 9222L)
-  browser <- chromote::Chromote$new(browser = remote)
-  session <- browser$new_session()
-  on.exit(session$close(), add = TRUE)
-  session$go_to(google_finance_url(ticker))
+fetch_google_finance_page <- function(ticker, wait_for, wait_seconds = 20, tab = "earnings") {
+  session <- google_session()
+  session$go_to(google_finance_url(ticker, tab))
   wait_for <- as.character(wait_for)
   wait_markers <- jsonlite::toJSON(wait_for, auto_unbox = FALSE)
   deadline <- Sys.time() + wait_seconds
+  ready <- FALSE
   repeat {
-    ready <- session$Runtime$evaluate(
-      paste0(
-        "document.readyState === 'complete' && document.body && ",
-        wait_markers,
-        ".some(marker => document.body.innerText.includes(marker))"
-      ),
-      returnByValue = TRUE
-    )$result$value
+    ready <- tryCatch(
+      session$Runtime$evaluate(
+        paste0(
+          "document.readyState === 'complete' && document.body && ",
+          wait_markers,
+          ".some(marker => document.body.innerText.includes(marker))"
+        ),
+        returnByValue = TRUE
+      )$result$value,
+      error = function(error) FALSE
+    )
     if (isTRUE(ready) || Sys.time() >= deadline) break
     Sys.sleep(0.5)
   }
@@ -336,10 +432,30 @@ read_earnings_summary <- function(ticker, as_of = Sys.Date(), report_date = NULL
   )
 }
 
-refresh_company_earnings <- function(ticker, as_of = read_report()$report_date) {
+# A known future earnings date is the one thing on that page that cannot have changed
+# meaningfully: the call has not happened yet, so re-scraping before it does costs a
+# page load and a rate-limited round trip to learn nothing. Wait for the date to pass.
+# The exception is a call whose content we never managed to capture — that is worth
+# another attempt, because the page may have filled in since.
+earnings_refresh_needed <- function(old, as_of) {
+  if (!nrow(old)) return(TRUE)
+  next_date <- old$next_earnings_date[[1]]
+  if (is.na(next_date)) return(TRUE)
+  if (next_date <= as.Date(as_of)) return(TRUE)
+  status <- old$summary_status[[1]]
+  is.na(status) || identical(status, "page_unavailable")
+}
+
+refresh_company_earnings <- function(ticker, as_of = read_report()$report_date, force = FALSE) {
   ticker <- normalize_ticker(ticker)
   saved <- read_earnings()
   old <- dplyr::filter(saved, .data$ticker == .env$ticker)
+  if (!isTRUE(force) && !earnings_refresh_needed(old, as_of)) {
+    cli::cli_inform(
+      "Next earnings for {ticker} is {format(old$next_earnings_date[[1]])}; not re-scraping until then."
+    )
+    return(old)
+  }
   google_error <- NULL
   google_html <- NULL
   google <- tryCatch(
@@ -390,14 +506,28 @@ refresh_company_earnings <- function(ticker, as_of = read_report()$report_date) 
 }
 
 refresh_earnings <- function(tickers = report_tickers(), as_of = read_report()$report_date,
-                             populate_report = TRUE) {
+                             populate_report = TRUE, force = FALSE) {
+  calendar <- read_earnings()
+  scraped <- vapply(tickers, function(ticker) {
+    isTRUE(force) ||
+      earnings_refresh_needed(dplyr::filter(calendar, .data$ticker == .env$ticker), as_of)
+  }, logical(1))
+  if (any(!scraped)) {
+    cli::cli_inform(
+      "Skipping {sum(!scraped)} compan{?y/ies} whose next earnings date has not arrived yet."
+    )
+  }
   results <- purrr::map_dfr(seq_along(tickers), function(index) {
-    cli::cli_inform("Refreshing earnings for {tickers[[index]]} ({index}/{length(tickers)})")
-    refresh_company_earnings(tickers[[index]], as_of)
+    if (scraped[[index]]) {
+      cli::cli_inform("Refreshing earnings for {tickers[[index]]} ({index}/{length(tickers)})")
+    }
+    refresh_company_earnings(tickers[[index]], as_of, force = force)
   })
+  # Only companies this run actually visited can have produced a fresh failure;
+  # otherwise a skipped company's stale status row would be re-reported every week.
   failures <- read_scraper_status() |>
     dplyr::filter(
-      ticker %in% tickers,
+      ticker %in% tickers[scraped],
       source == "google_earnings",
       status != "ok"
     ) |>
@@ -409,8 +539,8 @@ refresh_earnings <- function(tickers = report_tickers(), as_of = read_report()$r
       "Google Finance earnings scraping failed for ",
       nrow(failures),
       " of ",
-      length(tickers),
-      " companies. Yahoo or cached dates were retained when available.",
+      sum(scraped),
+      " companies checked. Yahoo or cached dates were retained when available.",
       call. = FALSE
     )
   }

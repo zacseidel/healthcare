@@ -209,6 +209,40 @@ for (item in result$news) {
 ```
 
 ```{r, results='asis'}
+coverage <- result$coverage
+issues <- result$data_issues
+recent_listings <- if (is.null(coverage)) NULL else dplyr::filter(coverage, expected_short)
+short_history <- if (is.null(coverage)) character() else unexplained_short_history(coverage)
+shifted_base <- if (is.null(coverage)) NULL else dplyr::filter(coverage, covers, days_late > 0)
+lines <- character()
+
+if (!is.null(issues) && nrow(issues)) {
+  lines <- c(lines, paste0("- **", issues$issue, "** — ", issues$subject, ". ", issues$detail))
+}
+if (length(short_history)) {
+  lines <- c(lines, paste0(
+    "- Saved history cannot support a ", max(coverage$horizon_months), "-month return for ",
+    paste(short_history, collapse = ", "), ". That horizon is blank for them; shorter horizons are unaffected."
+  ))
+}
+if (!is.null(recent_listings) && nrow(recent_listings)) {
+  lines <- c(lines, paste0(
+    "- Listed less than ", max(coverage$horizon_months), " months ago, so that horizon is blank by nature: ",
+    paste0(recent_listings$ticker, " (listed ", format(recent_listings$listed_on), ")", collapse = ", "), "."
+  ))
+}
+if (!is.null(shifted_base) && nrow(shifted_base)) {
+  lines <- c(lines, paste0(
+    "- Measured from the earliest saved bar rather than the exact window edge, up to ",
+    max(shifted_base$days_late), " day(s) later: ", paste(shifted_base$ticker, collapse = ", "), "."
+  ))
+}
+if (length(lines)) {
+  cat("## Data coverage\n\n")
+  cat("Everything below is reported rather than blocking: the report is produced from the data that is available.\n\n")
+  cat(paste(lines, collapse = "\n"), "\n\n", sep = "")
+}
+
 warnings <- result$scraper_warnings
 if (isTRUE(result$show_scraper_warnings) && !is.null(warnings) && nrow(warnings)) {
   labels <- c(
@@ -217,11 +251,13 @@ if (isTRUE(result$show_scraper_warnings) && !is.null(warnings) && nrow(warnings)
   )
   cat("## Data collection warnings\n\n")
   cat("The following Google Finance scrapes did not succeed on their most recent run. ",
+      "`fallback` means the article came from the Massive news API instead. ",
       "The report used saved or fallback data where available; check the selectors if this persists.\n\n", sep = "")
   for (index in seq_len(nrow(warnings))) {
     source_label <- labels[[warnings$source[[index]]]] %||% warnings$source[[index]]
     detail <- if (is.na(warnings$detail[[index]])) "" else paste0(" — ", warnings$detail[[index]])
-    cat("- **", warnings$ticker[[index]], "** (", source_label, ", last checked ",
+    cat("- **", warnings$ticker[[index]], "** (", source_label, ", ",
+        warnings$status[[index]], ", last checked ",
         warnings$checked_at[[index]], ")", detail, "\n", sep = "")
   }
   cat("\n")
@@ -231,7 +267,7 @@ if (isTRUE(result$show_scraper_warnings) && !is.null(warnings) && nrow(warnings)
 ## Methodology
 
 - Returns are split-adjusted price returns for the 3-, 12-, and 24-month periods ending on the report date.
-- A return is blank when saved price history does not reach back through its horizon; `weekly_refresh()` warns when that happens.
+- A return is blank when saved price history does not reach back through its horizon; `weekly_refresh()` warns when that happens. The provider holds about two years of history from the current date, so on a new cache the 24-month base bar can fall a few days inside the window; a base bar up to `price_base_tolerance_days` late is used and reported above rather than blanking the return.
 - Chart series are indexed to 100 at one shared date, stated beneath each chart, so lines with different history lengths share an origin.
 - Category returns are market-cap-weighted averages of company returns; raw share prices are not averaged.
 - Rankings are calculated independently for each horizon.
