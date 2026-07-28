@@ -1,5 +1,5 @@
 ---
-report_name: Healthcare Weekly Monitor
+report_name: Healthcare Intel Digest
 report_date: '2026-07-16'
 categories:
   - Managed Care

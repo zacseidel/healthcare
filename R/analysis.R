@@ -665,9 +665,11 @@ prepare_analysis <- function(report = read_report()) {
       values_from = c(price_return, rank, overall_rank), names_glue = "{.value}_{horizon_months}m"
     ) |>
     dplyr::arrange(category, rank_3m, name)
-  top_n <- as.integer(settings$settings$notable_changes$top_stocks %||% 5)
+  # How many to show is a presentation choice, separate from notable_changes$top_stocks,
+  # which decides which companies are worth pulling news for.
+  top_n <- as.integer(settings$settings$top_stocks_shown %||% 5)
   top_stocks <- dplyr::filter(snapshot, type == "stock", overall_rank <= top_n) |>
-    dplyr::distinct(ticker, name, horizon_months, price_return, overall_rank) |>
+    dplyr::distinct(ticker, name, horizon_months, price_return, overall_rank, market_cap) |>
     dplyr::arrange(horizon_months, overall_rank)
   previous_date <- if (is.null(previous) || !nrow(previous)) {
     NULL
@@ -687,6 +689,19 @@ prepare_analysis <- function(report = read_report()) {
     weekly_moves = period_price_moves(snapshot, previous_date, report$report_date),
     movers_shown = as.integer(settings$settings$notable_changes$movers_shown %||% 3),
     categories = category_table, stocks = stock_table, top_stocks = top_stocks,
+    # One row per company regardless of how many categories it belongs to: the
+    # sections that annotate a company with its size, returns and category all need
+    # a single lookup, and stock_table repeats a company once per membership.
+    company_facts = stock_table |>
+      dplyr::group_by(ticker) |>
+      dplyr::summarise(
+        name = dplyr::first(name), market_cap = dplyr::first(market_cap),
+        category = paste(unique(category), collapse = ", "),
+        price_return_3m = dplyr::first(price_return_3m),
+        price_return_12m = dplyr::first(price_return_12m),
+        price_return_24m = dplyr::first(price_return_24m),
+        .groups = "drop"
+      ),
     price_performance = performance_chart_data(deep_dive_tickers(report), report$report_date)
   )
 }

@@ -13,6 +13,9 @@ settings:
   news_articles_per_company: 5
   news_per_refresh: 5
   news_cache_limit: 25
+  top_stocks_shown: 5
+  strategy_narrative_url: https://chatgpt.com/share/6a68e14f-361c-83e8-8352-03c3cadc95bf
+  strategy_narrative_pattern: 'Week of\s+\w+\s+\d{1,2},\s+\d{4}'
   show_scraper_warnings: true
   notable_changes:
     category_rank_change: 2
@@ -52,6 +55,21 @@ the affected companies, and the report is produced from whatever is available.
 Category coverage below `minimum_market_cap_coverage` also produces a warning rather than
 blocking the report; available companies are still included and the coverage percentage
 is shown in the report.
+
+`top_stocks_shown` is how many companies the report's "Current top stocks" tables list for
+each horizon. It is separate from `notable_changes.top_stocks`, which decides how many top
+companies are worth pulling news for and what counts as entering or leaving the top group.
+
+`strategy_narrative_url` is the shared ChatGPT conversation the "Strategy Narrative" section
+is taken from. A share link is a snapshot: continuing the conversation does not change what
+the link serves, so the link has to be updated in ChatGPT for a new brief to appear here. The
+report states the period each brief covers and the date it was retrieved, so a narrative that
+has stopped updating is visible rather than silently reused. Leave the setting blank to drop
+the section.
+
+`strategy_narrative_pattern` is how a brief is told apart from the setup and confirmation
+replies in the same conversation — the most recent message matching it is used, not simply
+the most recent message. Change it if the brief's wording changes.
 
 Three separate limits bound news: `news_per_refresh` caps how many freshly scraped
 articles each refresh keeps per company, `news_cache_limit` caps how many articles are

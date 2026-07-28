@@ -162,8 +162,15 @@ test_that("syncing categories leaves an already-current report alone", {
   expect_equal(after$body, before$body)
 })
 
-test_that("the automated refresh does not accept a manually supplied report date", {
-  expect_false("report_date" %in% names(formals(refresh_report)))
+test_that("the refresh runs for today unless an earlier date is asked for", {
+  # Re-running a past week's report has to be possible, but the date still defaults
+  # to today so a normal run cannot silently inherit a stale one.
+  expect_true("report_date" %in% names(formals(refresh_report)))
+  expect_equal(eval(formals(refresh_report)$report_date), Sys.Date())
+  expect_error(
+    suppressMessages(refresh_report(report_date = "not-a-date")),
+    "report_date must be one valid date"
+  )
 })
 
 test_that("refresh stages turn failures into warnings and preserve status", {
@@ -1017,4 +1024,246 @@ test_that("company caches written before the list_date column still read", {
   companies <- read_company_data()
   expect_true("list_date" %in% names(companies))
   expect_true(is.na(companies$list_date))
+})
+
+test_that("return colours are calibrated within their own column", {
+  # Each column uses its full range, so a column of small moves is still readable
+  # rather than washed out by whichever column happens to be widest.
+  fills <- return_fills(c(0.20, 0.10, 0, -0.10, -0.20))
+  expect_equal(fills[[1]], RETURN_POSITIVE[[length(RETURN_POSITIVE)]])
+  expect_equal(fills[[5]], RETURN_NEGATIVE[[length(RETURN_NEGATIVE)]])
+  expect_equal(fills[[3]], RETURN_NEUTRAL)
+  # The same +0.02 is a weak step beside a large move and the strongest step when
+  # it is the largest move present.
+  expect_equal(return_fills(c(0.02, 0.50))[[1]], RETURN_POSITIVE[[1]])
+  expect_equal(return_fills(c(0.02, 0.01))[[1]], RETURN_POSITIVE[[length(RETURN_POSITIVE)]])
+
+  expect_true(is.na(return_fills(c(NA_real_, 0.1))[[1]]))
+  expect_equal(return_fills(c(0, 0)), rep(RETURN_NEUTRAL, 2))
+  expect_equal(return_fills(NA_real_), NA_character_)
+})
+
+test_that("cell ink stays legible on every step of the scale", {
+  for (fill in c(RETURN_NEUTRAL, RETURN_POSITIVE, RETURN_NEGATIVE)) {
+    ink <- contrast_ink(fill)
+    luminance <- relative_luminance(fill)
+    contrast <- if (ink == "#0b0b0b") {
+      (luminance + 0.05) / 0.05
+    } else {
+      1.05 / (luminance + 0.05)
+    }
+    expect_gt(contrast, 4.5)
+  }
+})
+
+test_that("a company keeps one colour across every chart it appears on", {
+  # Colour follows the entity, not its rank: a chart that drops a series must not
+  # repaint the ones that remain.
+  universe <- c("SPY", "UNH", "CVS", "LLY", "AGL")
+  everything <- series_colors(universe)
+  fewer <- series_colors(c("SPY", "UNH", "LLY"), universe = universe)
+  expect_equal(everything[["UNH"]], fewer[["UNH"]])
+  expect_equal(everything[["LLY"]], fewer[["LLY"]])
+  expect_equal(everything[["SPY"]], "#52514e")
+  # Subsetting hands back only the requested series, unrepainted.
+  expect_setequal(names(fewer), c("SPY", "UNH", "LLY"))
+  # Which subset is asked for does not matter; the universe decides the colour.
+  expect_equal(
+    series_colors("AGL", universe = universe)[["AGL"]],
+    series_colors(c("AGL", "CVS"), universe = universe)[["AGL"]]
+  )
+  # The leading, best-separated slots go to the companies listed first.
+  expect_equal(unname(series_colors(c("AAA", "BBB"))[c("AAA", "BBB")]), SERIES_SLOTS[1:2])
+})
+
+test_that("charts show top performers and largest companies, and name the rest", {
+  performance <- tibble::tibble(
+    ticker = rep(c("AAA", "BBB", "CCC", "DDD", "SPY"), each = 2),
+    horizon_months = 24L,
+    date = rep(as.Date(c("2024-07-16", "2026-07-16")), 5),
+    window_from = as.Date("2024-07-16"), base_date = as.Date("2024-07-16"),
+    indexed_price = c(100, 300, 100, 250, 100, 200, 100, 110, 100, 130)
+  )
+  caps <- tibble::tibble(
+    ticker = c("AAA", "BBB", "CCC", "DDD"), market_cap = c(1e8, 2e8, 3e8, 9e11)
+  )
+  selection <- chart_series(performance, 24, caps, shown = 2L)
+
+  # Top two by return (AAA, BBB) plus top two by size (DDD, CCC), and the benchmark.
+  expect_setequal(selection$selected, c("AAA", "BBB", "DDD", "CCC"))
+  expect_true("SPY" %in% selection$plotted)
+  expect_equal(nrow(selection$others), 0)
+
+  narrower <- chart_series(performance, 24, caps, shown = 1L)
+  expect_setequal(narrower$selected, c("AAA", "DDD"))
+  # Everything selected but not drawn is still named, with its window return.
+  expect_setequal(narrower$others$ticker, c("BBB", "CCC"))
+  expect_equal(narrower$others$window_return[narrower$others$ticker == "BBB"], 1.5)
+})
+
+test_that("window returns are read off the chart's own window", {
+  performance <- tibble::tibble(
+    ticker = c("AAA", "AAA", "AAA"), horizon_months = 6L,
+    date = as.Date(c("2026-01-16", "2026-04-16", "2026-07-16")),
+    window_from = as.Date("2026-01-16"), base_date = as.Date("2026-01-16"),
+    indexed_price = c(100, 120, 145)
+  )
+  returns <- window_returns(performance, 6)
+  expect_equal(returns$window_return, 0.45)
+  expect_equal(nrow(window_returns(performance, 24)), 0)
+})
+
+test_that("companies are listed largest first", {
+  facts <- tibble::tibble(
+    ticker = c("SMALL", "BIG", "MID", "UNKNOWN"),
+    market_cap = c(1e8, 9e11, 5e9, NA_real_)
+  )
+  expect_equal(
+    by_market_cap(c("MID", "UNKNOWN", "SMALL", "BIG"), facts),
+    c("BIG", "MID", "SMALL", "UNKNOWN")
+  )
+  expect_equal(by_market_cap(character(), facts), character())
+})
+
+test_that("labels are pushed apart without changing their order", {
+  spread <- spread_labels(c(10, 10.1, 10.2, 50), 1)
+  expect_equal(spread, c(10, 11, 12, 50))
+  expect_equal(order(spread), order(c(10, 10.1, 10.2, 50)))
+})
+
+test_that("market caps are formatted at a readable scale", {
+  expect_equal(format_market_cap(1.03e12), "$1.03T")
+  expect_equal(format_market_cap(1.35e11), "$135.0B")
+  expect_equal(format_market_cap(8.5e7), "$85M")
+  expect_equal(format_market_cap(NA_real_), "—")
+})
+
+test_that("sortable tables carry numeric sort keys and colour fills", {
+  table <- report_html_table(
+    tibble::tibble(Company = c("Alpha", "Beta"), Return = c("+10.0%", "-5.0%")),
+    fills = list(Return = c(0.10, -0.05)),
+    sort_values = list(Return = c(0.10, -0.05))
+  )
+  # "+10.0%" must sort as a magnitude, not as text.
+  expect_match(table, "data-sort=\"0.1\"", fixed = TRUE)
+  expect_match(table, "data-sort=\"-0.05\"", fixed = TRUE)
+  # +10% is the largest absolute move here, so it takes the strongest positive step;
+  # -5% is half of it and takes a mid step on the negative arm.
+  expect_match(table, RETURN_POSITIVE[[length(RETURN_POSITIVE)]], fixed = TRUE)
+  expect_match(table, RETURN_NEGATIVE[[3]], fixed = TRUE)
+  expect_match(table, "<th scope=\"col\">Company</th>", fixed = TRUE)
+})
+
+test_that("company anchors are stable and safe for links", {
+  expect_equal(report_anchor("UNH"), "company-unh")
+  expect_equal(report_anchor("unh"), "company-unh")
+})
+
+# Mirrors the real shared conversation: two weekly briefs followed by a setup
+# confirmation. The confirmation is what a naive "take the last message" would pick.
+strategy_fixture <- function() list(
+  list(
+    text = "Payer Health Tech Strategy Brief\nWeek of July 13, 2026\nExecutive readout\n",
+    html = "<h1>Payer Health Tech Strategy Brief</h1><p><strong>Week of July 13, 2026</strong></p>"
+  ),
+  list(
+    text = "Payer Health Tech Strategy Brief\nWeek of July 20, 2026\nExecutive readout\n",
+    html = paste0(
+      "<h1>Payer Health Tech Strategy Brief</h1>",
+      "<p><strong>Week of July 20, 2026</strong></p>",
+      "<h2>Executive readout</h2>",
+      "<h3>1. UnitedHealth&rsquo;s turnaround</h3>",
+      "<ul><li>Adjusted EPS of <strong>$6.38</strong></li></ul>"
+    )
+  ),
+  list(
+    text = "Updated. Your Monday morning health-tech briefing now covers both payer and provider trends.",
+    html = "<p>Updated. Your Monday morning health-tech briefing now covers both payer and provider trends.</p>"
+  )
+)
+
+test_that("the newest brief is used, not simply the newest message", {
+  # The conversation also carries setup and confirmation replies. Taking the last
+  # message would drop "Updated. Your briefing now covers..." into the report in
+  # place of the analysis.
+  latest <- latest_strategy_message(strategy_fixture(), strategy_narrative_pattern())
+  expect_equal(latest$index, 2L)
+  expect_equal(latest$total, 3L)
+  expect_equal(latest$period, "July 20, 2026")
+  expect_match(latest$html, "Executive readout", fixed = TRUE)
+  expect_false(grepl("Updated. Your Monday", latest$html, fixed = TRUE))
+})
+
+test_that("a conversation with no brief is an error, not a wrong narrative", {
+  confirmations <- list(list(text = "Updated. Noted.", html = "<p>Updated. Noted.</p>"))
+  expect_error(
+    latest_strategy_message(confirmations, strategy_narrative_pattern()),
+    "No message in the shared conversation matched"
+  )
+})
+
+test_that("the brief converts to Markdown with its structure intact", {
+  skip_if(!nzchar(Sys.which("quarto")), "Quarto provides the pandoc used for conversion.")
+  markdown <- html_to_markdown(strategy_fixture()[[2]]$html)
+  expect_match(markdown, "# Payer Health Tech Strategy Brief", fixed = TRUE)
+  expect_match(markdown, "**Week of July 20, 2026**", fixed = TRUE)
+  expect_match(markdown, "- Adjusted EPS of", fixed = TRUE)
+  expect_false(grepl("<h1>", markdown, fixed = TRUE))
+})
+
+test_that("the brief nests one level under its report section", {
+  # The section heading already names the brief, so its own title is dropped and what
+  # remains is lifted so the shallowest heading sits at level 3 — that is what puts
+  # the brief's structure in the table of contents without flattening it.
+  nested <- nest_narrative_headings(paste(
+    "# Payer Health Tech Strategy Brief", "", "**Week of July 20, 2026**", "",
+    "## Executive readout", "", "### 1. UnitedHealth", "", "## What to watch",
+    sep = "\n"
+  ))
+  expect_false(grepl("# Payer Health Tech Strategy Brief", nested, fixed = TRUE))
+  expect_match(nested, "**Week of July 20, 2026**", fixed = TRUE)
+  expect_match(nested, "### Executive readout", fixed = TRUE)
+  expect_match(nested, "#### 1. UnitedHealth", fixed = TRUE)
+  expect_match(nested, "### What to watch", fixed = TRUE)
+})
+
+test_that("nesting keeps a brief that has no title heading", {
+  # Several headings at the top level means they are sections, not a title.
+  nested <- nest_narrative_headings("## Readout\n\nBody.\n\n## Watch list\n\nMore.")
+  expect_match(nested, "### Readout", fixed = TRUE)
+  expect_match(nested, "### Watch list", fixed = TRUE)
+
+  # A "#" inside a fenced block is code, and text with no headings is returned as is.
+  code <- "# Title\n\n## Real\n\n```\n# not a heading\n```"
+  expect_match(nest_narrative_headings(code), "# not a heading", fixed = TRUE)
+  expect_equal(nest_narrative_headings("Just a paragraph."), "Just a paragraph.")
+})
+
+test_that("the cached narrative round-trips with the period it covers", {
+  old_root <- getOption("healthcare.project_root")
+  temporary_root <- tempfile("healthcare-")
+  dir.create(file.path(temporary_root, "data"), recursive = TRUE)
+  file.create(file.path(temporary_root, "healthcare-stock-monitor.Rproj"))
+  options(healthcare.project_root = temporary_root)
+  on.exit(options(healthcare.project_root = old_root), add = TRUE)
+
+  expect_null(read_strategy_narrative())
+
+  write_markdown_yaml(
+    strategy_narrative_path(),
+    list(
+      source_url = "https://chatgpt.com/share/example",
+      fetched_at = "2026-07-20T09:00:00Z", period = "July 20, 2026",
+      message_index = 2L, message_count = 3L
+    ),
+    "### Payer Health Tech Strategy Brief\n\nBody."
+  )
+  narrative <- read_strategy_narrative()
+  expect_equal(narrative$period, "July 20, 2026")
+  expect_match(narrative$body, "Payer Health Tech Strategy Brief")
+
+  # A share link is a snapshot, so how long ago it was retrieved is the number that
+  # says whether the brief in the report is still the current one.
+  expect_equal(strategy_narrative_age(narrative, as_of = "2026-07-27"), 7L)
+  expect_true(is.na(strategy_narrative_age(NULL)))
 })

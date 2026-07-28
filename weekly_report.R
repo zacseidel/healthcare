@@ -43,9 +43,11 @@ options(healthcare.project_root = .healthcare_project_root)
 
 source(file.path(.healthcare_project_root, "R", "data.R"))
 source(file.path(.healthcare_project_root, "R", "analysis.R"))
+source(file.path(.healthcare_project_root, "R", "format.R"))
 source(file.path(.healthcare_project_root, "tools", "earnings.R"))
 source(file.path(.healthcare_project_root, "tools", "discovery.R"))
 source(file.path(.healthcare_project_root, "tools", "news.R"))
+source(file.path(.healthcare_project_root, "tools", "narrative.R"))
 
 # Remove only the names this file created. A pattern sweep also deleted the
 # caller's own bookkeeping variables — refresh.R's `.healthcare_refresh_root`
@@ -142,12 +144,20 @@ populate_current_report <- function(report_path = "inputs/current_report.md") {
   ))
 }
 
-set_current_report_date <- function(report_date = Sys.Date(),
-                                    report_path = "inputs/current_report.md") {
-  report_date <- as.Date(report_date)
-  if (length(report_date) != 1L || is.na(report_date)) {
+# as.Date() throws on an unparseable string rather than returning NA, so a typo
+# would surface as "character string is not in a standard unambiguous format"
+# instead of naming the argument at fault.
+as_report_date <- function(value) {
+  parsed <- tryCatch(as.Date(value), error = function(error) as.Date(NA))
+  if (length(parsed) != 1L || is.na(parsed)) {
     stop("report_date must be one valid date.", call. = FALSE)
   }
+  parsed
+}
+
+set_current_report_date <- function(report_date = Sys.Date(),
+                                    report_path = "inputs/current_report.md") {
+  report_date <- as_report_date(report_date)
   document <- read_markdown_yaml(report_path)
   document$metadata$report_date <- as.character(report_date)
   write_markdown_yaml(document$path, document$metadata, document$body)
@@ -189,6 +199,14 @@ set_current_report_categories <- function(report_path = "inputs/current_report.m
   invisible(categories)
 }
 
+# Largest company first. Used wherever a section lists companies, so a reader meets
+# them in the order that matters rather than in selection order.
+by_market_cap <- function(tickers, company_facts) {
+  if (!length(tickers)) return(character())
+  caps <- company_facts$market_cap[match(tickers, company_facts$ticker)]
+  tickers[order(-dplyr::coalesce(caps, -Inf), tickers)]
+}
+
 prepare_report <- function(report_path = "inputs/current_report.md") {
   analysis <- prepare_analysis(read_report(report_path))
   report <- analysis$report
@@ -206,7 +224,8 @@ prepare_report <- function(report_path = "inputs/current_report.md") {
     calendar, !is.na(next_earnings_date),
     next_earnings_date >= report$report_date, next_earnings_date <= report$report_date + window
   )
-  analysis$earnings_summaries <- purrr::map(report$earnings_summaries, function(ticker) {
+  analysis$earnings_summaries <- purrr::map(
+    by_market_cap(report$earnings_summaries, analysis$company_facts), function(ticker) {
     calendar_row <- dplyr::filter(calendar, .data$ticker == .env$ticker) |>
       dplyr::slice_head(n = 1)
     if (!nrow(calendar_row)) {
@@ -237,22 +256,36 @@ prepare_report <- function(report_path = "inputs/current_report.md") {
     )
   })
   provider <- read_company_data()
-  analysis$overviews <- purrr::map(report$company_overviews, function(ticker) {
+  # Every company the report links to needs an overview to land on, so the section
+  # covers the explicitly selected companies and the ones named in the top-stocks
+  # tables. Largest first, matching how the rest of the report is ordered.
+  overview_tickers <- by_market_cap(
+    unique(c(report$company_overviews, analysis$top_stocks$ticker)), analysis$company_facts
+  )
+  analysis$overviews <- purrr::map(overview_tickers, function(ticker) {
     company <- dplyr::filter(companies, .data$ticker == .env$ticker)
     downloaded <- dplyr::filter(provider, .data$ticker == .env$ticker)
+    facts <- dplyr::filter(analysis$company_facts, .data$ticker == .env$ticker)
     list(
-      ticker = ticker, name = company$name[[1]], description = company$description[[1]],
+      ticker = ticker,
+      name = if (nrow(company)) company$name[[1]] else ticker,
+      description = if (nrow(company)) company$description[[1]] else NA_character_,
+      market_cap = if (nrow(facts)) facts$market_cap[[1]] else NA_real_,
+      category = if (nrow(facts)) facts$category[[1]] else NA_character_,
       provider_description = if (nrow(downloaded)) downloaded$provider_description[[1]] else NA_character_
     )
   })
   maximum_news <- as.integer(settings$news_articles_per_company %||% 5)
   news_since <- new_news_since(report$report_date)
-  analysis$news <- purrr::map(report$news, function(ticker) list(
-    ticker = ticker, name = companies$name[match(ticker, companies$ticker)],
-    articles = dplyr::slice_head(read_news(
-      ticker, report$report_date, settings$news_window_days %||% 7, new_since = news_since
-    ), n = maximum_news)
-  ))
+  analysis$news <- purrr::map(
+    by_market_cap(report$news, analysis$company_facts), function(ticker) list(
+      ticker = ticker, name = companies$name[match(ticker, companies$ticker)],
+      articles = dplyr::slice_head(read_news(
+        ticker, report$report_date, settings$news_window_days %||% 7, new_since = news_since
+      ), n = maximum_news)
+    )
+  )
+  analysis$strategy_narrative <- read_strategy_narrative()
   analysis$show_scraper_warnings <- isTRUE(settings$show_scraper_warnings %||% TRUE)
   status <- read_scraper_status()
   analysis$scraper_warnings <- if (nrow(status)) {
@@ -342,6 +375,20 @@ report_status <- function(report_path = "inputs/current_report.md") {
     setdiff(unexplained_short_history(coverage), unknown)
   )
   if (!file.exists(price_path("SPY"))) add("missing benchmark", "SPY")
+  # The narrative comes from a share link that does not update itself, so an old
+  # snapshot is a real risk rather than a theoretical one.
+  narrative <- read_strategy_narrative()
+  narrative_age <- strategy_narrative_age(narrative, as_of)
+  if (!is.na(strategy_narrative_url())) {
+    if (is.null(narrative)) {
+      add("strategy narrative", "none saved yet")
+    } else if (!is.na(narrative_age) && narrative_age > 7L) {
+      add(
+        "strategy narrative last retrieved",
+        paste0(narrative_age, " days ago — update the shared link in ChatGPT")
+      )
+    }
+  }
   if (nrow(status)) add("failed scrapes", status$ticker[status$status == "failed"])
   # A working fallback needs no action, so it is reported but does not count as a
   # problem that turns the refresh stage yellow.
@@ -421,20 +468,42 @@ next_draft_version <- function(report_date) {
   max(as.integer(sub("^.*-([0-9]+)\\.html$", "\\1", files))) + 1L
 }
 
+# Two outputs from one source: the HTML report is what gets read and circulated, and
+# the Markdown copy is the reviewable plain-text version that also carries the data
+# coverage and collection notes the HTML omits.
 render_report <- function(report_path, folder, filename) {
   quarto <- Sys.which("quarto")
   if (!nzchar(quarto)) stop("Install Quarto before rendering reports.", call. = FALSE)
   dir.create(folder, recursive = TRUE, showWarnings = FALSE)
   old <- setwd(project_root()); on.exit(setwd(old), add = TRUE)
-  temporary <- project_path("report", "weekly.html"); on.exit(unlink(temporary), add = TRUE)
-  status <- system2(quarto, c(
-    "render", "report/weekly.qmd", "--to", "html", "-P",
-    paste0("report_path:", normalizePath(report_path, winslash = "/"))
-  ))
-  if (status != 0 || !file.exists(temporary)) stop("Quarto report rendering failed.", call. = FALSE)
-  output <- file.path(folder, filename)
-  if (!file.copy(temporary, output, overwrite = TRUE)) stop("Could not archive the rendered report.", call. = FALSE)
-  normalizePath(output, winslash = "/")
+  base <- tools::file_path_sans_ext(filename)
+  produced <- character()
+  for (format in c("html", "gfm")) {
+    extension <- if (format == "html") "html" else "md"
+    temporary <- project_path("report", paste0("weekly.", extension))
+    on.exit(unlink(temporary), add = TRUE)
+    status <- system2(quarto, c(
+      "render", "report/weekly.qmd", "--to", format, "-P",
+      paste0("report_path:", normalizePath(report_path, winslash = "/"))
+    ))
+    if (status != 0 || !file.exists(temporary)) {
+      stop("Quarto report rendering failed for the ", format, " output.", call. = FALSE)
+    }
+    output <- file.path(folder, paste0(base, ".", extension))
+    if (!file.copy(temporary, output, overwrite = TRUE)) {
+      stop("Could not archive the rendered ", format, " report.", call. = FALSE)
+    }
+    produced <- c(produced, normalizePath(output, winslash = "/"))
+  }
+  # Markdown keeps its figures beside it rather than embedded, so the folder has to
+  # travel with the file for the charts to resolve.
+  figures <- project_path("report", "weekly_files")
+  if (dir.exists(figures)) {
+    on.exit(unlink(figures, recursive = TRUE), add = TRUE)
+    file.copy(figures, folder, recursive = TRUE, overwrite = TRUE)
+  }
+  # The HTML path is the report's identity for everything downstream.
+  produced[[1]]
 }
 
 # Bump when the shape of any inputs/*.md file changes. Archived copies record the
@@ -554,16 +623,25 @@ check_dependencies <- function(packages = REQUIRED_PACKAGES) {
 }
 
 refresh_report <- function(report_path = "inputs/current_report.md",
+                           report_date = Sys.Date(),
                            confirm_browser = interactive(),
                            create_draft = TRUE) {
+  # Arguments are checked before the environment is: a typo in the date should say so
+  # rather than being masked by whatever else the machine happens to be missing.
+  report_date <- as_report_date(report_date)
   check_dependencies()
+  if (report_date != Sys.Date()) {
+    cli::cli_alert_info(
+      "Running for {format(report_date)} rather than today. Prices and earnings are read as of that date."
+    )
+  }
   stages <- list()
   stages$browser <- run_refresh_stage(
     "Browser check",
     function() ensure_google_browser(confirm = confirm_browser)
   )
   cli::cli_h2("Report date")
-  report_date <- set_current_report_date(Sys.Date(), report_path)
+  report_date <- set_current_report_date(report_date, report_path)
   stages$report_date <- list(
     status = "ok",
     value = report_date,
@@ -610,6 +688,14 @@ refresh_report <- function(report_path = "inputs/current_report.md",
     })
   } else {
     stages$news <- skipped_refresh_stage("Browser was not ready.")
+  }
+
+  if (browser_usable) {
+    stages$narrative <- run_refresh_stage("Strategy narrative", function() {
+      refresh_strategy_narrative()
+    })
+  } else {
+    stages$narrative <- skipped_refresh_stage("Browser was not ready.")
   }
 
   # Release the scraping tab before rendering: a live session left open across the

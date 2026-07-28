@@ -233,6 +233,32 @@ ensure_google_browser <- function(confirm = interactive(), wait_seconds = 30) {
   invisible(list(ready = TRUE, signed_in = FALSE))
 }
 
+# Load a page in the shared browser tab and read something back out of it once the
+# page says it is ready. Pages that build their content in the browser cannot be read
+# from a plain HTTP fetch, and this keeps that capability in one place rather than
+# giving every scraper its own browser handling.
+fetch_rendered_html <- function(url, ready_expression = "document.readyState === 'complete'",
+                                extract = "document.documentElement.outerHTML",
+                                wait_seconds = 30) {
+  session <- google_session()
+  session$go_to(url)
+  deadline <- Sys.time() + wait_seconds
+  ready <- FALSE
+  repeat {
+    ready <- tryCatch(
+      session$Runtime$evaluate(ready_expression, returnByValue = TRUE)$result$value,
+      error = function(error) FALSE
+    )
+    if (isTRUE(ready) || Sys.time() >= deadline) break
+    Sys.sleep(0.5)
+  }
+  if (!isTRUE(ready)) {
+    stop("The page did not become ready within ", wait_seconds, " seconds: ", url, call. = FALSE)
+  }
+  Sys.sleep(1)
+  session$Runtime$evaluate(extract, returnByValue = TRUE)$result$value
+}
+
 fetch_google_finance_page <- function(ticker, wait_for, wait_seconds = 20, tab = "earnings") {
   session <- google_session()
   session$go_to(google_finance_url(ticker, tab))

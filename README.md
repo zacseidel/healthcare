@@ -1,4 +1,4 @@
-# Healthcare Weekly Monitor
+# Healthcare Intel Digest
 
 A small RStudio workflow for producing weekly healthcare stock reports from editable Markdown inputs and saved local data.
 
@@ -27,8 +27,20 @@ Run one command:
 source("refresh.R")
 ```
 
+To rebuild an earlier week's report, set the date first — `source()` cannot take
+arguments, so a `refresh_date` in the workspace is how the run is pointed at a past date:
+
+```r
+refresh_date <- "2026-07-27"
+source("refresh.R")
+```
+
+Anything else runs for today. `refresh_report(report_date = "2026-07-27")` does the same
+when calling the workflow directly. Remove `refresh_date` afterwards, or a later
+`source("refresh.R")` will keep using it.
+
 This opens or reconnects to the dedicated Google Finance browser and checks whether that
-window is actually signed into Google, pausing only if it is not. It then sets the report date to today, syncs the
+window is actually signed into Google, pausing only if it is not. It then sets the report date, syncs the
 report's categories to `inputs/companies.md`, refreshes market data and earnings, chooses
 the default earnings and news selections, refreshes the selected news, runs the pre-flight
 checks, and creates a draft. Recoverable stage failures become warnings and the remaining
@@ -50,8 +62,7 @@ read_scraper_status() |> dplyr::filter(status != "ok")
 For a read-only summary that does not repeat any downloads, run
 `refresh_diagnostics()`.
 
-The report date is always the date the workflow starts; you do not set it manually. To skip
-rendering while troubleshooting, load the functions and call the workflow directly:
+To skip rendering while troubleshooting, load the functions and call the workflow directly:
 
 ```r
 source("weekly_report.R")
@@ -60,8 +71,8 @@ refresh_report(create_draft = FALSE)
 
 The automatic earnings selection includes companies that reported during the configured
 seven-day window. News defaults to the largest positive and negative overall-rank movers
-since the prior final report plus the configured top stocks at each report horizon. Google
-Finance “At a glance” cards are used first, with Massive as the fallback. Saved URLs retain
+since the prior final report plus the configured top stocks at each report horizon. News cards on the
+company's Google Finance quote page are used first, with the Massive news API as the fallback. Saved URLs retain
 their first-seen dates, and reports show only articles first seen after the prior final report.
 Each refresh keeps up to `news_per_refresh` new articles per company and retains the most
 recent `news_cache_limit` per company overall (five and twenty-five by default), dropping
@@ -134,12 +145,61 @@ Each company's exchange is discovered from the market-data provider and cached i
 
 Massive API calls wait at least 13 seconds by default. Company reference data is reused for 28 days; prices are updated only through the report date. Because each call is rate-limited, a small price gap across several tickers is filled with the provider's grouped daily endpoint (one call per trading day for every ticker at once) instead of one call per ticker; first-time downloads and large gaps still use per-ticker range calls. A day that fails or returns nothing — a market holiday, or the current day before it settles — is reported and skipped rather than discarding the whole batch, and any ticker that appears on no day is retried individually. Each refresh also trims price history to the retention window (`price_history_years`, two years by default and never shorter than the longest return horizon), so caches stay bounded rather than growing forever.
 
+## Strategy narrative
+
+The report opens with a "Strategy Narrative" section taken from a shared ChatGPT
+conversation, set by `strategy_narrative_url` in `inputs/settings.md`. The refresh reads the
+page in the dedicated browser, converts the brief from HTML to Markdown with the pandoc that
+ships with Quarto, and caches it at `data/strategy-narrative.md`. Rendering reads that cache,
+so producing a report still makes no network calls.
+
+Two things about the source are worth knowing:
+
+- **A share link is a snapshot, not a live view.** Continuing the conversation does not change
+  what the link serves — the shared link has to be updated in ChatGPT for a new brief to
+  appear. The report states which week each brief covers and when it was retrieved, and
+  `report_status()` flags a narrative more than seven days old. Check whether updating the
+  share in ChatGPT keeps the same URL; if it mints a new one, paste the new link into
+  `inputs/settings.md`.
+- **The newest message is not always the newest brief.** The conversation also carries setup
+  and confirmation replies. The most recent message matching `strategy_narrative_pattern`
+  is used, so a "here's what I'll cover from now on" note never lands in the report in place
+  of the analysis. If no message matches, the stage fails loudly rather than inserting the
+  wrong text.
+
+The brief's own headings are preserved: its title is dropped (the section already names it)
+and the rest are lifted so its top level sits one below the section heading. Those headings
+are the only subsections in the table of contents — every other subsection is marked
+`.unlisted`, so the contents show the report's sections plus the brief's structure rather than
+every company and category name.
+
+Refresh it on its own with `refresh_strategy_narrative()`.
+
+## Report output
+
+Each render produces two files from one source: `NAME.html`, the report that gets read and
+circulated, and `NAME.md`, a plain-text copy for review. The Markdown copy also carries the
+"Data coverage" and "Data collection warnings" sections, which are working notes and are left
+out of the HTML. Markdown keeps its charts in a `weekly_files/` folder beside it, archived
+with the report.
+
+In HTML, every table sorts by clicking a column heading, and return columns carry a colour
+scale calibrated within each column — blue for gains, red for losses, strongest at the largest
+absolute move in that column. Blue and red rather than green and red so the scale survives
+colour-vision deficiency; every cell also shows its number, and every chart series is labelled
+at the end of its own line, so colour is never the only thing carrying meaning.
+
 ## Report contents
 
 - Market-cap-weighted category returns for 3, 12, and 24 months.
-- Indexed price-performance charts for deep-dive stocks versus SPY over 24 and 6 months.
-- Company returns and ranks within each category.
-- Current top-three companies for each horizon.
+- Indexed price-performance charts versus SPY over 24 and 6 months. Each chart draws the three
+  strongest performers over its own window and the three largest companies by market
+  capitalisation, from the deep-dive selections; every other selected stock is listed beneath
+  the chart with its change over the same period.
+- Company returns within each category, with the category's market-cap-weighted 3-month return
+  beside its name.
+- The top `top_stocks_shown` companies for each horizon, with market capitalisations. Company
+  names link to their own overview: name, ticker, market cap, price chart, and description.
 - Price change since the previous final report: market-cap-weighted per category, plus the largest company gains and declines.
 - Changes in category leaders, category ranks, company ranks, and top-three membership.
 - Changes in the returns themselves, which rank comparisons miss when everything moves together.
