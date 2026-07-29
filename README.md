@@ -87,6 +87,20 @@ report. After reviewing the draft, save the approved final report with:
 final_report()
 ```
 
+`final_report()` re-renders from the same saved data the draft used — it downloads nothing —
+and writes to `reports/final/DATE/`: the report in both formats, the snapshot, and copies of
+all three inputs. The snapshot and input copies are what Git keeps; the rendered report and
+its chart images stay local.
+
+Finalising is what creates the comparison baseline. Until a final exists, every report says
+"this report establishes the baseline" and the Notable Changes section has nothing to compare
+against. Once one does, the next report measures against the most recent final at least
+`previous_report_minimum_days` old.
+
+One final per date: a second call fails rather than overwriting. To replace one after fixing
+an input, use `final_report(overwrite = TRUE)`, which also removes the superseded file if the
+name changed.
+
 Rendering uses local files only. It does not make API or browser requests.
 
 ## When data is missing
@@ -111,8 +125,8 @@ the report says so rather than reporting a gap. Anything else short means the do
 incomplete. Retention always keeps at least one month more than the longest horizon, so the
 cache is never trimmed flush to the window edge and builds a margin as it ages.
 
-News is scraped from each company's Google Finance quote page and falls back to the Massive
-news API. A working fallback is recorded as `fallback`, not `failed`, so `report_status()`
+News is scraped from the "News stories" module on each company's Google Finance quote page,
+and falls back to the Massive news API. A working fallback is recorded as `fallback`, not `failed`, so `report_status()`
 flags only scrapes that produced nothing from either source.
 
 ## Research tools
@@ -127,7 +141,14 @@ start_google_browser()
 refresh_earnings(c("UNH", "CVS"))
 ```
 
-`start_google_browser()` opens a dedicated Chrome profile. Sign into Google in that window once. `refresh_earnings()` then saves the Google Finance transcript summary and any available “Key moments” cards, including their timestamps and blurbs. Yahoo is used as a fallback for upcoming dates.
+`start_google_browser()` opens a dedicated Chrome profile. Sign into Google in that window once. `refresh_earnings()` then saves three things from the Google Finance earnings tab: the transcript summary, any available “Key moments” cards including their timestamps and blurbs, and the bulleted “At a glance” insights. Yahoo is used as a fallback for upcoming dates.
+
+“At a glance” comes in two versions, and the page heading is what tells them apart. After a
+company reports, the module reads that quarter and its insights are saved with the call under
+`#### At a Glance`. Before a call, the same slot shows “At a glance: upcoming earnings”, which
+previews a call that has not happened — the only date available to file those against is the
+*previous* report, so they are scraped and counted but never written into a past report's
+summary. `data/earnings.csv` records which version was seen in `glance_scope`.
 
 A company whose next earnings date is already known and still in the future is skipped: the
 call has not happened, so the page has nothing new to say. It is scraped again once that date
@@ -139,7 +160,7 @@ when the scraping stages finish. If Chrome is managed by an IT policy that block
 debugging, the browser check fails with that as the likely cause and the run continues without
 Google data.
 
-If Google does not provide a transcript summary or key moments for a completed call, the earnings calendar records that explicitly. Reports show a short unavailable message rather than failing or substituting an older call summary.
+If Google does not provide a transcript summary, key moments, or at-a-glance insights for a completed call, the earnings calendar records that explicitly. Reports show a short unavailable message rather than failing or substituting an older call summary.
 
 Each company's exchange is discovered from the market-data provider and cached in `data/companies.csv`, so `inputs/companies.md` never lists one. Google Finance URLs are built from that cache, and a ticker missing from it is looked up on demand. If the provider reports an exchange Google Finance does not recognise, the report records a warning and you can set the correct name under `exchange_overrides` in `inputs/settings.md`.
 
@@ -161,6 +182,11 @@ Two things about the source are worth knowing:
   `report_status()` flags a narrative more than seven days old. Check whether updating the
   share in ChatGPT keeps the same URL; if it mints a new one, paste the new link into
   `inputs/settings.md`.
+- **A failed fetch says which end failed.** `Page.navigate` does not answer until the
+  navigation commits, so an address the machine cannot reach hangs it and chromote reports
+  only "timed out waiting for response to command Page.navigate". The refresh checks
+  reachability separately and says whether the address is blocked or the browser tab is
+  stuck, then resets the tab so the next run starts clean.
 - **The newest message is not always the newest brief.** The conversation also carries setup
   and confirmation replies. The most recent message matching `strategy_narrative_pattern`
   is used, so a "here's what I'll cover from now on" note never lands in the report in place
@@ -184,18 +210,29 @@ out of the HTML. Markdown keeps its charts in a `weekly_files/` folder beside it
 with the report.
 
 In HTML, every table sorts by clicking a column heading, and return columns carry a colour
-scale calibrated within each column — blue for gains, red for losses, strongest at the largest
-absolute move in that column. Blue and red rather than green and red so the scale survives
-colour-vision deficiency; every cell also shows its number, and every chart series is labelled
-at the end of its own line, so colour is never the only thing carrying meaning.
+scale calibrated within each column — green for gains, red for losses, strongest at the largest
+absolute move in that column. The two arms are matched in lightness so equal moves read as
+equally strong. Green and red are the classic red-green colour-blindness collision, so the
+signed number in every cell is what always carries the meaning and the colour is support;
+chart series are labelled at the end of their own lines for the same reason.
+
+The comparison baseline is the most recent final report at least
+`previous_report_minimum_days` (five by default) before the current one, whatever weekday it
+fell on — so a run moved from Monday to Tuesday for a market holiday needs no special
+handling, while re-running a report a day after finalising one does not compare against
+yesterday. See `inputs/settings.md`.
 
 ## Report contents
 
 - Market-cap-weighted category returns for 3, 12, and 24 months.
-- Indexed price-performance charts versus SPY over 24 and 6 months. Each chart draws the three
-  strongest performers over its own window and the three largest companies by market
-  capitalisation, from the deep-dive selections; every other selected stock is listed beneath
-  the chart with its change over the same period.
+- Indexed price-performance charts versus SPY over 24, 12, and 6 months. One set of companies
+  appears on all three: the strongest returns at each of the 3-, 12-, and 24-month horizons,
+  pooled, so a company leading at more than one takes a single slot. The same lines appear on
+  every chart and only the window changes underneath them, which is what makes the charts
+  comparable. `chart_stocks_per_horizon` controls how many per horizon — three by default, so
+  at most nine companies plus SPY. Any deep-dive selection outside that set is listed beneath
+  each chart with its return over that window, and a company with no history for a window is
+  named rather than silently absent.
 - Company returns within each category, with the category's market-cap-weighted 3-month return
   beside its name.
 - The top `top_stocks_shown` companies for each horizon, with market capitalisations. Company
@@ -205,7 +242,7 @@ at the end of its own line, so colour is never the only thing carrying meaning.
 - Changes in the returns themselves, which rank comparisons miss when everything moves together.
 - Companies added to or removed from a category since the previous final report.
 - Earnings expected during the next seven days.
-- Selected recent earnings summaries, timestamped key moments, company overviews, and news.
+- Selected recent earnings summaries, timestamped key moments, at-a-glance insights, company overviews, and news.
 
 Category results are weighted averages of company returns. Raw share prices are not averaged because share-price units are not comparable across companies.
 

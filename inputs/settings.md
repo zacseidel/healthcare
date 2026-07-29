@@ -14,6 +14,8 @@ settings:
   news_per_refresh: 5
   news_cache_limit: 25
   top_stocks_shown: 5
+  chart_stocks_per_horizon: 3
+  previous_report_minimum_days: 5
   strategy_narrative_url: https://chatgpt.com/share/6a68e14f-361c-83e8-8352-03c3cadc95bf
   strategy_narrative_pattern: 'Week of\s+\w+\s+\d{1,2},\s+\d{4}'
   show_scraper_warnings: true
@@ -55,6 +57,20 @@ the affected companies, and the report is produced from whatever is available.
 Category coverage below `minimum_market_cap_coverage` also produces a warning rather than
 blocking the report; available companies are still included and the coverage percentage
 is shown in the report.
+
+`previous_report_minimum_days` is how old a final report must be before it can serve as the
+comparison baseline. The baseline is always the most recent final that qualifies, whatever
+weekday it fell on, so moving a run from Monday to Tuesday for a market holiday needs no
+special handling. The minimum exists for the other case: re-running a report a day or two
+after finalising one would otherwise report a single day's move as the change since the
+previous report. If no final is old enough, the report says so rather than comparing against
+something too recent.
+
+`chart_stocks_per_horizon` is how many of the strongest performers at each return horizon are
+drawn on the performance charts. The three horizons are pooled into one set — a company
+leading at more than one takes a single slot — and that set appears on every chart, so only
+the window changes between them. Three per horizon gives at most nine companies plus SPY;
+raise it for a wider view, lower it if the charts look crowded.
 
 `top_stocks_shown` is how many companies the report's "Current top stocks" tables list for
 each horizon. It is separate from `notable_changes.top_stocks`, which decides how many top

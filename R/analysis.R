@@ -51,7 +51,7 @@ common_base_date <- function(price_history, as_of, months) {
   as.Date(max(starts, na.rm = TRUE), origin = "1970-01-01")
 }
 
-performance_chart_data <- function(tickers, as_of, horizons = c(24L, 6L), benchmark = "SPY") {
+performance_chart_data <- function(tickers, as_of, horizons = c(24L, 12L, 6L), benchmark = "SPY") {
   tickers <- unique(c(normalize_ticker(benchmark), vapply(tickers, normalize_ticker, character(1))))
   price_history <- stats::setNames(lapply(tickers, read_prices), tickers)
   purrr::map_dfr(horizons, function(months) {
@@ -124,6 +124,26 @@ unexplained_short_history <- function(coverage) {
 
 deep_dive_tickers <- function(report = read_report()) {
   unique(c(report$earnings_summaries, report$company_overviews, report$news))
+}
+
+chart_stocks_per_horizon <- function() {
+  as.integer(read_settings()$settings$chart_stocks_per_horizon %||% 3L)
+}
+
+# The companies drawn on every performance chart: the strongest returns at each of the
+# report's horizons, pooled into one set. Chosen once rather than per chart, so the
+# same lines appear on all of them and only the window underneath changes — which is
+# what makes the charts comparable to each other. A company leading at more than one
+# horizon takes one slot, so the set is usually smaller than horizons x per_horizon.
+top_return_tickers <- function(snapshot, per_horizon = chart_stocks_per_horizon()) {
+  dplyr::filter(snapshot, type == "stock", !is.na(price_return)) |>
+    dplyr::distinct(ticker, horizon_months, price_return) |>
+    dplyr::group_by(horizon_months) |>
+    dplyr::slice_max(price_return, n = as.integer(per_horizon), with_ties = FALSE) |>
+    dplyr::ungroup() |>
+    dplyr::arrange(horizon_months, dplyr::desc(price_return)) |>
+    dplyr::pull(ticker) |>
+    unique()
 }
 
 plot_price_performance <- function(data, months, benchmark = "SPY") {
@@ -367,12 +387,26 @@ snapshot_path <- function(report_date, final = TRUE, version = NULL) {
   if (final) file.path(root, "snapshot.csv") else file.path(root, sprintf("snapshot-%02d.csv", version))
 }
 
-previous_final_folder <- function(report_date) {
+# The baseline is the most recent earlier final report, whatever weekday it fell on —
+# nothing looks for "the same day last week", so a holiday that moves the run from
+# Monday to Tuesday needs no special handling.
+#
+# What does need handling is a report run a day or two after the last one, which is a
+# re-run rather than a new week: comparing against it would label a one-day move as
+# the change since the previous report. So a final has to be at least
+# `previous_report_minimum_days` old to serve as a baseline. If none is, the report
+# says it has no baseline rather than comparing against something too recent.
+previous_report_minimum_days <- function() {
+  as.integer(read_settings()$settings$previous_report_minimum_days %||% 5L)
+}
+
+previous_final_folder <- function(report_date, minimum_days = previous_report_minimum_days()) {
   root <- project_path("reports", "final")
   if (!dir.exists(root)) return(NULL)
   folders <- list.dirs(root, recursive = FALSE, full.names = TRUE)
   dates <- suppressWarnings(as.Date(basename(folders)))
-  eligible <- which(!is.na(dates) & dates < as.Date(report_date))
+  cutoff <- as.Date(report_date) - as.integer(minimum_days)
+  eligible <- which(!is.na(dates) & dates <= cutoff)
   if (!length(eligible)) return(NULL)
   folders[eligible[which.max(dates[eligible])]]
 }
@@ -671,6 +705,11 @@ prepare_analysis <- function(report = read_report()) {
   top_stocks <- dplyr::filter(snapshot, type == "stock", overall_rank <= top_n) |>
     dplyr::distinct(ticker, name, horizon_months, price_return, overall_rank, market_cap) |>
     dplyr::arrange(horizon_months, overall_rank)
+  # Drawn on every chart: the strongest returns at each horizon, pooled. Deep-dive
+  # selections that did not make that cut are still charted-data candidates so they
+  # can be listed under each chart with their return over that window.
+  chart_stocks <- top_return_tickers(snapshot)
+  chart_candidates <- unique(c(chart_stocks, deep_dive_tickers(report)))
   previous_date <- if (is.null(previous) || !nrow(previous)) {
     NULL
   } else {
@@ -702,6 +741,7 @@ prepare_analysis <- function(report = read_report()) {
         price_return_24m = dplyr::first(price_return_24m),
         .groups = "drop"
       ),
-    price_performance = performance_chart_data(deep_dive_tickers(report), report$report_date)
+    chart_stocks = chart_stocks, chart_candidates = chart_candidates,
+    price_performance = performance_chart_data(chart_candidates, report$report_date)
   )
 }

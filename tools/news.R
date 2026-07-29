@@ -33,9 +33,13 @@ read_news <- function(ticker, as_of = Sys.Date(), days = 7, new_since = NULL) {
   dplyr::arrange(articles, dplyr::desc(first_seen_date), source_rank, dplyr::desc(published_date), title)
 }
 
-# Labels Google Finance has used (or may localize to) for the news module. The
-# parser matches these case-insensitively so a wording tweak does not break it.
-google_news_section_labels <- c("At a glance", "In the news", "Top stories", "Latest news")
+# Labels Google Finance has used (or may localize to) for the news module, most
+# recently first. The parser matches these case-insensitively so a wording tweak does
+# not break it. "News stories" is what the quote page uses now; the others are kept
+# because the page has used them before and costs nothing to try.
+google_news_section_labels <- c(
+  "News stories", "At a glance", "In the news", "Top stories", "Latest news"
+)
 
 # Relative timestamps and separators that appear inside a news card but are not
 # the headline or the publisher (e.g. "2 days ago", "•", "Yesterday").
@@ -81,19 +85,31 @@ parse_google_news <- function(html, ticker, seen_date = Sys.Date()) {
     if (grepl("^https?://([^/]*\\.)?google\\.", url) && !grepl("^https?://[^/]*/url\\?", url)) {
       return(tibble::tibble())
     }
-    pieces <- rvest::html_elements(link, xpath = ".//*[not(*)]") |>
-      rvest::html_text2() |>
-      trimws()
-    pieces <- pieces[!is_news_metadata(pieces)]
-    pieces <- pieces[!duplicated(pieces)]
+    leaf_text <- function(node) {
+      pieces <- rvest::html_elements(node, xpath = ".//*[not(*)]") |>
+        rvest::html_text2() |>
+        trimws()
+      pieces <- pieces[!is_news_metadata(pieces)]
+      pieces[!duplicated(pieces)]
+    }
+    # The headline is the longest text inside the link. This survives Google rotating
+    # its hashed classes.
+    pieces <- leaf_text(link)
     if (!length(pieces)) return(tibble::tibble())
-    # The headline is the longest text in the card; the publisher is the longest
-    # of the remaining lines. This survives Google rotating its hashed classes.
-    title_index <- which.max(nchar(pieces))
-    title <- pieces[[title_index]]
-    remaining <- pieces[-title_index]
-    publisher <- if (length(remaining)) remaining[[which.max(nchar(remaining))]] else NA_character_
+    title <- pieces[[which.max(nchar(pieces))]]
     if (is.na(title) || !nzchar(title)) return(tibble::tibble())
+    # The publisher is either inside the link or beside it in the surrounding card,
+    # depending on how the page is built that week. Prefer inside; fall back to the
+    # immediate parent, which holds one card. Reading only inside the link left every
+    # publisher blank on the current layout.
+    inside <- setdiff(pieces, title)
+    publisher <- if (length(inside)) {
+      inside[[which.max(nchar(inside))]]
+    } else {
+      card <- rvest::html_element(link, xpath = "..")
+      around <- if (inherits(card, "xml_missing")) character() else setdiff(leaf_text(card), title)
+      if (length(around)) around[[which.max(nchar(around))]] else NA_character_
+    }
     tibble::tibble(
       ticker = normalize_ticker(ticker), published_date = as.Date(NA),
       first_seen_date = as.Date(seen_date), last_seen_date = as.Date(seen_date),

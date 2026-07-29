@@ -6,16 +6,27 @@ read_earnings <- function() {
       ticker = character(), latest_report_date = as.Date(character()),
       next_earnings_date = as.Date(character()), next_date_status = character(),
       summary_date = as.Date(character()), summary_file = character(),
-      summary_status = character(), key_moments_count = integer(), updated_at = character()
+      summary_status = character(), key_moments_count = integer(),
+      glance_count = integer(), glance_scope = character(), updated_at = character()
     ))
   }
-  calendar <- readr::read_csv(earnings_path(), show_col_types = FALSE, col_types = readr::cols(
-    latest_report_date = readr::col_date(), next_earnings_date = readr::col_date(),
-    summary_date = readr::col_date(), key_moments_count = readr::col_integer(),
-    .default = readr::col_character()
-  ))
+  # Read every column as text and convert afterwards. Naming a parser for a column
+  # that a saved file predates — which is what every newly added field is — makes readr
+  # reject the whole spec, so the typing has to happen once the columns are known.
+  calendar <- readr::read_csv(
+    earnings_path(), show_col_types = FALSE,
+    col_types = readr::cols(.default = readr::col_character())
+  )
+  for (field in intersect(c("latest_report_date", "next_earnings_date", "summary_date"), names(calendar))) {
+    calendar[[field]] <- as.Date(calendar[[field]])
+  }
+  for (field in intersect(c("key_moments_count", "glance_count"), names(calendar))) {
+    calendar[[field]] <- as.integer(calendar[[field]])
+  }
   if (!"summary_status" %in% names(calendar)) calendar$summary_status <- NA_character_
   if (!"key_moments_count" %in% names(calendar)) calendar$key_moments_count <- NA_integer_
+  if (!"glance_count" %in% names(calendar)) calendar$glance_count <- NA_integer_
+  if (!"glance_scope" %in% names(calendar)) calendar$glance_scope <- NA_character_
   calendar
 }
 
@@ -123,13 +134,31 @@ google_browser_ready <- function(timeout_seconds = 2) {
 .google_browser <- new.env(parent = emptyenv())
 .google_browser$connection <- NULL
 .google_browser$session <- NULL
+.google_browser$discarded <- list()
 
-google_session_alive <- function(session) {
+google_session_alive <- function(session, timeout = 5) {
   if (is.null(session)) return(FALSE)
+  # Short timeout on purpose: this is asked before every fetch, and a wedged session
+  # would otherwise stall the whole run once per page on the default 30 seconds.
   tryCatch(
-    isTRUE(session$Runtime$evaluate("1+1", returnByValue = TRUE)$result$value == 2),
+    isTRUE(session$Runtime$evaluate("1+1", returnByValue = TRUE, timeout_ = timeout)$result$value == 2),
     error = function(error) FALSE
   )
+}
+
+# Drop a session that is stuck and let the next fetch open a fresh tab. The stuck
+# session is parked rather than released: closing it can itself time out, and an
+# unreferenced Chromote session is collected later and rejects its pending promises
+# as "unhandled promise error" long after the code that caused it. The connection
+# stays cached for the same reason.
+reset_google_session <- function() {
+  session <- .google_browser$session
+  .google_browser$session <- NULL
+  if (!is.null(session)) {
+    try(session$close(), silent = TRUE)
+    .google_browser$discarded <- c(.google_browser$discarded, session)
+  }
+  invisible(TRUE)
 }
 
 google_session <- function() {
@@ -233,56 +262,109 @@ ensure_google_browser <- function(confirm = interactive(), wait_seconds = 30) {
   invisible(list(ready = TRUE, signed_in = FALSE))
 }
 
+# Is the address reachable from this machine at all, ignoring the browser? Used only
+# to explain a failed navigation, so any answer other than a clean response is "no".
+url_reachable <- function(url, timeout = 10) {
+  tryCatch({
+    response <- httr2::request(url) |>
+      httr2::req_user_agent("healthcare-weekly-report/1.0") |>
+      httr2::req_timeout(timeout) |>
+      httr2::req_error(is_error = function(response) FALSE) |>
+      httr2::req_perform()
+    httr2::resp_status(response) < 400L
+  }, error = function(error) FALSE)
+}
+
+# Page.navigate does not answer until the navigation commits, so a host the machine
+# cannot reach leaves the command unanswered and chromote reports only "timed out
+# waiting for response to command Page.navigate" — which says nothing about why.
+# Checking reachability separately distinguishes a blocked address from a stuck tab.
+navigation_failure_message <- function(url, detail, reachable = url_reachable(url)) {
+  if (isTRUE(reachable)) {
+    paste0(
+      "The browser did not finish opening ", url, " (", detail, "). ",
+      "The address is reachable from this machine, so the browser tab is most likely stuck. ",
+      "Close the dedicated Chrome window and run the refresh again."
+    )
+  } else {
+    paste0(
+      "Could not open ", url, " (", detail, "). ",
+      "The address is not reachable from this machine either, so it is most likely blocked ",
+      "by a network policy or proxy. Open the link in an ordinary browser window to confirm."
+    )
+  }
+}
+
 # Load a page in the shared browser tab and read something back out of it once the
 # page says it is ready. Pages that build their content in the browser cannot be read
 # from a plain HTTP fetch, and this keeps that capability in one place rather than
 # giving every scraper its own browser handling.
+#
+# Readiness is decided by `ready_expression` rather than by the load event, because a
+# page that keeps a connection open — streaming, polling, analytics — may never fire
+# one even though its content is present.
 fetch_rendered_html <- function(url, ready_expression = "document.readyState === 'complete'",
                                 extract = "document.documentElement.outerHTML",
-                                wait_seconds = 30) {
+                                wait_seconds = 60, settle_seconds = 1,
+                                require_ready = TRUE) {
   session <- google_session()
-  session$go_to(url)
+  navigated <- tryCatch(
+    { session$Page$navigate(url, timeout_ = wait_seconds); TRUE },
+    error = function(error) conditionMessage(error)
+  )
+  if (!isTRUE(navigated)) {
+    # A session left mid-navigation also times out when it is tidied up, and that
+    # second failure is what buries the first.
+    reset_google_session()
+    stop(navigation_failure_message(url, navigated), call. = FALSE)
+  }
   deadline <- Sys.time() + wait_seconds
   ready <- FALSE
   repeat {
     ready <- tryCatch(
-      session$Runtime$evaluate(ready_expression, returnByValue = TRUE)$result$value,
+      session$Runtime$evaluate(ready_expression, returnByValue = TRUE, timeout_ = 10)$result$value,
       error = function(error) FALSE
     )
     if (isTRUE(ready) || Sys.time() >= deadline) break
     Sys.sleep(0.5)
   }
-  if (!isTRUE(ready)) {
-    stop("The page did not become ready within ", wait_seconds, " seconds: ", url, call. = FALSE)
+  # Some callers want whatever loaded even when the marker never appeared, so the
+  # page can be parsed for what it does have and saved for diagnosis.
+  if (!isTRUE(ready) && !isTRUE(require_ready)) {
+    return(session$Runtime$evaluate(extract, returnByValue = TRUE, timeout_ = wait_seconds)$result$value)
   }
-  Sys.sleep(1)
-  session$Runtime$evaluate(extract, returnByValue = TRUE)$result$value
+  if (!isTRUE(ready)) {
+    # Say what the page actually was. A consent wall or bot check loads perfectly
+    # well and simply never contains what was being waited for.
+    state <- tryCatch(
+      session$Runtime$evaluate(
+        "JSON.stringify({state:document.readyState,title:document.title,text:(document.body?document.body.innerText:'').slice(0,160)})",
+        returnByValue = TRUE, timeout_ = 10
+      )$result$value,
+      error = function(error) NA_character_
+    )
+    reset_google_session()
+    stop(
+      "The page loaded but never showed the expected content within ", wait_seconds,
+      " seconds: ", url, if (is.na(state)) "" else paste0(" — ", state), call. = FALSE
+    )
+  }
+  Sys.sleep(settle_seconds)
+  session$Runtime$evaluate(extract, returnByValue = TRUE, timeout_ = wait_seconds)$result$value
 }
 
 fetch_google_finance_page <- function(ticker, wait_for, wait_seconds = 20, tab = "earnings") {
-  session <- google_session()
-  session$go_to(google_finance_url(ticker, tab))
-  wait_for <- as.character(wait_for)
-  wait_markers <- jsonlite::toJSON(wait_for, auto_unbox = FALSE)
-  deadline <- Sys.time() + wait_seconds
-  ready <- FALSE
-  repeat {
-    ready <- tryCatch(
-      session$Runtime$evaluate(
-        paste0(
-          "document.readyState === 'complete' && document.body && ",
-          wait_markers,
-          ".some(marker => document.body.innerText.includes(marker))"
-        ),
-        returnByValue = TRUE
-      )$result$value,
-      error = function(error) FALSE
-    )
-    if (isTRUE(ready) || Sys.time() >= deadline) break
-    Sys.sleep(0.5)
-  }
-  if (isTRUE(ready)) Sys.sleep(2)
-  session$Runtime$evaluate("document.documentElement.outerHTML", returnByValue = TRUE)$result$value
+  wait_markers <- jsonlite::toJSON(as.character(wait_for), auto_unbox = FALSE)
+  # Not require_ready: a page missing its marker is still worth parsing and saving as
+  # a diagnostic, which is what the earnings refresh does with it.
+  fetch_rendered_html(
+    google_finance_url(ticker, tab),
+    ready_expression = paste0(
+      "document.readyState === 'complete' && document.body && ",
+      wait_markers, ".some(marker => document.body.innerText.includes(marker))"
+    ),
+    wait_seconds = wait_seconds, settle_seconds = 2, require_ready = FALSE
+  )
 }
 
 fetch_google_earnings <- function(ticker, wait_seconds = 20) {
@@ -324,6 +406,81 @@ date_after_labels <- function(text, labels, as_of) {
   if (length(available)) dates[[available[[1]]]] else as.Date(NA)
 }
 
+empty_glance <- function() tibble::tibble(headline = character(), detail = character())
+
+# Material icons render as their ligature name when a node is read as text, so
+# "summarize_auto" or "insights_auto" arrives glued to the copy sitting beside them.
+strip_icon_ligatures <- function(text) {
+  trimws(gsub("\\b(summarize_auto|insights_auto|expand_more|search_spark)\\b", "", text))
+}
+
+# The "At a glance" module sits below the transcript on the earnings tab and is
+# written from news and filings rather than from the call, so it carries points the
+# transcript summary and the key moments do not. Its heading is what separates the
+# two versions of the module: a plain "At a glance" reads the report that just
+# happened, while "At a glance: upcoming earnings" previews a call that has not
+# occurred. Those are not interchangeable — filing a preview against a past report
+# date would present speculation as fact — so the scope travels with the insights and
+# refresh_company_earnings() decides what may be saved.
+glance_scope <- function(heading) {
+  if (is.na(heading) || !nzchar(heading)) return(NA_character_)
+  if (grepl("upcoming", heading, ignore.case = TRUE)) "upcoming" else "reported"
+}
+
+# Each insight is a bolded lead-in plus a sentence or two. The classes are Google's
+# rotating hashed names, so a plain bulleted list is accepted as well; short list
+# items are ignored there because navigation and menus are also <li>.
+glance_insights <- function(container) {
+  cards <- rvest::html_elements(container, ".sgb2mf")
+  if (length(cards)) {
+    insights <- purrr::map_dfr(cards, function(card) {
+      headline <- rvest::html_element(card, ".mFa7Bd") |> rvest::html_text2() |> trimws()
+      detail <- rvest::html_element(card, ".KBDbl") |> rvest::html_text2() |> trimws()
+      if (is.na(detail) || !nzchar(detail)) return(tibble::tibble())
+      tibble::tibble(
+        headline = if (is.na(headline) || !nzchar(headline)) NA_character_ else sub(":\\s*$", "", headline),
+        detail = detail
+      )
+    })
+    if (nrow(insights)) return(insights)
+  }
+  bullets <- rvest::html_elements(container, "li") |>
+    rvest::html_text2() |>
+    strip_icon_ligatures()
+  bullets <- bullets[!is.na(bullets) & nchar(bullets) >= 20]
+  if (!length(bullets)) return(empty_glance())
+  tibble::tibble(headline = NA_character_, detail = bullets)
+}
+
+parse_google_glance <- function(document) {
+  headings <- rvest::html_elements(
+    document,
+    xpath = "//*[starts-with(normalize-space(text()), 'At a glance')]"
+  )
+  for (heading in headings) {
+    node <- heading
+    # The insights are two levels above the heading on the current layout; a couple
+    # more are allowed for a re-nest, but the walk stops short of <body> so a list
+    # elsewhere on the page can never be adopted as this module's content. Every
+    # heading is tried, so an "At a glance" belonging to some other module — which is
+    # also what the news scraper looks for — is passed over rather than mistaken for
+    # this one.
+    for (level in seq_len(4)) {
+      node <- rvest::html_element(node, xpath = "..")
+      if (inherits(node, "xml_missing")) break
+      if (rvest::html_name(node) %in% c("body", "html")) break
+      insights <- glance_insights(node)
+      if (nrow(insights)) {
+        return(list(
+          insights = insights,
+          scope = glance_scope(trimws(rvest::html_text2(heading)))
+        ))
+      }
+    }
+  }
+  list(insights = empty_glance(), scope = NA_character_)
+}
+
 parse_google_earnings <- function(html, ticker, as_of = Sys.Date()) {
   document <- rvest::read_html(html)
   page_text <- gsub("[[:space:]]+", " ", rvest::html_text2(document))
@@ -336,12 +493,10 @@ parse_google_earnings <- function(html, ticker, as_of = Sys.Date()) {
       trimws()
     candidates <- candidates[nzchar(candidates) & candidates != "Call transcript"]
     if (length(candidates)) {
-      transcript_summary <- trimws(gsub(
-        "\\b(summarize_auto|expand_more)\\b", "",
-        candidates[[which.max(nchar(candidates))]]
-      ))
+      transcript_summary <- strip_icon_ligatures(candidates[[which.max(nchar(candidates))]])
     }
   }
+  glance_module <- parse_google_glance(document)
   cards <- rvest::html_elements(document, ".B1GkSe")
   key_moments <- if (!length(cards)) tibble::tibble(
     title = character(), timestamp = character(), blurb = character()
@@ -368,7 +523,7 @@ parse_google_earnings <- function(html, ticker, as_of = Sys.Date()) {
     as_of
   )
   if (is.na(latest_report_date) && is.na(next_earnings_date) &&
-      is.na(transcript_summary) && !nrow(key_moments)) {
+      is.na(transcript_summary) && !nrow(key_moments) && !nrow(glance_module$insights)) {
     stop(
       "Google Finance earnings labels were not found on the loaded page.",
       call. = FALSE
@@ -381,6 +536,8 @@ parse_google_earnings <- function(html, ticker, as_of = Sys.Date()) {
     summary = transcript_summary,
     summary_status = if (is.na(transcript_summary)) "not_provided" else "available",
     key_moments = list(key_moments),
+    glance = list(glance_module$insights),
+    glance_scope = glance_module$scope,
     source_url = google_finance_url(ticker)
   )
 }
@@ -413,14 +570,16 @@ fetch_yahoo_date <- function(ticker) {
   )
 }
 
-save_earnings_summary <- function(ticker, date, summary, key_moments, source_url) {
+save_earnings_summary <- function(ticker, date, summary, key_moments, source_url,
+                                  glance = empty_glance()) {
   relative <- file.path("data", "earnings-summaries", ticker, paste0(as.Date(date), ".md"))
   path <- project_path(relative)
   dir.create(dirname(path), recursive = TRUE, showWarnings = FALSE)
   header <- yaml::as.yaml(list(
     ticker = ticker, report_date = as.character(as.Date(date)), source_url = source_url,
     summary_status = if (is.na(summary)) "not_provided" else "available",
-    key_moments_count = nrow(key_moments)
+    key_moments_count = nrow(key_moments),
+    glance_count = nrow(glance)
   ))
   body <- character()
   if (!is.na(summary)) body <- c(body, "#### Earnings Call Summary", "", summary, "")
@@ -433,6 +592,16 @@ save_earnings_summary <- function(ticker, date, summary, key_moments, source_url
         "", key_moments$blurb[[index]], ""
       )
     }
+  }
+  if (nrow(glance)) {
+    body <- c(body, "#### At a Glance", "")
+    for (index in seq_len(nrow(glance))) {
+      headline <- glance$headline[[index]]
+      body <- c(body, paste0(
+        "- ", if (is.na(headline)) "" else paste0("**", headline, ":** "), glance$detail[[index]]
+      ))
+    }
+    body <- c(body, "")
   }
   writeLines(c("---", strsplit(trimws(header), "\n")[[1]], "---", "", body), path)
   relative
@@ -454,7 +623,8 @@ read_earnings_summary <- function(ticker, as_of = Sys.Date(), report_date = NULL
     ticker = ticker, report_date = as.Date(document$metadata$report_date), summary = document$body,
     source_url = document$metadata$source_url %||% NA_character_,
     summary_status = document$metadata$summary_status %||% "available",
-    key_moments_count = as.integer(document$metadata$key_moments_count %||% 0L)
+    key_moments_count = as.integer(document$metadata$key_moments_count %||% 0L),
+    glance_count = as.integer(document$metadata$glance_count %||% 0L)
   )
 }
 
@@ -509,14 +679,22 @@ refresh_company_earnings <- function(ticker, as_of = read_report()$report_date, 
   summary_date <- old_value("summary_date", as.Date(NA))
   summary_status <- old_value("summary_status", "page_unavailable")
   key_moments_count <- as.integer(old_value("key_moments_count", 0L))
+  glance_count <- as.integer(old_value("glance_count", 0L))
+  glance_scope <- old_value("glance_scope", NA_character_)
   if (!is.null(google)) {
     key_moments <- google$key_moments[[1]]
     summary_status <- google$summary_status[[1]]
     key_moments_count <- nrow(key_moments)
+    glance_scope <- google$glance_scope[[1]]
+    # A page in its "upcoming earnings" state describes a call that has not happened,
+    # and the only date available to file it under is the last report — so those
+    # insights are read and reported but never written into a past report's summary.
+    glance <- if (identical(glance_scope, "reported")) google$glance[[1]] else empty_glance()
+    glance_count <- nrow(glance)
     summary_date <- latest
-    if (!is.na(latest) && (!is.na(google$summary[[1]]) || key_moments_count > 0)) {
+    if (!is.na(latest) && (!is.na(google$summary[[1]]) || key_moments_count > 0 || glance_count > 0)) {
       summary_file <- save_earnings_summary(
-        ticker, latest, google$summary[[1]], key_moments, google$source_url[[1]]
+        ticker, latest, google$summary[[1]], key_moments, google$source_url[[1]], glance
       )
     } else {
       summary_file <- NA_character_
@@ -525,7 +703,8 @@ refresh_company_earnings <- function(ticker, as_of = read_report()$report_date, 
   row <- tibble::tibble(
     ticker = ticker, latest_report_date = as.Date(latest), next_earnings_date = as.Date(next_date),
     next_date_status = status, summary_date = as.Date(summary_date), summary_file = summary_file,
-    summary_status = summary_status, key_moments_count = key_moments_count, updated_at = utc_now()
+    summary_status = summary_status, key_moments_count = key_moments_count,
+    glance_count = glance_count, glance_scope = glance_scope, updated_at = utc_now()
   )
   write_earnings(dplyr::bind_rows(dplyr::filter(saved, .data$ticker != .env$ticker), row) |> dplyr::arrange(ticker))
   row
@@ -583,7 +762,7 @@ review_earnings <- function(as_of = read_report()$report_date) {
   recent <- dplyr::filter(calendar, !is.na(latest_report_date), latest_report_date >= as.Date(as_of) - window, latest_report_date <= as.Date(as_of))
   upcoming <- dplyr::filter(calendar, !is.na(next_earnings_date), next_earnings_date >= as.Date(as_of), next_earnings_date <= as.Date(as_of) + window)
   cat("\nRecently reported\n"); print(dplyr::select(
-    recent, ticker, name, latest_report_date, summary_status, key_moments_count
+    recent, ticker, name, latest_report_date, summary_status, key_moments_count, glance_count
   ))
   cat("\nUpcoming earnings\n"); print(dplyr::select(upcoming, ticker, name, next_earnings_date, next_date_status))
   for (ticker in recent$ticker) {

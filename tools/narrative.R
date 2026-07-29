@@ -29,7 +29,7 @@ STRATEGY_MESSAGES_SCRIPT <- paste0(
 STRATEGY_READY_SCRIPT <-
   "document.querySelectorAll('[data-message-author-role]').length > 0"
 
-fetch_strategy_messages <- function(url, wait_seconds = 30) {
+fetch_strategy_messages <- function(url, wait_seconds = 60) {
   payload <- fetch_rendered_html(
     url, ready_expression = STRATEGY_READY_SCRIPT,
     extract = STRATEGY_MESSAGES_SCRIPT, wait_seconds = wait_seconds
@@ -76,9 +76,6 @@ strategy_narrative_url <- function() {
   as.character(url)
 }
 
-# Quarto ships pandoc, and the project already requires Quarto, so the conversion
-# needs nothing new installed. Headings shift down two levels so the brief's own
-# structure nests under the report's section heading instead of competing with it.
 # The brief arrives with its own hierarchy, starting with its title. The report section
 # already names it, so a lone title heading is dropped, and what remains is lifted so
 # the shallowest heading sits one level under the section — the brief's structure then
@@ -116,6 +113,8 @@ nest_narrative_headings <- function(markdown, top_level = 3L) {
   trimws(paste(lines, collapse = "\n"))
 }
 
+# Quarto ships pandoc, and the project already requires Quarto, so the conversion
+# needs nothing new installed.
 html_to_markdown <- function(html, shift_headings = 0L) {
   quarto <- Sys.which("quarto")
   if (!nzchar(quarto)) stop("Install Quarto before refreshing the strategy narrative.", call. = FALSE)

@@ -5,6 +5,10 @@ format:
     toc: true
     toc-depth: 4
     embed-resources: true
+    # Declaring a second format makes Quarto offer a download link to it in the
+    # sidebar ("Other Formats"). The Markdown copy is archived beside the HTML, so
+    # the link is noise in the contents.
+    format-links: false
   gfm:
     toc: false
 params:
@@ -171,70 +175,64 @@ Category returns use the most recently saved market capitalizations as weights.
 
 ## Stock performance vs. SPY
 
-Each chart shows the three strongest performers over its own window and the three
-largest companies by market capitalization, drawn from the stocks selected for a deep
-dive, against SPY. Prices are indexed to 100 at a shared date so companies with
-different share prices can be compared directly. Every other selected stock is listed
-beneath the chart with its change over the same period.
+One set of companies appears on all three charts: the strongest returns at 3, 12, and
+24 months, pooled, plus SPY. The same lines appear on every chart and only the window
+changes underneath them, so the charts can be read against each other. Prices are
+indexed to 100 at a shared date, so companies with different share prices compare
+directly. Any deep-dive selection outside that set is listed beneath each chart with
+its return over that window.
 
 ```{r}
-market_caps <- dplyr::select(facts, ticker, market_cap)
-selection_24 <- chart_series(result$price_performance, 24, market_caps)
-selection_6 <- chart_series(result$price_performance, 6, market_caps)
-# Companies that share a chart come first, so they take the best-separated slots;
-# companies that only ever appear alone on their own overview chart follow. Built
-# once and subset per chart, so a company's colour never depends on which other
-# companies happen to share its chart.
-charted_together <- sort(unique(c(selection_24$plotted, selection_6$plotted)))
+chart_windows <- c(24L, 12L, 6L)
+selections <- lapply(chart_windows, function(months) {
+  chart_series(result$price_performance, months, result$chart_stocks, result$chart_candidates)
+})
+names(selections) <- as.character(chart_windows)
+# Built over the drawn set first so those companies take the best-separated slots,
+# then everything else, so a company's styling never depends on the chart it is on.
 chart_colors <- series_colors(
   c(facts$ticker, "SPY"),
-  universe = c(charted_together, sort(setdiff(facts$ticker, charted_together)))
+  universe = c(result$chart_stocks, sort(setdiff(facts$ticker, result$chart_stocks)))
+)
+chart_line_types <- series_line_types(
+  c(facts$ticker, "SPY"),
+  universe = c(result$chart_stocks, sort(setdiff(facts$ticker, result$chart_stocks)))
 )
 ```
 
-```{r, fig.width=9, fig.height=5.2}
-if (!length(selection_24$plotted)) {
-  cat("No saved price history is available for the selected stocks.\n")
-} else {
+```{r, fig.width=9, fig.height=5.2, results='asis'}
+for (months in chart_windows) {
+  selection <- selections[[as.character(months)]]
+  if (!length(selection$plotted)) {
+    cat("No saved price history is available for the selected stocks.\n\n")
+    next
+  }
   local({
     old_par <- graphics::par(mar = c(3.2, 3.6, 2.4, 0.6), mgp = c(2.2, 0.6, 0))
     on.exit(graphics::par(old_par), add = TRUE)
     plot_indexed_performance(
-      result$price_performance, 24, selection_24$plotted,
-      selection_24$returns, title = "Last 24 months", colors = chart_colors
+      result$price_performance, months, selection$plotted, selection$returns,
+      title = paste("Last", months, "months"),
+      colors = chart_colors, line_types = chart_line_types
     )
   })
-}
-```
-
-```{r, results='asis'}
-others <- selection_24$others
-if (nrow(others)) {
-  cat("Also selected, not shown above: ",
-      paste0(others$ticker, " ", format_return(others$window_return), collapse = ", "),
-      ".\n\n", sep = "")
-}
-```
-
-```{r, fig.width=9, fig.height=5.2}
-if (length(selection_6$plotted)) {
-  local({
-    old_par <- graphics::par(mar = c(3.2, 3.6, 2.4, 0.6), mgp = c(2.2, 0.6, 0))
-    on.exit(graphics::par(old_par), add = TRUE)
-    plot_indexed_performance(
-      result$price_performance, 6, selection_6$plotted,
-      selection_6$returns, title = "Last 6 months", colors = chart_colors
-    )
-  })
-}
-```
-
-```{r, results='asis'}
-others <- selection_6$others
-if (nrow(others)) {
-  cat("Also selected, not shown above: ",
-      paste0(others$ticker, " ", format_return(others$window_return), collapse = ", "),
-      ".\n\n", sep = "")
+  notes <- character()
+  if (isTRUE(selection$benchmark_missing)) {
+    notes <- c(notes, "SPY has no saved history for this window, so no benchmark line is shown.")
+  }
+  if (length(selection$undrawn)) {
+    notes <- c(notes, paste0(
+      "No saved history for this window: ", paste(selection$undrawn, collapse = ", "), "."
+    ))
+  }
+  if (nrow(selection$others)) {
+    notes <- c(notes, paste0(
+      "Also selected for a deep dive, not charted: ",
+      paste0(selection$others$ticker, " ", format_return(selection$others$window_return), collapse = ", "),
+      "."
+    ))
+  }
+  if (length(notes)) cat(paste(notes, collapse = " "), "\n\n")
 }
 ```
 
@@ -500,6 +498,6 @@ if (!html_output && isTRUE(result$show_scraper_warnings) && !is.null(warnings) &
 - Chart series are indexed to 100 at one shared date, so lines with different history lengths share an origin. Changes beside each series label are measured over that chart's own window.
 - Category returns are market-cap-weighted averages of company returns; raw share prices are not averaged.
 - Rankings are calculated independently for each horizon.
-- Return colours run blue for gains and red for losses, calibrated within each column against the largest absolute move in it. Blue and red rather than green and red so the scale stays readable with colour-vision deficiency; every cell also shows its number.
-- Notable changes compare with the latest earlier final report.
+- Return colours run green for gains and red for losses, calibrated within each column against the largest absolute move in it. Both arms are matched in lightness, so equal moves in either direction read as equally strong. Green and red are hard to separate with red-green colour blindness, so the signed number in each cell is the channel that always carries the meaning; chart series are labelled at the end of their own lines for the same reason.
+- Notable changes compare with the most recent final report at least `previous_report_minimum_days` before this one, whatever weekday it fell on.
 - Rendering reads saved local files and makes no external requests.

@@ -246,7 +246,7 @@ prepare_report <- function(report_path = "inputs/current_report.md") {
     summary_status <- calendar_row$summary_status[[1]] %||% "page_unavailable"
     message <- switch(
       summary_status,
-      not_provided = "Google Finance did not provide a transcript summary or key moments for this call.",
+      not_provided = "Google Finance did not provide a transcript summary, key moments, or at-a-glance insights for this call.",
       page_unavailable = "The Google Finance earnings page was unavailable when earnings were refreshed.",
       "No saved earnings-call summary is available."
     )

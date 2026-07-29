@@ -2,14 +2,14 @@
 # HTML tables, and the indexed price chart. Kept out of analysis.R so the numbers
 # and the way they are shown stay separable.
 
-# Returns have a natural zero, so the scale is diverging: blue for gains, red for
-# losses, neutral grey at no change. Blue/red rather than the conventional
-# green/red because green and red are the classic colour-vision failure — this pair
-# separates under protanopia and deuteranopia, and every cell also carries its
-# number, so colour is never the only channel. Both arms are lightness-matched
-# step for step, so a +10% and a -10% cell read as equally strong.
+# Returns have a natural zero, so the scale is diverging: green for gains, red for
+# losses, neutral grey at no change — the convention this report is read against.
+# Green and red are the classic colour-vision collision, so the number in every cell
+# carries its own sign and is the channel that never fails; the colour is support.
+# Both arms are matched in lightness step for step (within 0.02 in OKLCH L), so a
+# +10% and a -10% cell read as equally strong rather than one looking louder.
 RETURN_NEUTRAL <- "#f0efec"
-RETURN_POSITIVE <- c("#cde2fb", "#9ec5f4", "#6da7ec", "#3987e5", "#256abf")
+RETURN_POSITIVE <- c("#d6ecd4", "#a9d9a4", "#7cc077", "#2f9e44", "#1a7a3c")
 RETURN_NEGATIVE <- c("#fbd5d4", "#f5aead", "#ee8483", "#e34948", "#c0302f")
 
 relative_luminance <- function(hex) {
@@ -178,29 +178,29 @@ window_returns <- function(price_performance, months) {
     dplyr::summarise(window_return = dplyr::last(indexed_price) / 100 - 1, .groups = "drop")
 }
 
-# Which series to draw: the strongest performers over the window and the largest
-# companies, plus the benchmark. Everything else selected for a deep dive is
-# listed under the chart instead, so the chart stays readable without hiding that
-# the other companies were considered.
-chart_series <- function(price_performance, months, market_caps, shown = 3L, benchmark = "SPY") {
+# The series for one chart. `stocks` is the same on every chart by design — picking
+# per window meant a company was drawn on one chart and only listed on the next, so
+# the charts could not be read against each other. Only the window changes here; this
+# works out each series' return over it and which candidates were left out.
+#
+# `benchmark_missing` is reported rather than left implicit: SPY silently absent from
+# a chart looks like a chart without a benchmark rather than a data gap.
+chart_series <- function(price_performance, months, stocks, candidates, benchmark = "SPY") {
+  stocks <- setdiff(unique(stocks), benchmark)
+  candidates <- setdiff(unique(candidates), benchmark)
   returns <- window_returns(price_performance, months)
-  candidates <- dplyr::filter(returns, ticker != benchmark) |>
-    dplyr::left_join(market_caps, by = "ticker")
-  by_return <- candidates |>
-    dplyr::arrange(dplyr::desc(window_return)) |>
-    utils::head(shown) |>
-    dplyr::pull(ticker)
-  by_size <- candidates |>
-    dplyr::filter(!is.na(market_cap)) |>
-    dplyr::arrange(dplyr::desc(market_cap)) |>
-    utils::head(shown) |>
-    dplyr::pull(ticker)
-  selected <- unique(c(by_return, by_size))
+  drawn <- intersect(stocks, returns$ticker)
   list(
-    selected = selected,
-    plotted = unique(c(selected, intersect(benchmark, returns$ticker))),
-    others = dplyr::filter(candidates, !ticker %in% selected) |>
-      dplyr::arrange(dplyr::desc(window_return)),
+    selected = stocks,
+    plotted = c(drawn, intersect(benchmark, returns$ticker)),
+    benchmark_missing = !benchmark %in% returns$ticker,
+    # Stocks that qualified but have no history for this window, so a line missing
+    # from one chart is explained rather than unexplained.
+    undrawn = setdiff(stocks, returns$ticker),
+    # Deep-dive selections that are not part of the drawn set, listed beneath.
+    others = tibble::tibble(ticker = setdiff(candidates, stocks)) |>
+      dplyr::left_join(returns, by = "ticker") |>
+      dplyr::arrange(dplyr::desc(window_return), ticker),
     returns = returns
   )
 }
@@ -234,22 +234,44 @@ SERIES_SLOTS <- c(
 )
 BENCHMARK_COLOR <- "#52514e"
 
-# `universe` is every entity that may be coloured, in priority order: the leading
-# slots are the best-separated, so companies that share a chart belong at the front.
-# Slots are assigned over the universe and then subset, so a chart drawing three of
-# them gets the colours it would have had drawing all of them — assigning over each
-# chart's own series list instead repaints the survivors whenever the selection
-# changes, which is what makes two charts impossible to read side by side.
-series_colors <- function(tickers, benchmark = "SPY", universe = tickers) {
+# Past eight series the hues have to repeat, and a repeated hue on its own would make
+# two companies look like one. Line style is the second channel: series 9 gets slot 1
+# dotted rather than slot 1 again. The benchmark keeps dashed to itself, and is grey
+# rather than a categorical hue, so it never collides with a company.
+SERIES_LINE_TYPES <- c(1L, 3L, 4L)
+BENCHMARK_LINE_TYPE <- 2L
+
+# `universe` is every entity that may be styled, in priority order: the leading slots
+# are the best-separated, so companies that share a chart belong at the front. Slots
+# are assigned over the universe and then subset, so a chart drawing three of them
+# gets the styling it would have had drawing all of them — assigning over each chart's
+# own series list instead repaints the survivors whenever the selection changes, which
+# is what makes charts impossible to read side by side.
+series_slots <- function(tickers, benchmark, universe) {
   stocks <- setdiff(unique(universe), benchmark)
-  colors <- stats::setNames(rep_len(SERIES_SLOTS, max(1L, length(stocks))), stocks)
-  colors[[benchmark]] <- BENCHMARK_COLOR
-  colors[intersect(names(colors), unique(c(tickers, benchmark)))]
+  slots <- stats::setNames(seq_along(stocks), stocks)
+  slots[intersect(names(slots), setdiff(unique(tickers), benchmark))]
+}
+
+series_colors <- function(tickers, benchmark = "SPY", universe = tickers) {
+  slots <- series_slots(tickers, benchmark, universe)
+  colors <- stats::setNames(
+    SERIES_SLOTS[(slots - 1L) %% length(SERIES_SLOTS) + 1L], names(slots)
+  )
+  c(colors, stats::setNames(BENCHMARK_COLOR, benchmark))
+}
+
+series_line_types <- function(tickers, benchmark = "SPY", universe = tickers) {
+  slots <- series_slots(tickers, benchmark, universe)
+  wrap <- pmin((slots - 1L) %/% length(SERIES_SLOTS), length(SERIES_LINE_TYPES) - 1L)
+  types <- stats::setNames(SERIES_LINE_TYPES[wrap + 1L], names(slots))
+  c(types, stats::setNames(BENCHMARK_LINE_TYPE, benchmark))
 }
 
 plot_indexed_performance <- function(price_performance, months, tickers,
                                      returns = NULL, benchmark = "SPY", title = NULL,
-                                     colors = series_colors(tickers, benchmark)) {
+                                     colors = series_colors(tickers, benchmark),
+                                     line_types = series_line_types(tickers, benchmark)) {
   rows <- dplyr::filter(price_performance, horizon_months == as.integer(months), ticker %in% tickers)
   if (!nrow(rows)) {
     graphics::plot.new()
@@ -283,18 +305,24 @@ plot_indexed_performance <- function(price_performance, months, tickers,
     graphics::lines(
       ticker_rows$date, ticker_rows$indexed_price,
       col = colors[[ticker]], lwd = if (ticker == benchmark) 2.4 else 2,
-      lty = if (ticker == benchmark) 2 else 1
+      lty = line_types[[ticker]]
     )
     dplyr::last(ticker_rows$indexed_price)
   }, numeric(1))
 
-  label_y <- spread_labels(ends, diff(y_range) * 0.055)
+  # Labels get tighter and smaller as the series count grows, and the whole block is
+  # nudged back inside the plot if spreading pushed it past the top.
+  label_size <- if (length(series) > 7) 0.7 else 0.8
+  gap <- diff(y_range) * min(0.055, 0.85 / max(1L, length(series)))
+  label_y <- spread_labels(ends, gap)
+  overflow <- max(label_y) - y_range[[2]]
+  if (overflow > 0) label_y <- label_y - overflow
   label_x <- x_range[[2]] + as.numeric(diff(x_range)) * 0.02
   for (index in seq_along(series)) {
     ticker <- series[[index]]
     change <- returns$window_return[match(ticker, returns$ticker)]
     graphics::text(
-      label_x, label_y[[index]], adj = c(0, 0.5), cex = 0.8, col = colors[[ticker]],
+      label_x, label_y[[index]], adj = c(0, 0.5), cex = label_size, col = colors[[ticker]],
       labels = paste0(ticker, "  ", format_return(change))
     )
   }

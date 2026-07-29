@@ -696,6 +696,42 @@ test_that("Google latest and next call dates remain separate", {
   expect_equal(result$summary_status, "available")
   expect_equal(nrow(result$key_moments[[1]]), 2)
   expect_equal(result$key_moments[[1]]$timestamp, c("15m 32s", "18m 10s"))
+  expect_equal(result$glance_scope, "reported")
+  expect_equal(nrow(result$glance[[1]]), 2)
+  expect_equal(
+    result$glance[[1]]$headline,
+    c("Guidance Raised Again", "Oral GLP-1 Launch Expands Market")
+  )
+  expect_match(result$glance[[1]]$detail[[1]], "lifted full-year revenue guidance")
+  # The news module carries an "At a glance" heading of its own, and the follow-up
+  # questions sit in the same block as the insights. Neither is an insight.
+  expect_false(any(grepl("general company-news", result$glance[[1]]$detail)))
+  expect_false(any(grepl("manufacturing capacity", result$glance[[1]]$detail)))
+})
+
+test_that("at-a-glance insights are read from a plain bulleted list", {
+  html <- paste(readLines(file.path(root, "tests", "fixtures", "google_finance", "completed.html")), collapse = "\n")
+  result <- parse_google_earnings(html, "LLY", as.Date("2026-07-16"))
+  expect_equal(result$glance_scope, "reported")
+  expect_equal(nrow(result$glance[[1]]), 2)
+  expect_true(all(is.na(result$glance[[1]]$headline)))
+  expect_match(result$glance[[1]]$detail[[1]], "Revenue growth exceeded expectations")
+})
+
+test_that("upcoming-earnings insights are kept separate from a reported quarter", {
+  html <- paste(readLines(file.path(root, "tests", "fixtures", "google_finance", "glance-upcoming.html")), collapse = "\n")
+  result <- parse_google_earnings(html, "LLY", as.Date("2026-07-29"))
+  expect_equal(result$glance_scope, "upcoming")
+  expect_equal(nrow(result$glance[[1]]), 2)
+  expect_match(result$glance[[1]]$detail[[1]], "Consensus estimates")
+  expect_true(is.na(result$summary))
+})
+
+test_that("a page with no at-a-glance module yields no insights", {
+  html <- paste(readLines(file.path(root, "tests", "fixtures", "google_finance", "no-summary.html")), collapse = "\n")
+  result <- parse_google_earnings(html, "LLY", as.Date("2026-07-16"))
+  expect_equal(nrow(result$glance[[1]]), 0)
+  expect_true(is.na(result$glance_scope))
 })
 
 test_that("missing Google transcript content is an explicit non-error result", {
@@ -756,14 +792,29 @@ test_that("saved earnings Markdown includes summary and key moments", {
     title = "Guidance increased", timestamp = "15m 32s",
     blurb = "Management increased its full-year outlook."
   )
+  glance <- tibble::tibble(
+    headline = c("Medical Care Ratio Improves", NA_character_),
+    detail = c(
+      "The medical care ratio dropped to 86.7% from 89.4% a year earlier.",
+      "Full-year buyback target was raised to at least $5 billion."
+    )
+  )
   relative <- save_earnings_summary(
     "LLY", "2026-04-30", "Revenue and earnings exceeded expectations.",
-    moments, "https://www.google.com/finance/"
+    moments, "https://www.google.com/finance/", glance
   )
   saved <- paste(readLines(project_path(relative)), collapse = "\n")
   expect_match(saved, "#### Earnings Call Summary", fixed = TRUE)
   expect_match(saved, "#### Key Moments in Earnings Call", fixed = TRUE)
   expect_match(saved, "15m 32s — Guidance increased", fixed = TRUE)
+  expect_match(saved, "#### At a Glance", fixed = TRUE)
+  expect_match(saved, "glance_count: 2", fixed = TRUE)
+  expect_match(saved, "- **Medical Care Ratio Improves:** The medical care ratio", fixed = TRUE)
+  # An insight with no bolded lead-in is still a bullet, not an empty bold run.
+  expect_match(saved, "- Full-year buyback target", fixed = TRUE)
+
+  restored <- read_earnings_summary("LLY", as.Date("2026-07-16"))
+  expect_equal(restored$glance_count, 2L)
 })
 
 test_that("Google Finance article cards provide titles publishers and URLs", {
@@ -1076,29 +1127,96 @@ test_that("a company keeps one colour across every chart it appears on", {
   expect_equal(unname(series_colors(c("AAA", "BBB"))[c("AAA", "BBB")]), SERIES_SLOTS[1:2])
 })
 
-test_that("charts show top performers and largest companies, and name the rest", {
-  performance <- tibble::tibble(
-    ticker = rep(c("AAA", "BBB", "CCC", "DDD", "SPY"), each = 2),
-    horizon_months = 24L,
-    date = rep(as.Date(c("2024-07-16", "2026-07-16")), 5),
+test_that("the same companies are drawn on every chart", {
+  # Picking per window meant a company was drawn on one chart and only listed on the
+  # next, so the charts could not be read against each other. The drawn set is chosen
+  # once; only the window changes underneath it.
+  bars <- function(ticker, months, from, to) tibble::tibble(
+    ticker = ticker, horizon_months = as.integer(months),
+    date = as.Date(c("2024-07-16", "2026-07-16")),
     window_from = as.Date("2024-07-16"), base_date = as.Date("2024-07-16"),
-    indexed_price = c(100, 300, 100, 250, 100, 200, 100, 110, 100, 130)
+    indexed_price = c(from, to)
   )
-  caps <- tibble::tibble(
-    ticker = c("AAA", "BBB", "CCC", "DDD"), market_cap = c(1e8, 2e8, 3e8, 9e11)
+  performance <- dplyr::bind_rows(
+    bars("AAA", 24, 100, 300), bars("BBB", 24, 100, 250), bars("DEEP", 24, 100, 110),
+    bars("SPY", 24, 100, 130),
+    bars("AAA", 6, 100, 105), bars("BBB", 6, 100, 400), bars("DEEP", 6, 100, 120),
+    bars("SPY", 6, 100, 110)
   )
-  selection <- chart_series(performance, 24, caps, shown = 2L)
+  stocks <- c("AAA", "BBB")
+  candidates <- c(stocks, "DEEP")
 
-  # Top two by return (AAA, BBB) plus top two by size (DDD, CCC), and the benchmark.
-  expect_setequal(selection$selected, c("AAA", "BBB", "DDD", "CCC"))
-  expect_true("SPY" %in% selection$plotted)
-  expect_equal(nrow(selection$others), 0)
+  long <- chart_series(performance, 24, stocks, candidates)
+  short <- chart_series(performance, 6, stocks, candidates)
 
-  narrower <- chart_series(performance, 24, caps, shown = 1L)
-  expect_setequal(narrower$selected, c("AAA", "DDD"))
-  # Everything selected but not drawn is still named, with its window return.
-  expect_setequal(narrower$others$ticker, c("BBB", "CCC"))
-  expect_equal(narrower$others$window_return[narrower$others$ticker == "BBB"], 1.5)
+  expect_equal(long$selected, short$selected)
+  expect_equal(long$plotted, short$plotted)
+  expect_setequal(long$plotted, c("AAA", "BBB", "SPY"))
+  expect_false(long$benchmark_missing)
+
+  # The deep-dive selection outside the drawn set is listed under both, with the
+  # return over each chart's own window.
+  expect_equal(long$others$ticker, "DEEP")
+  expect_equal(short$others$ticker, "DEEP")
+  expect_equal(long$others$window_return, 0.10)
+  expect_equal(short$others$window_return, 0.20)
+})
+
+test_that("a missing benchmark or missing history is reported, not silent", {
+  performance <- tibble::tibble(
+    ticker = c("AAA", "AAA"), horizon_months = 24L,
+    date = as.Date(c("2024-07-16", "2026-07-16")),
+    window_from = as.Date("2024-07-16"), base_date = as.Date("2024-07-16"),
+    indexed_price = c(100, 200)
+  )
+  selection <- chart_series(performance, 24, c("AAA", "NEW"), c("AAA", "NEW"))
+
+  expect_equal(selection$plotted, "AAA")
+  # NEW qualified but cannot be drawn for this window; saying so explains the gap.
+  expect_equal(selection$undrawn, "NEW")
+  # SPY absent from a chart looks like a missing benchmark rather than a data gap.
+  expect_true(selection$benchmark_missing)
+})
+
+test_that("the drawn set pools the strongest returns at every horizon", {
+  snapshot <- tibble::tibble(
+    type = "stock",
+    ticker = rep(c("AAA", "BBB", "CCC", "DDD"), each = 3),
+    horizon_months = rep(c(3L, 12L, 24L), 4),
+    price_return = c(
+      0.90, 0.10, 0.10,   # AAA leads at 3m only
+      0.10, 0.90, 0.10,   # BBB leads at 12m only
+      0.80, 0.80, 0.90,   # CCC is strong everywhere
+      0.05, 0.05, 0.05    # DDD never leads
+    )
+  )
+  # Two per horizon: AAA and CCC at 3m, BBB and CCC at 12m, CCC and AAA/BBB at 24m.
+  # CCC leads more than once and still takes one slot.
+  drawn <- top_return_tickers(snapshot, per_horizon = 2L)
+  expect_setequal(drawn, c("AAA", "BBB", "CCC"))
+  expect_false("DDD" %in% drawn)
+  expect_equal(anyDuplicated(drawn), 0L)
+
+  expect_setequal(top_return_tickers(snapshot, per_horizon = 1L), c("AAA", "BBB", "CCC"))
+  # A company with no return at a horizon cannot lead it.
+  snapshot$price_return[snapshot$ticker == "CCC"] <- NA_real_
+  expect_false("CCC" %in% top_return_tickers(snapshot, per_horizon = 2L))
+})
+
+test_that("styling adds a second channel once the hues run out", {
+  # Past eight series the hues repeat, and a repeated hue alone would make two
+  # companies look like one series.
+  universe <- paste0("T", sprintf("%02d", 1:10))
+  colors <- series_colors(universe, universe = universe)
+  types <- series_line_types(universe, universe = universe)
+
+  expect_equal(unname(colors[["T09"]]), unname(colors[["T01"]]))
+  expect_false(types[["T09"]] == types[["T01"]])
+  expect_true(all(types[universe[1:8]] == SERIES_LINE_TYPES[[1]]))
+  # The benchmark keeps its own style and never collides with a company.
+  expect_equal(unname(colors[["SPY"]]), BENCHMARK_COLOR)
+  expect_equal(unname(types[["SPY"]]), BENCHMARK_LINE_TYPE)
+  expect_false(BENCHMARK_LINE_TYPE %in% SERIES_LINE_TYPES)
 })
 
 test_that("window returns are read off the chart's own window", {
@@ -1266,4 +1384,82 @@ test_that("the cached narrative round-trips with the period it covers", {
   # says whether the brief in the report is still the current one.
   expect_equal(strategy_narrative_age(narrative, as_of = "2026-07-27"), 7L)
   expect_true(is.na(strategy_narrative_age(NULL)))
+})
+
+test_that("a failed navigation says whether the address or the browser was at fault", {
+  # Page.navigate does not answer until the navigation commits, so an unreachable
+  # host produces only "timed out waiting for response to command Page.navigate".
+  # That message alone sent the reader looking for a browser bug.
+  blocked <- navigation_failure_message(
+    "https://example.test/brief",
+    "Chromote: timed out waiting for response to command Page.navigate",
+    reachable = FALSE
+  )
+  expect_match(blocked, "not reachable from this machine")
+  expect_match(blocked, "network policy or proxy")
+
+  stuck <- navigation_failure_message(
+    "https://example.test/brief",
+    "Chromote: timed out waiting for response to command Page.navigate",
+    reachable = TRUE
+  )
+  expect_match(stuck, "browser tab is most likely stuck")
+  expect_match(stuck, "Close the dedicated Chrome window")
+
+  # The underlying chromote message is kept either way.
+  expect_match(blocked, "Page.navigate", fixed = TRUE)
+  expect_match(stuck, "Page.navigate", fixed = TRUE)
+})
+
+test_that("news cards work whether the publisher sits inside or beside the link", {
+  # Google Finance now labels the module "News stories" and puts the publisher and
+  # timestamp next to the headline rather than inside its link. Matching only the old
+  # labels found no cards at all, and reading only inside the link left every
+  # publisher blank.
+  html <- paste(
+    readLines(file.path(root, "tests", "fixtures", "google_finance", "news-sibling-publisher.html")),
+    collapse = "\n"
+  )
+  articles <- parse_google_news(html, "LLY", as.Date("2026-07-28"))
+  expect_equal(nrow(articles), 2)
+  expect_equal(articles$title, c("Company raises full-year outlook", "New product launch expands addressable market"))
+  expect_equal(articles$publisher, c("Quiver Quantitative", "Yahoo Finance"))
+  expect_equal(articles$url, c("https://example.com/article-one", "https://example.org/article-two"))
+  # The relative timestamp and separator are card furniture, not the publisher.
+  expect_false(any(grepl("hours ago", articles$publisher)))
+  expect_true("News stories" %in% google_news_section_labels)
+})
+
+test_that("the baseline is the most recent final that is old enough", {
+  old_root <- getOption("healthcare.project_root")
+  temporary_root <- tempfile("healthcare-")
+  dir.create(file.path(temporary_root, "reports", "final"), recursive = TRUE)
+  file.create(file.path(temporary_root, "healthcare-stock-monitor.Rproj"))
+  options(healthcare.project_root = temporary_root)
+  on.exit(options(healthcare.project_root = old_root), add = TRUE)
+  final <- function(date) dir.create(file.path(temporary_root, "reports", "final", date))
+
+  # Nothing looks for "the same weekday last week", so a run moved from Monday to
+  # Tuesday for a market holiday needs no special handling.
+  final("2026-07-20")   # Monday
+  expect_equal(
+    basename(previous_final_folder("2026-07-28", minimum_days = 5)), "2026-07-20"
+  )
+  expect_equal(
+    basename(previous_final_folder("2026-07-27", minimum_days = 5)), "2026-07-20"
+  )
+
+  # A final from yesterday is a re-run, not the previous week: comparing against it
+  # would report a single day's move as the change since the previous report.
+  final("2026-07-27")
+  expect_equal(
+    basename(previous_final_folder("2026-07-28", minimum_days = 5)), "2026-07-20"
+  )
+  # Exactly the minimum still qualifies.
+  expect_equal(
+    basename(previous_final_folder("2026-08-01", minimum_days = 5)), "2026-07-27"
+  )
+  # With nothing old enough there is no baseline, rather than a misleading one.
+  expect_null(previous_final_folder("2026-07-22", minimum_days = 5))
+  expect_null(previous_final_folder("2026-07-20", minimum_days = 5))
 })
