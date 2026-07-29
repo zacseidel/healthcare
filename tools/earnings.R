@@ -583,16 +583,6 @@ save_earnings_summary <- function(ticker, date, summary, key_moments, source_url
   ))
   body <- character()
   if (!is.na(summary)) body <- c(body, "#### Earnings Call Summary", "", summary, "")
-  if (nrow(key_moments)) {
-    body <- c(body, "#### Key Moments in Earnings Call", "")
-    for (index in seq_len(nrow(key_moments))) {
-      body <- c(
-        body,
-        paste0("##### ", key_moments$timestamp[[index]], " — ", key_moments$title[[index]]),
-        "", key_moments$blurb[[index]], ""
-      )
-    }
-  }
   if (nrow(glance)) {
     body <- c(body, "#### At a Glance", "")
     for (index in seq_len(nrow(glance))) {
@@ -603,8 +593,44 @@ save_earnings_summary <- function(ticker, date, summary, key_moments, source_url
     }
     body <- c(body, "")
   }
+  if (nrow(key_moments)) {
+    body <- c(body, "#### Key Moments in Earnings Call", "")
+    for (index in seq_len(nrow(key_moments))) {
+      body <- c(
+        body,
+        paste0("##### ", key_moments$timestamp[[index]], " — ", key_moments$title[[index]]),
+        "", key_moments$blurb[[index]], ""
+      )
+    }
+  }
   writeLines(c("---", strsplit(trimws(header), "\n")[[1]], "---", "", body), path)
   relative
+}
+
+# The order the report reads these in: the written summary first, the quick figures
+# next, the timestamped moments last. Summaries already on disk were written in a
+# different order, and they are not re-scraped until the next call happens — a saved
+# summary is a record of a call that is over. So the order is imposed on the way out
+# rather than only on the way in, and an old cache reads the same as a new one.
+EARNINGS_SECTION_ORDER <- c(
+  "Earnings Call Summary", "At a Glance", "Key Moments in Earnings Call"
+)
+
+order_earnings_sections <- function(body, order = EARNINGS_SECTION_ORDER) {
+  lines <- strsplit(body, "\n", fixed = TRUE)[[1]]
+  # Only the section headings split the body; the "#####" moment headings travel with
+  # the "#### Key Moments" section they sit under.
+  starts <- which(grepl("^#### [^#]", lines))
+  if (length(starts) < 2) return(body)
+  ends <- c(starts[-1] - 1L, length(lines))
+  titles <- trimws(sub("^#### ", "", lines[starts]))
+  # A heading the order does not name keeps its position relative to the ones it
+  # follows, so an unexpected section is never dropped or shuffled to the end.
+  rank <- match(titles, order, nomatch = NA_integer_)
+  rank[is.na(rank)] <- seq_along(rank)[is.na(rank)] + length(order)
+  preamble <- if (starts[[1]] > 1L) lines[seq_len(starts[[1]] - 1L)] else character()
+  sections <- lapply(order(rank), function(index) lines[starts[[index]]:ends[[index]]])
+  trimws(paste(c(preamble, unlist(sections)), collapse = "\n"))
 }
 
 read_earnings_summary <- function(ticker, as_of = Sys.Date(), report_date = NULL) {
@@ -620,7 +646,8 @@ read_earnings_summary <- function(ticker, as_of = Sys.Date(), report_date = NULL
   if (!length(eligible)) return(NULL)
   document <- read_markdown_yaml(files[eligible[which.max(dates[eligible])]])
   list(
-    ticker = ticker, report_date = as.Date(document$metadata$report_date), summary = document$body,
+    ticker = ticker, report_date = as.Date(document$metadata$report_date),
+    summary = order_earnings_sections(document$body),
     source_url = document$metadata$source_url %||% NA_character_,
     summary_status = document$metadata$summary_status %||% "available",
     key_moments_count = as.integer(document$metadata$key_moments_count %||% 0L),

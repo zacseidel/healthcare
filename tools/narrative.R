@@ -138,12 +138,10 @@ html_to_markdown <- function(html, shift_headings = 0L) {
   trimws(paste(readLines(output_file, warn = FALSE, encoding = "UTF-8"), collapse = "\n"))
 }
 
-refresh_strategy_narrative <- function(url = strategy_narrative_url(),
-                                       pattern = strategy_narrative_pattern()) {
-  if (is.na(url)) {
-    cli::cli_inform("No strategy_narrative_url is set in inputs/settings.md; skipping.")
-    return(invisible(NULL))
-  }
+# Fetch the brief from the share link and write the cache the report reads. This is
+# the path that needs a browser and an unfiltered route to chatgpt.com.
+fetch_strategy_narrative <- function(url = strategy_narrative_url(),
+                                     pattern = strategy_narrative_pattern()) {
   cli::cli_inform("Reading the strategy narrative from the shared conversation.")
   latest <- latest_strategy_message(fetch_strategy_messages(url), pattern)
   body <- nest_narrative_headings(html_to_markdown(latest$html))
@@ -162,6 +160,145 @@ refresh_strategy_narrative <- function(url = strategy_narrative_url(),
   )
   cli::cli_alert_success(
     "Saved the strategy narrative{if (is.na(latest$period)) '' else paste0(' for the week of ', latest$period)}."
+  )
+  invisible(read_strategy_narrative())
+}
+
+# Where a network can reach the share link, the brief is fetched; where it cannot, the
+# committed snapshot is used instead. Which of those applies is a property of the
+# machine, not of the project, so it cannot live in inputs/settings.md — that file is
+# tracked and would carry one machine's answer to the other. The environment decides,
+# via .Renviron, which is not tracked.
+#
+#   "auto"   try the share link, fall back to the snapshot  (default)
+#   "file"   use the snapshot only, and do not open a browser
+#   "remote" use the share link only, and fail if it cannot be read
+strategy_narrative_source <- function() {
+  value <- tolower(trimws(Sys.getenv("HEALTHCARE_STRATEGY_SOURCE", "auto")))
+  if (!nzchar(value)) value <- "auto"
+  if (!value %in% c("auto", "file", "remote")) {
+    cli::cli_warn("HEALTHCARE_STRATEGY_SOURCE is {.val {value}}; expected auto, file, or remote. Using auto.")
+    value <- "auto"
+  }
+  value
+}
+
+refresh_strategy_narrative <- function(url = strategy_narrative_url(),
+                                       pattern = strategy_narrative_pattern(),
+                                       source = strategy_narrative_source()) {
+  if (is.na(url)) {
+    cli::cli_inform("No strategy_narrative_url is set in inputs/settings.md; skipping.")
+    return(invisible(NULL))
+  }
+  if (identical(source, "file")) return(import_strategy_narrative())
+  if (identical(source, "remote")) return(fetch_strategy_narrative(url, pattern))
+
+  fetched <- tryCatch(fetch_strategy_narrative(url, pattern), error = function(error) error)
+  if (!inherits(fetched, "error")) return(invisible(fetched))
+
+  # The snapshot is a fallback, not a silent substitute: a warning is what turns the
+  # refresh stage yellow, so a run that quietly stopped seeing new briefs is visible.
+  if (!file.exists(strategy_narrative_export_path())) {
+    stop(conditionMessage(fetched), call. = FALSE)
+  }
+  cli::cli_warn(c(
+    "Could not read the strategy narrative from the shared conversation.",
+    "i" = conditionMessage(fetched),
+    "i" = "Falling back to the snapshot committed at {.path {narrative_repo_path()}}."
+  ))
+  import_strategy_narrative()
+}
+
+# The snapshot lives under inputs/ rather than data/ because of what it is on each
+# machine: output where it is written, but a checked-in input where it is read. data/
+# is also where the ignore rules live, and this is the one narrative file that has to
+# survive a commit.
+strategy_narrative_export_path <- function() project_path("inputs", "strategy-narrative.json")
+
+narrative_repo_path <- function(path = strategy_narrative_export_path()) {
+  root <- normalizePath(project_root(), winslash = "/", mustWork = FALSE)
+  sub(paste0("^", regex_escape(root), "/"), "", normalizePath(path, winslash = "/", mustWork = FALSE))
+}
+
+regex_escape <- function(text) gsub("([.\\\\|()\\[\\]{}^$*+?])", "\\\\\\1", text, perl = TRUE)
+
+# JSON rather than the Markdown-with-YAML the cache uses: the body is itself Markdown
+# containing "---" separators and headings, and round-tripping that through another
+# YAML front matter block is the kind of quoting problem that only shows up on the
+# machine that cannot re-fetch. JSON escapes the body wholesale.
+write_strategy_narrative_export <- function(narrative = read_strategy_narrative(),
+                                            path = strategy_narrative_export_path()) {
+  if (is.null(narrative)) {
+    stop("There is no saved strategy narrative to export.", call. = FALSE)
+  }
+  dir.create(dirname(path), recursive = TRUE, showWarnings = FALSE)
+  writeLines(
+    jsonlite::toJSON(
+      list(
+        schema = 1L,
+        source_url = narrative$source_url %||% NA_character_,
+        # The time the brief was read from ChatGPT, carried across unchanged. The
+        # staleness check measures the brief's age, not the age of the copy.
+        fetched_at = narrative$fetched_at %||% NA_character_,
+        period = narrative$period %||% NA_character_,
+        exported_at = utc_now(),
+        body = narrative$body
+      ),
+      auto_unbox = TRUE, pretty = TRUE, na = "null"
+    ),
+    path, useBytes = TRUE
+  )
+  cli::cli_alert_success("Wrote the portable snapshot to {.path {narrative_repo_path(path)}}.")
+  invisible(normalizePath(path, winslash = "/"))
+}
+
+# Run on the machine that can reach chatgpt.com: refresh the cache, then write the
+# snapshot that travels through Git to the machine that cannot.
+export_strategy_narrative <- function(url = strategy_narrative_url(),
+                                      pattern = strategy_narrative_pattern()) {
+  if (is.na(url)) {
+    stop("No strategy_narrative_url is set in inputs/settings.md.", call. = FALSE)
+  }
+  narrative <- fetch_strategy_narrative(url, pattern)
+  write_strategy_narrative_export(narrative)
+  invisible(narrative)
+}
+
+# Rebuild the cache from the committed snapshot. Everything downstream keeps reading
+# the one cache file, so nothing else has to know where the brief came from.
+import_strategy_narrative <- function(path = strategy_narrative_export_path()) {
+  if (!file.exists(path)) {
+    stop(
+      "No strategy narrative snapshot at ", narrative_repo_path(path),
+      ". Run bin/refresh-narrative on a machine that can reach the share link, then commit it.",
+      call. = FALSE
+    )
+  }
+  snapshot <- tryCatch(
+    jsonlite::fromJSON(path, simplifyVector = FALSE),
+    error = function(error) {
+      stop("The strategy narrative snapshot is not readable JSON: ", conditionMessage(error), call. = FALSE)
+    }
+  )
+  body <- snapshot$body %||% ""
+  if (!nzchar(trimws(body))) {
+    stop("The strategy narrative snapshot has no body.", call. = FALSE)
+  }
+  dir.create(dirname(strategy_narrative_path()), recursive = TRUE, showWarnings = FALSE)
+  write_markdown_yaml(
+    strategy_narrative_path(),
+    list(
+      source_url = snapshot$source_url %||% NA_character_,
+      fetched_at = snapshot$fetched_at %||% NA_character_,
+      period = snapshot$period %||% NA_character_,
+      imported_at = utc_now(),
+      imported_from = narrative_repo_path(path)
+    ),
+    body
+  )
+  period <- snapshot$period %||% NA_character_
+  cli::cli_alert_success(
+    "Loaded the strategy narrative snapshot{if (is.na(period)) '' else paste0(' for the week of ', period)}."
   )
   invisible(read_strategy_narrative())
 }

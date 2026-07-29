@@ -26,20 +26,53 @@ report <- result$report
 facts <- result$company_facts
 html_output <- knitr::is_html_output()
 
-# Companies with their own subsection, so other sections can link a name straight
-# to it. A name that has no overview stays plain text rather than a dead link.
+# The two places a company gets its own subsection, so every table can point at them.
 overview_tickers <- vapply(result$overviews, function(item) item$ticker, character(1))
+earnings_tickers <- vapply(
+  purrr::keep(result$earnings_summaries, function(item) !is.na(item$summary)),
+  function(item) item$ticker, character(1)
+)
+
+link_to <- function(text, anchor) {
+  internal_report_link(text, anchor, html_output)
+}
+# One rule everywhere both appear: the ticker goes to the company's overview, the name
+# goes to its earnings write-up. Splitting them means a company that has both is
+# reachable in both directions from the same row, and a reader learns one habit rather
+# than checking which column is live in which table. Either stays plain text when that
+# destination is not in this report, rather than becoming a dead link.
+overview_link <- function(ticker) {
+  overview_report_link(ticker, overview_tickers, html_output)
+}
+earnings_link <- function(name, ticker) {
+  earnings_report_link(name, ticker, earnings_tickers, html_output)
+}
+# Sections that predate the split, where the name is still the only column shown.
 company_link <- function(name, ticker) {
   if (!length(ticker) || is.na(ticker) || !(ticker %in% overview_tickers)) return(name)
-  if (html_output) sprintf("<a href=\"#%s\">%s</a>", report_anchor(ticker), name)
-  else sprintf("[%s](#%s)", name, report_anchor(ticker))
+  link_to(name, report_anchor(ticker))
 }
-# The table of contents lists the report's sections plus the strategy brief's own
-# structure. Every other subsection is marked `.unlisted` so a reader scanning the
-# contents sees the report's shape rather than every company and category name.
-# The attribute is HTML-only; Markdown has no heading attributes.
-sub_heading <- function(text) {
-  if (html_output) paste0("### ", text, " {.unlisted}\n\n") else paste0("### ", text, "\n\n")
+# The contents list the report's sections, the strategy brief's own structure, and the
+# companies whose earnings are written up. Everything else is marked `.unlisted`, so a
+# reader scanning the contents sees the report's shape rather than every category name.
+#
+# The anchor is written as a heading attribute in HTML and as an inline element in
+# Markdown, because neither form works in both: Markdown has no heading attributes, and
+# an inline `<a id>` at the start of an HTML heading is read as that heading's text, so
+# a listed section arrives in the contents with a blank label.
+sub_heading <- function(text, id = NULL, listed = FALSE) {
+  report_sub_heading(text, id, listed, html_output)
+}
+# A saved earnings write-up carries its own "####" headings. Those are structure within
+# one company, not report sections, so they are kept out of the contents — otherwise
+# "Earnings Call Summary" appears in it once per company.
+unlisted_headings <- function(markdown) {
+  if (!html_output) return(markdown)
+  lines <- strsplit(markdown, "\n", fixed = TRUE)[[1]]
+  in_code <- cumsum(grepl("^\\s*```", lines)) %% 2L == 1L
+  heading <- grepl("^#{4,6} ", lines) & !in_code
+  lines[heading] <- paste0(lines[heading], " {.unlisted}")
+  paste(lines, collapse = "\n")
 }
 fact <- function(ticker, column) {
   value <- facts[[column]][match(ticker, facts$ticker)]
@@ -147,9 +180,16 @@ if (!nrow(result$changes)) {
 
 ```{r, results='asis'}
 categories <- result$categories
+# Each category name drops to its own subsection below, and the heading there comes
+# back here. Only categories the report actually lists get a link; the returns table
+# can carry a category this report does not break out.
+category_link <- function(name) {
+  if (!(name %in% report$categories)) return(name)
+  link_to(name, category_anchor(name))
+}
 report_table(
   tibble::tibble(
-    Category = categories$category,
+    Category = purrr::map_chr(categories$category, category_link),
     Companies = categories$company_count,
     `Market cap` = format_market_cap(categories$market_cap),
     `3m Return` = format_return(categories$price_return_3m),
@@ -183,7 +223,7 @@ directly. Any deep-dive selection outside that set is listed beneath each chart 
 its return over that window.
 
 ```{r}
-chart_windows <- c(24L, 12L, 6L)
+chart_windows <- c(6L, 12L, 24L)
 selections <- lapply(chart_windows, function(months) {
   chart_series(result$price_performance, months, result$chart_stocks, result$chart_candidates)
 })
@@ -251,8 +291,8 @@ for (horizon in return_horizons()) {
   report_table(
     tibble::tibble(
       Rank = table$overall_rank,
-      Company = purrr::map2_chr(table$name, table$ticker, company_link),
-      Ticker = table$ticker,
+      Company = purrr::map2_chr(table$name, table$ticker, earnings_link),
+      Ticker = purrr::map_chr(table$ticker, overview_link),
       `Market cap` = format_market_cap(table$market_cap),
       Return = format_return(table$price_return)
     ),
@@ -270,19 +310,21 @@ for (horizon in return_horizons()) {
 category_returns <- result$categories
 for (category_name in report$categories) {
   weighted <- category_returns$price_return_3m[match(category_name, category_returns$category)]
-  heading <- paste0(category_name, " ", format_return(weighted))
+  # The label names its own window: the bare percentage beside a category heading
+  # read as that category's return over some unstated period.
+  label <- paste0("Last 3m: ", format_return(weighted))
+  # The name goes back up to the category performance table, so the comparison across
+  # categories is one click away from any category being read.
+  fill <- NA_character_
   if (html_output && !is.na(weighted)) {
     # The subsector's own return is coloured on the same scale as the categories
     # table, so the heading says how this group compares without a second lookup.
     fill <- return_fills(category_returns$price_return_3m)[
       match(category_name, category_returns$category)
     ]
-    heading <- sprintf(
-      "%s <span style=\"background:%s;color:%s;padding:0.1rem 0.4rem;border-radius:4px;font-size:0.85em\">%s</span>",
-      category_name, fill, contrast_ink(fill), format_return(weighted)
-    )
   }
-  cat(sub_heading(heading))
+  heading <- category_report_heading(category_name, label, fill, html_output)
+  cat(sub_heading(heading, id = category_anchor(category_name)))
   table <- dplyr::filter(result$stocks, category == category_name)
   if (!nrow(table)) {
     cat("No companies are assigned to this category.\n\n")
@@ -290,8 +332,8 @@ for (category_name in report$categories) {
   }
   report_table(
     tibble::tibble(
-      Company = purrr::map2_chr(table$name, table$ticker, company_link),
-      Ticker = table$ticker,
+      Company = purrr::map2_chr(table$name, table$ticker, earnings_link),
+      Ticker = purrr::map_chr(table$ticker, overview_link),
       `Market cap` = format_market_cap(table$market_cap),
       `3m Return` = format_return(table$price_return_3m),
       `12m Return` = format_return(table$price_return_12m),
@@ -312,7 +354,8 @@ for (category_name in report$categories) {
 }
 ```
 
-The percentage beside each category is its market-cap-weighted 3-month return.
+The percentage beside each category is its market-cap-weighted 3-month return. Category
+names link back to the category performance table.
 
 ## Upcoming earnings
 
@@ -334,8 +377,8 @@ if (!nrow(upcoming)) {
     cat(sub_heading(category_name))
     report_table(
       tibble::tibble(
-        Company = purrr::map2_chr(table$name, table$ticker, company_link),
-        Ticker = table$ticker,
+        Company = purrr::map2_chr(table$name, table$ticker, earnings_link),
+        Ticker = purrr::map_chr(table$ticker, overview_link),
         Date = format(table$next_earnings_date),
         `Market cap` = format_market_cap(table$market_cap),
         `3m Return` = format_return(table$return_3m),
@@ -358,14 +401,22 @@ if (!length(result$earnings_summaries)) cat("No earnings summaries were selected
 for (item in result$earnings_summaries) {
   name <- fact(item$ticker, "name")
   if (is.na(name)) name <- item$ticker
-  cat(sub_heading(paste0(company_link(name, item$ticker), " (", item$ticker, ")")))
+  # Listed in the contents, so the companies written up this week can be reached
+  # directly. The heading is the destination other sections link to, so it carries the
+  # anchor and no link of its own — a link inside a heading is repeated in the
+  # contents, where it reads as a link to somewhere other than the section itself.
+  cat(sub_heading(
+    sprintf("%s (%s)", name, item$ticker),
+    id = earnings_anchor(item$ticker), listed = TRUE
+  ))
   cat(
     "*", fact(item$ticker, "category"), " · ", format_market_cap(fact(item$ticker, "market_cap")),
     " · 3m ", format_return(fact(item$ticker, "price_return_3m")),
     " · 12m ", format_return(fact(item$ticker, "price_return_12m")), "*\n\n", sep = ""
   )
   if (is.na(item$summary)) cat(item$message, "\n\n") else {
-    cat("**Reported:** ", format(item$report_date), "\n\n", item$summary, "\n\n", sep = "")
+    cat("**Reported:** ", format(item$report_date), "\n\n",
+        unlisted_headings(item$summary), "\n\n", sep = "")
     if (!is.na(item$source_url)) cat("[Google Finance source](", item$source_url, ")\n\n", sep = "")
   }
 }
@@ -403,12 +454,9 @@ if (length(without_news)) {
 ```{r, results='asis', fig.width=7, fig.height=2.6}
 if (!length(result$overviews)) cat("No company overviews were selected.\n\n")
 for (item in result$overviews) {
-  # An inline HTML anchor in both formats: Markdown's `{#id}` heading attribute is
-  # not part of GitHub-flavoured Markdown, so pandoc dropped it and left every
-  # company link in the Markdown copy pointing at nothing.
-  cat(sub_heading(sprintf(
-    "<a id=\"%s\"></a>%s (%s)", report_anchor(item$ticker), item$name, item$ticker
-  )))
+  cat(sub_heading(
+    sprintf("%s (%s)", item$name, item$ticker), id = report_anchor(item$ticker)
+  ))
   cat(
     "*", item$category %||% "Uncategorised", " · ", format_market_cap(item$market_cap),
     " · 3m ", format_return(fact(item$ticker, "price_return_3m")),
@@ -424,6 +472,11 @@ for (item in result$overviews) {
         chart, 24, unique(chart$ticker), colors = chart_colors
       )
     })
+    # A plot in an `asis` chunk is emitted as an image where it is drawn, and an image
+    # is inline-level: without a blank line after it the description that follows joins
+    # the same paragraph and wraps up the chart's right-hand side. The break is what
+    # puts the description below the chart.
+    cat("\n\n")
   }
   if (!is.na(item$description) && nzchar(item$description)) cat(item$description, "\n\n")
   if (!is.na(item$provider_description) && nzchar(item$provider_description)) {

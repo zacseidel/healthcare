@@ -201,6 +201,55 @@ every company and category name.
 
 Refresh it on its own with `refresh_strategy_narrative()`.
 
+### Where the share link is blocked
+
+Some networks intercept `chatgpt.com` and redirect it to a filtering page. That page loads
+normally and simply never contains the brief, so the fetch waits out its timeout and reports
+that the expected content never appeared. Nothing in the project can route around that, so the
+brief is carried across instead: fetched where the link is reachable, committed, and read back
+where it is not.
+
+On the machine that **can** reach the link — no RStudio needed, run it from a terminal:
+
+```sh
+./bin/refresh-narrative
+git add inputs/strategy-narrative.json
+git commit -m "Update strategy narrative snapshot"
+git push
+```
+
+That fetches the brief, refreshes `data/strategy-narrative.md` as usual, and also writes
+`inputs/strategy-narrative.json` — the same brief in a form Git carries. It lives under
+`inputs/` because that is what it is on the receiving machine: a checked-in input.
+`data/strategy-narrative.md` stays ignored, so the snapshot is the only copy that travels.
+
+The same update can be run remotely from GitHub: open **Actions → Update strategy
+narrative → Run workflow** and choose the branch to update. The manual action uses
+headless Chrome and Node directly — it does not install R or restore `renv` — then
+commits only `inputs/strategy-narrative.json`. If the snapshot has not changed, it
+exits without creating an empty commit. No repository secret is required because the
+shared conversation is public and the workflow uses its scoped `GITHUB_TOKEN` to push.
+
+On the machine that **cannot**, `git pull` and refresh normally. `refresh_strategy_narrative()`
+tries the share link, and when that fails rebuilds the cache from the snapshot and warns —
+a warning, not a failure, so the stage shows yellow and a brief that has quietly stopped
+updating stays visible. Everything downstream still reads the one cache file and neither knows
+nor cares which source filled it.
+
+To skip the doomed fetch and its timeout entirely, set the source in `.Renviron` — not
+`inputs/settings.md`, which is tracked and would carry one machine's answer to the other:
+
+```
+HEALTHCARE_STRATEGY_SOURCE=file
+```
+
+`auto` (the default) tries the link then falls back, `file` reads only the snapshot and never
+opens a browser, and `remote` requires the link and fails if it cannot be read.
+
+The imported brief keeps the `fetched_at` from the machine that fetched it, so the seven-day
+staleness check measures the age of the brief rather than the age of the copy. Re-run
+`./bin/refresh-narrative` and commit whenever the ChatGPT share is updated.
+
 ## Report output
 
 Each render produces two files from one source: `NAME.html`, the report that gets read and

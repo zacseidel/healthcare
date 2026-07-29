@@ -1312,6 +1312,125 @@ test_that("the newest brief is used, not simply the newest message", {
   expect_false(grepl("Updated. Your Monday", latest$html, fixed = TRUE))
 })
 
+test_that("an earnings write-up reads summary, then figures, then moments", {
+  # Summaries already on disk were written moments-before-glance and are not
+  # re-scraped once the call has happened, so the order is imposed on read.
+  body <- paste(
+    "#### Earnings Call Summary", "", "The written summary.", "",
+    "#### Key Moments in Earnings Call", "",
+    "##### 14m 41s — A moment", "", "What was said.", "",
+    "#### At a Glance", "", "- **Revenue:** up", "",
+    sep = "\n"
+  )
+  ordered <- order_earnings_sections(body)
+  expect_equal(
+    trimws(sub("^#### ", "", grep("^#### ", strsplit(ordered, "\n")[[1]], value = TRUE))),
+    c("Earnings Call Summary", "At a Glance", "Key Moments in Earnings Call")
+  )
+  # A moment heading travels with the section it belongs to rather than being left
+  # behind when that section moves.
+  lines <- strsplit(ordered, "\n")[[1]]
+  expect_gt(grep("^##### 14m 41s", lines), grep("^#### Key Moments", lines))
+  expect_match(ordered, "What was said.", fixed = TRUE)
+})
+
+test_that("reordering an earnings write-up never drops content", {
+  # A section the order does not name still has to survive.
+  body <- paste(
+    "#### At a Glance", "", "- **Revenue:** up", "",
+    "#### Analyst Commentary", "", "Something unexpected.", "",
+    "#### Earnings Call Summary", "", "The written summary.",
+    sep = "\n"
+  )
+  ordered <- order_earnings_sections(body)
+  expect_match(ordered, "Something unexpected.", fixed = TRUE)
+  expect_match(ordered, "The written summary.", fixed = TRUE)
+  headings <- grep("^#### ", strsplit(ordered, "\n")[[1]], value = TRUE)
+  expect_equal(trimws(sub("^#### ", "", headings[1:2])), c("Earnings Call Summary", "At a Glance"))
+
+  # Nothing to reorder is left exactly as it was.
+  single <- "#### Earnings Call Summary\n\nOnly one section."
+  expect_equal(order_earnings_sections(single), single)
+})
+
+test_that("each kind of destination gets its own anchor", {
+  # A company can have both an overview and an earnings write-up in one report, so
+  # the two anchors must not collide — that is what lets the ticker and the name in
+  # the same table row point to different places.
+  expect_false(identical(report_anchor("LLY"), earnings_anchor("LLY")))
+  expect_equal(report_anchor("LLY"), "company-lly")
+  expect_equal(earnings_anchor("lly"), "earnings-lly")
+  expect_equal(category_anchor("Managed Care"), "category-managed-care")
+  expect_equal(category_anchor("Health IT & Services"), "category-health-it-services")
+  # Trailing punctuation would otherwise leave a dangling separator in the id.
+  expect_equal(category_anchor("  Biopharma!  "), "category-biopharma")
+})
+
+test_that("report navigation assigns names and tickers to distinct destinations", {
+  expect_equal(
+    overview_report_link("LLY", c("LLY", "UNH")),
+    "[LLY](#company-lly)"
+  )
+  expect_equal(
+    earnings_report_link("Lilly", "LLY", c("LLY")),
+    "[Lilly](#earnings-lly)"
+  )
+  expect_equal(
+    overview_report_link("CVS", "LLY"),
+    "CVS"
+  )
+  expect_equal(
+    earnings_report_link("CVS Health", "CVS", "LLY"),
+    "CVS Health"
+  )
+  expect_equal(
+    overview_report_link("LLY", "LLY", html_output = TRUE),
+    '<a href="#company-lly">LLY</a>'
+  )
+  expect_equal(
+    earnings_report_link("Lilly", "LLY", "LLY", html_output = TRUE),
+    '<a href="#earnings-lly">Lilly</a>'
+  )
+})
+
+test_that("category navigation is bidirectional in both report formats", {
+  expect_equal(
+    category_report_heading("Managed Care", "Last 3m: +18.8%"),
+    "[Managed Care](#category-performance) Last 3m: +18.8%"
+  )
+  html <- category_report_heading(
+    "Managed Care", "Last 3m: +18.8%", "#d6ecd4", html_output = TRUE
+  )
+  expect_match(html, '<a href="#category-performance">Managed Care</a>', fixed = TRUE)
+  expect_match(html, "Last 3m: +18.8%", fixed = TRUE)
+
+  expect_equal(
+    report_sub_heading(
+      "[Managed Care](#category-performance) Last 3m: +18.8%",
+      "category-managed-care"
+    ),
+    paste0(
+      '### <a id="category-managed-care"></a>',
+      "[Managed Care](#category-performance) Last 3m: +18.8%\n\n"
+    )
+  )
+})
+
+test_that("only earnings company headings are listed under their report section", {
+  expect_equal(
+    report_sub_heading("Lilly (LLY)", "earnings-lly", listed = TRUE, html_output = TRUE),
+    "### Lilly (LLY) {#earnings-lly}\n\n"
+  )
+  expect_equal(
+    report_sub_heading("Managed Care", "category-managed-care", html_output = TRUE),
+    "### Managed Care {#category-managed-care .unlisted}\n\n"
+  )
+  expect_equal(
+    report_sub_heading("Lilly (LLY)", "company-lly", html_output = TRUE),
+    "### Lilly (LLY) {#company-lly .unlisted}\n\n"
+  )
+})
+
 test_that("a conversation with no brief is an error, not a wrong narrative", {
   confirmations <- list(list(text = "Updated. Noted.", html = "<p>Updated. Noted.</p>"))
   expect_error(
@@ -1384,6 +1503,127 @@ test_that("the cached narrative round-trips with the period it covers", {
   # says whether the brief in the report is still the current one.
   expect_equal(strategy_narrative_age(narrative, as_of = "2026-07-27"), 7L)
   expect_true(is.na(strategy_narrative_age(NULL)))
+})
+
+# A temporary project holding a cached narrative, so the snapshot tests below never
+# touch the real data directory or the network.
+local_narrative_project <- function(body = "### Payer Health Tech Strategy Brief\n\nBody.",
+                                    fetched_at = "2026-07-20T09:00:00Z",
+                                    env = parent.frame()) {
+  old_root <- getOption("healthcare.project_root")
+  temporary_root <- tempfile("healthcare-")
+  dir.create(file.path(temporary_root, "data"), recursive = TRUE)
+  dir.create(file.path(temporary_root, "inputs"), recursive = TRUE)
+  file.create(file.path(temporary_root, "healthcare-stock-monitor.Rproj"))
+  options(healthcare.project_root = temporary_root)
+  withr::defer(options(healthcare.project_root = old_root), envir = env)
+  write_markdown_yaml(
+    strategy_narrative_path(),
+    list(
+      source_url = "https://chatgpt.com/share/example",
+      fetched_at = fetched_at, period = "July 20, 2026",
+      message_index = 2L, message_count = 3L
+    ),
+    body
+  )
+  temporary_root
+}
+
+test_that("the snapshot carries the brief between machines with its original age", {
+  local_narrative_project()
+  write_strategy_narrative_export()
+  expect_true(file.exists(strategy_narrative_export_path()))
+
+  # The machine that cannot reach the share link has only the snapshot.
+  unlink(strategy_narrative_path())
+  expect_null(read_strategy_narrative())
+
+  imported <- import_strategy_narrative()
+  expect_equal(imported$period, "July 20, 2026")
+  expect_match(imported$body, "Payer Health Tech Strategy Brief")
+  # The brief's age is when it was read from ChatGPT, not when it was copied across;
+  # otherwise importing a stale snapshot would silently reset the staleness warning.
+  expect_equal(imported$fetched_at, "2026-07-20T09:00:00Z")
+  expect_equal(strategy_narrative_age(imported, as_of = "2026-07-27"), 7L)
+})
+
+test_that("a Markdown body survives the snapshot unchanged", {
+  # The body is Markdown containing the same "---" and "#" that the cache format uses
+  # structurally, which is why the snapshot is JSON rather than more front matter.
+  awkward <- "---\n\n## Readout\n\n- \"quoted\": value\n\n---\n\n### Watch list\n"
+  local_narrative_project(body = awkward)
+  write_strategy_narrative_export()
+  unlink(strategy_narrative_path())
+  expect_equal(import_strategy_narrative()$body, trimws(awkward))
+})
+
+test_that("a missing or empty snapshot is an error that says what to run", {
+  local_narrative_project()
+  unlink(strategy_narrative_path())
+  expect_error(import_strategy_narrative(), "bin/refresh-narrative")
+
+  writeLines('{"schema":1,"body":""}', strategy_narrative_export_path())
+  expect_error(import_strategy_narrative(), "no body")
+})
+
+test_that("the narrative source is chosen by the environment, not by settings", {
+  # inputs/settings.md is tracked and would carry one machine's answer to the other,
+  # so which source to use has to come from outside the repository.
+  withr::local_envvar(HEALTHCARE_STRATEGY_SOURCE = NA)
+  expect_equal(strategy_narrative_source(), "auto")
+  withr::local_envvar(HEALTHCARE_STRATEGY_SOURCE = "file")
+  expect_equal(strategy_narrative_source(), "file")
+  withr::local_envvar(HEALTHCARE_STRATEGY_SOURCE = "  REMOTE ")
+  expect_equal(strategy_narrative_source(), "remote")
+  withr::local_envvar(HEALTHCARE_STRATEGY_SOURCE = "nonsense")
+  expect_warning(expect_equal(strategy_narrative_source(), "auto"), "expected auto")
+})
+
+test_that("a blocked fetch falls back to the snapshot instead of failing the refresh", {
+  local_narrative_project()
+  write_strategy_narrative_export()
+  # Stand in for a network that intercepts the share link.
+  original <- fetch_strategy_narrative
+  assign(
+    "fetch_strategy_narrative",
+    function(...) stop("The page loaded but never showed the expected content", call. = FALSE),
+    envir = globalenv()
+  )
+  withr::defer(assign("fetch_strategy_narrative", original, envir = globalenv()))
+
+  unlink(strategy_narrative_path())
+  # A warning rather than a silent substitution: run_refresh_stage turns that into a
+  # yellow stage, so a run that has quietly stopped seeing new briefs is visible.
+  expect_warning(
+    narrative <- refresh_strategy_narrative(url = "https://chatgpt.com/share/example"),
+    "Falling back to the snapshot"
+  )
+  expect_match(narrative$body, "Payer Health Tech Strategy Brief")
+
+  # With no snapshot to fall back to, the original failure is what surfaces.
+  unlink(c(strategy_narrative_path(), strategy_narrative_export_path()))
+  expect_error(
+    refresh_strategy_narrative(url = "https://chatgpt.com/share/example"),
+    "never showed the expected content"
+  )
+})
+
+test_that("the file source does not attempt the share link at all", {
+  local_narrative_project()
+  write_strategy_narrative_export()
+  original <- fetch_strategy_narrative
+  assign(
+    "fetch_strategy_narrative",
+    function(...) stop("the browser must not be opened for source = file", call. = FALSE),
+    envir = globalenv()
+  )
+  withr::defer(assign("fetch_strategy_narrative", original, envir = globalenv()))
+
+  unlink(strategy_narrative_path())
+  narrative <- refresh_strategy_narrative(
+    url = "https://chatgpt.com/share/example", source = "file"
+  )
+  expect_match(narrative$body, "Payer Health Tech Strategy Brief")
 })
 
 test_that("a failed navigation says whether the address or the browser was at fault", {

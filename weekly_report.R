@@ -690,13 +690,14 @@ refresh_report <- function(report_path = "inputs/current_report.md",
     stages$news <- skipped_refresh_stage("Browser was not ready.")
   }
 
-  if (browser_usable) {
-    stages$narrative <- run_refresh_stage("Strategy narrative", function() {
-      refresh_strategy_narrative()
-    })
-  } else {
-    stages$narrative <- skipped_refresh_stage("Browser was not ready.")
-  }
+  # Unlike the scraping stages, this one still has something to do without a browser:
+  # the committed snapshot is read from disk. Only the share link needs Chrome, so a
+  # browser that never started forces the file source rather than skipping the stage.
+  stages$narrative <- run_refresh_stage("Strategy narrative", function() {
+    refresh_strategy_narrative(
+      source = if (browser_usable) strategy_narrative_source() else "file"
+    )
+  })
 
   # Release the scraping tab before rendering: a live session left open across the
   # Quarto render is what surfaced stray promise rejections inside the draft output.

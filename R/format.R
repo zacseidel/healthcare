@@ -66,7 +66,60 @@ html_escape <- function(text) {
   gsub(">", "&gt;", text, fixed = TRUE)
 }
 
+# Three kinds of destination the report links between. Each is written as an explicit
+# inline anchor at its heading rather than relying on the id Quarto derives from the
+# heading text: those ids change whenever the wording does, and the Markdown copy does
+# not get them at all.
 report_anchor <- function(ticker) paste0("company-", tolower(normalize_ticker(ticker)))
+earnings_anchor <- function(ticker) paste0("earnings-", tolower(normalize_ticker(ticker)))
+
+# Category names are prose ("Managed Care", "Health IT & Services"), so the anchor is
+# a slug of the name. Names that differ only in punctuation would collide, but a
+# report cannot list the same category twice, so the name itself is already unique.
+category_anchor <- function(category) {
+  slug <- gsub("[^a-z0-9]+", "-", tolower(trimws(as.character(category))))
+  paste0("category-", gsub("^-+|-+$", "", slug))
+}
+
+internal_report_link <- function(text, anchor, html_output = FALSE) {
+  if (html_output) sprintf("<a href=\"#%s\">%s</a>", anchor, text)
+  else sprintf("[%s](#%s)", text, anchor)
+}
+
+# One navigation rule everywhere a table has both fields: tickers go to overviews and
+# company names go to earnings highlights. Missing destinations remain plain text,
+# rather than becoming links that strand the reader.
+overview_report_link <- function(ticker, overview_tickers, html_output = FALSE) {
+  if (!length(ticker) || is.na(ticker) || !(ticker %in% overview_tickers)) return(ticker)
+  internal_report_link(ticker, report_anchor(ticker), html_output)
+}
+
+earnings_report_link <- function(name, ticker, earnings_tickers, html_output = FALSE) {
+  if (!length(ticker) || is.na(ticker) || !(ticker %in% earnings_tickers)) return(name)
+  internal_report_link(name, earnings_anchor(ticker), html_output)
+}
+
+# HTML understands heading attributes and uses `.unlisted` to control the TOC.
+# GitHub-flavoured Markdown needs an inline anchor instead.
+report_sub_heading <- function(text, id = NULL, listed = FALSE, html_output = FALSE) {
+  if (html_output) {
+    attributes <- c(if (!is.null(id)) paste0("#", id), if (!listed) ".unlisted")
+    suffix <- if (length(attributes)) paste0(" {", paste(attributes, collapse = " "), "}") else ""
+    return(paste0("### ", text, suffix, "\n\n"))
+  }
+  anchor <- if (is.null(id)) "" else sprintf("<a id=\"%s\"></a>", id)
+  paste0("### ", anchor, text, "\n\n")
+}
+
+category_report_heading <- function(category, label, fill = NA_character_,
+                                    html_output = FALSE) {
+  linked_category <- internal_report_link(category, "category-performance", html_output)
+  if (!html_output || is.na(fill)) return(paste(linked_category, label))
+  sprintf(
+    "%s <span style=\"background:%s;color:%s;padding:0.1rem 0.4rem;border-radius:4px;font-size:0.85em\">%s</span>",
+    linked_category, fill, contrast_ink(fill), label
+  )
+}
 
 # Emitted once per report. Sorting is plain DOM work on the rendered table, so the
 # report stays a single self-contained file with no library to load or fail.
