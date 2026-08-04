@@ -112,9 +112,9 @@ jobs:
             echo "::error::The branch changed while the report was running. Rerun from the new head."
             exit 1
           fi
-          git add -- reports/final state
+          git add -- reports/final site state
           if git diff --cached --quiet; then
-            echo "No report or state changes were produced."
+            echo "No report, site, or state changes were produced."
             exit 0
           fi
           git config user.name "github-actions[bot]"

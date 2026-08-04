@@ -514,13 +514,18 @@ def run_report(
         total_seconds=time.perf_counter() - total_started,
         retention=retention,
     )
+    from .site import build_site
+
+    site = build_site(config)
     html_name = report_html_name(report_date)
     _progress(f"Complete: reports/final/{report_date.isoformat()}/{html_name}")
+    _progress("Public site rebuilt: site/index.html")
     return {
         "status": manifest["quality"],
         "report_date": report_date.isoformat(),
         "market_data_as_of": market_data_as_of.isoformat(),
         "output": str((destination / html_name).relative_to(config.root)),
+        "site_output": str(Path(site["output"]).relative_to(config.root)),
         "baseline": baseline.report_date.isoformat() if baseline else None,
         "issues": issues,
         "metrics": manifest.get("metrics", {}),
@@ -608,12 +613,16 @@ def rerender_report(
         destination,
         total_seconds=time.perf_counter() - total_started,
     )
+    from .site import build_site
+
+    site = build_site(config)
     html_name = report_html_name(report_date)
     return {
         "status": final_manifest["quality"],
         "report_date": report_date.isoformat(),
         "market_data_as_of": snapshot[0]["market_data_as_of"].isoformat(),
         "output": str((destination / html_name).relative_to(config.root)),
+        "site_output": str(Path(site["output"]).relative_to(config.root)),
         "mode": "render-only",
         "issues": issues,
         "metrics": final_manifest.get("metrics", {}),

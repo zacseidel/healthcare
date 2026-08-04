@@ -6,6 +6,7 @@ on:
     paths:
       - ".github/workflows/pages.yml"
       - "reports/final/**"
+      - "site/**"
       - "site_content/**"
       - "src/healthcare_report/**"
       - "config/**"
@@ -13,6 +14,12 @@ on:
       - "pyproject.toml"
       - "requirements.lock"
   workflow_dispatch:
+    inputs:
+      rebuild_site:
+        description: Rebuild the site from tracked reports before deployment
+        required: false
+        default: true
+        type: boolean
   workflow_call:
 
 permissions:
@@ -47,7 +54,12 @@ jobs:
           python -m pip install -r requirements.lock
           python -m pip install --no-deps -e .
 
-      - name: Build the static site
+      - name: Verify the locally built site
+        if: github.event_name == 'push' || github.event_name == 'workflow_call'
+        run: test -f site/index.html
+
+      - name: Rebuild the static site as a fallback
+        if: github.event_name == 'workflow_dispatch' && inputs.rebuild_site
         run: python -m healthcare_report build-site
 
       - name: Configure GitHub Pages

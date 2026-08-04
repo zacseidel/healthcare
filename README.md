@@ -100,8 +100,22 @@ python -m healthcare_report build-site
 ```
 
 The generated `site/` directory opens to the newest report and includes a past-report archive,
-an About page, and a Methodology page. It is ignored by Git because GitHub Actions rebuilds it
-for every deployment.
+an About page, and a Methodology page. It is tracked in Git so a local report run produces the
+exact static site that will be published. Both `run` and `render` rebuild it automatically;
+`build-site` remains useful after editing only the About or Methodology copy.
+
+The normal local publishing flow is:
+
+```sh
+./bin/run-report
+git add reports/final site state
+git commit -m "Create healthcare report for YYYY-MM-DD"
+git push
+```
+
+Review `git status` before committing and add any intentional configuration, company-list, or
+site-copy edits separately. The push-triggered Pages workflow uploads the committed `site/`
+directory without rebuilding it, so the deployed output is the version produced locally.
 
 ### One-command local runner
 
@@ -260,10 +274,11 @@ when it committed a changed report or state snapshot.
 
 ### GitHub Pages
 
-The **Publish GitHub Pages** workflow builds a static site on pushes to `master`, on manual
-dispatch, and after each scheduled report run. To make the site public, open the repository's
-**Settings → Pages** and select **GitHub Actions** as the publishing source. No API credentials
-or cache files are included in the Pages artifact.
+The **Publish GitHub Pages** workflow deploys the tracked static site on pushes to `master` and
+after each scheduled report run. A manual dispatch can rebuild the site from tracked reports
+before deployment, providing a cloud fallback when a local build is unavailable. To make the
+site public, open the repository's **Settings → Pages** and select **GitHub Actions** as the
+publishing source. No API credentials or cache files are included in the Pages artifact.
 
 Public page copy lives in `site_content/about.md` and `site_content/methodology.md`. The site
 generator automatically publishes every valid folder under `reports/final/`, sorts the archive

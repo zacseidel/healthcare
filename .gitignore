@@ -12,7 +12,6 @@ build/
 dist/
 report-result.json
 reports/standalone/
-site/
 .DS_Store
 .claude/
 .browser/
