@@ -8,7 +8,8 @@ Reports are generated as final versions immediately and stored in Git.
 
 Every report is written to `reports/final/YYYY-MM-DD/`:
 
-- `Healthcare Intel-YYYY-MM-DD.html`: report HTML referencing the adjacent chart assets.
+- `Healthcare Intel-YYYY-MM-DD.html`: self-contained report HTML with embedded charts, so it
+  can be downloaded, previewed, or shared on its own.
 - `report.md` and `assets/`: diffable Markdown and lossless WebP chart images.
 - `snapshot.csv`: the published performance values and ranks.
 - `changes.csv`: every comparison with the previous eligible final.
@@ -17,9 +18,8 @@ Every report is written to `reports/final/YYYY-MM-DD/`:
 - `manifest.json`: data dates, configuration hash, source outcomes, quality warnings, stage
   timings, output sizes, and cache-retention results.
 
-The scheduled workflow also publishes a single-file standalone HTML report as a downloadable
-GitHub Actions artifact. It is not committed because it contains another encoded copy of every
-chart.
+The scheduled workflow also publishes the self-contained HTML report as a conveniently named
+GitHub Actions artifact.
 
 A rerun for an existing date replaces that folder. The previous version remains available
 through Git history.

@@ -3,7 +3,7 @@
   "report_date": "2026-08-03",
   "market_data_as_of": "2026-07-31",
   "generated_at": "2026-08-04T03:13:07Z",
-  "rendered_at": "2026-08-04T12:06:04Z",
+  "rendered_at": "2026-08-04T16:15:30Z",
   "baseline_report_date": null,
   "configuration_sha256": "efd93a4eb8e7876315fa4274ff8de9d3e78f41ec2abbf95d534085a5a2837ec3",
   "quality": "degraded",
@@ -933,9 +933,9 @@
   "metrics": {
     "mode": "render-only",
     "durations_seconds": {
-      "render_input_load": 0.039,
-      "rendering": 0.266,
-      "total": 0.313
+      "render_input_load": 0.038,
+      "rendering": 0.415,
+      "total": 0.462
     },
     "counts": {
       "companies": 50,
@@ -949,13 +949,13 @@
       }
     },
     "output_bytes": {
-      "html": 183833,
-      "markdown": 165078,
+      "html": 1960322,
+      "markdown": 168029,
       "charts": 1330382,
       "data": 54495,
-      "total_without_manifest": 1733788
+      "total_without_manifest": 3513228
     },
-    "directory_bytes": 1757273
+    "directory_bytes": 3536714
   },
   "files": [
     "Healthcare Intel-2026-08-03.html",

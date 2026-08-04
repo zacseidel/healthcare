@@ -6,15 +6,40 @@ Weekly review of category and company performance, changes since the previous re
 
 ## Strategy Narrative
 
-### Executive readout
-
-<ul class="executive-readout-links">
+<nav class="strategy-narrative-links" aria-label="Strategy narrative sections">
+<ul>
+<li><a href="#executive-readout">Executive readout</a>
+<ul>
 <li><a href="#strategy-executive-1-cms-is-turning-medicaid-payment-integrity-into-an-active-operating-model">1. CMS is turning Medicaid payment integrity into an active operating model</a></li>
 <li><a href="#strategy-executive-2-medicaid-financing-reform-may-matter-more-to-payer-economics-than-incremental-cost-management-gains">2. Medicaid financing reform may matter more to payer economics than incremental cost-management gains</a></li>
 <li><a href="#strategy-executive-3-humana-s-quarter-confirms-that-enrollment-growth-is-running-ahead-of-earnings-recovery">3. Humana’s quarter confirms that enrollment growth is running ahead of earnings recovery</a></li>
 <li><a href="#strategy-executive-4-unitedhealth-is-building-a-connected-automation-stack-across-coding-authorization-and-payment">4. UnitedHealth is building a connected automation stack across coding, authorization and payment</a></li>
 <li><a href="#strategy-executive-5-aetna-s-next-earnings-call-is-the-immediate-payer-catalyst">5. Aetna’s next earnings call is the immediate payer catalyst</a></li>
 </ul>
+</li>
+<li><a href="#provider-technology">Provider technology</a>
+<ul>
+<li><a href="#strategy-provider-technology-6-revenue-cycle-ai-is-moving-from-prediction-to-production-workflow">6. Revenue-cycle AI is moving from prediction to production workflow</a></li>
+<li><a href="#strategy-provider-technology-7-provider-operating-performance-increasingly-rewards-ambulatory-scale-and-disciplined-service-line-selection">7. Provider operating performance increasingly rewards ambulatory scale and disciplined service-line selection</a></li>
+<li><a href="#strategy-provider-technology-8-cms-s-2027-physician-payment-proposal-favors-operational-value-based-care-platforms">8. CMS’s 2027 physician-payment proposal favors operational value-based-care platforms</a></li>
+</ul>
+</li>
+<li><a href="#regulatory-and-administration-strategy">Regulatory and administration strategy</a>
+<ul>
+<li><a href="#strategy-regulatory-and-administration-strategy-program-integrity">Program integrity</a></li>
+<li><a href="#strategy-regulatory-and-administration-strategy-medicaid-financing-discipline">Medicaid financing discipline</a></li>
+<li><a href="#strategy-regulatory-and-administration-strategy-accountable-care-and-prevention">Accountable care and prevention</a></li>
+<li><a href="#strategy-regulatory-and-administration-strategy-administrative-simplification-with-greater-transparency">Administrative simplification with greater transparency</a></li>
+</ul>
+</li>
+<li><a href="#what-to-watch-this-week">What to watch this week</a>
+</li>
+<li><a href="#bottom-line">Bottom line</a>
+</li>
+</ul>
+</nav>
+
+<h3 id="executive-readout">Executive readout</h3>
 
 <h4 id="strategy-executive-1-cms-is-turning-medicaid-payment-integrity-into-an-active-operating-model">1. CMS is turning Medicaid payment integrity into an active operating model</h4>
 
@@ -125,9 +150,9 @@ CVS Health is scheduled to report this week, making Aetna the major payer focus.
 
 ---
 
-### Provider technology
+<h3 id="provider-technology">Provider technology</h3>
 
-#### 6. Revenue-cycle AI is moving from prediction to production workflow
+<h4 id="strategy-provider-technology-6-revenue-cycle-ai-is-moving-from-prediction-to-production-workflow">6. Revenue-cycle AI is moving from prediction to production workflow</h4>
 
 Myriad Genetics recently detailed a rebuilt AI document-processing system supporting insurance documentation and prior authorization. The updated platform reportedly reduced processing time from approximately 10 minutes to 20 seconds, saved about 300 staff hours per month in one business unit and processed 9,000 prior authorizations, with broader expansion planned. [Business Insider](https://www.businessinsider.com/myriad-genetics-ai-document-processing-aws-bedrock-2026-7?utm_source=chatgpt.com)
 
@@ -159,7 +184,7 @@ The next phase of revenue-cycle AI will connect:
 
 ---
 
-#### 7. Provider operating performance increasingly rewards ambulatory scale and disciplined service-line selection
+<h4 id="strategy-provider-technology-7-provider-operating-performance-increasingly-rewards-ambulatory-scale-and-disciplined-service-line-selection">7. Provider operating performance increasingly rewards ambulatory scale and disciplined service-line selection</h4>
 
 Tenet reported second-quarter net operating revenue growth of 9.3% and raised its 2026 outlook. Its surgical business produced 5.0% same-facility revenue growth even though cases declined 1.2%, driven by higher acuity, favorable mix and 6.3% growth in revenue per case. [Tenet Healthcare](https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx?utm_source=chatgpt.com)
 
@@ -178,7 +203,7 @@ Tenet reported second-quarter net operating revenue growth of 9.3% and raised it
 
 ---
 
-#### 8. CMS’s 2027 physician-payment proposal favors operational value-based-care platforms
+<h4 id="strategy-provider-technology-8-cms-s-2027-physician-payment-proposal-favors-operational-value-based-care-platforms">8. CMS’s 2027 physician-payment proposal favors operational value-based-care platforms</h4>
 
 CMS’s July 14 proposed Physician Fee Schedule and Shared Savings Program changes would modify ACO incentives, benchmarking and physician-quality programs. The proposal includes new support for certain ACO populations and a transition toward specialty-oriented MIPS Value Pathways. [Centers for Medicare & Medicaid Services+2Centers for Medicare & Medicaid Services+2](https://www.cms.gov/newsroom/fact-sheets/calendar-year-cy-2027-medicare-physician-fee-schedule-proposed-rule?utm_source=chatgpt.com)
 
@@ -199,29 +224,29 @@ CMS’s July 14 proposed Physician Fee Schedule and Shared Savings Program chang
 
 ---
 
-### Regulatory and administration strategy
+<h3 id="regulatory-and-administration-strategy">Regulatory and administration strategy</h3>
 
 The administration’s healthcare agenda is becoming clearer across four areas:
 
-#### Program integrity
+<h4 id="strategy-regulatory-and-administration-strategy-program-integrity">Program integrity</h4>
 
 CMS is emphasizing faster fraud intervention, broader recoupment authority and stronger provider-enrollment enforcement. A July Medicare proposal would allow CMS to recover payments back to the date of noncompliance across a broader range of provider revocations. [Centers for Medicare & Medicaid Services](https://www.cms.gov/newsroom/press-releases/cms-proposes-updates-strengthen-medicare-program-integrity-combat-fraud-expand-access-home-health?utm_source=chatgpt.com)
 
 **Technology consequence:** Enrollment, sanctions, claims and ownership data must be connected. Payment integrity cannot remain isolated from network management.
 
-#### Medicaid financing discipline
+<h4 id="strategy-regulatory-and-administration-strategy-medicaid-financing-discipline">Medicaid financing discipline</h4>
 
 The provider-tax proposal signals a willingness to alter structural state financing mechanisms, not merely pursue individual bad actors. [Centers for Medicare & Medicaid Services](https://www.cms.gov/newsroom/fact-sheets/amending-indirect-hold-harmless-threshold-health-care-related-taxes-proposed-rule-cms-2452-p?utm_source=chatgpt.com)
 
 **Technology consequence:** Medicaid plans and providers need scenario modeling that connects policy changes to rates, network adequacy and provider solvency.
 
-#### Accountable care and prevention
+<h4 id="strategy-regulatory-and-administration-strategy-accountable-care-and-prevention">Accountable care and prevention</h4>
 
 The 2027 physician proposal emphasizes accountable care, chronic-condition management and prospective operational intervention. [Centers for Medicare & Medicaid Services+1](https://www.cms.gov/newsroom/press-releases/cms-proposes-transformational-medicare-reforms-expand-accountable-care-modernize-physician-payment?utm_source=chatgpt.com)
 
 **Technology consequence:** Quality reporting becomes less valuable as a standalone function; workflow orchestration becomes more valuable.
 
-#### Administrative simplification with greater transparency
+<h4 id="strategy-regulatory-and-administration-strategy-administrative-simplification-with-greater-transparency">Administrative simplification with greater transparency</h4>
 
 CMS’s interoperability and prior-authorization requirements remain a major 2027 deadline for Medicare Advantage, Medicaid and other affected payers. Payers must implement API capabilities principally by January 1, 2027, alongside authorization-performance reporting and other operational requirements. [Centers for Medicare & Medicaid Services+2Centers for Medicare & Medicaid Services+2](https://www.cms.gov/initiatives/burden-reduction/overview/interoperability/policies-regulations/cms-interoperability-prior-authorization-final-rule-cms-0057-f?utm_source=chatgpt.com)
 
@@ -229,7 +254,7 @@ CMS’s interoperability and prior-authorization requirements remain a major 202
 
 ---
 
-### What to watch this week
+<h3 id="what-to-watch-this-week">What to watch this week</h3>
 
 **CVS Health/Aetna:** Medical-cost trends, Stars, 2027 Medicare Advantage strategy, prior authorization and provider-facing digital workflow.
 
@@ -241,7 +266,7 @@ CMS’s interoperability and prior-authorization requirements remain a major 202
 
 **Provider AI:** More disclosure of realized revenue-cycle performance rather than model accuracy or time-saving estimates.
 
-### Bottom line
+<h3 id="bottom-line">Bottom line</h3>
 
 The central strategic theme is convergence.
 
@@ -376,7 +401,7 @@ Companies covered in this section:
 <li><a href="#earnings-achc">Acadia Healthcare (ACHC)</a></li>
 <li><a href="#earnings-tdoc">Teladoc (TDOC)</a></li>
 </ul>
-<h3 id="earnings-ci">Cigna (CI) <span class="return-badge" style="background:#fbd5d4;color:#111820;">-1.4%</span></h3>
+<h3 id="earnings-ci">Cigna (<a href="#company-ci">CI</a>) <span class="return-badge" style="background:#fbd5d4;color:#111820;">-1.4%</span></h3>
 
 **Reported:** July 30, 2026 · [Google Finance earnings page](https://www.google.com/finance/quote/CI:NYSE?tab=earnings&hl=en)
 
@@ -400,7 +425,7 @@ The Cigna Group reported Q2 2026 total revenues of $71.7 billion and adjusted ea
 - **25m 13s — Record 2027 PBM Selling Season:** Secured new PBM business for 2027 has already surpassed the total of the prior two selling seasons combined, underscoring strong commercial competitive advantages and robust multi-year client retention tracking in the mid-90s or higher.
 - **36m 41s — Evernorth Mix Shift Tailwinds:** Faster than expected penetration of specialty generics and biosimilars created favorable margin mix shifts, driving a 22% pre-tax earnings surge in Specialty and Care Services that offset minor contract renewal headwinds in Pharmacy Benefit Services.
 - **37m 33s — GLP-1 Growth Moderation Impact:** Declining employer coverage rates and slowing utilization led to a cooling of GLP-1 volume growth, acting as a modest financial headwind for the PBM business in the back half of 2026 while improving broader plan affordability.
-<h3 id="earnings-vtr">Ventas, Inc (VTR) <span class="return-badge" style="background:#d6ecd4;color:#111820;">+6.2%</span></h3>
+<h3 id="earnings-vtr">Ventas, Inc (<a href="#company-vtr">VTR</a>) <span class="return-badge" style="background:#d6ecd4;color:#111820;">+6.2%</span></h3>
 
 **Reported:** July 30, 2026 · [Google Finance earnings page](https://www.google.com/finance/quote/VTR:NYSE?tab=earnings&hl=en)
 
@@ -424,7 +449,7 @@ Ventas delivered strong Q2 2026 financial performance, with total company same-p
 - **12m 1s — High-Occupancy Cohorts Prove Thesis:** U.S. senior housing properties with 90% or higher occupancy delivered stunning 25% NOI growth, providing a vital proof point that operating leverage accelerates yields significantly as properties approach stabilization.
 - **17m 27s — Leverage Reaches Decade-Low Milestone:** Ventas achieved a net debt to EBITDA ratio of 4.7x, its lowest leverage in over a decade, signaling a highly secure, equity-backed capital structure capable of supporting robust portfolio expansion without financial strain.
 - **29m 15s — New Development Remains Unfeasible:** Management clarified that wide-scale new senior housing development remains stalled because current rents must rise 25% to 40% to justify high construction and labor costs, restricting market supply to luxury exceptions.
-<h3 id="earnings-hum">Humana (HUM) <span class="return-badge" style="background:#1a7a3c;color:#ffffff;">+55.7%</span></h3>
+<h3 id="earnings-hum">Humana (<a href="#company-hum">HUM</a>) <span class="return-badge" style="background:#1a7a3c;color:#ffffff;">+55.7%</span></h3>
 
 **Reported:** July 29, 2026 · [Google Finance earnings page](https://www.google.com/finance/quote/HUM:NYSE?tab=earnings&hl=en)
 
@@ -449,7 +474,7 @@ Humana reported Q2 2026 adjusted EPS of $7.61, beating the estimated $6.995, wit
 - **12m 59s — Massive 2027 Plan Exits Announced:** To prioritize individual MA profitability, Humana announced targeted 2027 plan exits that will impact 600,000 members. Investors will appreciate this focus on protecting higher-margin, value-based care plans, even though it creates near-term volume headwinds, as the company expects to recapture a significant portion of affected members.
 - **19m 22s — Inpatient Cost Favorability Supports Stabilizing Trend:** Humana's 2026 all-in medical cost trend is stable within the projected 7% to 8% range, aided by lower inpatient admissions and unit costs. This operational favorability provides reassurance to investors concerned about rising utilization trends, confirming underlying stability in the Medicare Advantage landscape.
 - **29m 16s — Innovative Liquidity Management via PCAPS:** Humana became the first health payer to establish $1.5 billion in contingent capital facilities utilizing pre-capitalized trust securities (PCAPS). This structural move expands long-term liquidity and bolsters balance sheet durability without near-term leverage increases, protecting the company against unexpected capital market disruptions.
-<h3 id="earnings-iqv">Iqvia (IQV) <span class="return-badge" style="background:#1a7a3c;color:#ffffff;">+49.0%</span></h3>
+<h3 id="earnings-iqv">Iqvia (<a href="#company-iqv">IQV</a>) <span class="return-badge" style="background:#1a7a3c;color:#ffffff;">+49.0%</span></h3>
 
 **Reported:** July 28, 2026 · [Google Finance earnings page](https://www.google.com/finance/quote/IQV:NYSE?tab=earnings&hl=en)
 
@@ -474,7 +499,7 @@ IQVIA delivered strong Q2 2026 results, exceeding guidance with total revenue up
 - **28m 11s — Strong Bookings Beat Expectations:** R&D Solutions posted $3.15 billion in net new bookings, hitting a 1.22 book-to-bill ratio. CEO Ari Bousbib highlighted that this growth was clean and broad-based, with normal pass-through and cancellation ranges, contrasting positively against multi-year macro headwinds and displacing large CRO competitors in strategic partnerships.
 - **31m 18s — AI Demand Expanding Outsourcing Market:** Management noted that large pharma's extensive use of AI in drug discovery is creating a massive influx of molecules into development. This shift is expanding the clinical outsourcing market, with customers requesting thousands of additional FTEs to manage doubled study portfolios in specialized, adjacent therapeutic areas.
 - **51m 18s — Backlog Quality and Lower Inactive Trials:** Addressing investor concerns regarding competitor backlog quality, management reassured analysts that IQVIA maintains a strict contracted bookings policy requiring signatures. A preliminary review indicated that potential backlog adjustments for inactive trials would be around 5%, significantly lower than the 15% to 16% metrics reported by peers.
-<h3 id="earnings-cnc">Centene (CNC) <span class="return-badge" style="background:#a9d9a4;color:#111820;">+16.6%</span></h3>
+<h3 id="earnings-cnc">Centene (<a href="#company-cnc">CNC</a>) <span class="return-badge" style="background:#a9d9a4;color:#111820;">+16.6%</span></h3>
 
 **Reported:** July 28, 2026 · [Google Finance earnings page](https://www.google.com/finance/quote/CNC:NYSE?tab=earnings&hl=en)
 
@@ -498,7 +523,7 @@ Centene reported strong Q2 2026 adjusted EPS of $2.51, beating expectations due 
 - **9m 0s — Marketplace Margin Restoration:** Marketplace pre-tax margin guidance was lifted to 4.5%-5% from the prior 3%, fueled by a positive June Wakely acuity report and a $180 million favorable 2025 settlement. This rapid turnaround resolves key investor concerns regarding 2025 pricing turbulence.
 - **17m 10s — Accelerated Medicaid Membership Attrition:** Management increased full-year Medicaid membership decline expectations to 8%-9% from the prior 6% view, due to increased state eligibility verifications. While raising acuity concerns, Centene is countering this headwind with stronger 7/1 composite rates of 5%.
 - **18m 38s — Medicare PDP Guidance Raised:** Driven by favorable specialty drug trends running below initial expectations and strong product positioning, full-year PDP pre-tax margin guidance was bumped to greater than 3% from 2%, providing solid bottom-line support.
-<h3 id="earnings-ohi">Omega Healthcare Investors (OHI) <span class="return-badge" style="background:#d6ecd4;color:#111820;">+7.8%</span></h3>
+<h3 id="earnings-ohi">Omega Healthcare Investors (<a href="#company-ohi">OHI</a>) <span class="return-badge" style="background:#d6ecd4;color:#111820;">+7.8%</span></h3>
 
 **Reported:** July 30, 2026 · [Google Finance earnings page](https://www.google.com/finance/quote/OHI:NYSE?tab=earnings&hl=en)
 
@@ -522,7 +547,7 @@ CEO Taylor Pickett reflected on the evolution of skilled nursing and senior hous
 - **13m 23s — Expanding RIDEA Growth Pipeline:** Management closed its first U.K. RIDEA transaction and highlighted that a large component of their robust, back-half weighted pipeline utilizes RIDEA structures. Investors will look favorably on this shift because it allows Omega to share in operating cash flow upside and achieve higher mid-teen returns.
 - **19m 28s — Substantial Balance Sheet Deleveraging:** Monetization of $700 million from asset sales and loan repayments allowed Omega to pay down its $2 billion revolver to just $6 million, dropping leverage to a historically low 3.3x. Investors will appreciate this extreme financial flexibility ahead of the 2027 debt maturity.
 - **20m 24s — Full Year 2026 Guidance Increase:** Omega raised its full-year 2026 Adjusted FFO guidance range to $3.22-$3.26 per share, up from $3.19-$3.25. This $0.02 midpoint increase will please investors as it demonstrates strong baseline profitability and credit stability despite a temporary earnings headwind from recent asset sales.
-<h3 id="earnings-ensg">The Ensign Group (ENSG) <span class="return-badge" style="background:#fbd5d4;color:#111820;">-3.0%</span></h3>
+<h3 id="earnings-ensg">The Ensign Group (<a href="#company-ensg">ENSG</a>) <span class="return-badge" style="background:#fbd5d4;color:#111820;">-3.0%</span></h3>
 
 **Reported:** July 29, 2026 · [Google Finance earnings page](https://www.google.com/finance/quote/ENSG:NASDAQ?tab=earnings&hl=en)
 
@@ -546,7 +571,7 @@ The Ensign Group reported record Q2 2026 results, with adjusted diluted EPS up 2
 - **21m 22s — Turnaround Execution and Case Study Proof:** Management detailed a successful turnaround at The Reserve facility, which grew Q2 revenue by 18% and EBIT by 97% year-over-year. This serves as clear validation of Ensign's local leadership and operational model, demonstrating its ability to quickly eliminate agency labor and reverse severe regulatory challenges.
 - **39m 35s — Resilience Against CMS Five-Star Rating Changes:** Addressing analyst questions regarding recent updates to CMS Quality Measure thresholds, executives noted preliminary analysis shows a far lower impact than industry averages. Negative impacts are actively offset by clinical improvements in other categories, leaving overall five-star ratings largely unaffected and protecting referral streams.
 - **46m 32s — Strategic M&A and Real Estate Diversification:** The company added 20 new operations including real estate, expanding rapidly in Texas and the Southeast. Concurrently, captive REIT Standard Bearer added 23 assets, expanding its high-margin third-party operator lease portfolio to 38 properties, further optimizing asset values and boosting long-term rental income streams.
-<h3 id="earnings-uhs">Universal Health Services (UHS) <span class="return-badge" style="background:#d6ecd4;color:#111820;">+0.9%</span></h3>
+<h3 id="earnings-uhs">Universal Health Services (<a href="#company-uhs">UHS</a>) <span class="return-badge" style="background:#d6ecd4;color:#111820;">+0.9%</span></h3>
 
 **Reported:** July 28, 2026 · [Google Finance earnings page](https://www.google.com/finance/quote/UHS:NYSE?tab=earnings&hl=en)
 
@@ -571,7 +596,7 @@ Universal Health Services reported Q2 2026 adjusted EPS of $5.98, a 12% year-ove
 - **19m 10s — San Antonio Facility Decertification:** The company revealed a major headwind at its San Antonio behavioral facility, which stopped receiving reimbursements in April and faces a $50 million full-year impact. With recertification delayed until 2027, the facility is projected to run quarterly operating losses of $5 million to $10 million, creating a significant drag on near-term profitability.
 - **20m 6s — Cedar Hill De Novo Delay:** UHS reduced its expected full-year tailwind from the Cedar Hill de novo hospital from $50 million to $20 million. A slower-than-anticipated ramp-up, caused by a lack of an established local physician base, means the facility will not achieve breakeven until Q4, leaving initial start-up losses uncontained in the near term.
 - **21m 4s — Escalating Malpractice Reserves:** UHS increased its full-year professional and general liability expense estimate by $50 million due to industry-wide increases in claim severity. This recurring structural headwind reflects a broader challenging litigation environment for healthcare providers, indicating that higher insurance settlement and verdict costs will continue to pressure operating margins.
-<h3 id="earnings-way">Waystar (WAY) <span class="return-badge" style="background:#d6ecd4;color:#111820;">+0.8%</span></h3>
+<h3 id="earnings-way">Waystar (<a href="#company-way">WAY</a>) <span class="return-badge" style="background:#d6ecd4;color:#111820;">+0.8%</span></h3>
 
 **Reported:** July 29, 2026 · [Google Finance earnings page](https://www.google.com/finance/quote/WAY:NASDAQ?tab=earnings&hl=en)
 
@@ -595,7 +620,7 @@ Waystar reported solid Q2 2026 results, delivering $320 million in revenue, whic
 - **20m 38s — Full-Year Guidance Upgraded:** Waystar raised the floor of its 2026 revenue guidance by $2 million and increased its adjusted EBITDA midpoint by $5 million. This upward adjustment reflects strong operational performance through the first half of the year and robust booking execution, providing a strong positive signal to investors.
 - **33m 55s — Volume-Based Growth Deceleration Context:** Analysts probed the deceleration of volume-based revenue, which grew 3% in Q2. Management reassured investors that normalized organic volume growth is actually 8%, with the current optics driven by a return to baseline patient utilization and a tough year-over-year comparison against unique 2025 large implementations.
 - **38m 32s — Accelerated AI Capital Reinvestment:** Management revealed that capitalized software expenditures for AI solutions doubled year-over-year in the first half of 2026. This deliberate investment strategy aims to capture market opportunities for an autonomous revenue cycle, though it prevents the company from fully passing through recent EBITDA beats to full-year guidance.
-<h3 id="earnings-opch">Option Care Health (OPCH) <span class="return-badge" style="background:#a9d9a4;color:#111820;">+15.0%</span></h3>
+<h3 id="earnings-opch">Option Care Health (<a href="#company-opch">OPCH</a>) <span class="return-badge" style="background:#a9d9a4;color:#111820;">+15.0%</span></h3>
 
 **Reported:** July 29, 2026 · [Google Finance earnings page](https://www.google.com/finance/quote/OPCH:NASDAQ?tab=earnings&hl=en)
 
@@ -619,7 +644,7 @@ Option Care Health delivered a solid second quarter, with financial results exce
 - **12m 51s — Aggressive Share Buyback Execution:** Option Care Health aggressively repurchased $150 million of stock during Q2, exhausting nearly 5% of outstanding shares. This tactical move directly boosted adjusted EPS by $0.03, signaling strong internal confidence in cash flow sustainability and pleasing investors focused on disciplined capital allocation strategies.
 - **15m 1s — Narrowed Full-Year Guidance Ranges:** Management maintained full-year revenue guidance but narrowed ranges for adjusted EBITDA and EPS upward. This adjustment reassures investors of business stability, showing that aggressive efficiency measures and commercial realignment are successfully offsetting the previously anticipated $55 million gross profit headwind stemming from the CID product reset.
 - **26m 20s — Sequential Performance Ramps Questioned:** Analysts aggressively probed the steep sequential ramp implied for Q4 EBITDA. Management defended the projections by pointing to historical year-end seasonality, compounding efficiencies from newly deployed AI field tools, and the expected maturation of commercial investments made late last year, signaling confidence in the back-half growth curve.
-<h3 id="earnings-alhc">Alignment Health (ALHC) <span class="return-badge" style="background:#ee8483;color:#111820;">-26.7%</span></h3>
+<h3 id="earnings-alhc">Alignment Health (<a href="#company-alhc">ALHC</a>) <span class="return-badge" style="background:#ee8483;color:#111820;">-26.7%</span></h3>
 
 **Reported:** July 30, 2026 · [Google Finance earnings page](https://www.google.com/finance/quote/ALHC:NASDAQ?tab=earnings&hl=en)
 
@@ -643,7 +668,7 @@ Alignment Healthcare reported strong Q2 2026 results, with health plan membershi
 - **16m 10s — Strategic Second-Half Investments:** Management announced deliberate, incremental double-digit million dollar investments in clinical operations (Care Anywhere) and automation/AI during the second half of 2026, particularly weighted toward Q3. These investments will temporarily elevate near-term MBR and SG&A metrics to optimize long-term scalability and efficiency for 2027 and 2028 market expansions.
 - **19m 49s — Discretionary Reserve Strengthening:** The company chose to bolster its prior-year reserves by $6 million during Q2 2026, capitalizing on its strong earnings beat. While the MD&A notes this was driven by claims development and collections, management clarified it was an unrelated, proactive positioning move, leaving overall year-to-date prior-year development favorable by $2 million.
 - **44m 17s — Intentional Higher-Acuity Enrollment Mix:** Management revealed that 50% of new members added in 2026 are in higher-acuity C-SNP, D-SNP, and dual-eligible categories. While this mix carries an initially elevated MLR compared to typical members, the company is intentionally leveraging its specialized care model to improve health outcomes and capture significant, favorable margins over time.
-<h3 id="earnings-achc">Acadia Healthcare (ACHC) <span class="return-badge" style="background:#d6ecd4;color:#111820;">+6.4%</span></h3>
+<h3 id="earnings-achc">Acadia Healthcare (<a href="#company-achc">ACHC</a>) <span class="return-badge" style="background:#d6ecd4;color:#111820;">+6.4%</span></h3>
 
 **Reported:** July 29, 2026 · [Google Finance earnings page](https://www.google.com/finance/quote/ACHC:NASDAQ?tab=earnings&hl=en)
 
@@ -668,7 +693,7 @@ Acadia Healthcare delivered flat total revenue of $866 million in Q2 2026. Norma
 - **25m 16s — Guidance Range Tightened and Revised:** Management updated full-year 2026 guidance to reflect strong operational progress, though they excluded potential $20+ million EBITDA upside from pending supplemental programs under regulatory review.
 - **44m 54s — Actuarial Liability Reserve Step-Up:** A proactive mid-year actuarial review led to a $28.6 million reserve adjustment driven by 2025 case severities, raising the full-year expected legal and professional costs to $130 million–$135 million.
 - **50m 15s — CTC Segment Revenue Stagnation:** Revenue in the Comprehensive Treatment Center clinics flatlined year-over-year, slightly underperforming management expectations despite adding six centers, prompting a strategic review of regional marketing and patient experience.
-<h3 id="earnings-tdoc">Teladoc (TDOC) <span class="return-badge" style="background:#d6ecd4;color:#111820;">+3.9%</span></h3>
+<h3 id="earnings-tdoc">Teladoc (<a href="#company-tdoc">TDOC</a>) <span class="return-badge" style="background:#d6ecd4;color:#111820;">+3.9%</span></h3>
 
 **Reported:** July 29, 2026 · [Google Finance earnings page](https://www.google.com/finance/quote/TDOC:NYSE?tab=earnings&hl=en)
 

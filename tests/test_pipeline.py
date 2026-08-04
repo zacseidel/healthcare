@@ -115,9 +115,8 @@ def test_end_to_end_report_and_baseline(project, monkeypatch):
     ):
         assert (first_folder / name).stat().st_size > 0
     report_html = (first_folder / html_name).read_text()
-    assert "data:image" not in report_html
-    assert 'src="assets/' in report_html
-    assert ".webp" in report_html
+    assert "data:image/webp;base64" in report_html
+    assert 'src="assets/' not in report_html
     assert 'class="report-nav"' in report_html
     assert "Georgia" in report_html
     assert "Week of August 3, 2026" in report_html
@@ -134,7 +133,7 @@ def test_end_to_end_report_and_baseline(project, monkeypatch):
     assert 'href="#earnings-' in report_html
     assert 'href="#news-' not in report_html
     assert 'class="section-jump-list"' in report_html
-    assert 'class="executive-readout-links"' in report_html
+    assert 'class="strategy-narrative-links"' in report_html
     assert 'href="#strategy-executive-cloud-strategy-headline"' in report_html
     assert "summarize_auto" not in report_html
     assert report_html.index("At a Glance") < report_html.index("Key Moments from the Call")
@@ -147,6 +146,24 @@ def test_end_to_end_report_and_baseline(project, monkeypatch):
     assert "h2::after" not in report_html
     assert "border-bottom:3px solid var(--navy)" in report_html
     soup = BeautifulSoup(report_html, "html.parser")
+    strategy_heading = soup.select_one("h2#strategy-narrative")
+    strategy_links = soup.select_one("nav.strategy-narrative-links")
+    executive_heading = soup.select_one("h3#executive-readout")
+    assert strategy_heading is not None
+    assert strategy_links is not None
+    assert executive_heading is not None
+    assert strategy_heading.find_next() == strategy_links
+    assert strategy_links.find_next_sibling("h3") == executive_heading
+    strategy_link_labels = [link.get_text(" ", strip=True) for link in strategy_links.find_all("a")]
+    assert "Executive readout" in strategy_link_labels
+    assert "Cloud strategy headline" in strategy_link_labels
+    assert "Bottom line" in strategy_link_labels
+    report_images = soup.find_all("img")
+    assert report_images
+    assert all(
+        str(image.get("src", "")).startswith("data:image/webp;base64,")
+        for image in report_images
+    )
     earnings_heading = soup.select_one("h2#recent-earnings-highlights-3m-ret")
     assert earnings_heading is not None
     first_earnings = earnings_heading.find_next_sibling("ul").find("li").get_text(" ", strip=True)
@@ -156,6 +173,9 @@ def test_end_to_end_report_and_baseline(project, monkeypatch):
     company_headings = soup.select('h3[id^="earnings-"]')
     assert company_headings
     assert all("3m" not in heading.get_text(" ", strip=True) for heading in company_headings)
+    assert all(
+        heading.select_one('a[href^="#company-"]') is not None for heading in company_headings
+    )
     assert soup.select('img[alt*="S&P 500"]')
     anchors = {str(item.get("id")) for item in soup.select("[id]")}
     fragment_links = [str(item["href"])[1:] for item in soup.select('a[href^="#"]')]
