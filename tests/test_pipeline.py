@@ -69,7 +69,7 @@ class FakeBrowser:
             <div data-message-author-role="assistant"><div class="markdown">
             <h1>Strategy Brief</h1><p><strong>Week of August 3, 2026</strong></p>
             <h2>Executive readout</h2>
-            <h3>Cloud strategy headline</h3><p>Cloud fixture narrative.</p>
+            <h3>1. Cloud strategy headline</h3><p>Cloud fixture narrative.</p>
             <h2>Functional strategy summary</h2><p>Remove this section.</p>
             <h2>Bottom line</h2><p>Keep this section.</p>
             </div></div>
@@ -134,7 +134,7 @@ def test_end_to_end_report_and_baseline(project, monkeypatch):
     assert 'href="#news-' not in report_html
     assert 'class="section-jump-list"' in report_html
     assert 'class="strategy-narrative-links"' in report_html
-    assert 'href="#strategy-executive-cloud-strategy-headline"' in report_html
+    assert 'href="#strategy-executive-1-cloud-strategy-headline"' in report_html
     assert "summarize_auto" not in report_html
     assert report_html.index("At a Glance") < report_html.index("Key Moments from the Call")
     assert 'class="insight-card"' not in report_html
@@ -155,9 +155,7 @@ def test_end_to_end_report_and_baseline(project, monkeypatch):
     assert strategy_heading.find_next() == strategy_links
     assert strategy_links.find_next_sibling("h3") == executive_heading
     strategy_link_labels = [link.get_text(" ", strip=True) for link in strategy_links.find_all("a")]
-    assert "Executive readout" in strategy_link_labels
-    assert "Cloud strategy headline" in strategy_link_labels
-    assert "Bottom line" in strategy_link_labels
+    assert strategy_link_labels == ["1. Cloud strategy headline"]
     report_images = soup.find_all("img")
     assert report_images
     assert all(

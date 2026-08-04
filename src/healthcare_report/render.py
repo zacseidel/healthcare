@@ -50,9 +50,8 @@ a { color:#1269a0; text-underline-offset:2px; }
 .report-meta span { display:block; }
 .section-jump-list { columns:2; padding:1rem 1.25rem 1rem 2.25rem; background:var(--panel); border-radius:4px; }
 .strategy-narrative-links { margin:.8rem 0 1.8rem; padding:1rem 1.25rem; background:var(--panel); border-radius:4px; }
-.strategy-narrative-links > ul { columns:2; column-gap:2rem; margin:0; padding-left:1.25rem; }
-.strategy-narrative-links > ul > li { break-inside:avoid; margin:0 0 .7rem; }
-.strategy-narrative-links ul ul { margin:.3rem 0 0; padding-left:1.2rem; }
+.strategy-narrative-links ul { margin:0; padding-left:1.25rem; }
+.strategy-narrative-links li { margin:.3rem 0; }
 .return-badge { display:inline-block; margin-left:.35rem; padding:.13rem .48rem; border-radius:999px;
   font:700 .78rem/1.35 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; vertical-align:.12em; }
 .category-return { font-size:.76rem; }
@@ -85,8 +84,7 @@ img { display:block; max-width:100%; height:auto; margin:1rem auto 1.7rem; }
 }
 @media (max-width:700px) {
   main { padding:2rem 1rem 4rem; } h1{font-size:2rem} h2{font-size:1.45rem}
-  table{font-size:.8rem} th,td{padding:.44rem .5rem} .section-jump-list,
-  .strategy-narrative-links > ul{columns:1}
+  table{font-size:.8rem} th,td{padding:.44rem .5rem} .section-jump-list{columns:1}
 }
 @media print { body{background:#fff}.page-shell{display:block;padding:0}.report-nav{display:none}main{box-shadow:none;border:0;padding:0} }
 """
@@ -306,42 +304,31 @@ def _add_strategy_narrative_links(body: str) -> str:
         return body
 
     section_level = min(level for _index, level, _label in headings)
-    sections: list[dict[str, Any]] = []
-    current_section: dict[str, Any] | None = None
+    numbered_links: list[tuple[str, str]] = []
+    current_section_slug = ""
     for index, level, raw_label in headings:
         label = re.sub(r"[*_`]+", "", raw_label).strip()
         if level == section_level:
             anchor = _slug(label)
-            current_section = {"label": label, "anchor": anchor, "children": []}
-            sections.append(current_section)
-        elif current_section is not None:
-            section_slug = str(current_section["anchor"])
-            if section_slug == "executive-readout":
-                section_slug = "executive"
-            anchor = f"strategy-{section_slug}-{_slug(label)}"
-            current_section["children"].append((label, anchor))
+            current_section_slug = "executive" if anchor == "executive-readout" else anchor
+        elif current_section_slug:
+            anchor = f"strategy-{current_section_slug}-{_slug(label)}"
+            if re.match(r"^\d+\.", label):
+                numbered_links.append((label, anchor))
         else:
             continue
         lines[index] = f'<h{level} id="{anchor}">{html.escape(label)}</h{level}>'
 
+    if not numbered_links:
+        return "\n".join(lines)
     jump_list = [
         '<nav class="strategy-narrative-links" aria-label="Strategy narrative sections">',
         "<ul>",
     ]
-    for section in sections:
-        jump_list.append(
-            f'<li><a href="#{html.escape(str(section["anchor"]), quote=True)}">'
-            f'{html.escape(str(section["label"]))}</a>'
-        )
-        children = section["children"]
-        if children:
-            jump_list.append("<ul>")
-            jump_list.extend(
-                f'<li><a href="#{html.escape(anchor, quote=True)}">{html.escape(label)}</a></li>'
-                for label, anchor in children
-            )
-            jump_list.append("</ul>")
-        jump_list.append("</li>")
+    jump_list.extend(
+        f'<li><a href="#{html.escape(anchor, quote=True)}">{html.escape(label)}</a></li>'
+        for label, anchor in numbered_links
+    )
     jump_list.extend(["</ul>", "</nav>", ""])
     return "\n".join([*jump_list, *lines])
 

@@ -8,34 +8,14 @@ Weekly review of category and company performance, changes since the previous re
 
 <nav class="strategy-narrative-links" aria-label="Strategy narrative sections">
 <ul>
-<li><a href="#executive-readout">Executive readout</a>
-<ul>
 <li><a href="#strategy-executive-1-cms-is-turning-medicaid-payment-integrity-into-an-active-operating-model">1. CMS is turning Medicaid payment integrity into an active operating model</a></li>
 <li><a href="#strategy-executive-2-medicaid-financing-reform-may-matter-more-to-payer-economics-than-incremental-cost-management-gains">2. Medicaid financing reform may matter more to payer economics than incremental cost-management gains</a></li>
 <li><a href="#strategy-executive-3-humana-s-quarter-confirms-that-enrollment-growth-is-running-ahead-of-earnings-recovery">3. Humana’s quarter confirms that enrollment growth is running ahead of earnings recovery</a></li>
 <li><a href="#strategy-executive-4-unitedhealth-is-building-a-connected-automation-stack-across-coding-authorization-and-payment">4. UnitedHealth is building a connected automation stack across coding, authorization and payment</a></li>
 <li><a href="#strategy-executive-5-aetna-s-next-earnings-call-is-the-immediate-payer-catalyst">5. Aetna’s next earnings call is the immediate payer catalyst</a></li>
-</ul>
-</li>
-<li><a href="#provider-technology">Provider technology</a>
-<ul>
 <li><a href="#strategy-provider-technology-6-revenue-cycle-ai-is-moving-from-prediction-to-production-workflow">6. Revenue-cycle AI is moving from prediction to production workflow</a></li>
 <li><a href="#strategy-provider-technology-7-provider-operating-performance-increasingly-rewards-ambulatory-scale-and-disciplined-service-line-selection">7. Provider operating performance increasingly rewards ambulatory scale and disciplined service-line selection</a></li>
 <li><a href="#strategy-provider-technology-8-cms-s-2027-physician-payment-proposal-favors-operational-value-based-care-platforms">8. CMS’s 2027 physician-payment proposal favors operational value-based-care platforms</a></li>
-</ul>
-</li>
-<li><a href="#regulatory-and-administration-strategy">Regulatory and administration strategy</a>
-<ul>
-<li><a href="#strategy-regulatory-and-administration-strategy-program-integrity">Program integrity</a></li>
-<li><a href="#strategy-regulatory-and-administration-strategy-medicaid-financing-discipline">Medicaid financing discipline</a></li>
-<li><a href="#strategy-regulatory-and-administration-strategy-accountable-care-and-prevention">Accountable care and prevention</a></li>
-<li><a href="#strategy-regulatory-and-administration-strategy-administrative-simplification-with-greater-transparency">Administrative simplification with greater transparency</a></li>
-</ul>
-</li>
-<li><a href="#what-to-watch-this-week">What to watch this week</a>
-</li>
-<li><a href="#bottom-line">Bottom line</a>
-</li>
 </ul>
 </nav>
 

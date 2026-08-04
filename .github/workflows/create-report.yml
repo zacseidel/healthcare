@@ -1,4 +1,4 @@
-name: Create final report
+name: Run full healthcare update
 
 on:
   schedule:
@@ -13,16 +13,20 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 concurrency:
-  group: healthcare-final-${{ github.ref }}
+  group: healthcare-update-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
   report:
-    name: Generate and commit final report
+    name: Generate and commit complete update
     runs-on: ubuntu-latest
     timeout-minutes: 45
+    outputs:
+      changed: ${{ steps.commit.outputs.changed }}
     env:
       MASSIVE_API_KEY: ${{ secrets.MASSIVE_API_KEY }}
       MPLBACKEND: Agg
@@ -70,6 +74,9 @@ jobs:
           if [ -n "$REQUESTED_REPORT_DATE" ]; then
             args+=(--date "$REQUESTED_REPORT_DATE")
           fi
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            args+=(--force-secondary)
+          fi
           python -m healthcare_report run "${args[@]}" | tee report-result.json
 
       - name: Add the run summary
@@ -96,8 +103,10 @@ jobs:
           if-no-files-found: error
           retention-days: 90
 
-      - name: Commit durable report and state
+      - name: Commit and push the complete update
+        id: commit
         run: |
+          echo "changed=false" >> "$GITHUB_OUTPUT"
           git fetch origin "${GITHUB_REF_NAME}"
           if [ "$(git rev-parse HEAD)" != "$(git rev-parse "origin/${GITHUB_REF_NAME}")" ]; then
             echo "::error::The branch changed while the report was running. Rerun from the new head."
@@ -113,3 +122,12 @@ jobs:
           report_date=$(python -c 'import json; print(json.load(open("report-result.json"))["report_date"])')
           git commit -m "Create healthcare report for $report_date"
           git push origin "HEAD:${GITHUB_REF_NAME}"
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+  pages:
+    name: Publish updated report site
+    needs: report
+    if: >-
+      needs.report.outputs.changed == 'true' &&
+      github.ref_name == github.event.repository.default_branch
+    uses: ./.github/workflows/pages.yml

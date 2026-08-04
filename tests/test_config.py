@@ -4,8 +4,13 @@ from datetime import date
 
 import pytest
 
-from healthcare_report.cli import parse_date
-from healthcare_report.config import ConfigurationError, load_config
+from healthcare_report.cli import main, parse_date
+from healthcare_report.config import (
+    ConfigurationError,
+    load_config,
+    persist_strategy_narrative_url,
+    validate_strategy_narrative_url,
+)
 
 
 def test_current_universe_is_valid(project):
@@ -58,3 +63,31 @@ def test_companies_markdown_requires_requested_line_format(project):
     path.write_text("---\nPayers:\n  HUM: Humana with no separator\n---\n", encoding="utf-8")
     with pytest.raises(ConfigurationError, match="Ticker: Name; Description"):
         load_config(project.root)
+
+
+def test_strategy_narrative_url_validation_and_persistence(project):
+    updated = "https://chatgpt.com/share/11111111-2222-3333-4444-555555555555"
+    assert validate_strategy_narrative_url(f" {updated} ") == updated
+    assert persist_strategy_narrative_url(project, updated)
+    assert load_config(project.root).settings["strategy_narrative"]["url"] == updated
+    assert not persist_strategy_narrative_url(project, updated)
+    with pytest.raises(ConfigurationError):
+        validate_strategy_narrative_url("https://example.com/share/not-chatgpt")
+
+
+def test_refresh_narrative_cli_uses_and_saves_url(project, monkeypatch, capsys):
+    import healthcare_report.narrative as narrative
+
+    updated = "https://chatgpt.com/share/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"
+    seen: list[str] = []
+
+    def fake_refresh(config):
+        seen.append(str(config.settings["strategy_narrative"]["url"]))
+        return {"status": "ok"}
+
+    monkeypatch.setattr(narrative, "refresh_narrative", fake_refresh)
+    monkeypatch.chdir(project.root)
+    assert main(["refresh-narrative", "--url", updated]) == 0
+    assert seen == [updated]
+    assert load_config(project.root).settings["strategy_narrative"]["url"] == updated
+    assert '"status": "ok"' in capsys.readouterr().out

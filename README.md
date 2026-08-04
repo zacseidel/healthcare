@@ -93,6 +93,16 @@ python -m healthcare_report export-standalone --date 2026-08-03 --output /tmp/re
 
 The default standalone destination is `reports/standalone/`, which is ignored by Git.
 
+Build the public website locally from all saved final reports:
+
+```sh
+python -m healthcare_report build-site
+```
+
+The generated `site/` directory opens to the newest report and includes a past-report archive,
+an About page, and a Methodology page. It is ignored by Git because GitHub Actions rebuilds it
+for every deployment.
+
 ### One-command local runner
 
 On macOS or Linux, the launcher handles the virtual environment, pinned dependencies,
@@ -227,13 +237,34 @@ python -m healthcare_report refresh-narrative
 
 ## GitHub automation
 
-The **Create final report** workflow runs every Monday at 8:00 AM America/Denver and can also
-be dispatched manually with an optional report date. Add `MASSIVE_API_KEY` under
+The **Run full healthcare update** workflow runs every Monday at 8:00 AM America/Denver and
+can also be dispatched manually with an optional report date. Add `MASSIVE_API_KEY` under
 **Settings → Secrets and variables → Actions** and allow GitHub Actions read/write repository
-permissions.
+permissions. A manual run forces fresh earnings and strategy-narrative checks, even if those
+sources were already checked that day.
 
 The workflow validates and tests the project, installs anonymous Chromium, creates the final,
-uploads the standalone HTML artifact for 90 days, and commits the smaller external-asset report
-plus compact `state/` using `github-actions[bot]`. If core market analysis cannot be built, it
-commits nothing. Earnings or narrative failures yield a degraded manifest while preserving the
-valid market report.
+uploads the standalone HTML artifact for 90 days, commits the final report plus compact `state/`
+using `github-actions[bot]`, and deploys the refreshed public site. If core market analysis
+cannot be built, it commits nothing. Earnings or narrative failures yield a degraded manifest
+while preserving the valid market report.
+
+The separate **Refresh strategy narrative** workflow is a lightweight manual action. Its
+`share_url` field is prefilled with the currently configured ChatGPT share URL; replacing that
+value refreshes the snapshot and saves the new URL in `config/settings.yaml` for subsequent
+full updates. The workflow commits only the URL configuration and `state/narrative.json`.
+
+Both update workflows share a concurrency lock, verify that the branch has not changed while
+they were running, and push through `github-actions[bot]`. The full workflow deploys Pages only
+when it committed a changed report or state snapshot.
+
+### GitHub Pages
+
+The **Publish GitHub Pages** workflow builds a static site on pushes to `master`, on manual
+dispatch, and after each scheduled report run. To make the site public, open the repository's
+**Settings → Pages** and select **GitHub Actions** as the publishing source. No API credentials
+or cache files are included in the Pages artifact.
+
+Public page copy lives in `site_content/about.md` and `site_content/methodology.md`. The site
+generator automatically publishes every valid folder under `reports/final/`, sorts the archive
+newest-first, and uses the newest report as the homepage.

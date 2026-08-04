@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+import os
 import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 import yaml
@@ -138,6 +140,7 @@ def _validate_settings(settings: dict[str, Any]) -> None:
     lead = int(earnings.get("tentative_check_lead_days", 21))
     if interval <= lead or lead < 0:
         raise ConfigurationError("earnings tentative interval must be greater than its check lead")
+    validate_strategy_narrative_url(str(settings["strategy_narrative"].get("url") or ""))
 
 
 def _load_universe(document: dict[str, Any]) -> Universe:
@@ -174,3 +177,43 @@ def load_config(root: Path | None = None) -> ProjectConfig:
     _validate_settings(settings)
     universe = _load_universe(_read_markdown_frontmatter(root / "inputs" / "companies.md"))
     return ProjectConfig(root=root, settings=settings, universe=universe)
+
+
+def validate_strategy_narrative_url(value: str) -> str:
+    url = value.strip()
+    parsed = urlparse(url)
+    if (
+        parsed.scheme != "https"
+        or parsed.hostname not in {"chatgpt.com", "www.chatgpt.com"}
+        or not parsed.path.startswith("/share/")
+    ):
+        raise ConfigurationError("strategy narrative URL must be an HTTPS chatgpt.com/share URL")
+    return url
+
+
+def persist_strategy_narrative_url(config: ProjectConfig, value: str) -> bool:
+    url = validate_strategy_narrative_url(value)
+    path = config.root / "config" / "settings.yaml"
+    lines = path.read_text(encoding="utf-8").splitlines()
+    in_section = False
+    replaced = False
+    for index, line in enumerate(lines):
+        if line and not line[0].isspace():
+            in_section = line.strip() == "strategy_narrative:"
+            continue
+        if in_section and re.match(r"^\s+url:\s*", line):
+            indent = line[: len(line) - len(line.lstrip())]
+            replacement = f"{indent}url: {url}"
+            replaced = True
+            if replacement == line:
+                config.settings["strategy_narrative"]["url"] = url
+                return False
+            lines[index] = replacement
+            break
+    if not replaced:
+        raise ConfigurationError("settings.strategy_narrative.url is missing")
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    temporary.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    os.replace(temporary, path)
+    config.settings["strategy_narrative"]["url"] = url
+    return True

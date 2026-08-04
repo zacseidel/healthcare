@@ -13,6 +13,7 @@ def project(tmp_path: Path):
     source = Path(__file__).resolve().parents[1]
     shutil.copy(source / "pyproject.toml", tmp_path / "pyproject.toml")
     shutil.copytree(source / "config", tmp_path / "config")
+    shutil.copytree(source / "site_content", tmp_path / "site_content")
     (tmp_path / "inputs").mkdir()
     shutil.copy(source / "inputs" / "companies.md", tmp_path / "inputs" / "companies.md")
     return load_config(tmp_path)

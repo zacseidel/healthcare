@@ -6,7 +6,12 @@ import sys
 from datetime import date, datetime
 from pathlib import Path
 
-from .config import ConfigurationError, load_config
+from .config import (
+    ConfigurationError,
+    load_config,
+    persist_strategy_narrative_url,
+    validate_strategy_narrative_url,
+)
 
 
 def parse_date(value: str) -> date:
@@ -40,8 +45,16 @@ def build_parser() -> argparse.ArgumentParser:
     )
     standalone.add_argument("--date", type=parse_date, required=True, help="published report date")
     standalone.add_argument("--output", type=Path, help="destination HTML path")
+    site = subparsers.add_parser("build-site", help="build the static GitHub Pages website")
+    site.add_argument("--output", type=Path, help="destination directory; defaults to site/")
     subparsers.add_parser("validate", help="validate configuration without network requests")
-    subparsers.add_parser("refresh-narrative", help="refresh only the ChatGPT narrative snapshot")
+    narrative = subparsers.add_parser(
+        "refresh-narrative", help="refresh only the ChatGPT narrative snapshot"
+    )
+    narrative.add_argument(
+        "--url",
+        help="ChatGPT share URL to use and save for subsequent report runs",
+    )
     return parser
 
 
@@ -64,7 +77,14 @@ def main(argv: list[str] | None = None) -> int:
         if args.command == "refresh-narrative":
             from .narrative import refresh_narrative
 
+            requested_url = str(args.url or "").strip()
+            if requested_url:
+                config.settings["strategy_narrative"]["url"] = validate_strategy_narrative_url(
+                    requested_url
+                )
             narrative = refresh_narrative(config)
+            if requested_url:
+                persist_strategy_narrative_url(config, requested_url)
             print(json.dumps(narrative, indent=2))
             return 0
         from .pipeline import export_standalone_report, rerender_report, run_report
@@ -77,6 +97,10 @@ def main(argv: list[str] | None = None) -> int:
             )
         elif args.command == "export-standalone":
             result = export_standalone_report(config, args.date, args.output)
+        elif args.command == "build-site":
+            from .site import build_site
+
+            result = build_site(config, args.output)
         else:
             report_date = args.date or datetime.now(config.timezone).date()
             result = run_report(
