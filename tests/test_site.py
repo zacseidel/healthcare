@@ -63,3 +63,12 @@ def test_build_site_uses_latest_report_and_builds_public_pages(project):
     assert "About" in (output / "about" / "index.html").read_text()
     assert "Market performance" in (output / "methodology" / "index.html").read_text()
     assert (output / ".nojekyll").is_file()
+
+
+def test_build_site_defaults_to_branch_publishable_docs_folder(project):
+    _fake_report(project.root, date(2026, 8, 3))
+
+    result = build_site(project)
+
+    assert result["output"] == str(project.root / "docs")
+    assert (project.root / "docs" / "index.html").is_file()

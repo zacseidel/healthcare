@@ -46,7 +46,7 @@ def build_parser() -> argparse.ArgumentParser:
     standalone.add_argument("--date", type=parse_date, required=True, help="published report date")
     standalone.add_argument("--output", type=Path, help="destination HTML path")
     site = subparsers.add_parser("build-site", help="build the static GitHub Pages website")
-    site.add_argument("--output", type=Path, help="destination directory; defaults to site/")
+    site.add_argument("--output", type=Path, help="destination directory; defaults to docs/")
     subparsers.add_parser("validate", help="validate configuration without network requests")
     narrative = subparsers.add_parser(
         "refresh-narrative", help="refresh only the ChatGPT narrative snapshot"

@@ -1,46 +1,26 @@
-name: Publish GitHub Pages
+name: Rebuild GitHub Pages site
 
 on:
-  push:
-    branches: [master]
-    paths:
-      - ".github/workflows/pages.yml"
-      - "reports/final/**"
-      - "site/**"
-      - "site_content/**"
-      - "src/healthcare_report/**"
-      - "config/**"
-      - "inputs/companies.md"
-      - "pyproject.toml"
-      - "requirements.lock"
   workflow_dispatch:
-    inputs:
-      rebuild_site:
-        description: Rebuild the site from tracked reports before deployment
-        required: false
-        default: true
-        type: boolean
-  workflow_call:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
-  id-token: write
 
 concurrency:
-  group: github-pages
+  group: healthcare-update-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
-  build:
-    name: Build Pages site
+  rebuild:
+    name: Rebuild and commit docs site
     if: github.ref_name == github.event.repository.default_branch
     runs-on: ubuntu-latest
     steps:
       - name: Check out the latest default branch
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.ref_name }}
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -54,30 +34,25 @@ jobs:
           python -m pip install -r requirements.lock
           python -m pip install --no-deps -e .
 
-      - name: Verify the locally built site
-        if: github.event_name == 'push' || github.event_name == 'workflow_call'
-        run: test -f site/index.html
-
-      - name: Rebuild the static site as a fallback
-        if: github.event_name == 'workflow_dispatch' && inputs.rebuild_site
+      - name: Build the static site
         run: python -m healthcare_report build-site
 
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
+      - name: Commit and push the rebuilt site
+        run: |
+          git fetch origin "${GITHUB_REF_NAME}"
+          if [ "$(git rev-parse HEAD)" != "$(git rev-parse "origin/${GITHUB_REF_NAME}")" ]; then
+            echo "::error::The branch changed while the site was building. Rerun from the new head."
+            exit 1
+          fi
+          git add -- docs
+          if ! git diff --cached --quiet; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "Rebuild GitHub Pages site"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
 
-      - name: Upload the Pages artifact
-        uses: actions/upload-pages-artifact@v4
-        with:
-          path: site
-
-  deploy:
-    name: Deploy GitHub Pages
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Request the branch-based Pages build
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api --method POST "repos/${GITHUB_REPOSITORY}/pages/builds"

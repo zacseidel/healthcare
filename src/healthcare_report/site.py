@@ -211,7 +211,7 @@ def _copy_assets(report_html: Path, destination_folder: Path) -> None:
 
 
 def build_site(config: ProjectConfig, output: Path | None = None) -> dict[str, Any]:
-    destination = (output or config.root / "site").resolve()
+    destination = (output or config.root / "docs").resolve()
     destination.parent.mkdir(parents=True, exist_ok=True)
     temporary = Path(tempfile.mkdtemp(prefix=f".{destination.name}-", dir=destination.parent))
     try:

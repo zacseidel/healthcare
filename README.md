@@ -99,7 +99,7 @@ Build the public website locally from all saved final reports:
 python -m healthcare_report build-site
 ```
 
-The generated `site/` directory opens to the newest report and includes a past-report archive,
+The generated `docs/` directory opens to the newest report and includes a past-report archive,
 an About page, and a Methodology page. It is tracked in Git so a local report run produces the
 exact static site that will be published. Both `run` and `render` rebuild it automatically;
 `build-site` remains useful after editing only the About or Methodology copy.
@@ -108,14 +108,14 @@ The normal local publishing flow is:
 
 ```sh
 ./bin/run-report
-git add reports/final site state
+git add docs reports/final state
 git commit -m "Create healthcare report for YYYY-MM-DD"
 git push
 ```
 
 Review `git status` before committing and add any intentional configuration, company-list, or
-site-copy edits separately. The push-triggered Pages workflow uploads the committed `site/`
-directory without rebuilding it, so the deployed output is the version produced locally.
+site-copy edits separately. GitHub Pages publishes the committed `docs/` directory directly,
+so the deployed output is the version produced locally.
 
 ### One-command local runner
 
@@ -274,11 +274,14 @@ when it committed a changed report or state snapshot.
 
 ### GitHub Pages
 
-The **Publish GitHub Pages** workflow deploys the tracked static site on pushes to `master` and
-after each scheduled report run. A manual dispatch can rebuild the site from tracked reports
-before deployment, providing a cloud fallback when a local build is unavailable. To make the
-site public, open the repository's **Settings → Pages** and select **GitHub Actions** as the
-publishing source. No API credentials or cache files are included in the Pages artifact.
+For the primary local publishing path, open the repository's **Settings → Pages**, choose
+**Deploy from a branch**, select `master`, select `/docs`, and save. A local push then publishes
+the exact generated files committed under `docs/`.
+
+The **Rebuild GitHub Pages site** workflow is a manual cloud fallback that regenerates and
+commits `docs/`, then explicitly requests a Pages build. The full scheduled-report workflow
+does the same after producing a new report because GitHub does not automatically start a
+branch-based Pages build for commits pushed with the workflow's `GITHUB_TOKEN`.
 
 Public page copy lives in `site_content/about.md` and `site_content/methodology.md`. The site
 generator automatically publishes every valid folder under `reports/final/`, sorts the archive

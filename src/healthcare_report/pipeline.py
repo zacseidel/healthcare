@@ -519,7 +519,7 @@ def run_report(
     site = build_site(config)
     html_name = report_html_name(report_date)
     _progress(f"Complete: reports/final/{report_date.isoformat()}/{html_name}")
-    _progress("Public site rebuilt: site/index.html")
+    _progress("Public site rebuilt: docs/index.html")
     return {
         "status": manifest["quality"],
         "report_date": report_date.isoformat(),
