@@ -1,0 +1,40 @@
+report:
+  name: Healthcare Intel Digest
+  description: >-
+    Weekly review of category and company performance, changes since the previous
+    report, earnings activity, and the payer-technology strategy narrative.
+  timezone: America/Denver
+  benchmark: SPY
+  return_horizons_months: [3, 12, 24]
+  chart_horizons_months: [6, 12, 24]
+  top_stocks_shown: 5
+  chart_stocks_per_horizon: 3
+  previous_report_minimum_days: 5
+
+market_data:
+  api_delay_seconds: 13
+  company_cache_days: 90
+  price_retention_buffer_days: 45
+  price_base_tolerance_days: 7
+  maximum_price_age_days: 7
+  maximum_market_cap_age_days: 90
+  minimum_market_cap_coverage: 0.8
+
+earnings:
+  window_days: 7
+  tentative_interval_days: 90
+  tentative_check_lead_days: 21
+  confirmed_recheck_lead_days: 21
+
+notable_changes:
+  category_rank_change: 1
+  overall_stock_rank_change: 2
+  within_category_rank_change: 1
+  return_delta_threshold: 0.02
+  top_stocks: 3
+  movers_shown: 3
+
+strategy_narrative:
+  url: https://chatgpt.com/share/6a70f023-5050-83e8-91b8-5ffa9e09b7a4
+  pattern: 'Week of\s+\w+\s+\d{1,2},\s+\d{4}'
+  stale_after_days: 7

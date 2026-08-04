@@ -1,5 +1,0 @@
-root <- normalizePath(file.path(getwd(), "..", ".."), winslash = "/", mustWork = TRUE)
-options(healthcare.project_root = root)
-old_directory <- setwd(root)
-source("weekly_report.R")
-setwd(old_directory)

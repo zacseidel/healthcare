@@ -1,0 +1,983 @@
+{
+  "schema": 2,
+  "report_date": "2026-08-03",
+  "market_data_as_of": "2026-07-31",
+  "generated_at": "2026-08-04T03:13:07Z",
+  "rendered_at": "2026-08-04T12:06:04Z",
+  "baseline_report_date": null,
+  "configuration_sha256": "efd93a4eb8e7876315fa4274ff8de9d3e78f41ec2abbf95d534085a5a2837ec3",
+  "quality": "degraded",
+  "issues": [
+    "Secondary source warnings: earnings:ASTH (Google Finance earnings labels were not found; Client error '404 Not Found' for url 'https://finance.yahoo.com/quote/ASTH/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404); earnings:PIII (Google Finance earnings labels were not found); earnings:TALK (Google Finance earnings labels were not found); earnings:LFMD (Google Finance earnings labels were not found); earnings:MDRX (Google Finance earnings labels were not found)"
+  ],
+  "sources": [
+    {
+      "source": "Massive company",
+      "subject": "UNH",
+      "status": "ok",
+      "detail": "reused company cache (19 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "UNH",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "CVS",
+      "status": "ok",
+      "detail": "reused company cache (19 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "CVS",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "HUM",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "HUM",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "OSCR",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "OSCR",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "MOH",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "MOH",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "CI",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "CI",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "ELV",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "ELV",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "CLOV",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "CLOV",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "CNC",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "CNC",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "ALHC",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "ALHC",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "HCA",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "HCA",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "THC",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "THC",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "UHS",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "UHS",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "ENSG",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "ENSG",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "ACHC",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "ACHC",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "EHC",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "EHC",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "PACS",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "PACS",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "DOC",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "DOC",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "VTR",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "VTR",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "MPT",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "MPT",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "NHI",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "NHI",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "OHI",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "OHI",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "PRVA",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "PRVA",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "ASTH",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "ASTH",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "AGL",
+      "status": "ok",
+      "detail": "reused company cache (19 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "AGL",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "EVH",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "EVH",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "PIII",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "PIII",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "DVA",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "DVA",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "FMS",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "FMS",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "SGRY",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "SGRY",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "OPCH",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "OPCH",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "LFST",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "LFST",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "TDOC",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "TDOC",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "AMWL",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "AMWL",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "TALK",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "TALK",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "HIMS",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "HIMS",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "LFMD",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "LFMD",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "OMDA",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "OMDA",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "GDRX",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "GDRX",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "ORCL",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "ORCL",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "MDRX",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "MDRX",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "WAY",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "WAY",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "SOLV",
+      "status": "ok",
+      "detail": "reused company cache (19 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "SOLV",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "PHR",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "PHR",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "CCSI",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "CCSI",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "DH",
+      "status": "ok",
+      "detail": "reused company cache (19 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "DH",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "IQV",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "IQV",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "HCAT",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "HCAT",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "DOCS",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "DOCS",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive company",
+      "subject": "VEEV",
+      "status": "ok",
+      "detail": "reused company cache (1 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "VEEV",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "SPY",
+      "status": "ok",
+      "detail": "reused prices through 2026-08-02"
+    },
+    {
+      "source": "browser",
+      "subject": "Chromium",
+      "status": "ok",
+      "detail": ""
+    },
+    {
+      "source": "earnings",
+      "subject": "UNH",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "CVS",
+      "status": "ok",
+      "detail": ""
+    },
+    {
+      "source": "earnings",
+      "subject": "HUM",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "OSCR",
+      "status": "ok",
+      "detail": ""
+    },
+    {
+      "source": "earnings",
+      "subject": "MOH",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "CI",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "ELV",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "CLOV",
+      "status": "ok",
+      "detail": ""
+    },
+    {
+      "source": "earnings",
+      "subject": "CNC",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "ALHC",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "HCA",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "THC",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "UHS",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "ENSG",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "ACHC",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "EHC",
+      "status": "ok",
+      "detail": ""
+    },
+    {
+      "source": "earnings",
+      "subject": "PACS",
+      "status": "ok",
+      "detail": ""
+    },
+    {
+      "source": "earnings",
+      "subject": "DOC",
+      "status": "ok",
+      "detail": ""
+    },
+    {
+      "source": "earnings",
+      "subject": "VTR",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "MPT",
+      "status": "ok",
+      "detail": ""
+    },
+    {
+      "source": "earnings",
+      "subject": "NHI",
+      "status": "ok",
+      "detail": ""
+    },
+    {
+      "source": "earnings",
+      "subject": "OHI",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "PRVA",
+      "status": "ok",
+      "detail": ""
+    },
+    {
+      "source": "earnings",
+      "subject": "ASTH",
+      "status": "warning",
+      "detail": "Google Finance earnings labels were not found; Client error '404 Not Found' for url 'https://finance.yahoo.com/quote/ASTH/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "source": "earnings",
+      "subject": "AGL",
+      "status": "ok",
+      "detail": ""
+    },
+    {
+      "source": "earnings",
+      "subject": "EVH",
+      "status": "ok",
+      "detail": ""
+    },
+    {
+      "source": "earnings",
+      "subject": "PIII",
+      "status": "warning",
+      "detail": "Google Finance earnings labels were not found"
+    },
+    {
+      "source": "earnings",
+      "subject": "DVA",
+      "status": "ok",
+      "detail": ""
+    },
+    {
+      "source": "earnings",
+      "subject": "FMS",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "SGRY",
+      "status": "ok",
+      "detail": ""
+    },
+    {
+      "source": "earnings",
+      "subject": "OPCH",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "LFST",
+      "status": "ok",
+      "detail": ""
+    },
+    {
+      "source": "earnings",
+      "subject": "TDOC",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "AMWL",
+      "status": "ok",
+      "detail": "Client error '404 Not Found' for url 'https://finance.yahoo.com/quote/AMWL/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "source": "earnings",
+      "subject": "TALK",
+      "status": "warning",
+      "detail": "Google Finance earnings labels were not found"
+    },
+    {
+      "source": "earnings",
+      "subject": "HIMS",
+      "status": "ok",
+      "detail": ""
+    },
+    {
+      "source": "earnings",
+      "subject": "LFMD",
+      "status": "warning",
+      "detail": "Google Finance earnings labels were not found"
+    },
+    {
+      "source": "earnings",
+      "subject": "OMDA",
+      "status": "ok",
+      "detail": ""
+    },
+    {
+      "source": "earnings",
+      "subject": "GDRX",
+      "status": "ok",
+      "detail": ""
+    },
+    {
+      "source": "earnings",
+      "subject": "ORCL",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "MDRX",
+      "status": "warning",
+      "detail": "Google Finance earnings labels were not found"
+    },
+    {
+      "source": "earnings",
+      "subject": "WAY",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "SOLV",
+      "status": "ok",
+      "detail": ""
+    },
+    {
+      "source": "earnings",
+      "subject": "PHR",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "CCSI",
+      "status": "ok",
+      "detail": ""
+    },
+    {
+      "source": "earnings",
+      "subject": "DH",
+      "status": "ok",
+      "detail": ""
+    },
+    {
+      "source": "earnings",
+      "subject": "IQV",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "HCAT",
+      "status": "ok",
+      "detail": ""
+    },
+    {
+      "source": "earnings",
+      "subject": "DOCS",
+      "status": "ok",
+      "detail": ""
+    },
+    {
+      "source": "earnings",
+      "subject": "VEEV",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "strategy narrative",
+      "subject": "ChatGPT share",
+      "status": "ok",
+      "detail": ""
+    }
+  ],
+  "metrics": {
+    "mode": "render-only",
+    "durations_seconds": {
+      "render_input_load": 0.039,
+      "rendering": 0.266,
+      "total": 0.313
+    },
+    "counts": {
+      "companies": 50,
+      "price_bars_loaded": 24908,
+      "performance_charts": 3,
+      "earnings_charts": 13,
+      "source_statuses": {
+        "ok": 126,
+        "skipped": 22,
+        "warning": 5
+      }
+    },
+    "output_bytes": {
+      "html": 183833,
+      "markdown": 165078,
+      "charts": 1330382,
+      "data": 54495,
+      "total_without_manifest": 1733788
+    },
+    "directory_bytes": 1757273
+  },
+  "files": [
+    "Healthcare Intel-2026-08-03.html",
+    "report.md",
+    "snapshot.csv",
+    "changes.csv",
+    "render-data.json.gz",
+    "assets/performance-6m.webp",
+    "assets/performance-12m.webp",
+    "assets/performance-24m.webp",
+    "assets/earnings-hum-3m.webp",
+    "assets/earnings-ci-3m.webp",
+    "assets/earnings-cnc-3m.webp",
+    "assets/earnings-alhc-3m.webp",
+    "assets/earnings-uhs-3m.webp",
+    "assets/earnings-ensg-3m.webp",
+    "assets/earnings-achc-3m.webp",
+    "assets/earnings-vtr-3m.webp",
+    "assets/earnings-ohi-3m.webp",
+    "assets/earnings-opch-3m.webp",
+    "assets/earnings-tdoc-3m.webp",
+    "assets/earnings-way-3m.webp",
+    "assets/earnings-iqv-3m.webp"
+  ]
+}

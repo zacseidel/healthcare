@@ -1,304 +1,239 @@
 # Healthcare Intel Digest
 
-A small RStudio workflow for producing weekly healthcare stock reports from editable Markdown inputs and saved local data.
+A Python application that creates a weekly healthcare-stock intelligence report from
+Massive market data, public earnings pages, and a shared ChatGPT strategy narrative.
+Reports are generated as final versions immediately and stored in Git.
 
-## Setup
+## What it produces
 
-1. Open the project's `.Rproj` file in RStudio.
-2. Run `source("setup.R")`.
-3. Add `MASSIVE_API_KEY=...` to `.env`.
-4. Run `source("refresh.R")`.
+Every report is written to `reports/final/YYYY-MM-DD/`:
 
-Setup restores the locked R packages, creates local data folders, and checks that Quarto is installed. It works the same way on macOS, Windows, and Linux.
+- `Healthcare Intel-YYYY-MM-DD.html`: report HTML referencing the adjacent chart assets.
+- `report.md` and `assets/`: diffable Markdown and lossless WebP chart images.
+- `snapshot.csv`: the published performance values and ranks.
+- `changes.csv`: every comparison with the previous eligible final.
+- `render-data.json.gz`: a compact copy of the report-specific narrative, earnings, and
+  reference inputs used for faithful network-free rerenders.
+- `manifest.json`: data dates, configuration hash, source outcomes, quality warnings, stage
+  timings, output sizes, and cache-retention results.
 
-## Files you edit
+The scheduled workflow also publishes a single-file standalone HTML report as a downloadable
+GitHub Actions artifact. It is not committed because it contains another encoded copy of every
+chart.
 
-- `inputs/settings.md`: report and data-refresh settings.
-- `inputs/companies.md`: category membership, report names, and editable company descriptions.
-- `inputs/current_report.md`: categories and optional earnings, overview, and news selections. The workflow writes the current date automatically, and rewrites the category list to match `inputs/companies.md` — edit categories there, not here.
+A rerun for an existing date replaces that folder. The previous version remains available
+through Git history.
 
-Everything under `data/` is generated. Reports are saved under `reports/drafts/DATE/` and `reports/final/DATE/`.
+## Local setup
 
-## Weekly workflow
+Python 3.12 is required.
 
-Run one command:
+The one-command launcher reuses a compatible `.venv` even if the system's `python3`
+still points to Python 3.9. When it needs to create the environment, it automatically looks
+for `python3.12`, `python3.13`, `python3.14`, and then `python3`. You can also provide an
+explicit interpreter with `HEALTHCARE_PYTHON=/path/to/python3.12 ./bin/run-report`.
 
-```r
-source("refresh.R")
+```sh
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.lock
+python -m pip install --no-deps -e .
+python -m playwright install chromium
+cp .env.example .env
 ```
 
-To rebuild an earlier week's report, set the date first — `source()` cannot take
-arguments, so a `refresh_date` in the workspace is how the run is pointed at a past date:
+Set `MASSIVE_API_KEY` in `.env` or export it in the shell. The CLI does not load arbitrary
+shell files, so when using `.env` locally run:
 
-```r
-refresh_date <- "2026-07-27"
-source("refresh.R")
+```sh
+set -a
+source .env
+set +a
 ```
 
-Anything else runs for today. `refresh_report(report_date = "2026-07-27")` does the same
-when calling the workflow directly. Remove `refresh_date` afterwards, or a later
-`source("refresh.R")` will keep using it.
+Validate the project and create a report:
 
-This opens or reconnects to the dedicated Google Finance browser and checks whether that
-window is actually signed into Google, pausing only if it is not. It then sets the report date, syncs the
-report's categories to `inputs/companies.md`, refreshes market data and earnings, chooses
-the default earnings and news selections, refreshes the selected news, runs the pre-flight
-checks, and creates a draft. Recoverable stage failures become warnings and the remaining
-independent stages continue.
-
-The category sync runs before anything reads the report, so renaming or removing a category
-in `inputs/companies.md` does not fail the whole run. Selections orphaned by a removed
-category are dropped from `inputs/current_report.md` with a warning naming each ticker.
-
-The most recent run is retained as `refresh_results` in the R session. If anything
-looks incomplete, inspect the stage summary and per-ticker results with:
-
-```r
-refresh_results$status
-refresh_results$stages$market_data$value
-read_scraper_status() |> dplyr::filter(status != "ok")
+```sh
+python -m healthcare_report validate
+python -m healthcare_report run
 ```
 
-For a read-only summary that does not repeat any downloads, run
-`refresh_diagnostics()`.
+Create or recreate a report for a specific date:
 
-To skip rendering while troubleshooting, load the functions and call the workflow directly:
-
-```r
-source("weekly_report.R")
-refresh_report(create_draft = FALSE)
+```sh
+python -m healthcare_report run --date 2026-08-03
 ```
 
-The automatic earnings selection includes companies that reported during the configured
-seven-day window. News defaults to the largest positive and negative overall-rank movers
-since the prior final report plus the configured top stocks at each report horizon. News cards on the
-company's Google Finance quote page are used first, with the Massive news API as the fallback. Saved URLs retain
-their first-seen dates, and reports show only articles first seen after the prior final report.
-Each refresh keeps up to `news_per_refresh` new articles per company and retains the most
-recent `news_cache_limit` per company overall (five and twenty-five by default), dropping
-older ones so the news cache stays bounded.
+If earnings or the narrative already ran for the same report date today, a rerun reuses them.
+Use `--force-secondary` when those sources should be checked again regardless:
 
-`report_status()` is the pre-flight check used by the workflow. It reports each company’s
-data ages, cached exchange, next earnings date, and saved-news count, followed by anything
-that would block or degrade the report. The automatic run creates a draft but never a final
-report. After reviewing the draft, save the approved final report with:
-
-```r
-final_report()
+```sh
+python -m healthcare_report run --date 2026-08-03 --force-secondary
 ```
 
-`final_report()` re-renders from the same saved data the draft used — it downloads nothing —
-and writes to `reports/final/DATE/`: the report in both formats, the snapshot, and copies of
-all three inputs. The snapshot and input copies are what Git keeps; the rendered report and
-its chart images stay local.
+Rebuild an existing report from its saved snapshot and cache without network or browser work:
 
-Finalising is what creates the comparison baseline. Until a final exists, every report says
-"this report establishes the baseline" and the Notable Changes section has nothing to compare
-against. Once one does, the next report measures against the most recent final at least
-`previous_report_minimum_days` old.
-
-One final per date: a second call fails rather than overwriting. To replace one after fixing
-an input, use `final_report(overwrite = TRUE)`, which also removes the superseded file if the
-name changed.
-
-Rendering uses local files only. It does not make API or browser requests.
-
-## When data is missing
-
-Incomplete data never cancels a report. Every data problem is a warning that names what is
-affected, in the console and in the report's own "Data coverage" section; the report is
-produced from whatever is available, with unavailable values left blank. A stale market cap
-means a company's weight is a little out of date, not that the week has no report.
-
-A ticker the market-data provider does not carry at all — delisted, renamed, or simply not
-covered — is reported by name and excluded from returns and category weights. Fix or remove it
-in `inputs/companies.md`.
-
-Coverage asks whether a horizon's return can be computed, not whether a calendar date is early
-enough — markets do not trade every day, so the bar nearest a 24-month-ago target is routinely
-a few days after it. A base bar up to `price_base_tolerance_days` (seven by default) later than
-the window edge is used, and the report says which companies that applied to.
-
-Two different things can shorten a history, and only one is worth acting on. A company that
-listed inside the window can never have a full-horizon return; its `list_date` is cached and
-the report says so rather than reporting a gap. Anything else short means the download is
-incomplete. Retention always keeps at least one month more than the longest horizon, so the
-cache is never trimmed flush to the window edge and builds a margin as it ages.
-
-News is scraped from the "News stories" module on each company's Google Finance quote page,
-and falls back to the Massive news API. A working fallback is recorded as `fallback`, not `failed`, so `report_status()`
-flags only scrapes that produced nothing from either source.
-
-## Research tools
-
-These are optional and never run during report rendering:
-
-```r
-find_related("UNH")
-find_similar_sic("UNH")
-
-start_google_browser()
-refresh_earnings(c("UNH", "CVS"))
+```sh
+python -m healthcare_report render --date 2026-08-03
 ```
 
-`start_google_browser()` opens a dedicated Chrome profile. Sign into Google in that window once. `refresh_earnings()` then saves three things from the Google Finance earnings tab: the transcript summary, any available “Key moments” cards including their timestamps and blurbs, and the bulleted “At a glance” insights. Yahoo is used as a fallback for upcoming dates.
+The renderer reuses only the charts required by that saved report. If chart styling changed,
+regenerate them from the bounded price cache explicitly:
 
-“At a glance” comes in two versions, and the page heading is what tells them apart. After a
-company reports, the module reads that quarter and its insights are saved with the call under
-`#### At a Glance`. Before a call, the same slot shows “At a glance: upcoming earnings”, which
-previews a call that has not happened — the only date available to file those against is the
-*previous* report, so they are scraped and counted but never written into a past report's
-summary. `data/earnings.csv` records which version was seen in `glance_scope`.
+```sh
+python -m healthcare_report render --date 2026-08-03 --refresh-charts
+```
 
-A company whose next earnings date is already known and still in the future is skipped: the
-call has not happened, so the page has nothing new to say. It is scraped again once that date
-arrives, or sooner if the last call's page was unavailable when it was last checked. Use
-`refresh_earnings(force = TRUE)` to scrape regardless.
+Create a portable single-file copy on demand:
 
-All scraping shares one browser tab for the whole run, released by `close_google_session()`
-when the scraping stages finish. If Chrome is managed by an IT policy that blocks remote
-debugging, the browser check fails with that as the likely cause and the run continues without
-Google data.
+```sh
+python -m healthcare_report export-standalone --date 2026-08-03
+python -m healthcare_report export-standalone --date 2026-08-03 --output /tmp/report.html
+```
 
-If Google does not provide a transcript summary, key moments, or at-a-glance insights for a completed call, the earnings calendar records that explicitly. Reports show a short unavailable message rather than failing or substituting an older call summary.
+The default standalone destination is `reports/standalone/`, which is ignored by Git.
 
-Each company's exchange is discovered from the market-data provider and cached in `data/companies.csv`, so `inputs/companies.md` never lists one. Google Finance URLs are built from that cache, and a ticker missing from it is looked up on demand. If the provider reports an exchange Google Finance does not recognise, the report records a warning and you can set the correct name under `exchange_overrides` in `inputs/settings.md`.
+### One-command local runner
 
-Massive API calls wait at least 13 seconds by default. Company reference data is reused for 28 days; prices are updated only through the report date. Because each call is rate-limited, a small price gap across several tickers is filled with the provider's grouped daily endpoint (one call per trading day for every ticker at once) instead of one call per ticker; first-time downloads and large gaps still use per-ticker range calls. A day that fails or returns nothing — a market holiday, or the current day before it settles — is reported and skipped rather than discarding the whole batch, and any ticker that appears on no day is retried individually. Each refresh also trims price history to the retention window (`price_history_years`, two years by default and never shorter than the longest return horizon), so caches stay bounded rather than growing forever.
+On macOS or Linux, the launcher handles the virtual environment, pinned dependencies,
+Playwright Chromium, and the existing `.env` automatically:
+
+```sh
+./bin/run-report
+```
+
+To create or replace a report for a particular date:
+
+```sh
+./bin/run-report 2026-08-03
+```
+
+The first invocation performs local setup and therefore takes longer. Later invocations reuse
+`.venv` and reinstall only when `requirements.lock` or `pyproject.toml` changes. Useful
+maintenance commands are:
+
+```sh
+./bin/run-report --validate
+./bin/run-report --setup-only
+```
+
+Tests and static checks:
+
+```sh
+pytest
+ruff check src tests
+mypy src
+```
+
+## Configuration
+
+- `inputs/companies.md` defines categories and their stocks using the original
+  `Ticker: Name; Description` format. A ticker may belong to more than one category.
+- `config/settings.yaml` defines horizons, thresholds, source behavior, report presentation,
+  and the ChatGPT share URL.
+
+The report date and its automatic earnings selections are runtime values rather than mutable
+configuration. This keeps scheduled reports reproducible.
+
+### Edit categories and tracked stocks
+
+Open the single human-editable company file:
+
+```sh
+open -a TextEdit inputs/companies.md
+```
+
+Categories and stocks live in the YAML front matter between the two `---` lines:
+
+```yaml
+Managed Care:
+  UNH: UnitedHealth; Diversified healthcare and health-services company.
+  HUM: Humana; Medicare-focused health insurer.
+Biopharma:
+  LLY: Lilly; Global biopharmaceutical company.
+```
+
+Add, remove, or rename categories directly in this block. Repeat the exact same stock line
+under another category when a company belongs to more than one. Validate edits before the
+next report:
+
+```sh
+bin/run-report --validate
+```
+
+## Performance comparisons
+
+The latest earlier final at least five days old is the comparison baseline. For every 3-,
+12-, and 24-month horizon, the snapshot records:
+
+- each subcategory's rank across subcategories;
+- each stock's rank across the complete watchlist;
+- each stock's rank within every assigned subcategory;
+- returns, market capitalization, coverage, and the actual price date.
+
+The next report compares the stored published ranks directly. It does not recompute ranks
+over only the companies common to both reports, so additions and removals cannot silently
+hide a change. Rank and return deltas appear in the report, while `changes.csv` retains the
+complete unfiltered comparison ledger.
+
+The first Python report establishes the baseline because the former R workflow never saved a
+final snapshot in Git.
+
+## Durable data cache
+
+Provider responses are checkpointed under `state/cache/` as soon as each request succeeds:
+
+- company profiles are reused for 90 days;
+- new tickers receive one full-history price request, while routine updates use Massive's
+  grouped-daily endpoint to update all cached tickers when that reduces the request count;
+- after a successful report, price history older than the longest configured horizon plus
+  the 45-day safety buffer is removed.
+
+Stopping a run does not discard completed market requests. The next run resumes from the
+saved ticker or date range. On this computer, the cache also imports usable company and price
+history from the former R workflow's local `data/` files once, avoiding unnecessary initial
+downloads.
+
+The cache contains no API credentials. GitHub Actions commits it with the rest of `state/`, so
+scheduled cloud runs reuse the prior run's data and only fetch updates.
+
+## Earnings dates
+
+Google Finance is checked anonymously through Playwright; Yahoo is the date fallback. If a
+last earnings date is known but the next one is not:
+
+- the tentative event date is last earnings + 90 days;
+- the next confirmation check is last earnings + 69 days;
+- the report labels the date as tentative;
+- scheduled runs check weekly from day 69 until a source confirms the date.
+
+A confirmed date is rechecked weekly during its final 21 days. Missing secondary data does
+not suppress otherwise valid market analysis and remains recorded in `manifest.json`.
 
 ## Strategy narrative
 
-The report opens with a "Strategy Narrative" section taken from a shared ChatGPT
-conversation, set by `strategy_narrative_url` in `inputs/settings.md`. The refresh reads the
-page in the dedicated browser, converts the brief from HTML to Markdown with the pandoc that
-ships with Quarto, and caches it at `data/strategy-narrative.md`. Rendering reads that cache,
-so producing a report still makes no network calls.
+Each run attempts to read the newest matching assistant brief from the configured public
+ChatGPT share link. The scraper removes ChatGPT navigation and decorative elements, keeps
+useful citation links, and stores the successful result at `state/narrative.json`.
 
-Two things about the source are worth knowing:
+A ChatGPT share link is a snapshot: update the share in ChatGPT when the conversation changes.
+If the link cannot be read, the report uses the committed snapshot and visibly reports its age.
 
-- **A share link is a snapshot, not a live view.** Continuing the conversation does not change
-  what the link serves — the shared link has to be updated in ChatGPT for a new brief to
-  appear. The report states which week each brief covers and when it was retrieved, and
-  `report_status()` flags a narrative more than seven days old. Check whether updating the
-  share in ChatGPT keeps the same URL; if it mints a new one, paste the new link into
-  `inputs/settings.md`.
-- **A failed fetch says which end failed.** `Page.navigate` does not answer until the
-  navigation commits, so an address the machine cannot reach hangs it and chromote reports
-  only "timed out waiting for response to command Page.navigate". The refresh checks
-  reachability separately and says whether the address is blocked or the browser tab is
-  stuck, then resets the tab so the next run starts clean.
-- **The newest message is not always the newest brief.** The conversation also carries setup
-  and confirmation replies. The most recent message matching `strategy_narrative_pattern`
-  is used, so a "here's what I'll cover from now on" note never lands in the report in place
-  of the analysis. If no message matches, the stage fails loudly rather than inserting the
-  wrong text.
-
-The brief's own headings are preserved: its title is dropped (the section already names it)
-and the rest are lifted so its top level sits one below the section heading. Those headings
-are the only subsections in the table of contents — every other subsection is marked
-`.unlisted`, so the contents show the report's sections plus the brief's structure rather than
-every company and category name.
-
-Refresh it on its own with `refresh_strategy_narrative()`.
-
-### Where the share link is blocked
-
-Some networks intercept `chatgpt.com` and redirect it to a filtering page. That page loads
-normally and simply never contains the brief, so the fetch waits out its timeout and reports
-that the expected content never appeared. Nothing in the project can route around that, so the
-brief is carried across instead: fetched where the link is reachable, committed, and read back
-where it is not.
-
-On the machine that **can** reach the link — no RStudio needed, run it from a terminal:
+Refresh only the snapshot with:
 
 ```sh
-./bin/refresh-narrative
-git add inputs/strategy-narrative.json
-git commit -m "Update strategy narrative snapshot"
-git push
+python -m healthcare_report refresh-narrative
 ```
 
-That fetches the brief, refreshes `data/strategy-narrative.md` as usual, and also writes
-`inputs/strategy-narrative.json` — the same brief in a form Git carries. It lives under
-`inputs/` because that is what it is on the receiving machine: a checked-in input.
-`data/strategy-narrative.md` stays ignored, so the snapshot is the only copy that travels.
+## GitHub automation
 
-The same update can be run remotely from GitHub: open **Actions → Update strategy
-narrative → Run workflow** and choose the branch to update. The manual action uses
-headless Chrome and Node directly — it does not install R or restore `renv` — then
-commits only `inputs/strategy-narrative.json`. If the snapshot has not changed, it
-exits without creating an empty commit. No repository secret is required because the
-shared conversation is public and the workflow uses its scoped `GITHUB_TOKEN` to push.
+The **Create final report** workflow runs every Monday at 8:00 AM America/Denver and can also
+be dispatched manually with an optional report date. Add `MASSIVE_API_KEY` under
+**Settings → Secrets and variables → Actions** and allow GitHub Actions read/write repository
+permissions.
 
-On the machine that **cannot**, `git pull` and refresh normally. `refresh_strategy_narrative()`
-tries the share link, and when that fails rebuilds the cache from the snapshot and warns —
-a warning, not a failure, so the stage shows yellow and a brief that has quietly stopped
-updating stays visible. Everything downstream still reads the one cache file and neither knows
-nor cares which source filled it.
-
-To skip the doomed fetch and its timeout entirely, set the source in `.Renviron` — not
-`inputs/settings.md`, which is tracked and would carry one machine's answer to the other:
-
-```
-HEALTHCARE_STRATEGY_SOURCE=file
-```
-
-`auto` (the default) tries the link then falls back, `file` reads only the snapshot and never
-opens a browser, and `remote` requires the link and fails if it cannot be read.
-
-The imported brief keeps the `fetched_at` from the machine that fetched it, so the seven-day
-staleness check measures the age of the brief rather than the age of the copy. Re-run
-`./bin/refresh-narrative` and commit whenever the ChatGPT share is updated.
-
-## Report output
-
-Each render produces two files from one source: `NAME.html`, the report that gets read and
-circulated, and `NAME.md`, a plain-text copy for review. The Markdown copy also carries the
-"Data coverage" and "Data collection warnings" sections, which are working notes and are left
-out of the HTML. Markdown keeps its charts in a `weekly_files/` folder beside it, archived
-with the report.
-
-In HTML, every table sorts by clicking a column heading, and return columns carry a colour
-scale calibrated within each column — green for gains, red for losses, strongest at the largest
-absolute move in that column. The two arms are matched in lightness so equal moves read as
-equally strong. Green and red are the classic red-green colour-blindness collision, so the
-signed number in every cell is what always carries the meaning and the colour is support;
-chart series are labelled at the end of their own lines for the same reason.
-
-The comparison baseline is the most recent final report at least
-`previous_report_minimum_days` (five by default) before the current one, whatever weekday it
-fell on — so a run moved from Monday to Tuesday for a market holiday needs no special
-handling, while re-running a report a day after finalising one does not compare against
-yesterday. See `inputs/settings.md`.
-
-## Report contents
-
-- Market-cap-weighted category returns for 3, 12, and 24 months.
-- Indexed price-performance charts versus SPY over 24, 12, and 6 months. One set of companies
-  appears on all three: the strongest returns at each of the 3-, 12-, and 24-month horizons,
-  pooled, so a company leading at more than one takes a single slot. The same lines appear on
-  every chart and only the window changes underneath them, which is what makes the charts
-  comparable. `chart_stocks_per_horizon` controls how many per horizon — three by default, so
-  at most nine companies plus SPY. Any deep-dive selection outside that set is listed beneath
-  each chart with its return over that window, and a company with no history for a window is
-  named rather than silently absent.
-- Company returns within each category, with the category's market-cap-weighted 3-month return
-  beside its name.
-- The top `top_stocks_shown` companies for each horizon, with market capitalisations. Company
-  names link to their own overview: name, ticker, market cap, price chart, and description.
-- Price change since the previous final report: market-cap-weighted per category, plus the largest company gains and declines.
-- Changes in category leaders, category ranks, company ranks, and top-three membership.
-- Changes in the returns themselves, which rank comparisons miss when everything moves together.
-- Companies added to or removed from a category since the previous final report.
-- Earnings expected during the next seven days.
-- Selected recent earnings summaries, timestamped key moments, at-a-glance insights, company overviews, and news.
-
-Category results are weighted averages of company returns. Raw share prices are not averaged because share-price units are not comparable across companies.
-
-## Saved history
-
-Reports are named for their date and the largest companies whose earnings calls they summarise, ordered by market capitalisation: `2026-07-23_UNH-CVS-DH.html` for a final, `2026-07-23_UNH-CVS-DH-02.html` for draft 2. A report with no rendered earnings summary is named for its date alone. Draft numbers keep counting up even when the earnings selections change the rest of the name.
-
-Each draft saves its HTML report, exact snapshot, copies of all three editable inputs, and a `manifest.md` recording the input schema version those copies were written with. A final report does the same and becomes the comparison baseline for the next report.
-
-Final snapshots and input copies can be committed to Git. Drafts, downloaded data, browser credentials, secrets, and final HTML files remain local.
+The workflow validates and tests the project, installs anonymous Chromium, creates the final,
+uploads the standalone HTML artifact for 90 days, and commits the smaller external-asset report
+plus compact `state/` using `github-actions[bot]`. If core market analysis cannot be built, it
+commits nothing. Earnings or narrative failures yield a degraded manifest while preserving the
+valid market report.

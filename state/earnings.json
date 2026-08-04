@@ -1,0 +1,1251 @@
+{
+  "UNH": {
+    "last_report_date": "2026-07-16",
+    "checked_at": "2026-08-03T19:19:32Z",
+    "next_event_date": "2026-10-14",
+    "next_check_date": "2026-09-23",
+    "next_date_status": "tentative",
+    "next_date_source": "estimated from last earnings"
+  },
+  "CVS": {
+    "last_report_date": "2026-05-06",
+    "next_event_date": "2026-08-05",
+    "next_date_status": "confirmed",
+    "next_date_source": "Google Finance",
+    "next_check_date": null,
+    "checked_at": "2026-08-04T03:11:16Z",
+    "summary": "",
+    "at_a_glance_checked_at": "2026-08-04T03:11:16Z",
+    "at_a_glance_scope": "upcoming"
+  },
+  "HUM": {
+    "last_report_date": "2026-07-29",
+    "summary": "Humana reported Q2 2026 adjusted EPS of $7.61, beating the estimated $6.995, with reported revenue at $40.87 billion versus the estimated $40.53 billion. The company is tracking year-to-date expectations and remains on track to hit its 2028 commitment of returning to a sustainable pre-tax margin of at least 3%.",
+    "key_moments": [
+      {
+        "title": "Strong Q2 Earnings Beat and Margin Visibility",
+        "timestamp": "2m 34s",
+        "blurb": "Humana delivered solid Q2 2026 results with EPS of $7.61, beating consensus estimates. Management reiterated confidence in achieving its long-term investor day targets, specifically aiming to recover its individual Medicare Advantage pre-tax margins to at least 3% by 2028 through strict underwriting discipline and plan exits."
+      },
+      {
+        "title": "Massive 2027 Plan Exits Announced",
+        "timestamp": "12m 59s",
+        "blurb": "To prioritize individual MA profitability, Humana announced targeted 2027 plan exits that will impact 600,000 members. Investors will appreciate this focus on protecting higher-margin, value-based care plans, even though it creates near-term volume headwinds, as the company expects to recapture a significant portion of affected members."
+      },
+      {
+        "title": "Inpatient Cost Favorability Supports Stabilizing Trend",
+        "timestamp": "19m 22s",
+        "blurb": "Humana's 2026 all-in medical cost trend is stable within the projected 7% to 8% range, aided by lower inpatient admissions and unit costs. This operational favorability provides reassurance to investors concerned about rising utilization trends, confirming underlying stability in the Medicare Advantage landscape."
+      },
+      {
+        "title": "Innovative Liquidity Management via PCAPS",
+        "timestamp": "29m 16s",
+        "blurb": "Humana became the first health payer to establish $1.5 billion in contingent capital facilities utilizing pre-capitalized trust securities (PCAPS). This structural move expands long-term liquidity and bolsters balance sheet durability without near-term leverage increases, protecting the company against unexpected capital market disruptions."
+      }
+    ],
+    "checked_at": "2026-08-03T22:03:47Z",
+    "next_event_date": "2026-10-27",
+    "next_check_date": "2026-10-06",
+    "next_date_status": "tentative",
+    "next_date_source": "estimated from last earnings",
+    "at_a_glance_checked_at": "2026-08-03T22:03:46Z",
+    "at_a_glance_scope": "reported",
+    "at_a_glance": [
+      {
+        "headline": "Humana Delivers Mixed Financial Results",
+        "detail": "Humana reported Q2 2026 Adjusted EPS of $5.73, which missed the estimated Adjusted EPS of $6.995, while reported revenue reached $40.87 billion, beating the estimated $40.53 billion."
+      },
+      {
+        "headline": "Strong Individual Medicare Membership Growth",
+        "detail": "Humana's medical membership expanded significantly, driven by a 23% year-over-year increase in individual Medicare Advantage plan members, outperforming peers during a period of market contraction."
+      },
+      {
+        "headline": "Management Affirms Adjusted EPS Guidance",
+        "detail": "Humana affirmed its full-year 2026 adjusted financial guidance of at least $9.00 per share, while lowering its GAAP EPS forecast to at least $6.52 from the previous $8.36 estimate."
+      },
+      {
+        "headline": "Elevated Insurance Segment Benefit Ratio",
+        "detail": "The company's Q2 2026 insurance segment medical benefit ratio rose to 91.2% from 89.9% in the prior year period, reflecting persistent medical cost pressures in line with management expectations."
+      },
+      {
+        "headline": "Market Deepens on Margin Worries",
+        "detail": "Shares of Humana slumped as much as 7% to 10% in trading following the announcement, as investors penalized the lowered GAAP outlook and future margin pressures despite the quarterly revenue beat."
+      },
+      {
+        "headline": "Expansion in Core Care Businesses",
+        "detail": "The company expanded its healthcare delivery footprints, recording a 27% year-to-date increase in CenterWell Senior Primary Care patients and securing a statewide managed care contract in Illinois."
+      }
+    ],
+    "at_a_glance_report_date": "2026-07-29"
+  },
+  "OSCR": {
+    "last_report_date": "2026-05-06",
+    "next_event_date": "2026-08-06",
+    "next_date_status": "confirmed",
+    "next_date_source": "Google Finance",
+    "next_check_date": null,
+    "checked_at": "2026-08-04T03:11:19Z",
+    "summary": "",
+    "at_a_glance_checked_at": "2026-08-04T03:11:19Z",
+    "at_a_glance_scope": "upcoming"
+  },
+  "MOH": {
+    "last_report_date": "2026-07-23",
+    "summary": "summarize_auto Molina Healthcare reported Q2 2026 adjusted EPS of $1.51 on $10.2 billion in premium revenue, navigating a challenging medical cost environment with a 92.2% consolidated medical care ratio (MCR) and a 1% adjusted pre-tax margin.",
+    "key_moments": [
+      {
+        "title": "Medicare Duals Outperformance",
+        "timestamp": "6m 39s",
+        "blurb": "Medicare MCR guidance improved by 180 basis points to 92.2%, as the core duals business performed significantly better than expected with a 4% trend vs. a conservative 6% projection, accelerating the path to target margins."
+      },
+      {
+        "title": "Marketplace Guidance Cut",
+        "timestamp": "7m 51s",
+        "blurb": "Marketplace guidance was slashed by $1.50 per share to a loss of $0.75 per share due to unfavorable prior-year risk adjustments and an underestimated current-year member acuity mix shift following aggressive premium increases."
+      },
+      {
+        "title": "Medicaid Funding Imbalance Correction",
+        "timestamp": "23m 24s",
+        "blurb": "Management highlighted that the broader Managed Medicaid market is unsustainably underfunded by 300 basis points. They expect upcoming 2027 state rate updates to begin correcting this trend/rate imbalance, providing a significant tailwind."
+      },
+      {
+        "title": "Florida Contract Implementation Costs",
+        "timestamp": "59m 19s",
+        "blurb": "The new Florida CMS contract introduces a temporary $1.50 per share headwind in 2026 across Q3 and Q4 due to pre-revenue G&A, implementation reserves, and conservative initial medical cost projections, which reverses completely in 2027."
+      }
+    ],
+    "checked_at": "2026-08-03T19:19:48Z",
+    "next_event_date": "2026-10-21",
+    "next_check_date": "2026-09-30",
+    "next_date_status": "tentative",
+    "next_date_source": "estimated from last earnings"
+  },
+  "CI": {
+    "last_report_date": "2026-07-30",
+    "summary": "The Cigna Group reported Q2 2026 total revenues of $71.7 billion and adjusted earnings per share of $7.78, beating expectations. Driven by strong execution in both Evernorth and Cigna Healthcare, the company raised its full-year 2026 adjusted EPS guidance to at least $30.45.",
+    "key_moments": [
+      {
+        "title": "Full-Year 2026 EPS Guidance Raised",
+        "timestamp": "13m 26s",
+        "blurb": "Strong Q2 performance across both core segments gave management the confidence to increase full-year 2026 adjusted EPS guidance to at least $30.45, reassuring investors of business momentum despite a dynamic and elevated medical cost trend environment."
+      },
+      {
+        "title": "Record 2027 PBM Selling Season",
+        "timestamp": "25m 13s",
+        "blurb": "Secured new PBM business for 2027 has already surpassed the total of the prior two selling seasons combined, underscoring strong commercial competitive advantages and robust multi-year client retention tracking in the mid-90s or higher."
+      },
+      {
+        "title": "Evernorth Mix Shift Tailwinds",
+        "timestamp": "36m 41s",
+        "blurb": "Faster than expected penetration of specialty generics and biosimilars created favorable margin mix shifts, driving a 22% pre-tax earnings surge in Specialty and Care Services that offset minor contract renewal headwinds in Pharmacy Benefit Services."
+      },
+      {
+        "title": "GLP-1 Growth Moderation Impact",
+        "timestamp": "37m 33s",
+        "blurb": "Declining employer coverage rates and slowing utilization led to a cooling of GLP-1 volume growth, acting as a modest financial headwind for the PBM business in the back half of 2026 while improving broader plan affordability."
+      }
+    ],
+    "checked_at": "2026-08-03T22:03:55Z",
+    "next_event_date": "2026-10-28",
+    "next_check_date": "2026-10-07",
+    "next_date_status": "tentative",
+    "next_date_source": "estimated from last earnings",
+    "at_a_glance_checked_at": "2026-08-03T22:03:54Z",
+    "at_a_glance_scope": "reported",
+    "at_a_glance": [
+      {
+        "headline": "Cigna Beats EPS and Revenue Estimates",
+        "detail": "The Cigna Group reported Q2 2026 adjusted EPS of $7.78, beating the estimated $7.60, while revenue reached $71.67 billion, which also came in ahead of the estimated $70.18 billion."
+      },
+      {
+        "headline": "Medical Care Ratio Experiences Slight Increase",
+        "detail": "Cigna Healthcare recorded a Medical Care Ratio (MCR) of 84.5% for the quarter, an increase from 83.2% in Q2 2025, primarily due to higher prior-year risk-adjustment benefits."
+      },
+      {
+        "headline": "Full-Year Adjusted EPS Guidance Raised",
+        "detail": "Cigna raised its full-year 2026 adjusted income from operations outlook to at least $30.45 per share, representing an increase from its prior projections."
+      },
+      {
+        "headline": "Strong Segment Revenue Across Subsidiaries",
+        "detail": "Evernorth Health Services revenue increased 6% year-over-year to $61.5 billion, while Cigna Healthcare revenues rose 10% to $11.8 billion, driven by premium rate increases and specialty drug volumes."
+      },
+      {
+        "headline": "Premarket Shares Dip Despite Outperformance",
+        "detail": "Despite beating expectations on both top and bottom lines, Cigna's stock fell in premarket trading as investors focused on details such as moderating GLP-1 utilization growth and second-half business mix."
+      }
+    ],
+    "at_a_glance_report_date": "2026-07-30"
+  },
+  "ELV": {
+    "last_report_date": "2026-07-15",
+    "summary": "summarize_auto Elevance Health reported Q2 2026 results ahead of outlook, raising its full-year adjusted diluted EPS guidance to at least $27.00. The company remains confident in returning to at least 12% adjusted EPS growth in 2027 off its re-established baseline, backed by broad-based performance improvements across its health benefits portfolio and Carelon segment.",
+    "key_moments": [
+      {
+        "title": "Strategic Medicaid Market Downsizing",
+        "timestamp": "7m 54s",
+        "blurb": "Elevance Health announced structural exits from the Washington D.C. Medicaid market and others over the next 12-18 months, signaling a strict shift toward margin protection over membership scale."
+      },
+      {
+        "title": "Full Year Guidance Raised",
+        "timestamp": "12m 32s",
+        "blurb": "Management raised full-year 2026 adjusted EPS guidance to at least $27.00 following a $0.50 operational outperformance in Medicare Advantage and individual ACA lines, indicating immediate financial strength and execution stability."
+      },
+      {
+        "title": "Below-the-Line Investment Funding",
+        "timestamp": "12m 32s",
+        "blurb": "Elevance is redirecting a non-recurring $0.80 below-the-line tax and investment gain into immediate second-half clinical and operational capabilities, safeguarding core recurring operating earnings margins heading into 2027."
+      },
+      {
+        "title": "CMS Sanctions Threat Avoided",
+        "timestamp": "19m 7s",
+        "blurb": "The company secured written confirmation from CMS that active enrollment or marketing sanctions will not be imposed, successfully resolving a major regulatory threat for the upcoming 2027 Medicare Advantage cycle."
+      }
+    ],
+    "checked_at": "2026-08-03T19:19:57Z",
+    "next_event_date": "2026-10-13",
+    "next_check_date": "2026-09-22",
+    "next_date_status": "tentative",
+    "next_date_source": "estimated from last earnings"
+  },
+  "CLOV": {
+    "last_report_date": "2026-05-06",
+    "next_event_date": "2026-08-05",
+    "next_date_status": "confirmed",
+    "next_date_source": "Google Finance",
+    "next_check_date": null,
+    "checked_at": "2026-08-04T03:11:23Z",
+    "summary": "",
+    "at_a_glance_checked_at": "2026-08-04T03:11:23Z",
+    "at_a_glance_scope": "upcoming"
+  },
+  "CNC": {
+    "last_report_date": "2026-07-28",
+    "summary": "Centene reported strong Q2 2026 adjusted EPS of $2.51, beating expectations due to fundamental business strength and Marketplace risk adjustment favorability. Full-year 2026 adjusted EPS guidance was raised to greater than $4.80, up from the prior outlook of greater than $3.40, reflecting significant positive momentum across the enterprise.",
+    "key_moments": [
+      {
+        "title": "Substantial Guidance Increase",
+        "timestamp": "2m 13s",
+        "blurb": "Centene sharply increased its full-year 2026 adjusted EPS guidance to greater than $4.80 from its prior view of greater than $3.40. This material update will strongly please investors, signaling rapid recovery in core segment profit margins and substantial execution upside."
+      },
+      {
+        "title": "Marketplace Margin Restoration",
+        "timestamp": "9m 0s",
+        "blurb": "Marketplace pre-tax margin guidance was lifted to 4.5%-5% from the prior 3%, fueled by a positive June Wakely acuity report and a $180 million favorable 2025 settlement. This rapid turnaround resolves key investor concerns regarding 2025 pricing turbulence."
+      },
+      {
+        "title": "Accelerated Medicaid Membership Attrition",
+        "timestamp": "17m 10s",
+        "blurb": "Management increased full-year Medicaid membership decline expectations to 8%-9% from the prior 6% view, due to increased state eligibility verifications. While raising acuity concerns, Centene is countering this headwind with stronger 7/1 composite rates of 5%."
+      },
+      {
+        "title": "Medicare PDP Guidance Raised",
+        "timestamp": "18m 38s",
+        "blurb": "Driven by favorable specialty drug trends running below initial expectations and strong product positioning, full-year PDP pre-tax margin guidance was bumped to greater than 3% from 2%, providing solid bottom-line support."
+      }
+    ],
+    "checked_at": "2026-08-03T22:04:03Z",
+    "next_event_date": "2026-10-26",
+    "next_check_date": "2026-10-05",
+    "next_date_status": "tentative",
+    "next_date_source": "estimated from last earnings",
+    "at_a_glance_checked_at": "2026-08-03T22:04:02Z",
+    "at_a_glance_scope": "reported",
+    "at_a_glance": [
+      {
+        "headline": "Centene Significantly Beats Earnings Expectations",
+        "detail": "Centene Corporation reported a Q2 2026 adjusted EPS of $2.19, significantly beating the estimated adjusted EPS of 1.079, while reported revenue reached $44,810,000,000 against estimations of $47,448,016,210."
+      },
+      {
+        "headline": "Health Benefits Ratio Improves Significantly",
+        "detail": "The company's Health Benefits Ratio (HBR) dropped to 89.6% compared to 93.0% in the prior year quarter, driven by stronger medical cost management and pricing stability."
+      },
+      {
+        "headline": "Full-Year Financial Guidance Sharply Raised",
+        "detail": "Centene raised its full-year 2026 adjusted diluted EPS guidance floor to greater than $4.80, up significantly from its prior outlook of greater than $3.40."
+      },
+      {
+        "headline": "Membership Pressures Weigh on Growth",
+        "detail": "Despite strong profit rebounds, overall enrollment faced pressures as Marketplace membership declined to 3.5 million from 5.9 million year-over-year, alongside attrition in Medicaid and Medicare."
+      },
+      {
+        "headline": "Market Pullback Focuses on Quality",
+        "detail": "Shares fell over 8% in premarket trading following the announcement as investors looked past headline numbers to evaluate membership declines and non-recurring settlement items worth $0.50 per share."
+      }
+    ],
+    "at_a_glance_report_date": "2026-07-28"
+  },
+  "ALHC": {
+    "last_report_date": "2026-07-30",
+    "summary": "Alignment Healthcare reported strong Q2 2026 results, with health plan membership growing 31% year-over-year to 294,100, driving total revenue up 32% to $1.3 billion. Adjusted MBR improved by 40 basis points to 86.3%, helping generate Q2 Adjusted EBITDA of $68 million, which reflects an Adjusted EBITDA margin expansion of 60 basis points to 5.1%.",
+    "key_moments": [
+      {
+        "title": "Full-Year Guidance Increase",
+        "timestamp": "11m 55s",
+        "blurb": "Alignment Healthcare raised its full-year 2026 revenue guidance midpoint to $5.215 billion, and increased the lower bounds of its adjusted gross profit and Adjusted EBITDA guidance. This update reflects heightened confidence driven by strong membership additions, excellent sales execution, and a robust first-half performance."
+      },
+      {
+        "title": "Strategic Second-Half Investments",
+        "timestamp": "16m 10s",
+        "blurb": "Management announced deliberate, incremental double-digit million dollar investments in clinical operations (Care Anywhere) and automation/AI during the second half of 2026, particularly weighted toward Q3. These investments will temporarily elevate near-term MBR and SG&A metrics to optimize long-term scalability and efficiency for 2027 and 2028 market expansions."
+      },
+      {
+        "title": "Discretionary Reserve Strengthening",
+        "timestamp": "19m 49s",
+        "blurb": "The company chose to bolster its prior-year reserves by $6 million during Q2 2026, capitalizing on its strong earnings beat. While the MD&A notes this was driven by claims development and collections, management clarified it was an unrelated, proactive positioning move, leaving overall year-to-date prior-year development favorable by $2 million."
+      },
+      {
+        "title": "Intentional Higher-Acuity Enrollment Mix",
+        "timestamp": "44m 17s",
+        "blurb": "Management revealed that 50% of new members added in 2026 are in higher-acuity C-SNP, D-SNP, and dual-eligible categories. While this mix carries an initially elevated MLR compared to typical members, the company is intentionally leveraging its specialized care model to improve health outcomes and capture significant, favorable margins over time."
+      }
+    ],
+    "checked_at": "2026-08-03T22:04:08Z",
+    "next_event_date": "2026-10-28",
+    "next_check_date": "2026-10-07",
+    "next_date_status": "tentative",
+    "next_date_source": "estimated from last earnings",
+    "at_a_glance_checked_at": "2026-08-03T22:04:07Z",
+    "at_a_glance_scope": "reported",
+    "at_a_glance": [
+      {
+        "headline": "Alignment Healthcare Beats Top-Line Expectations",
+        "detail": "Alignment Healthcare reported Q2 2026 revenue of $1,335,633,000, beating estimates of $1,310,092,960, while reported adjusted EPS came in at $0.17 compared to the estimated $0.203."
+      },
+      {
+        "headline": "Membership Surges and MBR Hits Lows",
+        "detail": "Health plan membership grew 31.5% year-over-year to approximately 294,100 members, helping the company achieve its lowest-ever medical benefit ratio (MBR) as a public company at 86.3%."
+      },
+      {
+        "headline": "Full-Year Guidance Shifted Upward",
+        "detail": "Management raised its full-year 2026 guidance, projecting full-year revenue between $5.20 billion and $5.23 billion and adjusted EBITDA between $145 million and $163 million."
+      },
+      {
+        "headline": "AI Stratification Optimizes Care Engagement",
+        "detail": "The deployment of the new AVA AI-powered stratification model successfully predicted the 10% of members who account for nearly 70% of hospital admissions over a 30-day window."
+      },
+      {
+        "headline": "Strategic Second-Half Investments Planned",
+        "detail": "The company announced plans to reinvest seasonal savings into double-digit millions in clinical and administrative expansions during the second half of 2026 to position for future growth."
+      }
+    ],
+    "at_a_glance_report_date": "2026-07-30"
+  },
+  "HCA": {
+    "last_report_date": "2026-07-24",
+    "summary": "summarize_auto HCA Healthcare reported solid diluted EPS growth of 11% year-over-year for both the second quarter and year-to-date 2026. However, the expiration of enhanced premium tax credits caused a significant 15% decline in health insurance exchange volumes, with affected patients shifting almost one-for-one to uninsured, creating primary financial and payer mix pressure.",
+    "key_moments": [
+      {
+        "title": "Unfavorable Payer Mix Shift Surprises",
+        "timestamp": "13m 7s",
+        "blurb": "Investors will find the complete one-for-one migration of patients losing exchange coverage to uninsured disappointing. HCA originally projected only 80% to 85% would become uninsured, meaning the financial headwind from uncompensated care was much larger than expected, hitting full-year Adjusted EBITDA by an estimated $1 billion to $1.2 billion."
+      },
+      {
+        "title": "Florida Medicaid Program Approval Offset",
+        "timestamp": "13m 7s",
+        "blurb": "Management pleased investors by booking a sizable $540 million incremental net benefit from the newly approved Florida Medicaid supplemental payment program in Q2. However, this creates a projected $100 million to $300 million program headwind in the back half of 2026 because prior year retroactive payments will lap this benefit."
+      },
+      {
+        "title": "Elective Surgery Headwinds and Capital Response",
+        "timestamp": "20m 29s",
+        "blurb": "The 6% decline in elective surgeries is a notable negative surprise reflecting macroeconomic affordability headwinds. HCA is countering defensively and offensively by advancing a sophisticated financial resiliency cost program while committing $7 billion in CapEx to capture growing market share in high-growth demographic states."
+      },
+      {
+        "title": "Full-Year 2026 Guidance Reduction",
+        "timestamp": "60m 42s",
+        "blurb": "HCA lowered its core operational Adjusted EBITDA expectations by roughly $500 million, bringing growth guidance back down to its long-term target of 4% to 6%. This disappoints compared to higher initial growth assumptions, though performance is expected to settle near the top end of the historical target range."
+      }
+    ],
+    "checked_at": "2026-08-03T19:20:14Z",
+    "next_event_date": "2026-10-22",
+    "next_check_date": "2026-10-01",
+    "next_date_status": "tentative",
+    "next_date_source": "estimated from last earnings"
+  },
+  "THC": {
+    "last_report_date": "2026-07-24",
+    "summary": "summarize_auto Tenet Healthcare reported strong Q2 2026 results with net operating revenues of $5.6 billion and consolidated adjusted EBITDA up 16.3% year-over-year to $1.304 billion, achieving a 23.2% margin. Adjusted diluted EPS increased 52% to $6.12. Performance was driven by robust hospital volumes, same-store revenue growth, and effective technology-enabled cost management.",
+    "key_moments": [
+      {
+        "title": "Significant Exchange Revenue Headwinds",
+        "timestamp": "4m 43s",
+        "blurb": "Tenet reported a substantial 17% year-over-year decline in exchange marketplace revenues, creating a $65 million headwind in Q2. Investors may find this disappointing as the decline primarily impacted key states like Florida and Texas, with a nearly one-to-one conversion from exchange volumes into lower-margin uninsured patients."
+      },
+      {
+        "title": "Massive Share Repurchase Expansion",
+        "timestamp": "5m 44s",
+        "blurb": "Management announced a $2 billion increase to its share repurchase authorization after buying back 5.7 million shares for $1.04 billion in Q2 alone. This heavy deployment will please investors, signaling strong capital allocation flexibility, confidence in long-term strategy, and a commitment to boosting EPS given the stock's discounted free cash flow yield."
+      },
+      {
+        "title": "Full-Year 2026 Guidance Increase",
+        "timestamp": "6m 35s",
+        "blurb": "Tenet raised its full-year 2026 adjusted EBITDA outlook by $295 million at the midpoint to a range of $4.83 billion-$5.03 billion. This upward revision will please investors, as it reflects $100 million of first-half outperformance alongside an expected continuation of strong fundamental business drivers and new supplemental Medicaid program revenues into H2."
+      },
+      {
+        "title": "Clean Beat Outside Medicaid Boost",
+        "timestamp": "10m 35s",
+        "blurb": "Tenet recognized $92 million of favorable, out-of-period supplemental Medicaid revenues in Q2 2026 that were completely un-modeled in original guidance. However, management reassured investors that the company delivered a clean earnings beat during the quarter even when entirely excluding these incremental, prior-year Medicaid adjustments."
+      }
+    ],
+    "checked_at": "2026-08-03T19:20:18Z",
+    "next_event_date": "2026-10-22",
+    "next_check_date": "2026-10-01",
+    "next_date_status": "tentative",
+    "next_date_source": "estimated from last earnings"
+  },
+  "UHS": {
+    "last_report_date": "2026-07-28",
+    "summary": "Universal Health Services reported Q2 2026 adjusted EPS of $5.98, a 12% year-over-year increase, and adjusted EBITDA less NCI of $678 million, up 5%. Results included a $100 million out-of-period Florida DPP benefit, without which EBITDA fell short of internal expectations due to higher professional liability reserves and specific facility headwinds.",
+    "key_moments": [
+      {
+        "title": "Full-Year Guidance Reduction",
+        "timestamp": "18m 17s",
+        "blurb": "UHS lowered its full-year 2026 adjusted EBITDA less NCI guidance midpoint by $50 million. While the company added $150 million in Medicaid supplemental benefits, this was outweighed by $200 million in unexpected operational headwinds from facility delays, recertification losses, and rising insurance reserves, which will disappoint investors looking for stable execution."
+      },
+      {
+        "title": "San Antonio Facility Decertification",
+        "timestamp": "19m 10s",
+        "blurb": "The company revealed a major headwind at its San Antonio behavioral facility, which stopped receiving reimbursements in April and faces a $50 million full-year impact. With recertification delayed until 2027, the facility is projected to run quarterly operating losses of $5 million to $10 million, creating a significant drag on near-term profitability."
+      },
+      {
+        "title": "Cedar Hill De Novo Delay",
+        "timestamp": "20m 6s",
+        "blurb": "UHS reduced its expected full-year tailwind from the Cedar Hill de novo hospital from $50 million to $20 million. A slower-than-anticipated ramp-up, caused by a lack of an established local physician base, means the facility will not achieve breakeven until Q4, leaving initial start-up losses uncontained in the near term."
+      },
+      {
+        "title": "Escalating Malpractice Reserves",
+        "timestamp": "21m 4s",
+        "blurb": "UHS increased its full-year professional and general liability expense estimate by $50 million due to industry-wide increases in claim severity. This recurring structural headwind reflects a broader challenging litigation environment for healthcare providers, indicating that higher insurance settlement and verdict costs will continue to pressure operating margins."
+      }
+    ],
+    "checked_at": "2026-08-03T22:04:12Z",
+    "next_event_date": "2026-10-26",
+    "next_check_date": "2026-10-05",
+    "next_date_status": "tentative",
+    "next_date_source": "estimated from last earnings",
+    "at_a_glance_checked_at": "2026-08-03T22:04:11Z",
+    "at_a_glance_scope": "reported",
+    "at_a_glance": [
+      {
+        "headline": "UHS Reports Mixed Q2 Results",
+        "detail": "Universal Health Services reported a reported revenue of $4,638,012,000, beating estimates of $4,576,927,990, while its reported adjusted EPS of $5.98 slightly missed the estimated $6.007."
+      },
+      {
+        "headline": "Solid Volume Growth Across Segments",
+        "detail": "Same-facility acute care adjusted admissions increased by 2.9% and behavioral health adjusted patient days grew by 1.4% compared to the prior year period."
+      },
+      {
+        "headline": "Full-Year 2026 Guidance Downgraded",
+        "detail": "Management lowered its full-year 2026 adjusted EPS guidance to a range of $22.28 to $23.65 due to escalating operating headwinds."
+      },
+      {
+        "headline": "Rising Operational and Insurance Costs",
+        "detail": "UHS experienced severe margin pressures stemming from a $28 million increase to its professional and general liability reserves and rising uninsured patient volumes."
+      },
+      {
+        "headline": "Specific Facilities Straining Financial Performance",
+        "detail": "Earnings were negatively impacted by a slower-than-expected ramp-up at the new Cedar Hill facility in Washington, D.C. and ongoing losses at a decertified behavioral health facility in San Antonio."
+      },
+      {
+        "headline": "Accelerated Share Repurchase Activity Continues",
+        "detail": "Taking advantage of perceived share price dislocations, UHS accelerated capital deployment by executing $320 million in share repurchases during the quarter."
+      }
+    ],
+    "at_a_glance_report_date": "2026-07-28"
+  },
+  "ENSG": {
+    "last_report_date": "2026-07-29",
+    "summary": "The Ensign Group reported record Q2 2026 results, with adjusted diluted EPS up 20.8% year-over-year to $1.92 and adjusted revenue up 17.3% to $1.4 billion. Growth was driven by robust same-store performance, clinical outcomes outperforming local averages, and successful integration of 102 new operations acquired since 2024.",
+    "key_moments": [
+      {
+        "title": "Strong Guidance Increase Driven by Momentum",
+        "timestamp": "14m 41s",
+        "blurb": "The Ensign Group raised its full-year 2026 EPS guidance to $7.75–$7.85 and revenue guidance to $5.87B–$5.92B. This upward revision beats previous projections and reinforces investor confidence, supported by expanding same-store occupancy, managed care revenue growth, and disciplined cost controls."
+      },
+      {
+        "title": "Turnaround Execution and Case Study Proof",
+        "timestamp": "21m 22s",
+        "blurb": "Management detailed a successful turnaround at The Reserve facility, which grew Q2 revenue by 18% and EBIT by 97% year-over-year. This serves as clear validation of Ensign's local leadership and operational model, demonstrating its ability to quickly eliminate agency labor and reverse severe regulatory challenges."
+      },
+      {
+        "title": "Resilience Against CMS Five-Star Rating Changes",
+        "timestamp": "39m 35s",
+        "blurb": "Addressing analyst questions regarding recent updates to CMS Quality Measure thresholds, executives noted preliminary analysis shows a far lower impact than industry averages. Negative impacts are actively offset by clinical improvements in other categories, leaving overall five-star ratings largely unaffected and protecting referral streams."
+      },
+      {
+        "title": "Strategic M&A and Real Estate Diversification",
+        "timestamp": "46m 32s",
+        "blurb": "The company added 20 new operations including real estate, expanding rapidly in Texas and the Southeast. Concurrently, captive REIT Standard Bearer added 23 assets, expanding its high-margin third-party operator lease portfolio to 38 properties, further optimizing asset values and boosting long-term rental income streams."
+      }
+    ],
+    "checked_at": "2026-08-03T22:04:16Z",
+    "next_event_date": "2026-10-27",
+    "next_check_date": "2026-10-06",
+    "next_date_status": "tentative",
+    "next_date_source": "estimated from last earnings",
+    "at_a_glance_checked_at": "2026-08-03T22:04:15Z",
+    "at_a_glance_scope": "reported",
+    "at_a_glance": [
+      {
+        "headline": "Ensign Misses Internal Consensus Metrics",
+        "detail": "The Ensign Group reported a Q2 2026 adjusted EPS of $1.68, which missed the estimated adjusted EPS of $1.846, while reported revenue reached $1,440,481,000 against expectations of $1,441,287,770."
+      },
+      {
+        "headline": "Occupancy Rates Show Continuous Improvement",
+        "detail": "The company demonstrated operational strength with same-store occupancy reaching 84.1% and transitioning facility occupancy hitting 84.7%, which represents a significant 220 basis point and 190 basis point year-over-year improvement, respectively."
+      },
+      {
+        "headline": "Full-Year 2026 Guidance Upgraded Higher",
+        "detail": "The most significant guidance revision includes raising the annual adjusted EPS outlook to a range of $7.75 to $7.85 and bumping full-year revenue expectations to between $5.87 billion and $5.92 billion."
+      },
+      {
+        "headline": "Aggressive Facility Acquisition Strategy Maintained",
+        "detail": "Ensign expanded its operational footprint by adding 20 new operations during and just after the quarter, heavily focusing on building out its skilled nursing presence across Texas."
+      },
+      {
+        "headline": "Positive Labor and Retention Trends",
+        "detail": "Management highlighted robust improvements in internal labor metrics, noting a strong reduction in expensive contract staffing alongside an administrator turnover rate that was 46% lower than the CMS state average."
+      }
+    ],
+    "at_a_glance_report_date": "2026-07-29"
+  },
+  "ACHC": {
+    "last_report_date": "2026-07-29",
+    "summary": "Acadia Healthcare delivered flat total revenue of $866 million in Q2 2026. Normalizing for supplemental payment timing in Florida and Tennessee, total revenue grew 2.8% year-over-year and same-facility revenue rose 3.2%, demonstrating solid underlying progress. Total revenue came in above guidance, while adjusted EBITDA and EPS neared the high end.",
+    "key_moments": [
+      {
+        "title": "Full-Year CapEx Guidance Reduced",
+        "timestamp": "24m 33s",
+        "blurb": "Acadia lowered its full-year capital expenditure forecast to $235 million–$255 million from a disciplined project review, driving notable improvements in operating and free cash flow generation."
+      },
+      {
+        "title": "Guidance Range Tightened and Revised",
+        "timestamp": "25m 16s",
+        "blurb": "Management updated full-year 2026 guidance to reflect strong operational progress, though they excluded potential $20+ million EBITDA upside from pending supplemental programs under regulatory review."
+      },
+      {
+        "title": "Actuarial Liability Reserve Step-Up",
+        "timestamp": "44m 54s",
+        "blurb": "A proactive mid-year actuarial review led to a $28.6 million reserve adjustment driven by 2025 case severities, raising the full-year expected legal and professional costs to $130 million–$135 million."
+      },
+      {
+        "title": "CTC Segment Revenue Stagnation",
+        "timestamp": "50m 15s",
+        "blurb": "Revenue in the Comprehensive Treatment Center clinics flatlined year-over-year, slightly underperforming management expectations despite adding six centers, prompting a strategic review of regional marketing and patient experience."
+      }
+    ],
+    "checked_at": "2026-08-03T22:04:21Z",
+    "next_event_date": "2026-10-27",
+    "next_check_date": "2026-10-06",
+    "next_date_status": "tentative",
+    "next_date_source": "estimated from last earnings",
+    "at_a_glance_checked_at": "2026-08-03T22:04:20Z",
+    "at_a_glance_scope": "reported",
+    "at_a_glance": [
+      {
+        "headline": "Acadia Outperforms on Key Financials",
+        "detail": "Acadia Healthcare reported a Reported Revenue of $865,839,000, beating the estimated $844,223,080, while its Reported Adjusted EPS of $0.12 came in below the initial estimated $0.346 due to heavy liability reserve adjustments."
+      },
+      {
+        "headline": "Mixed Trends in Same-Facility KPIs",
+        "detail": "The company achieved a 0.8% growth in same-facility patient days, driven by a 2.2% expansion from newly opened ramping facilities, though growth was partially offset by regulatory limitations on treatment duration."
+      },
+      {
+        "headline": "Full-Year Financial Guidance Raised",
+        "detail": "Acadia adjusted its full-year 2026 outlook, narrowing and raising its projected revenue range to $3.40 billion–$3.45 billion and bumping the lower bound of its full-year adjusted EPS guidance up to $1.45–$1.60."
+      },
+      {
+        "headline": "Significant Professional Liability Reserve Adjustments",
+        "detail": "Operating expenses were heavily pressured by a $28.6 million actuarial adjustment to professional and general liability reserves for prior-year cases, which dragged down near-term profitability metrics."
+      },
+      {
+        "headline": "Strong Cash Flow Generation Accelerates",
+        "detail": "A prominent bright spot was free cash flow generation reaching $124 million, a massive turnaround from negative $34 million in the prior-year period, supported by a 77% reduction in total capital expenditures."
+      },
+      {
+        "headline": "Market Reaction Dampened by Headwinds",
+        "detail": "Despite hitting top-line targets, shares fell roughly 10% following the report as investors zeroed in on flat year-over-year revenue comparisons, rising reserve costs, and regulatory scrutiny."
+      }
+    ],
+    "at_a_glance_report_date": "2026-07-29"
+  },
+  "EHC": {
+    "last_report_date": "2026-05-01",
+    "next_event_date": "2026-08-06",
+    "next_date_status": "confirmed",
+    "next_date_source": "Google Finance",
+    "next_check_date": null,
+    "checked_at": "2026-08-04T03:11:27Z",
+    "summary": "",
+    "at_a_glance_checked_at": "2026-08-04T03:11:27Z",
+    "at_a_glance_scope": "upcoming"
+  },
+  "PACS": {
+    "last_report_date": "2026-05-12",
+    "next_event_date": "2026-08-05",
+    "next_date_status": "confirmed",
+    "next_date_source": "Google Finance",
+    "next_check_date": null,
+    "checked_at": "2026-08-04T03:11:30Z",
+    "summary": "",
+    "at_a_glance_checked_at": "2026-08-04T03:11:30Z",
+    "at_a_glance_scope": "upcoming"
+  },
+  "DOC": {
+    "last_report_date": "2026-05-06",
+    "next_event_date": "2026-08-05",
+    "next_date_status": "confirmed",
+    "next_date_source": "Google Finance",
+    "next_check_date": null,
+    "checked_at": "2026-08-04T03:11:34Z",
+    "summary": "",
+    "at_a_glance_checked_at": "2026-08-04T03:11:34Z",
+    "at_a_glance_scope": "upcoming"
+  },
+  "VTR": {
+    "last_report_date": "2026-07-30",
+    "summary": "Ventas delivered strong Q2 2026 financial performance, with total company same-property NOI growth at 10% year-over-year. Second-quarter normalized FFO reached $0.97 per share, representing a 9% year-over-year increase, driven by excellent property execution and the successful deployment of the company's 1-2-3 strategy.",
+    "key_moments": [
+      {
+        "title": "Full-Year FFO and Investment Guidance Boosted",
+        "timestamp": "2m 45s",
+        "blurb": "Management increased full-year normalized FFO guidance to $3.85–$3.90 and sharply raised senior housing investment targets to $4.5 billion, indicating strong deal-making momentum and robust market demand that will delight investors looking for external growth."
+      },
+      {
+        "title": "High-Occupancy Cohorts Prove Thesis",
+        "timestamp": "12m 1s",
+        "blurb": "U.S. senior housing properties with 90% or higher occupancy delivered stunning 25% NOI growth, providing a vital proof point that operating leverage accelerates yields significantly as properties approach stabilization."
+      },
+      {
+        "title": "Leverage Reaches Decade-Low Milestone",
+        "timestamp": "17m 27s",
+        "blurb": "Ventas achieved a net debt to EBITDA ratio of 4.7x, its lowest leverage in over a decade, signaling a highly secure, equity-backed capital structure capable of supporting robust portfolio expansion without financial strain."
+      },
+      {
+        "title": "New Development Remains Unfeasible",
+        "timestamp": "29m 15s",
+        "blurb": "Management clarified that wide-scale new senior housing development remains stalled because current rents must rise 25% to 40% to justify high construction and labor costs, restricting market supply to luxury exceptions."
+      }
+    ],
+    "checked_at": "2026-08-03T22:04:36Z",
+    "next_event_date": "2026-10-28",
+    "next_check_date": "2026-10-07",
+    "next_date_status": "tentative",
+    "next_date_source": "estimated from last earnings",
+    "at_a_glance_checked_at": "2026-08-03T22:04:35Z",
+    "at_a_glance_scope": "reported",
+    "at_a_glance": [
+      {
+        "headline": "Ventas Beats Revenue, Exceeds EPS",
+        "detail": "Ventas reported Q2 2026 revenue of $1.72 billion, beating the estimated $1.69 billion, while reported adjusted EPS came in at $0.14 against the estimated $0.11."
+      },
+      {
+        "headline": "SHOP Metrics Drive Record NOI",
+        "detail": "The senior housing operating portfolio (SHOP) achieved a 16% year-over-year increase in same-store cash net operating income, supported by a 300 basis point expansion in average occupancy to 90.9%."
+      },
+      {
+        "headline": "Full-Year Guidance Extensively Raised",
+        "detail": "Ventas increased its 2026 investment guidance significantly to $4.5 billion from $3 billion and lifted its full-year normalized FFO outlook to a range of $3.85 to $3.90 per share."
+      },
+      {
+        "headline": "Balance Sheet Reaches Decade Strength",
+        "detail": "Leverage improved to 4.7 times net debt to further adjusted EBITDA, representing the company's strongest financial position in more than a decade."
+      },
+      {
+        "headline": "Post-Earnings Stock Price Declines",
+        "detail": "Despite posting strong operating metrics and beating top-line expectations, Ventas common shares fell over 6% following the release as investors weighed valuation limits near its 52-week high."
+      }
+    ],
+    "at_a_glance_report_date": "2026-07-30"
+  },
+  "MPT": {
+    "last_report_date": "2026-04-30",
+    "next_event_date": "2026-08-10",
+    "next_date_status": "confirmed",
+    "next_date_source": "Google Finance",
+    "next_check_date": null,
+    "checked_at": "2026-08-04T03:11:37Z",
+    "summary": "",
+    "at_a_glance_checked_at": "2026-08-04T03:11:37Z",
+    "at_a_glance_scope": "upcoming"
+  },
+  "NHI": {
+    "last_report_date": "2026-05-05",
+    "next_event_date": "2026-08-11",
+    "next_date_status": "confirmed",
+    "next_date_source": "Google Finance",
+    "next_check_date": null,
+    "checked_at": "2026-08-04T03:11:41Z",
+    "summary": "",
+    "at_a_glance_checked_at": "2026-08-04T03:11:41Z",
+    "at_a_glance_scope": "upcoming"
+  },
+  "OHI": {
+    "last_report_date": "2026-07-30",
+    "summary": "CEO Taylor Pickett reflected on the evolution of skilled nursing and senior housing assets over 25 years. He noted that aging baby boomers are driving robust demand and lowering capitalization rates, which reinforces the resilience and long-term reliability of these assets.",
+    "key_moments": [
+      {
+        "title": "Strategic Proactive Portfolio Repositioning",
+        "timestamp": "11m 30s",
+        "blurb": "The transition of 20 underperforming Ciena facilities to high-credit operators (Saber and HHC) was executed on a FAD-neutral basis. This proactive move will satisfy investors because it removes credit overhang from a troubled 0.87x coverage portfolio while capturing future upside through equity ownership."
+      },
+      {
+        "title": "Expanding RIDEA Growth Pipeline",
+        "timestamp": "13m 23s",
+        "blurb": "Management closed its first U.K. RIDEA transaction and highlighted that a large component of their robust, back-half weighted pipeline utilizes RIDEA structures. Investors will look favorably on this shift because it allows Omega to share in operating cash flow upside and achieve higher mid-teen returns."
+      },
+      {
+        "title": "Substantial Balance Sheet Deleveraging",
+        "timestamp": "19m 28s",
+        "blurb": "Monetization of $700 million from asset sales and loan repayments allowed Omega to pay down its $2 billion revolver to just $6 million, dropping leverage to a historically low 3.3x. Investors will appreciate this extreme financial flexibility ahead of the 2027 debt maturity."
+      },
+      {
+        "title": "Full Year 2026 Guidance Increase",
+        "timestamp": "20m 24s",
+        "blurb": "Omega raised its full-year 2026 Adjusted FFO guidance range to $3.22-$3.26 per share, up from $3.19-$3.25. This $0.02 midpoint increase will please investors as it demonstrates strong baseline profitability and credit stability despite a temporary earnings headwind from recent asset sales."
+      }
+    ],
+    "checked_at": "2026-08-03T22:04:48Z",
+    "next_event_date": "2026-10-28",
+    "next_check_date": "2026-10-07",
+    "next_date_status": "tentative",
+    "next_date_source": "estimated from last earnings",
+    "at_a_glance_checked_at": "2026-08-03T22:04:47Z",
+    "at_a_glance_scope": "reported",
+    "at_a_glance": [
+      {
+        "headline": "Omega Healthcare Beats Financial Expectations",
+        "detail": "Omega Healthcare Investors reported a Reported Adjusted EPS of $1.19, significantly beating the estimated $0.48, while its Reported Revenue reached $314,259,000, surpassing the estimated $273,855,700."
+      },
+      {
+        "headline": "Operator Coverage Hits Multi-Year High",
+        "detail": "The company's operator EBITDAR coverage improved to a multi-year high of 1.65x, demonstrating solid tenant portfolio health compared to past quarters."
+      },
+      {
+        "headline": "Full-Year Guidance Revised Upward",
+        "detail": "Management raised its full-year 2026 AFFO guidance to a range of $3.22 to $3.26 per diluted share, reflecting heightened confidence in capital deployment acceleration."
+      },
+      {
+        "headline": "Asset Sales Fuel Income Surge",
+        "detail": "The substantial headline earnings jump was heavily driven by a non-recurring $247 million gain on asset sales, including the disposition of 18 CommuniCare facilities."
+      },
+      {
+        "headline": "Strategic Leadership Transitions Announced",
+        "detail": "The second-quarter earnings call marked the final presentation for retiring CEO Taylor Pickett and CFO Bob Stephenson, with leadership transitioning to Matthew Gorman."
+      }
+    ],
+    "at_a_glance_report_date": "2026-07-30"
+  },
+  "PRVA": {
+    "last_report_date": "2026-05-07",
+    "next_event_date": "2026-08-06",
+    "next_date_status": "confirmed",
+    "next_date_source": "Google Finance",
+    "next_check_date": null,
+    "checked_at": "2026-08-04T03:11:44Z",
+    "summary": "",
+    "at_a_glance_checked_at": "2026-08-04T03:11:44Z",
+    "at_a_glance_scope": "upcoming"
+  },
+  "ASTH": {
+    "checked_at": "2026-08-04T03:11:48Z"
+  },
+  "AGL": {
+    "last_report_date": "2026-05-06",
+    "next_event_date": "2026-08-05",
+    "next_date_status": "confirmed",
+    "next_date_source": "Google Finance",
+    "next_check_date": null,
+    "checked_at": "2026-08-04T03:11:52Z",
+    "summary": "",
+    "at_a_glance_checked_at": "2026-08-04T03:11:52Z",
+    "at_a_glance_scope": "upcoming"
+  },
+  "EVH": {
+    "last_report_date": "2026-05-07",
+    "next_event_date": "2026-08-06",
+    "next_date_status": "confirmed",
+    "next_date_source": "Google Finance",
+    "next_check_date": null,
+    "checked_at": "2026-08-04T03:11:56Z",
+    "summary": "",
+    "at_a_glance_checked_at": "2026-08-04T03:11:56Z",
+    "at_a_glance_scope": "upcoming"
+  },
+  "PIII": {
+    "checked_at": "2026-08-04T03:12:00Z"
+  },
+  "DVA": {
+    "last_report_date": "2026-05-05",
+    "next_event_date": "2026-08-04",
+    "next_date_status": "confirmed",
+    "next_date_source": "Google Finance",
+    "next_check_date": null,
+    "checked_at": "2026-08-04T03:12:04Z",
+    "summary": "",
+    "at_a_glance_checked_at": "2026-08-04T03:12:03Z",
+    "at_a_glance_scope": "upcoming"
+  },
+  "FMS": {
+    "last_report_date": "2026-08-04",
+    "checked_at": "2026-08-03T19:21:25Z",
+    "next_event_date": "2026-11-02",
+    "next_check_date": "2026-10-12",
+    "next_date_status": "tentative",
+    "next_date_source": "estimated from last earnings"
+  },
+  "SGRY": {
+    "last_report_date": "2026-05-05",
+    "next_event_date": "2026-08-10",
+    "next_date_status": "confirmed",
+    "next_date_source": "Google Finance",
+    "next_check_date": null,
+    "checked_at": "2026-08-04T03:12:08Z",
+    "summary": "",
+    "at_a_glance_checked_at": "2026-08-04T03:12:08Z",
+    "at_a_glance_scope": "upcoming"
+  },
+  "OPCH": {
+    "last_report_date": "2026-07-29",
+    "summary": "Option Care Health delivered a solid second quarter, with financial results exceeding expectations. The company highlighted robust organic revenue growth in the high-single-digits for its acute therapy portfolio, showing continuous improvement sequentially and year-over-year across all key therapeutic areas and patient volume.",
+    "key_moments": [
+      {
+        "title": "Chronic Portfolio Census Recovery",
+        "timestamp": "6m 36s",
+        "blurb": "After experiencing a significant reset earlier in the year, the chronic inflammatory disease (CID) portfolio demonstrated sequential patient census growth. This stabilization indicates that updated commercial targeting and resource reallocation are taking root, alleviating investor concerns regarding severe, prolonged deterioration in chronic therapeutic margins."
+      },
+      {
+        "title": "Aggressive Share Buyback Execution",
+        "timestamp": "12m 51s",
+        "blurb": "Option Care Health aggressively repurchased $150 million of stock during Q2, exhausting nearly 5% of outstanding shares. This tactical move directly boosted adjusted EPS by $0.03, signaling strong internal confidence in cash flow sustainability and pleasing investors focused on disciplined capital allocation strategies."
+      },
+      {
+        "title": "Narrowed Full-Year Guidance Ranges",
+        "timestamp": "15m 1s",
+        "blurb": "Management maintained full-year revenue guidance but narrowed ranges for adjusted EBITDA and EPS upward. This adjustment reassures investors of business stability, showing that aggressive efficiency measures and commercial realignment are successfully offsetting the previously anticipated $55 million gross profit headwind stemming from the CID product reset."
+      },
+      {
+        "title": "Sequential Performance Ramps Questioned",
+        "timestamp": "26m 20s",
+        "blurb": "Analysts aggressively probed the steep sequential ramp implied for Q4 EBITDA. Management defended the projections by pointing to historical year-end seasonality, compounding efficiencies from newly deployed AI field tools, and the expected maturation of commercial investments made late last year, signaling confidence in the back-half growth curve."
+      }
+    ],
+    "checked_at": "2026-08-03T22:05:19Z",
+    "next_event_date": "2026-10-27",
+    "next_check_date": "2026-10-06",
+    "next_date_status": "tentative",
+    "next_date_source": "estimated from last earnings",
+    "at_a_glance_checked_at": "2026-08-03T22:05:18Z",
+    "at_a_glance_scope": "reported",
+    "at_a_glance": [
+      {
+        "headline": "Option Care Health Beats Expectations",
+        "detail": "Option Care Health reported a Q2 2026 revenue of $1,442,400,000, beating the estimate of $1,418,359,910, while its reported adjusted EPS of $0.35 missed the estimated adjusted EPS of $0.427."
+      },
+      {
+        "headline": "Clinic Expansion Drives Growth Signals",
+        "detail": "The company added five new ambulatory infusion clinics during the quarter, contributing to a substantial 20% year-over-year increase in overall clinic patient visits."
+      },
+      {
+        "headline": "Guidance Ranges Shift and Narrow",
+        "detail": "Management maintained its full-year 2026 revenue expectations at $5.675 billion to $5.775 billion while narrowing its full-year adjusted EPS guidance range to $1.85 to $1.92."
+      },
+      {
+        "headline": "Share Buybacks Drive Capital Allocation",
+        "detail": "Option Care Health aggressively repurchased $150 million of its outstanding stock during Q2, which represented approximately 5% of its total shares outstanding."
+      },
+      {
+        "headline": "Chronic Inflammatory Disease Portfolio Stabilizes",
+        "detail": "The chronic inflammatory disease portfolio began to stabilize following a first-quarter reset, showing high-single-digit sequential growth despite facing a 600 basis point full-year revenue headwind."
+      }
+    ],
+    "at_a_glance_report_date": "2026-07-29"
+  },
+  "LFST": {
+    "last_report_date": "2026-05-07",
+    "next_event_date": "2026-08-06",
+    "next_date_status": "confirmed",
+    "next_date_source": "Google Finance",
+    "next_check_date": null,
+    "checked_at": "2026-08-04T03:12:12Z",
+    "summary": "",
+    "at_a_glance_checked_at": "2026-08-04T03:12:12Z",
+    "at_a_glance_scope": "upcoming"
+  },
+  "TDOC": {
+    "last_report_date": "2026-07-29",
+    "summary": "Teladoc Health reported Q2 2026 consolidated revenue of $607M and adjusted EBITDA of $66M (10.8% margin), with results falling within guidance ranges. Net loss per share was $0.21, and the company generated $36M in free cash flow, ending the quarter with $774M in cash and cash equivalents.",
+    "key_moments": [
+      {
+        "title": "BetterHelp Insurance Surge Pressures Cash Pay",
+        "timestamp": "10m 2s",
+        "blurb": "Investors will face a mixed outlook as BetterHelp experiences a rapid shift in consumer preference toward insurance (up to 70–80%), accelerating the decline of the lucrative cash pay segment. Because insurance network capacity could not scale fast enough to meet this demand spike, total revenue is severely pressured during this business model pivot."
+      },
+      {
+        "title": "National Insurance Footprint and Ad Reduction",
+        "timestamp": "11m 53s",
+        "blurb": "Teladoc accelerated its BetterHelp national insurance rollout to all 50 states to build scale, while deliberately cutting direct-to-consumer advertising spending. This strategic pull-back impairs near-term cash pay user acquisition but aims to better align marketing costs with actual network capacity and improve long-term user economics."
+      },
+      {
+        "title": "2026 Guidance Lowered on Cash Pay",
+        "timestamp": "21m 40s",
+        "blurb": "Management lowered its full-year consolidated revenue guidance by 5% at the midpoint, reflecting a faster-than-anticipated degradation of the BetterHelp cash pay business. Although adjusted EBITDA was ticked slightly higher, the revenue cut signals a prolonged and bumpy transition toward an in-network model."
+      },
+      {
+        "title": "Integrated Care Growth and Contract Deferrals",
+        "timestamp": "22m 49s",
+        "blurb": "Integrated Care provided a stable highlight with 13.6% adjusted EBITDA growth and chronic bundle expansions. However, full-year segment revenue growth was tempered to 0.8%–2.4% due to a deferred client contract implementation into 2027 and lower expected foreign exchange tailwinds."
+      }
+    ],
+    "checked_at": "2026-08-03T22:05:27Z",
+    "next_event_date": "2026-10-27",
+    "next_check_date": "2026-10-06",
+    "next_date_status": "tentative",
+    "next_date_source": "estimated from last earnings",
+    "at_a_glance_checked_at": "2026-08-03T22:05:26Z",
+    "at_a_glance_scope": "reported",
+    "at_a_glance": [
+      {
+        "headline": "Mixed Results With Revenue Miss",
+        "detail": "Teladoc Health reported a reported revenue of $606,927,000, missing the estimated revenue of $615,992,490, while its reported adjusted EPS of $0 beat expectations by coming in ahead of the estimated adjusted EPS loss of -$0.22."
+      },
+      {
+        "headline": "BetterHelp Drags Segment KPIs",
+        "detail": "BetterHelp segment revenue fell 12% year-over-year to $212.6 million due to a collapse in consumer cash-pay demand, while the Integrated Care segment showed resilient but modest growth of 1% to reach $394.3 million."
+      },
+      {
+        "headline": "Full-Year Revenue Guidance Slashed",
+        "detail": "Management lowered its 2026 consolidated revenue outlook to a range of $2.36 billion to $2.45 billion, a 5% reduction at the midpoint, reflecting severe headwinds in BetterHelp's cash-pay business model."
+      },
+      {
+        "headline": "Aggressive Strategic Insurance Pivot",
+        "detail": "Teladoc is shifting BetterHelp users toward insurance-covered therapy, which saw users surge over 70% sequentially, though provider capacity constraints are currently limiting its ability to fully capture this demand."
+      },
+      {
+        "headline": "Stock Plummets Post-Earnings Release",
+        "detail": "Teladoc Health's stock plummeted roughly 24% to 25% in after-hours and subsequent trading as investors prioritized the downward guidance revision and revenue miss over the narrow EPS beat."
+      },
+      {
+        "headline": "Teladoc One Launch Approaching",
+        "detail": "To drive future integrated growth, the company is preparing for the broad availability of 'Teladoc One' in January 2027, an AI-enabled offering combining virtual, chronic, and behavioral healthcare."
+      }
+    ],
+    "at_a_glance_report_date": "2026-07-29"
+  },
+  "AMWL": {
+    "last_report_date": "2026-05-05",
+    "next_event_date": "2026-08-04",
+    "next_date_status": "confirmed",
+    "next_date_source": "Google Finance",
+    "next_check_date": null,
+    "checked_at": "2026-08-04T03:12:16Z",
+    "summary": "",
+    "at_a_glance_checked_at": "2026-08-04T03:12:16Z",
+    "at_a_glance_scope": "upcoming"
+  },
+  "TALK": {
+    "checked_at": "2026-08-04T03:12:21Z"
+  },
+  "HIMS": {
+    "last_report_date": "2026-05-11",
+    "next_event_date": "2026-08-10",
+    "next_date_status": "confirmed",
+    "next_date_source": "Google Finance",
+    "next_check_date": null,
+    "checked_at": "2026-08-04T03:12:24Z",
+    "summary": "",
+    "at_a_glance_checked_at": "2026-08-04T03:12:24Z",
+    "at_a_glance_scope": "upcoming"
+  },
+  "LFMD": {
+    "checked_at": "2026-08-04T03:12:29Z"
+  },
+  "OMDA": {
+    "last_report_date": "2026-05-07",
+    "next_event_date": "2026-08-06",
+    "next_date_status": "confirmed",
+    "next_date_source": "Google Finance",
+    "next_check_date": null,
+    "checked_at": "2026-08-04T03:12:32Z",
+    "summary": "",
+    "at_a_glance_checked_at": "2026-08-04T03:12:32Z",
+    "at_a_glance_scope": "upcoming"
+  },
+  "GDRX": {
+    "last_report_date": "2026-05-07",
+    "next_event_date": "2026-08-06",
+    "next_date_status": "confirmed",
+    "next_date_source": "Google Finance",
+    "next_check_date": null,
+    "checked_at": "2026-08-04T03:12:36Z",
+    "summary": "",
+    "at_a_glance_checked_at": "2026-08-04T03:12:36Z",
+    "at_a_glance_scope": "upcoming"
+  },
+  "ORCL": {
+    "last_report_date": "2026-06-10",
+    "summary": "summarize_auto Oracle reported record Q4 fiscal 2026 results, with total revenue rising 21% to $19.2 billion, driven by a 93% surge in cloud infrastructure revenue and a 10% increase in cloud applications. Non-GAAP operating income grew 22% to $8.6 billion, and non-GAAP EPS increased 24% to $2.11.",
+    "key_moments": [
+      {
+        "title": "Unprecedented RPO and Long-Term Targets Reconfirmed",
+        "timestamp": "6m 27s",
+        "blurb": "Oracle reconfirmed its fiscal year 2030 long-term targets of a 31% revenue CAGR and a 28% EPS CAGR. This confidence is underpinned by a record-breaking RPO of $638 billion, up 363%, giving investors exceptional visibility into durable multi-year growth."
+      },
+      {
+        "title": "Massive Fiscal 2027 Infrastructure and CapEx Scale",
+        "timestamp": "20m 14s",
+        "blurb": "Oracle announced an aggressive capital expenditure expansion for fiscal 2027, projecting a net cash outlay of $70 billion. Total reported CapEx will be higher by $20 billion to $25 billion due to upfront customer prepayments, signaling massive near-term data center deployment to meet roaring AI demands."
+      },
+      {
+        "title": "Robust Strategic Protections Against Component Cost Inflation",
+        "timestamp": "25m 34s",
+        "blurb": "Management reassured investors that rising memory and SSD prices will not erode margins. Oracle utilizes fixed-price contracts only when capacity and supply chain costs are locked, implementing floating, flexible contract mechanisms for long-term agreements to protect core infrastructure profitability."
+      },
+      {
+        "title": "Strong ROIC Profiling for Cloud Projects",
+        "timestamp": "28m 55s",
+        "blurb": "New CFO Hilary Maxson highlighted that Oracle targets steady-state return on invested capital (ROIC) in the high 20s for its primary CPU and GPU infrastructure projects. ROIC shifts even higher for capital-efficient 'bring your own hardware' customer partnerships."
+      }
+    ],
+    "checked_at": "2026-08-03T19:22:08Z",
+    "next_event_date": "2026-09-08",
+    "next_check_date": "2026-08-18",
+    "next_date_status": "tentative",
+    "next_date_source": "estimated from last earnings"
+  },
+  "MDRX": {
+    "checked_at": "2026-08-04T03:12:40Z"
+  },
+  "WAY": {
+    "last_report_date": "2026-07-29",
+    "summary": "Waystar reported solid Q2 2026 results, delivering $320 million in revenue, which represents 18% year-over-year growth. Adjusted EBITDA reached $137 million, resulting in an adjusted EBITDA margin of 43%. Both top-line and bottom-line metrics exceeded consensus market expectations for the quarter.",
+    "key_moments": [
+      {
+        "title": "CFO Transition Announced",
+        "timestamp": "13m 59s",
+        "blurb": "Chief Financial Officer Steve Oreskovich is stepping down after an eight-year tenure, having guided the company through its IPO. Public software veteran Alpana Wegner has been appointed as the new CFO. Oreskovich will stay on as an advisor to ensure a seamless leadership transition."
+      },
+      {
+        "title": "Full-Year Guidance Upgraded",
+        "timestamp": "20m 38s",
+        "blurb": "Waystar raised the floor of its 2026 revenue guidance by $2 million and increased its adjusted EBITDA midpoint by $5 million. This upward adjustment reflects strong operational performance through the first half of the year and robust booking execution, providing a strong positive signal to investors."
+      },
+      {
+        "title": "Volume-Based Growth Deceleration Context",
+        "timestamp": "33m 55s",
+        "blurb": "Analysts probed the deceleration of volume-based revenue, which grew 3% in Q2. Management reassured investors that normalized organic volume growth is actually 8%, with the current optics driven by a return to baseline patient utilization and a tough year-over-year comparison against unique 2025 large implementations."
+      },
+      {
+        "title": "Accelerated AI Capital Reinvestment",
+        "timestamp": "38m 32s",
+        "blurb": "Management revealed that capitalized software expenditures for AI solutions doubled year-over-year in the first half of 2026. This deliberate investment strategy aims to capture market opportunities for an autonomous revenue cycle, though it prevents the company from fully passing through recent EBITDA beats to full-year guidance."
+      }
+    ],
+    "checked_at": "2026-08-03T22:05:58Z",
+    "next_event_date": "2026-10-27",
+    "next_check_date": "2026-10-06",
+    "next_date_status": "tentative",
+    "next_date_source": "estimated from last earnings",
+    "at_a_glance_checked_at": "2026-08-03T22:05:58Z",
+    "at_a_glance_scope": "reported",
+    "at_a_glance": [
+      {
+        "headline": "Waystar Beats Top-Line Expectations Comfortably",
+        "detail": "Waystar Holding Corp reported Q2 2026 revenue of $319.67 million, beating the estimated $316.17 million, while reported adjusted EPS came in at $0.21 compared to an estimate of 0.397."
+      },
+      {
+        "headline": "Subscription Revenue Surges, Offsetting Deceleration",
+        "detail": "Subscription revenue drove core growth by climbing 34% year-over-year to $176.3 million, though net revenue retention rate settled at 108%, touching the low end of its historical 108% to 110% range."
+      },
+      {
+        "headline": "Full-Year 2026 Guidance Upgraded",
+        "detail": "Management raised its full-year fiscal 2026 outlook, projecting total revenue between $1.276 billion and $1.294 billion and non-GAAP diluted EPS of $1.61 to $1.70, reflecting strong operational momentum."
+      },
+      {
+        "headline": "AI Platform Solutions Fuel Bookings",
+        "detail": "The company's next-generation AI solutions, including Waystar AltitudeAI, saw strong adoption, accounting for approximately 40% of its quarterly bookings."
+      },
+      {
+        "headline": "CFO Transition Announced Alongside Earnings",
+        "detail": "Waystar announced a key executive transition, revealing that long-time CFO Steve Oreskovich will step down and be succeeded by Alpana Wegner."
+      }
+    ],
+    "at_a_glance_report_date": "2026-07-29"
+  },
+  "SOLV": {
+    "last_report_date": "2026-05-05",
+    "next_event_date": "2026-08-05",
+    "next_date_status": "confirmed",
+    "next_date_source": "Google Finance",
+    "next_check_date": null,
+    "checked_at": "2026-08-04T03:12:44Z",
+    "summary": "",
+    "at_a_glance_checked_at": "2026-08-04T03:12:44Z",
+    "at_a_glance_scope": "upcoming"
+  },
+  "PHR": {
+    "last_report_date": "2026-05-27",
+    "summary": "summarize_auto CEO Chaim Indig highlighted a positive long-term outlook driven by three key factors: setting the pace in patient intake solutions to improve provider cash flow, prioritizing the cross-sell and integration of AccessOne's financing solutions across the client base, and leveraging artificial intelligence to scale operational results in both the near and long term.",
+    "key_moments": [
+      {
+        "title": "AccessOne Securitization Facility Expansion",
+        "timestamp": "8m 32s",
+        "blurb": "Expanding the PNC facility limit to $300 million and extending upfront funding to non-investment grade clients will please investors by scaling AccessOne's deployment across Phreesia's core base, boosting provider cash flows and client retention."
+      },
+      {
+        "title": "Reiterated Guidance and Second-Half Headwinds",
+        "timestamp": "9m 27s",
+        "blurb": "While maintaining fiscal 2027 revenue and Adjusted EBITDA outlooks comforts the market, lower spending commitments from network solutions clients in the second half due to regulatory policies introduces forecasting variability that may disappoint investors."
+      },
+      {
+        "title": "Post-Quarter Restructuring and Expense Savings",
+        "timestamp": "11m 29s",
+        "blurb": "Implementing a May 2026 restructuring plan to reduce reliance on manual processes and capitalize on AI efficiencies will satisfy investors seeking sustained operating leverage and margin expansion throughout fiscal 2027."
+      },
+      {
+        "title": "Subscription Monetization and Strategy Shift",
+        "timestamp": "15m 14s",
+        "blurb": "A 6% sequential decline in subscription revenue reflects a deliberate \"better, faster, cheaper\" product strategy, sacrificing software pricing to drive downstream monetization in higher-growth payment and network solutions."
+      }
+    ],
+    "checked_at": "2026-08-03T19:22:25Z",
+    "next_event_date": "2026-08-25",
+    "next_check_date": "2026-08-04",
+    "next_date_status": "tentative",
+    "next_date_source": "estimated from last earnings"
+  },
+  "CCSI": {
+    "last_report_date": "2026-05-07",
+    "next_event_date": "2026-08-06",
+    "next_date_status": "confirmed",
+    "next_date_source": "Google Finance",
+    "next_check_date": null,
+    "checked_at": "2026-08-04T03:12:47Z",
+    "summary": "",
+    "at_a_glance_checked_at": "2026-08-04T03:12:47Z",
+    "at_a_glance_scope": "upcoming"
+  },
+  "DH": {
+    "last_report_date": "2026-05-07",
+    "next_event_date": "2026-08-10",
+    "next_date_status": "confirmed",
+    "next_date_source": "Google Finance",
+    "next_check_date": null,
+    "checked_at": "2026-08-04T03:12:51Z",
+    "summary": "",
+    "at_a_glance_checked_at": "2026-08-04T03:12:51Z",
+    "at_a_glance_scope": "upcoming"
+  },
+  "IQV": {
+    "last_report_date": "2026-07-28",
+    "summary": "IQVIA delivered strong Q2 2026 results, exceeding guidance with total revenue up 8.7% reported (8.5% at constant currency) to $4.368B. Adjusted EBITDA grew 9.2% year-over-year to $994M, and adjusted diluted EPS increased 12.1% to $3.15, driven entirely by robust operational performance and an acceleration in total company organic growth to 6%.",
+    "key_moments": [
+      {
+        "title": "Full-Year 2026 Guidance Raised",
+        "timestamp": "23m 7s",
+        "blurb": "IQVIA raised its full-year guidance across revenue, adjusted EBITDA, and adjusted EPS. The midpoint for revenue growth was increased to 6.5% from 5.8%, driven by a 100-basis-point increase in expected organic revenue growth and a 50-basis-point higher contribution from M&A, outperforming prior foreign exchange tailwinds."
+      },
+      {
+        "title": "Strong Bookings Beat Expectations",
+        "timestamp": "28m 11s",
+        "blurb": "R&D Solutions posted $3.15 billion in net new bookings, hitting a 1.22 book-to-bill ratio. CEO Ari Bousbib highlighted that this growth was clean and broad-based, with normal pass-through and cancellation ranges, contrasting positively against multi-year macro headwinds and displacing large CRO competitors in strategic partnerships."
+      },
+      {
+        "title": "AI Demand Expanding Outsourcing Market",
+        "timestamp": "31m 18s",
+        "blurb": "Management noted that large pharma's extensive use of AI in drug discovery is creating a massive influx of molecules into development. This shift is expanding the clinical outsourcing market, with customers requesting thousands of additional FTEs to manage doubled study portfolios in specialized, adjacent therapeutic areas."
+      },
+      {
+        "title": "Backlog Quality and Lower Inactive Trials",
+        "timestamp": "51m 18s",
+        "blurb": "Addressing investor concerns regarding competitor backlog quality, management reassured analysts that IQVIA maintains a strict contracted bookings policy requiring signatures. A preliminary review indicated that potential backlog adjustments for inactive trials would be around 5%, significantly lower than the 15% to 16% metrics reported by peers."
+      }
+    ],
+    "checked_at": "2026-08-03T22:06:13Z",
+    "next_event_date": "2026-10-26",
+    "next_check_date": "2026-10-05",
+    "next_date_status": "tentative",
+    "next_date_source": "estimated from last earnings",
+    "at_a_glance_checked_at": "2026-08-03T22:06:13Z",
+    "at_a_glance_scope": "reported",
+    "at_a_glance": [
+      {
+        "headline": "IQVIA Tops Estimates for Q2",
+        "detail": "IQVIA reported Q2 2026 revenue of $4.368 billion, beating the estimated $4.302 billion, while reported adjusted EPS came in at $1.53 compared to the estimated $3.031."
+      },
+      {
+        "headline": "Record R&D Net New Bookings",
+        "detail": "The Research & Development Solutions segment achieved record net new bookings of $3.15 billion, jumping 19.3% year-over-year and resulting in a strong 1.22x book-to-bill ratio."
+      },
+      {
+        "headline": "Full-Year 2026 Guidance Raised",
+        "detail": "Management raised its full-year 2026 revenue guidance to a range of $17.275 billion to $17.475 billion and lifted its adjusted diluted EPS forecast to between $12.80 and $13.00."
+      },
+      {
+        "headline": "Commercial Solutions Drives Organic Acceleration",
+        "detail": "Commercial Solutions revenue rose 8.6% to $1.793 billion, fueled by a 45% increase in first-half new drug launches and accelerating client adoption of AI solutions."
+      },
+      {
+        "headline": "Strong Pre-Market Stock Reaction",
+        "detail": "Following the earnings release, IQVIA shares surged 14.34% to $243.81 in pre-market trading, nearing the stock's 52-week high."
+      },
+      {
+        "headline": "AI Integration Expands Win Rates",
+        "detail": "Management highlighted that 19 of the top 20 pharmaceutical companies are now deploying IQVIA's AI tools, which act as a key differentiator to secure complex Phase III trial awards."
+      }
+    ],
+    "at_a_glance_report_date": "2026-07-28"
+  },
+  "HCAT": {
+    "last_report_date": "2026-05-11",
+    "next_event_date": "2026-08-06",
+    "next_date_status": "confirmed",
+    "next_date_source": "Google Finance",
+    "next_check_date": null,
+    "checked_at": "2026-08-04T03:12:54Z",
+    "summary": "",
+    "at_a_glance_checked_at": "2026-08-04T03:12:54Z",
+    "at_a_glance_scope": "upcoming"
+  },
+  "DOCS": {
+    "last_report_date": "2026-05-13",
+    "next_event_date": "2026-08-06",
+    "next_date_status": "confirmed",
+    "next_date_source": "Google Finance",
+    "next_check_date": null,
+    "checked_at": "2026-08-04T03:12:58Z",
+    "summary": "",
+    "at_a_glance_checked_at": "2026-08-04T03:12:58Z",
+    "at_a_glance_scope": "upcoming"
+  },
+  "VEEV": {
+    "last_report_date": "2026-06-03",
+    "summary": "summarize_auto Veeva reported strong Q1 2027 performance, delivering total revenue of $883 million and non-GAAP operating income of $395 million, exceeding prior guidance. The quarter reflects healthy execution across the business, positioning the company well as it begins executing on its clear industry-wide AI vision.",
+    "key_moments": [
+      {
+        "title": "Disruptive Agentic Labor with Veeva Falcon",
+        "timestamp": "2m 0s",
+        "blurb": "Veeva introduced Veeva Falcon, a highly disruptive platform focused on standard AI agents that fully replace manual, repetitive jobs in life sciences, such as processing clinical documentation and triaging safety cases. Unlike traditional platforms, Falcon delivers autonomous digital labor rather than software tools, offering completely accretive monetization through transactional billing."
+      },
+      {
+        "title": "Vault CRM Momentum and Market Dominance",
+        "timestamp": "20m 18s",
+        "blurb": "Veeva achieved a dominant 80%+ win rate in Vault CRM migrations, securing major global enterprise wins with Teva and Merck KGaA. With only four decisions left among the tracked top 20 list, management expects to capture the majority, driving significant growth and initial AI adoption via agentic call reports."
+      },
+      {
+        "title": "Ostro Acquisition Accelerates Commercial Strategy",
+        "timestamp": "25m 6s",
+        "blurb": "The late Q1 acquisition of Ostro provides an interactive patient and provider engagement channel. Driven by a specialized startup model, Ostro accounts for $10 million of the raised guidance, unlocking high-value, unfiltered 'Commercial Evidence' that helps biopharma companies uncover barriers to getting medicines to patients."
+      },
+      {
+        "title": "Internal AI Enhancing Developer Productivity",
+        "timestamp": "41m 13s",
+        "blurb": "Veeva is aggressively using AI internally, notably deploying Claude Code within its product engineering organization. This initiative is driving distinct operational efficiencies, enabling the firm to streamline R&D cost structures by accelerating development cycles and limiting the pace of technical headcount growth."
+      }
+    ],
+    "checked_at": "2026-08-03T19:22:47Z",
+    "next_event_date": "2026-09-01",
+    "next_check_date": "2026-08-11",
+    "next_date_status": "tentative",
+    "next_date_source": "estimated from last earnings"
+  }
+}

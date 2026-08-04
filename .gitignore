@@ -1,36 +1,22 @@
 .env
-.Renviron
-.Rhistory
-.RData
-.Rproj.user/
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+build/
+dist/
+report-result.json
+reports/standalone/
 .DS_Store
+.claude/
 .browser/
-renv/library/
-renv/sandbox/
-renv/staging/
-data/prices/*
-!data/prices/.gitkeep
-data/companies.csv
-data/earnings.csv
-data/scraper-status.csv
-data/earnings-summaries/*
-!data/earnings-summaries/.gitkeep
-data/news/*
-!data/news/.gitkeep
-reports/drafts/*
-!reports/drafts/.gitkeep
-# A final keeps its snapshot and the three input copies in Git — those are the record
-# the next report compares against. The rendered report itself stays local, in either
-# format, along with the chart images the Markdown copy refers to: they are large,
-# partly binary, and reproducible from what is committed. Listing what to keep rather
-# than what to drop means a new output file is excluded by default.
-reports/final/*/*
-!reports/final/*/snapshot.csv
-!reports/final/*/report.md
-!reports/final/*/companies.md
-!reports/final/*/settings.md
-!reports/final/*/manifest.md
-
-
-/.quarto/
-data/strategy-narrative.md
+.quarto/
+data/
+report/
+renv/
+tools/

@@ -1,0 +1,655 @@
+{
+  "schema": 1,
+  "companies": {
+    "UNH": {
+      "fetched_at": "2026-07-16T14:54:21Z",
+      "value": {
+        "ticker": "UNH",
+        "provider_name": "UNITEDHEALTH GROUP INCORPORATED (Delaware)",
+        "market_cap": 380076600000.0,
+        "market_cap_date": "2026-07-16",
+        "exchange": "XNYS",
+        "list_date": null,
+        "description": "UnitedHealth Group is one of the largest private health insurers and provides medical benefits to about 51 million members globally, including 1 million outside the US as of December 2025. As a leader in employer-sponsored, self-directed, and government-backed insurance plans, UnitedHealth has obtained massive scale in medical insurance. Along with its insurance assets, UnitedHealth's Optum franchises help create a healthcare services colossus that spans everything from pharmaceutical benefits to providing outpatient care and analytics to affiliates and third parties.",
+        "website": "https://www.unitedhealthgroup.com"
+      }
+    },
+    "CVS": {
+      "fetched_at": "2026-07-16T14:59:27Z",
+      "value": {
+        "ticker": "CVS",
+        "provider_name": "CVS HEALTH CORPORATION",
+        "market_cap": 135133460000.0,
+        "market_cap_date": "2026-07-16",
+        "exchange": "XNYS",
+        "list_date": null,
+        "description": "CVS Health offers a diverse set of healthcare services. Its roots are in its retail pharmacy operations, where it operates around 9,000 stores primarily in the US. CVS is also a large pharmacy benefit manager (acquired through Caremark), processing about 2 billion adjusted claims annually. It operates a top-tier health insurer (acquired through Aetna) through which it serves about 27 million medical members. The acquisition of Oak Street Health added primary care services to the mix, which could have significant synergies with all existing business lines.",
+        "website": "https://www.cvshealth.com"
+      }
+    },
+    "HUM": {
+      "fetched_at": "2026-08-03T19:52:06Z",
+      "value": {
+        "ticker": "HUM",
+        "provider_name": "Humana Inc.",
+        "market_cap": 43692420868.880005,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNYS",
+        "list_date": "1971-05-18",
+        "description": "Humana is one of the largest private health insurers in the US, and the firm has built a niche specializing in government-sponsored programs, with nearly all its medical membership stemming from Medicare, Medicaid, and the military's Tricare program. Beyond medical insurance, the company provides other healthcare services, including primary-care services, at-home services, and pharmacy benefit management.",
+        "website": "https://www.humana.com"
+      }
+    },
+    "OSCR": {
+      "fetched_at": "2026-08-03T19:52:32Z",
+      "value": {
+        "ticker": "OSCR",
+        "provider_name": "Oscar Health, Inc.",
+        "market_cap": 9412611460.0,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNYS",
+        "list_date": "2021-03-03",
+        "description": "Oscar Health Inc is a healthcare technology company built around a full stack technology platform and a relentless focus on serving its members. It offers Individual & Family plans and health technology solutions that power the healthcare industry. Oscar operates as one segment to sell insurance to individuals, families and employees through the federal and state-run healthcare exchanges formed in conjunction with the Patient Protection and Affordable Care Act (ACA) and leverages its technology platform to provide services via its Oscar offering.",
+        "website": "https://www.hioscar.com"
+      }
+    },
+    "MOH": {
+      "fetched_at": "2026-08-03T19:52:58Z",
+      "value": {
+        "ticker": "MOH",
+        "provider_name": "Molina Healthcare, Inc.",
+        "market_cap": 10211364000.0,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNYS",
+        "list_date": "2003-07-02",
+        "description": "Molina Healthcare Inc provides medical insurance plans through Medicaid, the individual exchanges, and Medicare. The company operates in four reportable segments consisting of: 1) Medicaid; 2) Medicare; 3) Marketplace; and 4) Other. It manages health benefit risks for more than 5 million people, with more than 85% of those members coming through contracts with state governments for their Medicaid programs. Medicaid contracts in four states-California, New York, Texas, and Washington-account for over half of its enrollees.",
+        "website": "https://www.molinahealthcare.com"
+      }
+    },
+    "CI": {
+      "fetched_at": "2026-08-03T19:53:24Z",
+      "value": {
+        "ticker": "CI",
+        "provider_name": "The Cigna Group",
+        "market_cap": 73736307618.3,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNYS",
+        "list_date": "1982-04-01",
+        "description": "Cigna primarily provides pharmacy benefit management and health insurance services. Its PBM and specialty pharmacy services, which were greatly expanded by its 2018 merger with Express Scripts, are mostly sold to health insurance plans and employers. Its largest PBM contract is with the Department of Defense, and it recently won a multiyear deal with top-tier insurer Centene. In health insurance and other benefits, Cigna primarily serves employers through self-funding arrangements, and the company operates mostly in the US with 16 million US and 2 million international medical members covered as of December 2025.",
+        "website": "https://www.thecignagroup.com"
+      }
+    },
+    "ELV": {
+      "fetched_at": "2026-08-03T19:53:50Z",
+      "value": {
+        "ticker": "ELV",
+        "provider_name": "Elevance Health, Inc.",
+        "market_cap": 81508153953.59999,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNYS",
+        "list_date": "2001-10-30",
+        "description": "Elevance Health remains one of the leading health insurers in the US, providing medical benefits to 45 million medical members at the end of 2025. The company offers employer, individual, and government-sponsored coverage plans. Elevance differs from its peers in its unique position as the largest single provider of Blue Cross Blue Shield branded coverage, operating as the licensee for the Blue Cross Blue Shield Association in 14 states. Through acquisitions, such as the Amerigroup deal in 2012 and MMM in 2021, Elevance's reach expands beyond those states in government-sponsored programs, such as Medicaid and Medicare Advantage plans, too. It is also an emerging player in pharmacy benefit management and other healthcare services.",
+        "website": "https://www.elevancehealth.com"
+      }
+    },
+    "CLOV": {
+      "fetched_at": "2026-08-03T19:54:16Z",
+      "value": {
+        "ticker": "CLOV",
+        "provider_name": "Clover Health Investments, Corp",
+        "market_cap": 2196273631.08,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNAS",
+        "list_date": "2021-01-08",
+        "description": "Clover Health Investments Corp is a healthcare technology company. It focuses on empowering Medicare physicians to proactively manage chronic diseases through its proprietary software platform, Clover Assistant. This cloud-based solution provides personalized insights to physicians, enabling early detection and management of chronic conditions. It operates in one segment: Insurance, through which it offers PPO and HMO plans to Medicare Advantage members in several states.",
+        "website": "https://www.cloverhealth.com"
+      }
+    },
+    "CNC": {
+      "fetched_at": "2026-08-03T19:54:42Z",
+      "value": {
+        "ticker": "CNC",
+        "provider_name": "Centene Corporation",
+        "market_cap": 30736368900.0,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNYS",
+        "list_date": "2001-12-13",
+        "description": "Centene is a managed care organization that focuses on government-sponsored healthcare plans, including Medicaid, Medicare, and the individual exchanges. Centene served 20 million medical members as of December 2025, mostly in Medicaid (about 64% of membership), the individual exchanges (about 28%), and Medicare (about 5%). The company also provides Medicare Part D pharmaceutical plans.",
+        "website": "https://www.centene.com"
+      }
+    },
+    "ALHC": {
+      "fetched_at": "2026-08-03T19:55:08Z",
+      "value": {
+        "ticker": "ALHC",
+        "provider_name": "Alignment Healthcare, Inc. Common Stock",
+        "market_cap": 3080411962.65,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNAS",
+        "list_date": "2021-03-26",
+        "description": "Alignment Healthcare Inc is a next-generation, consumer-centric platform that is revolutionizing the healthcare experience for seniors through Medicare Advantage plans. These plans are marketed and sold direct-to-consumer, allowing seniors to select the manner in which customers receive healthcare coverage and services on an annual basis. The company combines a technology platform and clinical model for more effective health outcomes.",
+        "website": "https://www.alignmenthealth.com"
+      }
+    },
+    "HCA": {
+      "fetched_at": "2026-08-03T19:55:34Z",
+      "value": {
+        "ticker": "HCA",
+        "provider_name": "HCA Healthcare, Inc.",
+        "market_cap": 87161338885.0,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNYS",
+        "list_date": "2011-03-10",
+        "description": "HCA Healthcare is a Nashville-based healthcare provider organization operating the largest collection of acute-care hospitals in the United States. As of December 2025, the firm owned and operated 190 hospitals and over 2,500 outpatient facillities across 19 states and a small foothold in the United Kingdom.",
+        "website": "https://www.hcahealthcare.com"
+      }
+    },
+    "THC": {
+      "fetched_at": "2026-08-03T19:56:00Z",
+      "value": {
+        "ticker": "THC",
+        "provider_name": "Tenet Healthcare Corporation New",
+        "market_cap": 20514630820.0,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNYS",
+        "list_date": "1972-06-01",
+        "description": "Tenet Healthcare is a Dallas-based healthcare services organization. It operates acute and specialty hospitals (50 as of December 2025) and hundreds of ambulatory surgery centers and other outpatient facilities across the US, primarily in the South. Through its Conifer segment, Tenet also provides revenue cycle management solutions.",
+        "website": "https://www.tenethealth.com"
+      }
+    },
+    "UHS": {
+      "fetched_at": "2026-08-03T19:56:26Z",
+      "value": {
+        "ticker": "UHS",
+        "provider_name": "Universal Health Services, Inc. Class B",
+        "market_cap": 10196742962.44,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNYS",
+        "list_date": "1981-07-09",
+        "description": "Universal Health Services Inc offers healthcare services through its behavioral health centers, acute care hospitals, and related outpatient facilities. As of late 2025, the company operated 346 inpatient behavioral health centers, 29 acute care hospitals, and many supportive outpatient facilities. Its operations are concentrated in the U.S, particularly in Nevada (21% of 2025 operating profits), Texas (19%), and California (13%), although it does have some exposure to the UK behavioral health market (6% of 2025 sales) too. While its acute care services account for over 55% of revenue, the behavioral health centers sport higher margins and account for over 55% of pretax profits.",
+        "website": "https://www.uhs.com"
+      }
+    },
+    "ENSG": {
+      "fetched_at": "2026-08-03T19:56:52Z",
+      "value": {
+        "ticker": "ENSG",
+        "provider_name": "The Ensign Group, Inc.",
+        "market_cap": 10383598441.44,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNAS",
+        "list_date": "2007-11-09",
+        "description": "Ensign Group Inc provides post-acute healthcare services in the United States. Its regional subsidiaries oversee skilled nursing, assisted living, home health and hospice, mobile ancillary, and urgent care operations. Medicare and Medicaid programs contribute majority of revenue received for Ensign's services. The firm operates through two segments, Skilled services, and Standard Bearer. The skilled services segment includes the operation of skilled nursing facilities and rehabilitation therapy services. The Standard Bearer segment comprises of properties owned by the company through its captive REIT and leased to skilled nursing and assisted living operations. The majority of the revenue is generated from the skilled services segment.",
+        "website": "https://www.ensigngroup.net"
+      }
+    },
+    "ACHC": {
+      "fetched_at": "2026-08-03T19:57:18Z",
+      "value": {
+        "ticker": "ACHC",
+        "provider_name": "Acadia Healthcare Company, Inc.",
+        "market_cap": 2757630145.5,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNAS",
+        "list_date": "2011-11-01",
+        "description": "Acadia Healthcare Co Inc acquires and develops behavioral healthcare facilities. Its facilities and services are classified into the following categories: acute inpatient psychiatric facilities; specialty treatment facilities; CTCs; and residential treatment centers. In which Acute inpatient psychiatric facilities contribute the majority of revenue in the United States. The Company has one reportable segment, behavioral healthcare services. The behavioral healthcare services segment provides inpatient and outpatient behavioral healthcare services.",
+        "website": "https://www.acadiahealthcare.com"
+      }
+    },
+    "EHC": {
+      "fetched_at": "2026-08-03T19:57:45Z",
+      "value": {
+        "ticker": "EHC",
+        "provider_name": "Encompass Health Corporation Common Stock",
+        "market_cap": 11018041815.599998,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNYS",
+        "list_date": "1989-09-13",
+        "description": "Encompass Health Corp provides post-acute healthcare services in the United States through a network of inpatient rehabilitation hospitals, which is the company's sole segment. Inpatient rehabilitation contributes the majority of the firm's revenue and provides specialized rehabilitative treatment through a network of inpatient hospitals. The company's inpatient rehabilitation hospitals provide a higher level of rehabilitative care to patients who are recovering from conditions such as stroke and other neurological disorders, cardiac and pulmonary conditions, brain and spinal cord injuries, complex orthopedic conditions, and amputations.",
+        "website": "https://www.encompasshealth.com"
+      }
+    },
+    "PACS": {
+      "fetched_at": "2026-08-03T19:58:10Z",
+      "value": {
+        "ticker": "PACS",
+        "provider_name": "PACS Group, Inc.",
+        "market_cap": 7282112019.759999,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNYS",
+        "list_date": "2024-04-11",
+        "description": "PACS Group Inc is a post-acute healthcare company mainly focused on delivering skilled nursing care through a portfolio of independently operated facilities. The post-acute care ecosystem serves individuals who need additional help recuperating from acute conditions, illnesses, or serious medical procedures after getting discharged from the hospital. It also provides senior care, assisted living, and independent living options in some of the communities. The company has one reportable segment.",
+        "website": "https://www.pacs.com"
+      }
+    },
+    "DOC": {
+      "fetched_at": "2026-08-03T19:58:36Z",
+      "value": {
+        "ticker": "DOC",
+        "provider_name": "Healthpeak Properties, Inc.",
+        "market_cap": 15050032094.659998,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNYS",
+        "list_date": "1985-05-23",
+        "description": "Healthpeak owns a diversified healthcare portfolio of approximately 700 in-place properties spread across mainly medical office and life science assets, plus a handful of senior housing, hospital, and skilled nursing/post-acute care assets, as well.",
+        "website": "https://www.healthpeak.com"
+      }
+    },
+    "VTR": {
+      "fetched_at": "2026-08-03T19:59:02Z",
+      "value": {
+        "ticker": "VTR",
+        "provider_name": "Ventas, Inc.",
+        "market_cap": 47965614030.090004,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNYS",
+        "list_date": "1994-10-31",
+        "description": "Ventas owns a diversified healthcare portfolio of almost 1,400 in-place properties spread across the senior housing, medical office, hospital, life science, and skilled nursing/post-acute care. The portfolio includes almost 100 properties in Canada and the United Kingdom as the company looks for additional investment opportunities in countries with mature healthcare systems that operate similarly to the United States. The firm also owns mortgages and other loans, contributing about 1% of net operating income.",
+        "website": "https://www.ventasreit.com"
+      }
+    },
+    "MPT": {
+      "fetched_at": "2026-08-03T19:59:28Z",
+      "value": {
+        "ticker": "MPT",
+        "provider_name": "Medical Properties Trust, Inc.",
+        "market_cap": 2769203000.0,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNYS",
+        "list_date": "2005-07-08",
+        "description": "Medical Properties Trust Inc acquires and develops net-leased healthcare facilities. Its investments in healthcare real estate, other loans, and any investments in tenants are considered a single reportable segment. Its business strategy is to acquire and develop healthcare facilities and lease the facilities to healthcare operating companies under long-term net leases, which require the tenant to bear of the costs associated with the property. The group's geographic areas are the United States, the United Kingdom, and All other countries.",
+        "website": "https://www.mpt.com"
+      }
+    },
+    "NHI": {
+      "fetched_at": "2026-08-03T19:59:54Z",
+      "value": {
+        "ticker": "NHI",
+        "provider_name": "National Health Investors",
+        "market_cap": 3715308205.3500004,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNYS",
+        "list_date": "1991-10-17",
+        "description": "National Health Investors Inc is a self-managed REIT that owns, leases, operates, and finances the development of senior housing communities and medical facilities. It operates through two segments: Real Estate Investments and Senior Housing Operating Portfolio (SHOP). The Real Estate Investments segment, which generates the majority of revenue, includes real estate leases, mortgages, and other notes receivable related to independent living facilities, assisted living facilities, entrance fee communities, senior living campuses, skilled nursing facilities, and a hospital. The SHOP segment consists of ventures that own and operate independent living facilities. The company's revenues are derived from rental income, interest and other income, and resident fees and services.",
+        "website": "https://www.nhireit.com"
+      }
+    },
+    "OHI": {
+      "fetched_at": "2026-08-03T20:00:20Z",
+      "value": {
+        "ticker": "OHI",
+        "provider_name": "Omega Healthcare Investors Inc.",
+        "market_cap": 15143989930.0,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNYS",
+        "list_date": "1992-08-07",
+        "description": "Omega Healthcare Investors Inc is a real estate investment trust that invests in healthcare-related real estate properties located in the United States (U.S.), the United Kingdom (U.K.), and Canada. The company's objective is to provide attractive returns to investors while serving as the preferred capital partner to its third-party healthcare operating companies and affiliates, as well as other third-party healthcare operators, allowing them to focus on delivering a high level of care to their resident patients. Omega's investment portfolio mainly consists of skilled nursing facilities, assisted living facilities (ALFs), including care homes in the U.K., independent living facilities, rehabilitation and acute care facilities, and continuing care retirement communities.",
+        "website": "https://www.omegahealthcare.com"
+      }
+    },
+    "PRVA": {
+      "fetched_at": "2026-08-03T20:00:46Z",
+      "value": {
+        "ticker": "PRVA",
+        "provider_name": "Privia Health Group, Inc. Common Stock",
+        "market_cap": 2982712892.5800004,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNAS",
+        "list_date": "2021-04-29",
+        "description": "Privia Health Group Inc is one of the physician enablement companies in the United States with a presence in around 24 states and the District of Columbia. The group builds scaled provider networks with primary-care centric medical groups, risk-bearing entities, a physician-led governance structure, and the Privia Platform comprising an extensive suite of technology and service solutions. It collaborates with medical groups, health plans, and health systems to optimize approximately 1,300+ physician practices, improve the patient experience for over 5.8+ million patients, and reward around 5,300+ physicians and practitioners for delivering high-value care.",
+        "website": "https://www.priviahealth.com"
+      }
+    },
+    "ASTH": {
+      "fetched_at": "2026-08-03T20:01:12Z",
+      "value": {
+        "ticker": "ASTH",
+        "provider_name": "Astrana Health Inc. Common Stock",
+        "market_cap": 1763186344.0800002,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNAS",
+        "list_date": "2007-11-26",
+        "description": "Astrana Health Inc is a patient-centered, physician-centric integrated population health management company. The company is working to provide coordinated, outcomes-based medical care cost-effectively. It is focused on physicians providing high-quality medical care, population health management, and care coordination for patients, particularly senior patients and patients with multiple chronic conditions. The company's three reportable segments are Care Partners, Care Delivery, and Care Enablement. It generates the majority of its revenue from the Care Partners segment.",
+        "website": "https://www.astranahealth.com"
+      }
+    },
+    "AGL": {
+      "fetched_at": "2026-07-16T15:00:00Z",
+      "value": {
+        "ticker": "AGL",
+        "provider_name": "agilon health, inc.",
+        "market_cap": 2073627800.0,
+        "market_cap_date": "2026-07-16",
+        "exchange": "XNYS",
+        "list_date": null,
+        "description": "Agilon Health Inc is a healthcare services company that partners with primary care physicians to support value-based care for senior patients. The company provides a platform that enables physician groups to manage healthcare outcomes and costs through a Medicare-centric, capitated care model and long-term partnerships with community-based physicians.",
+        "website": "https://www.agilonhealth.com"
+      }
+    },
+    "EVH": {
+      "fetched_at": "2026-08-03T20:01:51Z",
+      "value": {
+        "ticker": "EVH",
+        "provider_name": "Evolent Health, Inc Class A Common Stock",
+        "market_cap": 347566497.03,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNYS",
+        "list_date": "2015-06-05",
+        "description": "Evolent Health Inc is engaged in healthcare delivery and payment. The company supports health systems and physician organizations in their migration toward value-based care and population health management. It provides specialty care management services in oncology, cardiology, musculoskeletal markets and holistic total cost of care management along with an integrated platform for health plan administration and value-based business infrastructure under one go to market package. The solutions provided by the company includes: Oncology, Cardiology, Musculoskeletal, Administrative Services, Advanced Illness, Genetic Testing, Physical Medicine, Radiology, and Surgical Management.",
+        "website": "https://www.evolenthealth.com"
+      }
+    },
+    "PIII": {
+      "fetched_at": "2026-08-03T20:02:17Z",
+      "value": {
+        "ticker": "PIII",
+        "provider_name": "P3 Health Partners Inc. Common Stock",
+        "market_cap": 32693184.14,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNAS",
+        "list_date": "2021-12-06",
+        "description": "P3 Health Partners Inc is a patient-centered and physician-led population health management company. P3's model aggregates and supports the community's existing healthcare resources to build a network of community providers working together to deliver coordinated and integrated care to patients with a shared commitment to improving patient outcomes, lowering cost, and delivering experience for all. It includes utilization management, care management, disease education, and maintenance of a quality improvement and quality management program for members assigned to the Company. The Company is also responsible for the credentialing of its providers, processing and payment of claims, and the establishment of a provider network for certain health plans.",
+        "website": "https://www.p3hp.org"
+      }
+    },
+    "DVA": {
+      "fetched_at": "2026-08-03T20:02:43Z",
+      "value": {
+        "ticker": "DVA",
+        "provider_name": "DaVita Inc.",
+        "market_cap": 15410176650.0,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNYS",
+        "list_date": "1995-10-31",
+        "description": "DaVita is one of the largest providers of dialysis services in the United States, boasting a market share of about 35%. The firm operates over 3,200 facilities worldwide, mostly in the US, and treats about 300,000 patients annually. Government payers dominate US dialysis reimbursement. DaVita receives about two-thirds of US sales at government (primarily Medicare) reimbursement rates, with the remainder coming from commercial insurers. While commercial insurers represent only about 10% of US patients treated, they represent nearly all of the profits generated by DaVita in the US dialysis business.",
+        "website": "https://www.davita.com"
+      }
+    },
+    "FMS": {
+      "fetched_at": "2026-08-03T20:03:10Z",
+      "value": {
+        "ticker": "FMS",
+        "provider_name": "Fresenius Medical Care AG",
+        "market_cap": 13782736811.6,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNYS",
+        "list_date": "1996-09-17",
+        "description": "Fresenius Medical Care is the largest dialysis company in the world, treating nearly 300,000 patients from about 3,600 clinics worldwide as of December 2025. In addition to providing dialysis services, the firm is a leading supplier of dialysis products, including machines, dialyzers, and concentrates. Fresenius accounts for about 35% of the global dialysis products market, creating the world's only fully integrated dialysis business. Services account for about three-fourths of sales, while the balance is generated from medical technology products that enable dialysis treatments.",
+        "website": "https://www.freseniusmedicalcare.com"
+      }
+    },
+    "SGRY": {
+      "fetched_at": "2026-08-03T20:03:35Z",
+      "value": {
+        "ticker": "SGRY",
+        "provider_name": "Surgery Partners, Inc. Common Stock",
+        "market_cap": 2014137694.8,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNAS",
+        "list_date": "2015-10-01",
+        "description": "Surgery Partners Inc is a healthcare services company with an integrated outpatient delivery model focused on providing quality, cost-effective solutions for surgical and related ancillary care in support of both patients and physicians. It has one reportable segment: Surgical Facilities, which includes the operation of ASCs, surgical hospitals, anesthesia services, and multi-specialty physician practices, which earn revenues from contracts with patients in which the performance obligations are to provide health care services.",
+        "website": "https://www.surgerypartners.com"
+      }
+    },
+    "OPCH": {
+      "fetched_at": "2026-08-03T20:04:01Z",
+      "value": {
+        "ticker": "OPCH",
+        "provider_name": "Option Care Health, Inc. Common Stock",
+        "market_cap": 3449554146.29,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNAS",
+        "list_date": "1996-08-15",
+        "description": "Option Care Health Inc is the provider of home and alternate-site infusion services. It provides treatment for bleeding disorders, neurological disorders, heart failure, anti-infectives, and chronic inflammatory disorders, among others. The Company operates in one segment, infusion services.",
+        "website": "https://www.optioncarehealth.com"
+      }
+    },
+    "LFST": {
+      "fetched_at": "2026-08-03T20:04:27Z",
+      "value": {
+        "ticker": "LFST",
+        "provider_name": "LifeStance Health Group, Inc. Common Stock",
+        "market_cap": 4001624847.36,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNAS",
+        "list_date": "2021-06-10",
+        "description": "LifeStance Health Group Inc is a mental healthcare company that operates as a provider of outpatient mental health services, spanning psychiatric evaluations and treatment, psychological and neuropsychological testing, and individual, family, and group therapy. It treats a broad range of mental health conditions, including anxiety, depression, bipolar disorder, eating disorders, psychotic disorders, and post-traumatic stress disorder, using evidence-based approaches to ensure effective treatment. The group has a single operating and reportable segment of mental health services.",
+        "website": "https://www.lifestance.com"
+      }
+    },
+    "TDOC": {
+      "fetched_at": "2026-08-03T20:04:53Z",
+      "value": {
+        "ticker": "TDOC",
+        "provider_name": "Teladoc Health, Inc.",
+        "market_cap": 1219099780.91,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNYS",
+        "list_date": "2015-07-01",
+        "description": "Teladoc Health Inc is engaged in the provision of virtual healthcare services, connecting patients, providers, and healthcare systems through technology-enabled platforms. The company has two reportable segments: Integrated Care and BetterHelp. The Integrated Care segment provides virtual healthcare solutions, including primary care, mental health, chronic care management, and telehealth enablement services for employers, insurers, and healthcare systems, mainly on a business-to-business basis, while the BetterHelp segment offers direct-to-consumer online mental health services, including counseling and therapy delivered through digital platforms. It generates the majority of its revenue from the Integrated Care segment.",
+        "website": "https://www.teladochealth.com"
+      }
+    },
+    "AMWL": {
+      "fetched_at": "2026-08-03T20:05:19Z",
+      "value": {
+        "ticker": "AMWL",
+        "provider_name": "American Well Corporation",
+        "market_cap": 179616192.25,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNYS",
+        "list_date": "2020-09-17",
+        "description": "American Well Corp is an enterprise platform and software company digitally enabling hybrid care by offering payers and health systems a technology-enabled care platform. The Amwell Platform, its cloud-based enablement platform, digitally enables a scalable healthcare experience across all care settings by enabling critical services like virtual primary care, urgent care, clinical partner programs, scheduling visits, etc. Additionally, the healthcare providers can use the platform to access familiar workflows for taking notes, prescribing, referencing clinical treatment guidelines, and other related activities. The firm also offers various paid services, including licensed clinical staffing, implementation support, workflow design, etc, to help clients execute their hybrid care strategies.",
+        "website": "https://business.amwell.com"
+      }
+    },
+    "TALK": {
+      "fetched_at": "2026-08-03T20:05:45Z",
+      "value": {
+        "ticker": "TALK",
+        "provider_name": "Talkspace, Inc. Common Stock",
+        "market_cap": 874415594.52,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNAS",
+        "list_date": "2021-06-23",
+        "description": "Talkspace Inc is a virtual behavioral healthcare company offering its members convenient and affordable access to a fully-credentialed network of qualified providers across a wide and growing spectrum of care through virtual psychotherapy and psychiatry. It is a single destination for comprehensive mental health care, including therapy for individuals, couples, and teens, as well as psychiatric treatment and medication management (18+), and self-guided tools and resources. The company's customers include Health insurance plans from commercial and government institutions, and employee assistance programs, Direct-to-Enterprise, and Individual subscribers. The company operates as a single segment.",
+        "website": "https://www.talkspace.com"
+      }
+    },
+    "HIMS": {
+      "fetched_at": "2026-08-03T20:06:11Z",
+      "value": {
+        "ticker": "HIMS",
+        "provider_name": "Hims & Hers Health, Inc.",
+        "market_cap": 6427580190.15,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNYS",
+        "list_date": "2021-01-21",
+        "description": "Hims & Hers, launched in 2017, is a telehealth platform that connects patients and healthcare providers to offer treatment options for specialties like erectile dysfunction, hair loss, skin care, mental health, and weight loss. Its offerings include generic, branded, and compounded prescription drugs as well as over-the-counter medicines, cosmetics, and supplements. The platform, which has more than 2 million subscribers, is available in all 50 states and certain European markets like the UK. It includes provider networks, electronic medical records, cloud pharmacy fulfillment, and personalization capabilities. Hims does not take insurance and only accepts payments directly from customers.",
+        "website": "https://www.forhims.com"
+      }
+    },
+    "LFMD": {
+      "fetched_at": "2026-08-03T20:06:37Z",
+      "value": {
+        "ticker": "LFMD",
+        "provider_name": "LifeMD, Inc. Common Stock",
+        "market_cap": 169268785.0,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNAS",
+        "list_date": "1995-02-01",
+        "description": "LifeMD Inc is a patient-centric, direct-to-patient healthcare company providing a high-quality, cost-effective, and convenient way for patients to access virtual medical care and pharmacy services. The Company's portfolio of brands within continuing operations is now managed as a single operating segment, Telehealth. Telehealth platform integrates core capabilities, includes: A nationwide pharmacy network, A wholly-owned commercial pharmacy, A fully integrated patient care center, A direct-to-patient marketing infrastructure for acquisition and retention, and AI-enabled clinical and operational technologies.",
+        "website": "https://www.lifemd.com"
+      }
+    },
+    "OMDA": {
+      "fetched_at": "2026-08-03T20:07:03Z",
+      "value": {
+        "ticker": "OMDA",
+        "provider_name": "Omada Health, Inc. Common Stock",
+        "market_cap": 1179458378.8799999,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNAS",
+        "list_date": "2025-06-06",
+        "description": "Omada Health Inc empowers individuals to make lasting health changes through personalized, virtual care between doctor's visits. The integrated platform of the company supports members with cardiometabolic conditions like prediabetes, diabetes, hypertension, musculoskeletal issues, and behavioral health needs. The company's specialized care tracks also assist members using GLP-1 medications. The company delivers measurable health outcomes and value for employers, health plans, health systems, and pharmacy benefit managers.",
+        "website": "https://www.omadahealth.com"
+      }
+    },
+    "GDRX": {
+      "fetched_at": "2026-08-03T20:07:30Z",
+      "value": {
+        "ticker": "GDRX",
+        "provider_name": "GoodRx Holdings, Inc. Class A Common Stock",
+        "market_cap": 1039733395.1099999,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNAS",
+        "list_date": "2020-09-23",
+        "description": "GoodRx Holdings Inc is a consumer-focused digital healthcare platform that aims to lower the cost of healthcare in the United States. It operates a price comparison platform that provides consumers with curated, geographically relevant prescription pricing, and provides access to negotiated prices through codes that can be used to save money on prescriptions across the United States. GoodRx generates revenue from core business from pharmacy benefit managers (PBMs) that manage formularies and prescription transactions including establishing pricing between consumers and pharmacies. It also offers various healthcare products and services, including pharma manufacturer solutions, subscriptions, and telehealth services.",
+        "website": "https://www.goodrx.com"
+      }
+    },
+    "ORCL": {
+      "fetched_at": "2026-08-03T20:07:55Z",
+      "value": {
+        "ticker": "ORCL",
+        "provider_name": "Oracle Corp",
+        "market_cap": 374086768770.0,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNYS",
+        "list_date": "1986-03-12",
+        "description": "Oracle provides enterprise applications and infrastructure offerings through a variety of flexible IT deployment models, including on-premises, cloud-based, and hybrid. Founded in 1977, Oracle pioneered the first commercial SQL-based relational database management system, which is commonly used by the world's largest companies for high-volume online transaction processing workloads. Besides databases, Oracle also sells enterprise resource planning platforms and cloud infrastructure that play an increasingly important role in large language model training and inferencing.",
+        "website": "https://www.oracle.com"
+      }
+    },
+    "MDRX": {
+      "fetched_at": "2026-08-03T20:08:21Z",
+      "value": {
+        "ticker": "MDRX",
+        "provider_name": "VERADIGM INC",
+        "market_cap": null,
+        "market_cap_date": "2026-08-03",
+        "exchange": "OTC Link",
+        "list_date": null,
+        "description": "VERADIGM INC",
+        "website": ""
+      }
+    },
+    "WAY": {
+      "fetched_at": "2026-08-03T20:08:47Z",
+      "value": {
+        "ticker": "WAY",
+        "provider_name": "Waystar Holding Corp. Common Stock",
+        "market_cap": 4047809061.7599998,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNAS",
+        "list_date": "2024-06-07",
+        "description": "Waystar Holding Corp is a provider of mission-critical cloud technology to healthcare organizations. Its enterprise-grade platform transforms the complex and disparate processes comprising healthcare payments received by healthcare providers from payers and patients, from pre-service engagement through post-service remittance and reconciliation. its platform enhances data integrity, eliminates manual tasks, and improves claim and billing accuracy, which results in transparency, reduced labor costs, and faster, more accurate reimbursement and cash flow. The market for solutions extends throughout the United States and includes Puerto Rico and other USA Territories.",
+        "website": "https://www.waystar.com"
+      }
+    },
+    "SOLV": {
+      "fetched_at": "2026-07-16T15:00:03Z",
+      "value": {
+        "ticker": "SOLV",
+        "provider_name": "Solventum Corporation",
+        "market_cap": 13571702000.0,
+        "market_cap_date": "2026-07-16",
+        "exchange": "XNYS",
+        "list_date": null,
+        "description": "Solventum Corp is a healthcare company developing, manufacturing, and commercializing solutions leveraging material science, data science, and digital capabilities to address customer and patient needs. Its segments include MedSurg, which earns maximum revenue and provides wound therapy, I.V. site management, surgical supplies, medical tapes and wraps, stethoscopes, medical electrodes, and OEM medical technologies; Dental Solutions, offering dental and orthodontic products such as brackets, restorative cements, and bonding agents; and Health Information Systems, providing software solutions including physician documentation, coding automation, speech recognition, and data visualization platforms. It operates in the United States, which earns the majority of revenue, and internationally.",
+        "website": "https://www.solventum.com"
+      }
+    },
+    "PHR": {
+      "fetched_at": "2026-08-03T20:09:26Z",
+      "value": {
+        "ticker": "PHR",
+        "provider_name": "Phreesia, Inc.",
+        "market_cap": 663241568.97,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNYS",
+        "list_date": "2019-07-18",
+        "description": "Phreesia Inc is a provides an integrated software, payments, and engagement platform designed to address three foundational challenges in healthcare delivery: access to care, affordability of care, and patient health outcomes. Its platform is embedded directly into provider workflows and patient interactions, enabling healthcare organizations to activate patients, streamline administrative processes, and improve financial performance across the care continuum. The group serves a diverse group of healthcare organizations, including ambulatory practices, health systems, and hospitals, as well as life sciences companies, government entities, patient advocacy, public interest, and not-for-profit and other organizations.",
+        "website": "https://www.phreesia.com"
+      }
+    },
+    "CCSI": {
+      "fetched_at": "2026-08-03T20:09:52Z",
+      "value": {
+        "ticker": "CCSI",
+        "provider_name": "Consensus Cloud Solutions, Inc. Common Stock",
+        "market_cap": 669685380.0,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNAS",
+        "list_date": "2021-09-30",
+        "description": "Consensus Cloud Solutions Inc is a provider of secure information delivery services with a scalable Software-as-a-Service SaaS platform. It is engaged in the fax cloud business. The company's offerings include communication, data extraction, and digital signature solutions that enable users to securely access, exchange, and manage information across organizational and geographic boundaries. It serves multiple industry verticals, including healthcare, government, financial services, legal, and education. Geographically, the company operates in the United States, Canada, Ireland, and other countries. It derives the maximum revenue from the United States.",
+        "website": "https://www.consensus.com"
+      }
+    },
+    "DH": {
+      "fetched_at": "2026-07-16T15:01:10Z",
+      "value": {
+        "ticker": "DH",
+        "provider_name": "Definitive Healthcare Corp. Class A Common Stock",
+        "market_cap": 85548500.0,
+        "market_cap_date": "2026-07-16",
+        "exchange": "XNAS",
+        "list_date": null,
+        "description": "Definitive Healthcare Corp is a provider of healthcare commercial intelligence. Its SaaS-based healthcare commercial intelligence platform is designed to provide comprehensive and accurate information on the healthcare ecosystem in the U.S. The platform uses deep analytics and data science to help customers develop data-driven strategic decisions, such as finding new markets to enter, building comprehensive go-to-market strategies, accessing tactical information to help target the right decision makers, and improving win rates with detailed contextual information. The company derives substantially all of its revenue from the sale of subscription fees for access to its platform and stand-ready support. Geographically, it derives a majority of its revenue from the United States.",
+        "website": "https://www.definitivehc.com"
+      }
+    },
+    "IQV": {
+      "fetched_at": "2026-08-03T20:10:31Z",
+      "value": {
+        "ticker": "IQV",
+        "provider_name": "IQVIA Holdings Inc.",
+        "market_cap": 38684292000.0,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNYS",
+        "list_date": "2013-05-09",
+        "description": "Iqvia is a global leader in clinical research and technology solutions for the life science industry. Formed in 2016 from the merger of Quintiles and IMS Health, it combined clinical trial services with extensive healthcare data and analytics. Its research and development solutions segment provides outsourced clinical development services spanning drug discovery, trial design, patient recruitment, site management, clinical testing, real-world studies, and the regulatory approval process. Its commercial solutions segment helps companies optimize product commercialization through analytics, technology, and outsourced sales and medical services. Together, Iqvia supports customers across the life science industry, and it serves biopharmaceutical firms, providers, payers, and policymakers.",
+        "website": "https://www.iqvia.com"
+      }
+    },
+    "HCAT": {
+      "fetched_at": "2026-08-03T20:10:58Z",
+      "value": {
+        "ticker": "HCAT",
+        "provider_name": "Health Catalyst, Inc Common Stock",
+        "market_cap": 154438501.79999998,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNAS",
+        "list_date": "2019-07-25",
+        "description": "Health Catalyst Inc provides data and analytics technology and services to healthcare organizations. It has two operating segments. The Technology segment, the key revenue driver, includes data platform, analytics applications and support services and generates revenues mainly from contracts that are cloud-based subscription arrangements, time-based license arrangements, and maintenance and support fees; the Professional Services segment is generally the combination of analytics, implementation, strategic advisory, outsourcing, and improvement services to deliver expertise to its customers to more fully configure and utilize the benefits of the technology offerings.",
+        "website": "https://www.healthcatalyst.com"
+      }
+    },
+    "DOCS": {
+      "fetched_at": "2026-08-03T20:11:23Z",
+      "value": {
+        "ticker": "DOCS",
+        "provider_name": "Doximity, Inc.",
+        "market_cap": 3812680930.62,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNYS",
+        "list_date": "2021-06-24",
+        "description": "Doximity Inc provides an online platform, which enables physicians and other healthcare professionals to collaborate with colleagues, stay up to date with the latest medical news and research, manage their careers and on-call schedules, streamline documentation and administrative paperwork, and conduct virtual patient visits. The Company's customers include pharmaceutical companies and health systems that connect with healthcare professionals through the Company's digital Marketing, Hiring, and Workflow Solutions. Marketing Solutions provide customers with the ability to share tailored content on the network. Hiring Solutions enable customers to identify, connect with, and hire from the network of both active and passive potential medical professional candidates.",
+        "website": "https://www.doximity.com"
+      }
+    },
+    "VEEV": {
+      "fetched_at": "2026-08-03T20:11:49Z",
+      "value": {
+        "ticker": "VEEV",
+        "provider_name": "Veeva Systems Inc.",
+        "market_cap": 33102693839.98,
+        "market_cap_date": "2026-08-03",
+        "exchange": "XNYS",
+        "list_date": "2013-10-16",
+        "description": "Veeva is the global leading supplier of cloud-based software solutions for the life sciences industry. The company's best-of-breed offerings address operating and regulatory requirements for customers ranging from small, emerging biotechnology companies to departments of global pharmaceutical manufacturers. The company leverages its domain expertise to improve the efficiency and compliance of the underserved life sciences industry, displacing large, highly customized and dated enterprise resource planning systems that have limited flexibility. Its two main products are Veeva CRM, a customer relationship management platform for companies with a salesforce, and Veeva Vault, a content management platform that tackles various functions within any life sciences company.",
+        "website": "https://www.veeva.com"
+      }
+    }
+  }
+}
