@@ -101,7 +101,6 @@ Devices & Diagnostic:
   GMED: Globus Medical; Musculoskeletal device company focused on spine surgery, orthopedic trauma, and robotic navigation techniques.
   ISRG: Intuitive Surgical; Dominant robotic surgery company whose da Vinci systems have come the standard platform for many minimally invasive surgeries.
   GEHC: GE Healthcare; Medical technology & diagnostic company focused on imaging equipment, patient monitoring, ultrasound, and healthcare IT infrastructure.
-  OMCL: Omnicell; Health automation for medication dispensing, inventory, and workflow efficiency.
   TMDX: Transmedics; Transplant technology and transportation company whose Organ Care System keeps donor organs functioning outside the body, expanding organ supply.
   STE: STERIS; provider of infection prevention, sterilization, and surgical support products and services.
   MASI: Masimo; provider of patient-monitoring and pulse-oximetry technologies.
