@@ -53,7 +53,7 @@ Outpatient and Home Providers:
   USPH: US Physical Therapy; operator of outpatient physical therapy clinics and industrial injury prevention services.
   BTSG: BrightSpring Health Services; provider of home and community-based healthcare services, including pharmacy, rehabilitation, primary care, and hospice.
   AVAH: Aveanna Healthcare; provider of pediatric and adult home healthcare, private-duty nursing, and hospice services.
-  CON: Concentra Health; 
+  CON: Concentra Health; Leading provider of occupational health, workers’ compensation, and employer health services.
 
 Digital Health, Specialty, Benefits:
   TDOC: Teladoc; Largest pure-play virtual care platform, offering telemedicine, chronic-care management, and specialty virtual health services.
