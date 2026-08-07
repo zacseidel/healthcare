@@ -10,6 +10,15 @@ on:
         description: Optional report date (YYYY-MM-DD); defaults to today in Denver
         required: false
         type: string
+      report_scope:
+        description: Which report to update manually
+        required: true
+        default: both
+        type: choice
+        options:
+          - healthcare
+          - life-science-device
+          - both
 
 permissions:
   contents: write
@@ -71,6 +80,7 @@ jobs:
           if [ -n "$REQUESTED_REPORT_DATE" ]; then
             args+=(--date "$REQUESTED_REPORT_DATE")
           fi
+          args+=(--report "${{ inputs.report_scope || 'both' }}")
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             args+=(--force-secondary)
           fi
@@ -86,17 +96,22 @@ jobs:
       - name: Build the downloadable standalone report
         id: standalone
         run: |
-          report_date=$(python -c 'import json; print(json.load(open("report-result.json"))["report_date"])')
-          artifact_path="$RUNNER_TEMP/Healthcare-Intel-$report_date-standalone.html"
-          python -m healthcare_report export-standalone --date "$report_date" --output "$artifact_path"
-          echo "path=$artifact_path" >> "$GITHUB_OUTPUT"
-          echo "name=healthcare-intel-$report_date" >> "$GITHUB_OUTPUT"
+          report_scope="${{ inputs.report_scope || 'both' }}"
+          report_date=$(python -c 'import json; value=json.load(open("report-result.json")); print((value.get("reports") or [value])[0]["report_date"])')
+          echo "report_date=$report_date" >> "$GITHUB_OUTPUT"
+          echo "scope=$report_scope" >> "$GITHUB_OUTPUT"
+          mkdir -p "$RUNNER_TEMP/report-artifacts"
+          for scope in healthcare life-science-device; do
+            if [ "$report_scope" != "both" ] && [ "$report_scope" != "$scope" ]; then continue; fi
+            python -m healthcare_report export-standalone --report "$scope" --date "$report_date" \
+              --output "$RUNNER_TEMP/report-artifacts/$scope-$report_date.html"
+          done
 
       - name: Upload the standalone report
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ steps.standalone.outputs.name }}
-          path: ${{ steps.standalone.outputs.path }}
+          name: healthcare-intel-reports-${{ steps.standalone.outputs.report_date }}
+          path: ${{ runner.temp }}/report-artifacts/*.html
           if-no-files-found: error
           retention-days: 90
 

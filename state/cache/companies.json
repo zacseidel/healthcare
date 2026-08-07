@@ -650,6 +650,1111 @@
         "description": "Veeva is the global leading supplier of cloud-based software solutions for the life sciences industry. The company's best-of-breed offerings address operating and regulatory requirements for customers ranging from small, emerging biotechnology companies to departments of global pharmaceutical manufacturers. The company leverages its domain expertise to improve the efficiency and compliance of the underserved life sciences industry, displacing large, highly customized and dated enterprise resource planning systems that have limited flexibility. Its two main products are Veeva CRM, a customer relationship management platform for companies with a salesforce, and Veeva Vault, a content management platform that tackles various functions within any life sciences company.",
         "website": "https://www.veeva.com"
       }
+    },
+    "CYH": {
+      "fetched_at": "2026-08-05T19:47:29Z",
+      "value": {
+        "ticker": "CYH",
+        "provider_name": "Community Health Systems, Inc.",
+        "market_cap": 417387696.71999997,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNYS",
+        "list_date": "2000-06-09",
+        "description": "Community Health Systems Inc is a publicly owned hospital operator in the United States. The company also owns four home health agencies and provides management and consulting services to independent hospitals. The firm derives revenue through a broad range of general and specialized hospital healthcare services and outpatient services.",
+        "website": "https://www.chs.net"
+      }
+    },
+    "ARDT": {
+      "fetched_at": "2026-08-05T19:47:55Z",
+      "value": {
+        "ticker": "ARDT",
+        "provider_name": "Ardent Health, Inc.",
+        "market_cap": 1541012833.25,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNYS",
+        "list_date": "2024-07-18",
+        "description": "Ardent Health Inc is a provider of healthcare in growing mid-sized urban communities across the U.S and operating in eight growing mid-sized urban markets across six states Texas, Oklahoma, New Mexico, New Jersey, Idaho, and Kansas. The main focus on people and investments in services and technologies.",
+        "website": "https://www.ardenthealth.com"
+      }
+    },
+    "WELL": {
+      "fetched_at": "2026-08-05T19:48:21Z",
+      "value": {
+        "ticker": "WELL",
+        "provider_name": "Welltower Inc.",
+        "market_cap": 166862860587.27,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNYS",
+        "list_date": "1978-02-17",
+        "description": "Welltower owns a diversified healthcare portfolio of 2,800 in-place properties spread across the senior housing, medical office, and skilled nursing/postacute care sectors. The portfolio includes over 900 properties in Canada and the United Kingdom as the company looks for additional investment opportunities in countries with mature healthcare systems that operate similarly to that of the United States.",
+        "website": "https://www.welltower.com"
+      }
+    },
+    "CTRE": {
+      "fetched_at": "2026-08-05T19:48:47Z",
+      "value": {
+        "ticker": "CTRE",
+        "provider_name": "CareTrust REIT, Inc",
+        "market_cap": 9648051197.400002,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNYS",
+        "list_date": "2014-05-29",
+        "description": "CareTrust REIT Inc is a self-administered, publicly traded REIT engaged in the ownership, acquisition, financing, development, and leasing of skilled nursing, seniors housing, and other healthcare-related properties. The company has one reportable segment consisting of investments in healthcare-related real estate assets. It generates revenues by leasing healthcare-related properties to healthcare operators under triple-net lease arrangements, in which the tenant is solely responsible for property-related costs. The company operates in Domestic and Foreign markets, with the majority of revenue coming from Domestic operations.",
+        "website": "https://www.caretrustreit.com"
+      }
+    },
+    "SBRA": {
+      "fetched_at": "2026-08-05T19:49:13Z",
+      "value": {
+        "ticker": "SBRA",
+        "provider_name": "Sabra Healthcare REIT, Inc.",
+        "market_cap": 5277860538.96,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "2010-11-08",
+        "description": "Sabra Health Care REIT Inc is a healthcare facility real estate investment trust. The company operates one segment that owns and invests in healthcare real estate. All of the company's revenue is generated in the United States. Sabra's operations consist of nursing facilities, assisted living centers, and mental health facilities.",
+        "website": "https://www.sabrahealth.com"
+      }
+    },
+    "CHE": {
+      "fetched_at": "2026-08-05T19:49:39Z",
+      "value": {
+        "ticker": "CHE",
+        "provider_name": "Chemed Corporation",
+        "market_cap": 7054119350.92,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNYS",
+        "list_date": "1972-06-01",
+        "description": "Chemed Corp purchases, operates, and divests subsidiaries engaged in diverse business activities to maximize shareholder value. The company operates in the following segments: VITAS and Roto-Rooter. The VITAS segment generates the majority of the firm's revenue and provides hospice and palliative care services to patients with terminal illnesses through a network of physicians, registered nurses, home health aides, social workers, and volunteers. The Roto-Rooter segment provides plumbing, drain cleaning, water restoration, and related services to residential and commercial customers.",
+        "website": "https://www.chemed.com"
+      }
+    },
+    "ADUS": {
+      "fetched_at": "2026-08-05T19:50:05Z",
+      "value": {
+        "ticker": "ADUS",
+        "provider_name": "Addus HomeCare Corp.",
+        "market_cap": 2121438440.1599998,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "2009-10-27",
+        "description": "Addus HomeCare Corp is engaged in the provision of in-home care services. The Company has three reportable segments: Personal Care, Hospice, and Home Health. The Personal Care segment provides non-medical assistance with activities of daily living, mainly to the elderly, chronically ill, and disabled individuals. The Hospice segment provides physical, emotional, and spiritual care for terminally ill patients and their families. The Home Health segment provides medical services to individuals requiring care during illness or recovery. It generates the majority of its revenue from the Personal Care segment.",
+        "website": "https://www.addus.com"
+      }
+    },
+    "PNTG": {
+      "fetched_at": "2026-08-05T19:50:31Z",
+      "value": {
+        "ticker": "PNTG",
+        "provider_name": "The Pennant Group, Inc. Common Stock",
+        "market_cap": 1342375375.77,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "2019-09-19",
+        "description": "Pennant Group Inc is engaged in providing healthcare services to patients of all ages, including the growing senior population, in the United States. It operates in multiple lines of business including home health, hospice, and senior living which includes the company's assisted living, independent living, and memory care communities across Arizona, California, Colorado, Idaho, Montana, Nevada, Oklahoma, Oregon, Texas, Utah, Washington, Wisconsin, and Wyoming. It operates in two segments; home health and hospice services and senior living services. The company generates majority of its revenue from home health and hospice services segment, which includes its home health, hospice and home care businesses.",
+        "website": "https://www.pennantgroup.com"
+      }
+    },
+    "USPH": {
+      "fetched_at": "2026-08-05T19:50:57Z",
+      "value": {
+        "ticker": "USPH",
+        "provider_name": "US Physical Therapy Inc",
+        "market_cap": 1154497333.54,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNYS",
+        "list_date": "1992-05-28",
+        "description": "US Physical Therapy Inc through its subsidiaries operate outpatient physical therapy clinics that provide pre-and post-operative care and treatment for orthopedic-related disorders, sports-related injuries, preventative care, rehabilitation of injured workers, and neurological-related injuries. The principal payment sources for the clinics' services are managed care programs, commercial health insurance, Medicare/Medicaid, workers' compensation insurance, and proceeds from personal injury cases. Its operating segment includes Physical therapy operations and Industrial injury prevention services. The company generates maximum revenue from the Physical therapy operations segment.",
+        "website": "https://www.usph.com"
+      }
+    },
+    "BTSG": {
+      "fetched_at": "2026-08-05T19:51:23Z",
+      "value": {
+        "ticker": "BTSG",
+        "provider_name": "BrightSpring Health Services, Inc. Common Stock",
+        "market_cap": 12419938407.57,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "2024-01-26",
+        "description": "BrightSpring Health Services Inc is a home and community-based healthcare services platform, focused on delivering complementary pharmacy and provider services to complex patients. Its platform delivers clinical services and pharmacy solutions across Medicare, Medicaid, and commercially insured populations. Its segments include Pharmacy Solutions, Provider Services, and others. It generates the majority of its revenue from the Pharmacy Solutions segment.",
+        "website": "https://www.brightspringhealth.com"
+      }
+    },
+    "AVAH": {
+      "fetched_at": "2026-08-05T19:51:49Z",
+      "value": {
+        "ticker": "AVAH",
+        "provider_name": "Aveanna Healthcare Holdings Inc. Common Stock",
+        "market_cap": 2038188700.08,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "2021-04-29",
+        "description": "Aveanna Healthcare Holdings Inc is a diversified home care platform that provides care to medically complex, high-cost patient populations. It directly addresses the pressing challenges facing the U.S. healthcare system by providing safe, high-quality care in the home. The firm provides its services through three segments: Private Duty Services (PDS); Home Health & Hospice (HHH); and Medical Solutions (MS). The Private Duty Services segment generates the majority of revenue, which includes private duty skilled nursing services, non-clinical and personal care services, and pediatric therapy services, and is principally reimbursed by Medicaid and Medicaid MCO.",
+        "website": "https://www.aveanna.com"
+      }
+    },
+    "PGNY": {
+      "fetched_at": "2026-08-05T19:52:15Z",
+      "value": {
+        "ticker": "PGNY",
+        "provider_name": "Progyny, Inc. Common Stock",
+        "market_cap": 2465903007.6,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "2019-10-25",
+        "description": "Progyny Inc is a benefits management company specializing in fertility, family building, and women's health benefits solutions. Its clients include employers across various industries. The fertility benefits solution consists of treatment services (Smart Cycles), access to the Progyny network of high-quality fertility specialists that perform the Smart Cycle treatments, and active management of the selective network of high-quality provider clinics.",
+        "website": "https://www.progyny.com"
+      }
+    },
+    "CON": {
+      "fetched_at": "2026-08-05T19:52:41Z",
+      "value": {
+        "ticker": "CON",
+        "provider_name": "Concentra Group Holdings Parent, Inc.",
+        "market_cap": 3982170593.6,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNYS",
+        "list_date": "2024-07-25",
+        "description": "Concentra Group Holdings Parent Inc is a provider of occupational health services in the USA. The business is organized into three operating segments: occupational health centers, onsite health clinics, and other businesses.",
+        "website": "https://www.concentra.com"
+      }
+    },
+    "HQY": {
+      "fetched_at": "2026-08-05T19:53:07Z",
+      "value": {
+        "ticker": "HQY",
+        "provider_name": "HealthEquity, Inc",
+        "market_cap": 8775718420.289999,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "2014-07-31",
+        "description": "HealthEquity Inc provides solutions that allow consumers to make healthcare saving and spending decisions. It provides payment processing services, personalized benefit information, the ability to earn wellness incentives, and investment advice to grow their tax-advantaged healthcare savings. It manages consumers' tax-advantaged health savings accounts (HSAs) and other consumer-directed benefits (CDBs) offered by employers, including flexible spending accounts and health reimbursement arrangements (FSAs and HRAs), and administers Consolidated Omnibus Budget Reconciliation Act (COBRA), commuter and other benefits. It also provides investment advisory services to customers whose account balances exceed a certain threshold. HealthEquity generates its revenue in the United States.",
+        "website": "https://www.healthequity.com"
+      }
+    },
+    "OMCL": {
+      "fetched_at": "2026-08-05T19:53:33Z",
+      "value": {
+        "ticker": "OMCL",
+        "provider_name": "Omnicell Inc",
+        "market_cap": 1689541469.35,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "2001-08-06",
+        "description": "Omnicell Inc provides automation and business analytics software for healthcare providers. The company is engaged in transforming the pharmacy and nursing care delivery model. The company helps its customers define and deliver cost-effective medication management designed to equip and empower pharmacists and nurses to focus on patient care rather than administrative tasks and drive improved clinical, operational, and financial outcomes across all care settings. The company derives the majority of its revenue from the United States.",
+        "website": "https://www.omnicell.com"
+      }
+    },
+    "MCK": {
+      "fetched_at": "2026-08-05T19:53:59Z",
+      "value": {
+        "ticker": "MCK",
+        "provider_name": "McKesson Corporation",
+        "market_cap": 97224871780.34999,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNYS",
+        "list_date": "1987-08-03",
+        "description": "McKesson is one of three leading pharmaceutical wholesalers in the US engaged in sourcing and distributing branded, generic, and specialty pharmaceutical products to pharmacies (retail chains, independent, and mail order), hospitals networks, and healthcare providers. Along with Cencora and Cardinal Health, the three account for over 90% of the US pharmaceutical wholesale industry. Outside the US market, McKesson engages in pharmaceutical wholesale and distribution in Canada. Additionally, the company supplies medical-surgical products and equipment to healthcare facilities and provides a variety of technology solutions for pharmacies.",
+        "website": "https://www.mckesson.com"
+      }
+    },
+    "CAH": {
+      "fetched_at": "2026-08-05T19:54:26Z",
+      "value": {
+        "ticker": "CAH",
+        "provider_name": "Cardinal Health, Inc.",
+        "market_cap": 54698777435.25,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNYS",
+        "list_date": "1983-08-04",
+        "description": "Cardinal Health is one of three leading pharmaceutical wholesalers in the US, engaged in sourcing and distributing of branded, generic, and specialty pharmaceutical products to pharmacies (retail chains, independent, and mail order), hospital networks, and healthcare providers. Cardinal, Cencora, and McKesson hold well over 90% of the US pharmaceutical wholesale industry. Cardinal Health also supplies medical-surgical products and equipment to healthcare facilities in North America, Europe, and Asia.",
+        "website": "https://www.cardinalhealth.com"
+      }
+    },
+    "COR": {
+      "fetched_at": "2026-08-05T19:54:51Z",
+      "value": {
+        "ticker": "COR",
+        "provider_name": "Cencora, Inc.",
+        "market_cap": 59590161456.799995,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNYS",
+        "list_date": "1995-04-04",
+        "description": "Cencora is one of three leading domestic pharmaceutical wholesalers. It sources and distributes branded, generic, and specialty pharmaceutical products to pharmacies (retail chains, independent, and mail order), hospital networks, and healthcare providers. It and McKesson and Cardinal Health hold over 90% share of the US pharmaceutical wholesale industry. Cencora also provides commercialization services for manufacturers of pharmaceuticals and medical devices, global specialty drug logistics (World Courier), and animal health product distribution (MWI Animal Health). Cencora expanded its international presence in 2021 by purchasing Alliance Healthcare, one of the leading drug wholesalers in Europe.",
+        "website": "https://www.cencora.com"
+      }
+    },
+    "AHCO": {
+      "fetched_at": "2026-08-05T19:55:17Z",
+      "value": {
+        "ticker": "AHCO",
+        "provider_name": "AdaptHealth Corp. Common Stock",
+        "market_cap": 912923359.92,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "2018-04-16",
+        "description": "AdaptHealth Corp is engaged in providing patient-centered, healthcare-at-home solutions including home medical equipment (HME), medical supplies, and related services. The Company operates under four reportable segments that align with its product categories: (i) Sleep Health, (ii) Respiratory Health, (iii) Diabetes Health, and (iv) Wellness at Home. The company generates majority of its revenue from the Sleep Health segment. The Sleep Health segment provides sleep therapy equipment, supplies and related services (including continuous positive airway pressure and BiLevel services) to individuals for the treatment of obstructive sleep apnea.",
+        "website": "https://www.adapthealth.com"
+      }
+    },
+    "HSIC": {
+      "fetched_at": "2026-08-05T19:55:43Z",
+      "value": {
+        "ticker": "HSIC",
+        "provider_name": "Henry Schein Inc",
+        "market_cap": 10151122216.27,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "1995-11-03",
+        "description": "Henry Schein Inc is a solutions company for healthcare professionals. It offers healthcare equipment, products, and services to office-based dental and medical practitioners, as well as alternative sites of care. The company's reportable segments are: Global Distribution and Value-Added Services, Global Specialty Products, and Global Technology. It generates maximum revenue from the Global Distribution and Value-Added Services segment, which includes distribution to the dental and medical markets of national brand and corporate brand merchandise, as well as equipment and related technical services. This segment also includes value-added services such as financial services, continuing education services, consulting, and other practice services.",
+        "website": "https://www.henryschein.com"
+      }
+    },
+    "MDT": {
+      "fetched_at": "2026-08-05T19:56:09Z",
+      "value": {
+        "ticker": "MDT",
+        "provider_name": "Medtronic plc",
+        "market_cap": 110339895378.0,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNYS",
+        "list_date": "1972-06-01",
+        "description": "One of the largest medical-device companies, Medtronic develops and manufactures therapeutic medical devices for chronic diseases. Its portfolio includes pacemakers, defibrillators, transcatheter heart valves, stents, spinal fixation devices, neurovascular products, advanced energy, ablation laser therapy, and surgical tools. The company primarily markets its products to healthcare institutions and physicians in the United States, Western Europe, and Japan. Foreign sales account for roughly 50% of the company's total sales.",
+        "website": "https://www.medtronic.com"
+      }
+    },
+    "BSX": {
+      "fetched_at": "2026-08-05T19:56:35Z",
+      "value": {
+        "ticker": "BSX",
+        "provider_name": "Boston Scientific Corp.",
+        "market_cap": 71142677431.34001,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNYS",
+        "list_date": "1992-05-18",
+        "description": "Boston Scientific focuses on less invasive medical devices that are inserted into the human body through small openings or cuts. It manufactures products for use in angioplasty, blood clot filtration, kidney stone management, cardiac rhythm management, catheter-directed ultrasound imaging, upper gastrointestinal tract diagnostics, interventional oncology, neuromodulation for chronic pain, and treatment of incontinence. The firm markets its devices to healthcare professionals and institutions globally. Foreign sales account for roughly 36% of the firm's total sales.",
+        "website": "https://www.bostonscientific.com"
+      }
+    },
+    "SYK": {
+      "fetched_at": "2026-08-05T19:57:01Z",
+      "value": {
+        "ticker": "SYK",
+        "provider_name": "Stryker Corporation",
+        "market_cap": 128865200534.15999,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNYS",
+        "list_date": "1979-05-02",
+        "description": "Stryker designs, manufactures, and markets an array of medical equipment, instruments, consumable supplies, and implantable devices. The product portfolio includes hip and knee replacements, extremities, endoscopy systems, operating room equipment, embolic coils, mechanical thrombectomy systems, hospital beds and gurneys, and orthopedic robotics. Stryker remains one of the three largest competitors in reconstructive orthopedic implants and holds the leadership position in operating room equipment. Roughly one-fourth of Stryker's total revenue currently comes from outside the United States.",
+        "website": "https://www.stryker.com"
+      }
+    },
+    "ZBH": {
+      "fetched_at": "2026-08-05T19:57:27Z",
+      "value": {
+        "ticker": "ZBH",
+        "provider_name": "Zimmer Biomet Holdings, Inc.",
+        "market_cap": 18535640400.420002,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNYS",
+        "list_date": "2001-08-07",
+        "description": "Zimmer Biomet designs, manufactures, and markets orthopedic reconstructive implants as well as supplies and surgical equipment for orthopedic surgery. With the acquisitions of Centerpulse in 2003 and Biomet in 2015, Zimmer holds the leading share of the reconstructive market in the United States, Europe, and Japan. Roughly two-thirds of total revenue is derived from sales of large joints; another fourth comes from extremities, trauma, sports medicine, and related surgical products. The firm spun out its dental and spine businesses in 2022.",
+        "website": "https://www.zimmerbiomet.com"
+      }
+    },
+    "ABT": {
+      "fetched_at": "2026-08-05T19:57:53Z",
+      "value": {
+        "ticker": "ABT",
+        "provider_name": "Abbott Laboratories",
+        "market_cap": 182486222396.16,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNYS",
+        "list_date": "1949-04-19",
+        "description": "Abbott manufactures and markets cardiovascular and diabetes devices, adult and pediatric nutritional products, diagnostic equipment and testing kits, and branded generic drugs. Products include pacemakers, implantable cardioverter defibrillators, neuromodulation devices, coronary stents, catheters, infant formula, nutritional liquids for adults, continuous glucose monitors, and immunoassays and point-of-care diagnostic equipment. Abbott derives roughly 60% of sales outside the United States.",
+        "website": "https://www.abbott.com"
+      }
+    },
+    "BD": {
+      "fetched_at": "2026-08-05T19:58:19Z",
+      "value": {
+        "ticker": "BD",
+        "provider_name": "Russell Investments Core Plus Bond ETF",
+        "market_cap": null,
+        "market_cap_date": "2026-08-05",
+        "exchange": "ARCX",
+        "list_date": "2026-06-22",
+        "description": "",
+        "website": ""
+      }
+    },
+    "EW": {
+      "fetched_at": "2026-08-05T19:58:45Z",
+      "value": {
+        "ticker": "EW",
+        "provider_name": "Edwards Lifesciences Corp",
+        "market_cap": 51591680000.0,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNYS",
+        "list_date": "2000-04-03",
+        "description": "Spun off from Baxter International in 2000, Edwards Lifesciences designs, manufactures, and markets a range of medical devices and equipment for advanced stages of structural heart disease. It has established itself as a leader across key products, including surgical tissue heart valves, transcatheter aortic valves, and transcatheter mitral and tricuspid valve technologies. The firm derives about 60% of its total sales from outside the US.",
+        "website": "https://www.edwards.com"
+      }
+    },
+    "DXCM": {
+      "fetched_at": "2026-08-05T19:59:11Z",
+      "value": {
+        "ticker": "DXCM",
+        "provider_name": "DexCom, Inc.",
+        "market_cap": 32807744909.1,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "2005-04-14",
+        "description": "DexCom designs and commercializes continuous glucose monitoring systems for diabetic patients. CGM systems serve as an alternative to the traditional blood glucose meter process, and the company is evolving its CGM systems to provide integration with insulin pumps from Insulet and Tandem for automatic insulin delivery. DexCom's CGMs are available through medical equipment distributors as well as retail pharmacies.",
+        "website": "https://www.dexcom.com"
+      }
+    },
+    "RMD": {
+      "fetched_at": "2026-08-05T19:59:37Z",
+      "value": {
+        "ticker": "RMD",
+        "provider_name": "ResMed Inc.",
+        "market_cap": 32367881525.76,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNYS",
+        "list_date": "1995-06-02",
+        "description": "ResMed is one of the largest respiratory care device companies globally, primarily developing and supplying flow generators, masks, and accessories for the treatment of sleep apnea. Increasing diagnosis of sleep apnea combined with aging populations and increasing prevalence of obesity is resulting in a structurally growing market. The company earns roughly two-thirds of its revenue in the Americas and the balance across other regions dominated by Europe, Japan, and Australia. Recent developments and acquisitions have focused on digital health as ResMed is aiming to differentiate itself through the provision of clinical data for use by the patient, medical care advisor, and payer in the out-of-hospital setting.",
+        "website": "https://www.resmed.com"
+      }
+    },
+    "PODD": {
+      "fetched_at": "2026-08-05T20:00:03Z",
+      "value": {
+        "ticker": "PODD",
+        "provider_name": "Insulet Corporation",
+        "market_cap": 11554732916.68,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "2007-05-15",
+        "description": "Insulet was founded in 2000 with the goal of making continuous subcutaneous insulin infusion therapy for diabetes easier to use. The result was the Omnipod system, which consists of a small disposable insulin infusion device that can be operated through a smartphone to control dosage. Since the Omnipod was approved by the US Food and Drug Administration in 2005, more than 600,000 insulin-dependent diabetic patients are using it worldwide.",
+        "website": "https://www.insulet.com"
+      }
+    },
+    "GMED": {
+      "fetched_at": "2026-08-05T20:00:29Z",
+      "value": {
+        "ticker": "GMED",
+        "provider_name": "GLOBUS MEDICAL INC",
+        "market_cap": 11064544465.26,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNYS",
+        "list_date": "2012-08-03",
+        "description": "Globus Medical Inc is a medical device company that develops and provides healthcare products and solutions to hospitals, physicians, and surgical centers. The firm's products are organized into two categories: musculoskeletal solutions, which include medical devices and instruments used mostly for spinal and orthopedic procedures, and enabling technologies, which include computer systems developed for enhancing surgical capabilities. The vast majority of the company's revenue is generated from musculoskeletal solutions products, and more than half of the revenue is earned in the United States. It also has its presence internationally.",
+        "website": "https://www.globusmedical.com"
+      }
+    },
+    "ISRG": {
+      "fetched_at": "2026-08-05T20:00:55Z",
+      "value": {
+        "ticker": "ISRG",
+        "provider_name": "Intuitive Surgical Inc.",
+        "market_cap": 130099936664.06999,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "2000-06-13",
+        "description": "Intuitive develops, produces, and markets a robotic system for assisting minimally invasive surgery. It also provides the instrumentation, disposable accessories, and warranty services for the system. The company has placed more than 10,000 da Vinci systems in hospitals worldwide, with more than 6,000 installations in the US and a growing number in emerging markets.",
+        "website": "https://www.intuitive.com"
+      }
+    },
+    "GEHC": {
+      "fetched_at": "2026-08-05T20:01:21Z",
+      "value": {
+        "ticker": "GEHC",
+        "provider_name": "GE HealthCare Technologies Inc. Common Stock",
+        "market_cap": 31735476065.52,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "2022-12-15",
+        "description": "GE HealthCare Technologies is a leading medical technology firm with leading market share in imaging and ultrasound equipment. The company reports four major segments: imaging (45% of revenue), advanced visualization solutions (26%), patient care solutions (15%), and pharmaceutical diagnostics (14%). The company's sales are geographically diverse, with the United States, EMEA, China, and the rest of the world accounting for 46%, 26%, 11%, and 17%, respectively. We estimate approximately half of its revenue is recurring, which consists of servicing (about one-third of revenue), pharmaceutical diagnostics (about 10%-15%), and digital solutions (just over 5%).",
+        "website": "https://www.gehealthcare.com"
+      }
+    },
+    "TMDX": {
+      "fetched_at": "2026-08-05T20:01:47Z",
+      "value": {
+        "ticker": "TMDX",
+        "provider_name": "TransMedics Group, Inc. Common Stock",
+        "market_cap": 2790793563.25,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "2019-05-02",
+        "description": "TransMedics Group Inc is a commercial-stage medical technology company transforming organ transplant therapy for end-stage organ failure patients across multiple disease states. It has developed the Organ Care System (OCS) to comprehensively address the limitations of cold storage. The OCS is a portable organ perfusion, optimization, and monitoring system that utilizes technology to replicate near-physiologic conditions for donor organs outside of the human body. The company has developed and is commercializing a proprietary system to preserve and deliver human organs for transplant in a near-physiologic condition to address the limitations of cold storage organ preservation.",
+        "website": "https://www.transmedics.com"
+      }
+    },
+    "STE": {
+      "fetched_at": "2026-08-05T20:02:13Z",
+      "value": {
+        "ticker": "STE",
+        "provider_name": "STERIS plc",
+        "market_cap": 22693020788.0,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNYS",
+        "list_date": "1992-06-02",
+        "description": "Steris is an Ireland-domiciled medical technology company focused on sterilization services and infection prevention. The company is the global leader in contract sterilization services, ensuring the safe delivery of single-use and implantable medical equipment to hospitals around the world. Steris also sells sterilizers, washer-disinfectors, and other decontamination equipment and supplies for use by care provider facilities and in biopharma manufacturing sites. Domiciled in the United States before its inversion to Ireland, the firm derives approximately 70% of its revenue from Healthcare Services, 20% from Applied Sterilization Technologies, or AST, and 10% from life sciences services after the divestment of its dental products business.",
+        "website": "https://www.steris.com"
+      }
+    },
+    "INSP": {
+      "fetched_at": "2026-08-05T20:03:05Z",
+      "value": {
+        "ticker": "INSP",
+        "provider_name": "Inspire Medical Systems, Inc.",
+        "market_cap": 1854311452.5,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNYS",
+        "list_date": "2018-05-03",
+        "description": "Inspire Medical Systems Inc operates as a medical technology company. It focuses on the development and commercialization of minimally invasive solutions for patients with obstructive sleep apnea (OSA). It offers Inspire system, a neurostimulation technology that provides a safe and effective treatment for moderate to severe obstructive sleep apnea. The firm has operating footprints in the United States and All other countries wherein, it generates a majority of its revenue from the United States. Its segment revenues are derived from the sales of its product, the Inspire system, to hospitals and ambulatory surgery centers in the U.S. and in selected countries in Europe and the Asia Pacific region.",
+        "website": "https://www.inspiresleep.com"
+      }
+    },
+    "LLY": {
+      "fetched_at": "2026-07-16T14:59:30Z",
+      "value": {
+        "ticker": "LLY",
+        "provider_name": "Eli Lilly & Co.",
+        "market_cap": 1031414900000.0,
+        "market_cap_date": "2026-07-16",
+        "exchange": "XNYS",
+        "list_date": null,
+        "description": "Eli Lilly is a drug firm with a focus on neuroscience, cardiometabolic, cancer, and immunology. Lilly's key products include Verzenio and Jaypirca for cancer; Mounjaro, Zepbound, Foundayo, Jardiance, Trulicity, Humalog, and Humulin for cardiometabolic; and Taltz and Olumiant for immunology.",
+        "website": "https://www.lilly.com"
+      }
+    },
+    "NVO": {
+      "fetched_at": "2026-08-05T20:03:31Z",
+      "value": {
+        "ticker": "NVO",
+        "provider_name": "Novo-Nordisk A/S",
+        "market_cap": 195750833025.6,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNYS",
+        "list_date": "1981-04-30",
+        "description": "With roughly one-third of the global branded diabetes treatment market, Novo Nordisk is the leading provider of diabetes care products in the world. Based in Denmark, the company manufactures and markets a variety of human and modern insulins, injectable diabetes treatments such as GLP-1 therapy, oral antidiabetic agents, and obesity treatments. Novo also has a biopharmaceutical segment (contributing less than 10% of revenue) that specializes in protein therapies for hemophilia and other disorders.",
+        "website": "https://www.novonordisk.com"
+      }
+    },
+    "ABBV": {
+      "fetched_at": "2026-08-05T20:03:57Z",
+      "value": {
+        "ticker": "ABBV",
+        "provider_name": "ABBVIE INC.",
+        "market_cap": 430823194083.0,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNYS",
+        "list_date": "2012-12-10",
+        "description": "AbbVie is a pharmaceutical firm with a strong exposure to immunology (with Humira, Skyrizi, and Rinvoq) and oncology (with Imbruvica and Venclexta). The company was spun off from Abbott in early 2013. The 2020 acquisition of Allergan added several new products and drugs in aesthetics, including Botox. The 2024 acquisitions of Cerevel (neuroscience) and ImmunoGen (oncology) help supplement AbbVie's portfolio.",
+        "website": "https://www.abbvie.com"
+      }
+    },
+    "JNJ": {
+      "fetched_at": "2026-08-05T20:04:23Z",
+      "value": {
+        "ticker": "JNJ",
+        "provider_name": "Johnson & Johnson",
+        "market_cap": 614355449333.21,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNYS",
+        "list_date": "1944-09-25",
+        "description": "Johnson & Johnson is the world's largest and most diverse healthcare firm. It has two divisions: innovative medicine and medtech. These now represent all of the company's sales following the divestment of the consumer business, Kenvue, in 2023. After restructurings in 2023-24, the drug division focuses on three main therapeutic areas: immunology, oncology, and neurology. Geographically, just over half of total revenue is generated in the United States.",
+        "website": "https://www.jnj.com"
+      }
+    },
+    "PFE": {
+      "fetched_at": "2026-08-05T20:04:49Z",
+      "value": {
+        "ticker": "PFE",
+        "provider_name": "Pfizer Inc.",
+        "market_cap": 144828705896.49,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNYS",
+        "list_date": "1951-06-22",
+        "description": "Pfizer is one of the world's largest pharmaceutical firms, with annual sales of roughly $60 billion. While it historically sold many types of healthcare products and chemicals, now prescription drugs and vaccines account for the majority of sales. Top sellers include pneumococcal vaccine Prevnar 13 and cardiology drugs Vyndaqel and Eliquis. Pfizer sells these products globally, with international sales representing 40% of total sales. Within international sales, emerging markets are a major contributor.",
+        "website": "https://www.pfizer.com"
+      }
+    },
+    "MRK": {
+      "fetched_at": "2026-08-05T20:05:15Z",
+      "value": {
+        "ticker": "MRK",
+        "provider_name": "Merck & Co., Inc.",
+        "market_cap": 316137525120.0,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNYS",
+        "list_date": "1949-04-20",
+        "description": "Merck makes pharmaceutical products to treat several conditions in a number of therapeutic areas, including cardiometabolic disease, cancer, and infections. Within cancer, the firm's immuno-oncology platform, led by Keytruda, is a major contributor to overall sales. The company also has a substantial vaccine business aimed at preventing pediatric diseases, as well as Gardasil for human papillomavirus. Additionally, Merck sells animal health-related drugs. From a geographical perspective, 47% of the company's sales are generated from US human health (pharmaceuticals and vaccines).",
+        "website": "https://www.merck.com"
+      }
+    },
+    "BMY": {
+      "fetched_at": "2026-08-05T20:05:41Z",
+      "value": {
+        "ticker": "BMY",
+        "provider_name": "Bristol-Myers Squibb Co.",
+        "market_cap": 134594468683.84,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNYS",
+        "list_date": "1952-06-23",
+        "description": "Bristol Myers Squibb discovers, develops, and markets drugs for various therapeutic areas, such as cardiovascular, cancer, and immune disorders. A key focus for Bristol is immuno-oncology, where the firm is a leader in drug development. Bristol derives close to 70% of total sales from the US, showing a higher dependence on the US market than most of its peer group.",
+        "website": "https://www.bms.com"
+      }
+    },
+    "VTRS": {
+      "fetched_at": "2026-08-05T20:06:07Z",
+      "value": {
+        "ticker": "VTRS",
+        "provider_name": "Viatris Inc. Common Stock",
+        "market_cap": 20612581975.8,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "1973-02-23",
+        "description": "Viatris was formed in November 2020 through the combination of Upjohn, a wholly owned subsidiary of Pfizer that specialized in off-patent drugs, and Mylan, a global pharmaceutical manufacturer that focused on generic and specialty drugs. By joining forces, Viatris became one of the largest generic drug manufacturers in the world, servicing over 165 countries. Generics (commoditized and complex) and biosimilars make up roughly 40% of Viatris' total sales. The remaining 60% of sales are derived from its portfolio of legacy products, which includes Lipitor, Norvasc, Lyrica, and Viagra. While it covers more than 10 major therapeutic areas, Viatris has identified dermatology, ophthalmology, and gastroenterology as its three key areas of focus for future innovations.",
+        "website": "https://www.viatris.com"
+      }
+    },
+    "AZN": {
+      "fetched_at": "2026-08-05T20:06:33Z",
+      "value": {
+        "ticker": "AZN",
+        "provider_name": "AstraZeneca PLC",
+        "market_cap": 241348854732.04,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNYS",
+        "list_date": "2009-10-23",
+        "description": "A merger between Astra of Sweden and Zeneca of the United Kingdom formed AstraZeneca in 1999. The firm sells branded drugs across a number of major therapeutic areas, including oncology (over 40% of total revenue), cardiovascular, renal, and metabolic (over 20%), rare disease (16%), and respiratory and immunology (15%). The majority of sales comes from international markets, with the United States representing close to one-third of its sales.",
+        "website": "https://www.astrazeneca.com"
+      }
+    },
+    "NVS": {
+      "fetched_at": "2026-08-05T20:06:59Z",
+      "value": {
+        "ticker": "NVS",
+        "provider_name": "Novartis AG",
+        "market_cap": 291322563526.80005,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNYS",
+        "list_date": "1996-11-07",
+        "description": "Novartis develops and manufactures innovative drugs. Key areas of drug development are oncology, immunology, neuroscience, respiratory, and cardiovascular, renal, and metabolic. It also has an established medicines business, which includes off-patent franchises. The company sells its products globally, with the United States constituting close to one-third of total revenue.",
+        "website": "https://www.novartis.com"
+      }
+    },
+    "SNY": {
+      "fetched_at": "2026-08-05T20:07:25Z",
+      "value": {
+        "ticker": "SNY",
+        "provider_name": "Sanofi American Depositary Shares (Each representing one-half of one ordinary share)",
+        "market_cap": 103635492944.72,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "2002-07-01",
+        "description": "Sanofi develops and markets drugs with a concentration in immunology, vaccines, and rare diseases. Although the company offers a diverse array of drugs, its highest-revenue product, Dupixent, accounts for over 30% of total sales. Profits for this immunology blockbuster drug are shared with Regeneron. About 45% of total revenue comes from the United States, 20% from Europe, and 6% from China.",
+        "website": "https://www.sanofi.com"
+      }
+    },
+    "GSK": {
+      "fetched_at": "2026-08-05T20:07:51Z",
+      "value": {
+        "ticker": "GSK",
+        "provider_name": "GSK plc American Depositary Shares (Each representing two Ordinary Shares)",
+        "market_cap": 103204573753.19,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNYS",
+        "list_date": "1976-08-18",
+        "description": "In the pharmaceutical industry, GSK ranks as one of the largest firms by total sales. The company wields its might across several therapeutic classes, including respiratory, antiviral, and vaccines, and has been growing its presence in oncology and immunology, as well. GSK uses joint ventures to gain additional scale in certain markets like HIV.",
+        "website": "https://www.gsk.com"
+      }
+    },
+    "VRTX": {
+      "fetched_at": "2026-08-05T20:08:17Z",
+      "value": {
+        "ticker": "VRTX",
+        "provider_name": "Vertex Pharmaceuticals Inc",
+        "market_cap": 121255976500.0,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "1991-07-31",
+        "description": "Vertex Pharmaceuticals is a global biotechnology company that discovers and develops small-molecule drugs for the treatment of serious diseases. Its key drugs are Kalydeco, Orkambi, Symdeko, and Trikafta/Kaftrio, and Alyftrek for cystic fibrosis, where Vertex therapies remain the standard of care globally. Vertex has diversified its portfolio through Casgevy, a gene-editing therapy for beta thalassemia and sickle-cell disease, and Journavx, a non-opioid pain medication approved for the treatment of moderate-to-severe acute pain in adults. Additionally, Vertex is evaluating small-molecule inhibitors of APOL1-mediated kidney diseases. Vertex is also investigating cell therapies to deliver a potential functional cure for type 1 diabetes.",
+        "website": "https://www.vrtx.com"
+      }
+    },
+    "REGN": {
+      "fetched_at": "2026-08-05T20:08:44Z",
+      "value": {
+        "ticker": "REGN",
+        "provider_name": "Regeneron Pharmaceuticals Inc",
+        "market_cap": 78313741172.08,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "1991-04-02",
+        "description": "Regeneron Pharmaceuticals discovers, develops, and commercializes products that fight eye disease, cardiovascular disease, cancer, and inflammation. The company has several marketed products, including low-dose Eylea and Eylea HD, approved for wet age-related macular degeneration and other eye diseases; Dupixent in immunology; Praluent for LDL cholesterol lowering; Libtayo in oncology; Kevzara in rheumatoid arthritis; and Lynozyfic for multiple myeloma. Regeneron has multiple partnerships and collaboration agreements, with Sanofi (Dupixent, others) and Bayer (Eylea) as its largest partners.",
+        "website": "https://www.regeneron.com"
+      }
+    },
+    "AMGN": {
+      "fetched_at": "2026-08-05T20:09:10Z",
+      "value": {
+        "ticker": "AMGN",
+        "provider_name": "Amgen Inc",
+        "market_cap": 210497021025.47998,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "1983-06-17",
+        "description": "Amgen is a leader in biotechnology-based human therapeutics. Flagship drugs include red blood cell boosters Epogen and Aranesp, immune system boosters Neupogen and Neulasta, and Enbrel and Otezla for inflammatory diseases. Amgen introduced its first cancer therapeutic, Vectibix, in 2006 and markets bone-strengthening drugs Prolia/Xgeva (approved 2010) and Evenity (2019). The acquisition of Onyx Pharmaceuticals bolstered the firm's therapeutic oncology portfolio with Kyprolis. Recent launches include Repatha (cholesterol-lowering), Aimovig (migraine), Lumakras (lung cancer), and Tezspire (asthma). The 2023 Horizon acquisition brought several rare-disease drugs, including thyroid eye disease drug Tepezza. Amgen also has a growing biosimilar portfolio.",
+        "website": "https://www.amgen.com"
+      }
+    },
+    "GILD": {
+      "fetched_at": "2026-08-05T20:09:35Z",
+      "value": {
+        "ticker": "GILD",
+        "provider_name": "Gilead Sciences Inc",
+        "market_cap": 167922325458.5,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "1992-01-22",
+        "description": "Gilead Sciences develops and markets therapies to treat and prevent life-threatening infectious diseases, with the core of its portfolio focused on HIV and hepatitis B and C. Gilead's acquisition of Pharmasset brought rights to hepatitis C drug Sovaldi, which is also part of newer combination regimens that remain standards of care. Gilead is also growing its presence in the oncology market via acquisitions, led by CAR-T cell therapy Yescarta/Tecartus (from Kite) and breast and bladder cancer therapy Trodelvy (from Immunomedics).",
+        "website": "https://www.gilead.com"
+      }
+    },
+    "BIIB": {
+      "fetched_at": "2026-08-05T20:10:02Z",
+      "value": {
+        "ticker": "BIIB",
+        "provider_name": "Biogen Inc. Common Stock",
+        "market_cap": 30799320883.1,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "1991-09-17",
+        "description": "Biogen is an established biopharmaceutical company focused on treatments for neurodegenerative and rare diseases. Its declining multiple sclerosis franchise is its largest revenue generator and contributed 40% of total revenue in 2025. Biogen also generates significant revenue from its CD20 collaboration agreements with Roche (19% of total in 2025), which includes oncology drugs Rituxan and Gazyva and multiple sclerosis drug Ocrevus. Biogen's newer franchises include Spinraza (spinal muscular atrophy, with partner Ionis), Leqembi (Alzheimer's disease, collabroation revenue from its partner Eisai), Skyclarys (Friedreich's ataxia, Reata), Zurzuvae (postpartum depression, Sage), and Qalsody (amyotrophic lateral sclerosis, Ionis).",
+        "website": "https://www.biogen.com"
+      }
+    },
+    "ALNY": {
+      "fetched_at": "2026-08-05T20:10:27Z",
+      "value": {
+        "ticker": "ALNY",
+        "provider_name": "Alnylam Pharmaceuticals, Inc.",
+        "market_cap": 29304196842.0,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "2004-05-28",
+        "description": "Alnylam Pharmaceuticals is a leader in the study of RNA interference (RNAi) therapeutics. RNAi is a naturally occurring biological pathway within cells for sequence-specific silencing and regulation of gene expression. Alnylam's commercial RNAi therapeutic products include Onpattro and Amvuttra (for hATTR amyloidosis), Givlaari (for acute hepatic porphyria), and Oxlumo (for primary hyperoxaluria type 1), all developed and commercialized by Alnylam. Plus, Leqvio (for hypercholesterolemia) and Qfitlia (for hemophilia A or B), which are being commercialized by Alnylam's partners, Novartis and Sanofi, respectively. It also has several clinical programs across various therapeutic areas, including cardio-metabolic diseases, neuroscience, and hematology.",
+        "website": "https://www.alnylam.com"
+      }
+    },
+    "SRPT": {
+      "fetched_at": "2026-08-05T20:10:53Z",
+      "value": {
+        "ticker": "SRPT",
+        "provider_name": "Sarepta Therapeutics,, Inc. Common Stock",
+        "market_cap": 1730394278.5800002,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "1997-06-04",
+        "description": "Sarepta Therapeutics Inc is a commercial-stage biopharmaceutical company focused on the discovery and development of RNA-targeted therapies, gene therapies, and other genetic medicines for rare diseases, particularly neuromuscular disorders. The company has developed approved treatments for Duchenne muscular dystrophy, including EXONDYS 51, VYONDYS 53, AMONDYS 45, and ELEVIDYS, and is advancing additional therapeutic candidates for neuromuscular and other rare diseases. The company operates in one segment: discovering, developing, manufacturing, and delivering therapies to patients with rare diseases.",
+        "website": "https://www.sarepta.com"
+      }
+    },
+    "MRNA": {
+      "fetched_at": "2026-08-05T20:11:20Z",
+      "value": {
+        "ticker": "MRNA",
+        "provider_name": "Moderna, Inc. Common Stock",
+        "market_cap": 22752453314.11,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "2018-12-07",
+        "description": "Moderna is a commercial-stage biotech that was founded in 2010 and had its initial public offering in 2018. The firm's mRNA technology was rapidly validated with its covid vaccine, which was authorized in the United States in December 2020. Moderna had 25 mRNA development candidates in clinical studies as of March 2026. Programs span a wide range of therapeutic areas, including infectious disease, oncology, cardiovascular disease, and rare genetic diseases.",
+        "website": "https://www.modernatx.com"
+      }
+    },
+    "EXEL": {
+      "fetched_at": "2026-08-05T20:11:46Z",
+      "value": {
+        "ticker": "EXEL",
+        "provider_name": "Exelixis Inc",
+        "market_cap": 14075884648.0,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "2000-04-11",
+        "description": "Exelixis Inc is a biopharmaceutical firm that discovers, develops, and commercializes treatments for cancer. Its molecule, cabozantinib, is indicated for the treatment of patients with metastatic medullary thyroid cancer under the name Cometriq and for the treatment of kidney and liver cancer under the name Cabometyx. Exelixis and its partner Roche have also brought Cotellic to market for the treatment of melanoma.",
+        "website": "https://www.exelixis.com"
+      }
+    },
+    "ARGX": {
+      "fetched_at": "2026-08-05T20:12:12Z",
+      "value": {
+        "ticker": "ARGX",
+        "provider_name": "argenx SE American Depositary Shares",
+        "market_cap": 52832758588.5,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "2017-05-18",
+        "description": "Argenx is a Dutch biopharmaceutical company focused on developing antibody-based therapies for rare autoimmune diseases. The company's lead product, Vyvgart (efgartigimod), was approved by the FDA in December 2021 for the treatment of generalized myasthenia gravis (gMG). In 2022, Argenx also received FDA approval for Vyvgart Hytrulo, a subcutaneous formulation of Vyvgart, offering a more convenient option compared with Vyvgart's intravenous administration. In 2024, the FDA approved Vyvgart Hytrulo for Chronic Inflammatory Demyelinating Polyneuropathy, a rare immune-mediated neuromuscular disorder of the peripheral nervous system. Argenx is focused on innovation and developing its pipeline for treatments such as primary immune thrombocytopenia, thyroid eye disease, and Sjogren's Disease.",
+        "website": "https://www.argenx.com"
+      }
+    },
+    "NBIX": {
+      "fetched_at": "2026-08-05T20:12:38Z",
+      "value": {
+        "ticker": "NBIX",
+        "provider_name": "Neurocrine Biosciences Inc",
+        "market_cap": 16879862996.86,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "1996-05-23",
+        "description": "Neurocrine Biosciences Inc is a biopharmaceutical firm focused on the research, development, and commercialization of treatments for neurological, psychiatric, endocrine, and immunological disorders. Its portfolio includes therapies for conditions such as tardive dyskinesia, chorea associated with Huntington's disease, classic congenital adrenal hyperplasia due to 21-hydroxylase deficiency, and treatments for endometriosis and uterine fibroids. The company also maintains a pipeline of drug candidates in various stages of clinical and preclinical development across its therapeutic areas, including small molecules, peptides, proteins, antibodies, conjugates, and gene therapies. It derives revenue from the sale of its pharmaceutical products.",
+        "website": "https://www.neurocrine.com"
+      }
+    },
+    "UTHR": {
+      "fetched_at": "2026-08-05T20:13:04Z",
+      "value": {
+        "ticker": "UTHR",
+        "provider_name": "United Therapeutics Corp",
+        "market_cap": 22016271472.44,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "1999-06-17",
+        "description": "United Therapeutics Corp specializes in drug development for pulmonary arterial hypertension (PAH), a rare and progressive disease marked by abnormally high blood pressure in the arteries of the lungs. The company's therapies for PAH largely focus on the prostacyclin pathway, and many of its treatments are based on the same molecule, treprostinil. The company markets and sells the following commercial therapies in the United States to treat PAH: Tyvaso DPI (treprostinil) Inhalation Powder, Remodulin Injection, Orenitram (treprostinil) Extended-Release Tablets, Adcirca (tadalafil) Tablets, and Unituxin. It derives maximum revenue from the sale of Tyvaso DPI. Geographically, the company operates in United States and Rest of the World, of which United States generates majority of the revenue.",
+        "website": "https://www.unither.com"
+      }
+    },
+    "INCY": {
+      "fetched_at": "2026-08-05T20:13:31Z",
+      "value": {
+        "ticker": "INCY",
+        "provider_name": "Incyte Genomics Inc",
+        "market_cap": 24445348167.6,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "1993-11-03",
+        "description": "Incyte focuses on the discovery and development of small-molecule drugs. The firm's leading drug, Jakafi, treats two types of rare blood cancer and graft versus host disease and is partnered with Novartis. Incyte's other marketed drugs include rheumatoid arthritis treatment Olumiant (licensed to Lilly), and oncology drugs Iclusig (chronic myeloid leukemia), Pemazyre (cholangiocarcinoma), Tabrecta (lung cancer), and Monjuvi (diffuse large B-cell lymphoma). The firm's first dermatology product, Opzelura, was approved in 2021 for atopic dermatitis and 2022 for vitiligo. Incyte's pipeline includes an array of oncology and dermatology programs.",
+        "website": "https://www.incyte.com"
+      }
+    },
+    "BMRN": {
+      "fetched_at": "2026-08-05T20:13:56Z",
+      "value": {
+        "ticker": "BMRN",
+        "provider_name": "BioMarin Pharmaceuticals Inc",
+        "market_cap": 11736231075.36,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "1999-07-23",
+        "description": "BioMarin is a global biotechnology company focused on developing and commercializing therapies for rare genetic diseases. BioMarin specializes in enzyme replacement therapies, gene therapies, and other advanced treatments designed to address complex genetic disorders. The company has eight approved therapies for conditions including achondroplasia, phenylketonuria, hemophilia, and mucopolysaccharidosis. BioMarin has an expanding, yet relatively early-stage, pipeline of treatments in development across skeletal conditions and enzyme therapies.",
+        "website": "https://www.biomarin.com"
+      }
+    },
+    "IONS": {
+      "fetched_at": "2026-08-05T20:14:22Z",
+      "value": {
+        "ticker": "IONS",
+        "provider_name": "Ionis Pharmaceuticals, Inc. Common Stock",
+        "market_cap": 9151770612.54,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "1991-05-17",
+        "description": "Ionis Pharmaceuticals is the leading developer of antisense technology to discover and develop novel drugs. Its broad clinical and preclinical pipeline targets a wide variety of diseases, with an emphasis on cardiovascular, metabolic, neurological, and rare diseases. Ionis and Biogen brought Spinraza to market in 2016 as a treatment for spinal muscular atrophy, and Biogen launched ALS drug Qalsody in 2023. Ionis brought two additional drugs to market via its cardiovascular-focused subsidiary Akcea, including ATTR amyloidosis drug Tegsedi (2018) and cardiology drug Waylivra (Europe, 2019). Ionis and AstraZeneca launched polyneuropathy drug Wainua in 2024. Ionis marked its first two independent launches in 2025 for Tryngolza (for FCS) and Dawnzera (for HAE).",
+        "website": "https://www.ionis.com"
+      }
+    },
+    "ADMA": {
+      "fetched_at": "2026-08-05T20:14:48Z",
+      "value": {
+        "ticker": "ADMA",
+        "provider_name": "ADMA Biologics, Inc.",
+        "market_cap": 2065094890.65,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "2013-10-17",
+        "description": "ADMA Biologics Inc is an end-to-end commercial biopharmaceutical company dedicated to manufacturing, marketing, and developing specialty plasma-derived biologics for the treatment of immunodeficient patients at risk for infection and others at risk for certain infectious diseases. The segments of the company are ADMA BioManufacturing, which generates maximum revenue, Plasma Collection Centres, and the corporate segment. The company sells plasma-derived intermediate fractions to certain customers, which are generated as part of its FDA-approved manufacturing process for IG and IVIG products. It also provides laboratory contracting services to certain customers and anticipates providing contract filling, labeling & packing services. The company derives maximum revenue from the United States.",
+        "website": "https://www.admabiologics.com"
+      }
+    },
+    "OCUL": {
+      "fetched_at": "2026-08-05T20:15:14Z",
+      "value": {
+        "ticker": "OCUL",
+        "provider_name": "Ocular Therapeutix, Inc.",
+        "market_cap": 1886500306.12,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "2014-07-25",
+        "description": "Ocular Therapeutix Inc is a biotechnology company that specializes in therapies for diseases and conditions of the eye. The company uses its proprietary hydrogel platform technology to deliver therapeutic agents to the eye. Its pipeline consists of eye medication that aims to overcome the limitations of current eye-drop-based therapies for ophthalmic diseases and conditions. Its pipeline product includes Dextenza, OTX-TIC, OTX-TKI, and OTX-IVT.",
+        "website": "https://www.ocutx.com"
+      }
+    },
+    "NVCR": {
+      "fetched_at": "2026-08-05T20:15:40Z",
+      "value": {
+        "ticker": "NVCR",
+        "provider_name": "NovoCure Limited Ordinary Shares",
+        "market_cap": 1894573816.8,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "2015-10-02",
+        "description": "NovoCure Ltd is an oncology company with a proprietary platform technology in the United States. Its business involves the development, manufacture, and commercialization of Tumor Treating Fields (TTFields) devices, including Optune Gio and Optune Lua, for the treatment of solid tumor cancers. Its pipeline consists of Trident, Lunar-2, Panova-3, Metis, and other products and technologies for the treatment of Glioblastoma, Non-small cell lung cancer, and Pancreatic cancer. Geographically, the company derives the majority of its revenue from the United States and the rest from Germany, Japan, and other markets.",
+        "website": "https://www.novocure.com"
+      }
+    },
+    "CORT": {
+      "fetched_at": "2026-08-05T20:16:06Z",
+      "value": {
+        "ticker": "CORT",
+        "provider_name": "Corcept Therapeutics Inc.",
+        "market_cap": 11869203990.6,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "2004-04-14",
+        "description": "Corcept Therapeutics Inc is a commercial-stage pharmaceutical company engaged in the discovery and development of medications that treat severe metabolic, oncologic, and neuropsychiatric disorders by modulating the effect of the cortisol hormone. The company markets Korlym (mifepristone) tablets and its authorized generic version, which is an oral medication for the treatment of hypercortisolism (also known as Cushing's syndrome). Additionally, its pipeline contains several key compounds, such as Relacorilant, Dazucorilant, Miricorilant, etc., that are being evaluated in clinical trials as potential treatments for a variety of serious disorders like hypercortisolism, solid tumors (including ovarian, endometrial, cervical, pancreatic, and prostate cancers), ALS, and MASH.",
+        "website": "https://www.corcept.com"
+      }
+    },
+    "ACAD": {
+      "fetched_at": "2026-08-05T20:16:32Z",
+      "value": {
+        "ticker": "ACAD",
+        "provider_name": "Acadia Pharmaceuticals Inc.",
+        "market_cap": 4649053870.5,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "2004-05-27",
+        "description": "Acadia Pharmaceuticals Inc is a biopharmaceutical company focused on turning scientific promise to makes a difference for underserved neurological and rare disease communities around the world. It has two core franchises in neurological and rare diseases. Its neurological disease is anchored by the commercial product NUPLAZID (pimavanserin), which is the first and only drug approved by the U.S. (FDA) for the treatment of hallucinations and delusions associated with Parkinson's disease psychosis (PDP). Its rare disease is anchored by the commercial product DAYBUE, which is the first and only drug approved for the treatment of Rett syndrome. Its clinical-stage development efforts are focused on Alzheimer's disease psychosis, Lewy Body Dementia psychosis, and multiple other programs.",
+        "website": "https://www.acadia.com"
+      }
+    },
+    "KRYS": {
+      "fetched_at": "2026-08-05T20:16:58Z",
+      "value": {
+        "ticker": "KRYS",
+        "provider_name": "Krystal Biotech, Inc. Common Stock",
+        "market_cap": 9612813967.72,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "2017-09-20",
+        "description": "Krystal Biotech Inc is an integrated, commercial-stage biotechnology company focused on the discovery, development, manufacturing, and commercialization of genetic medicines to treat diseases with high unmet medical needs. The company uses its patented HSV-1-based gene therapy platform to create vectors that deliver therapeutic transgenes to target cells. It possesses exclusive rights to develop, manufacture, and commercialize VYJUVEK internationally. The company operates as one operating segment focused on pharmaceutical products and manufactures, markets, and sells VYJUVEK in the United States and markets and sells VYJUVEK in the European Union, and Japan.",
+        "website": "https://www.krystalbio.com"
+      }
+    },
+    "RNA": {
+      "fetched_at": "2026-08-05T20:17:24Z",
+      "value": {
+        "ticker": "RNA",
+        "provider_name": "Atrium Therapeutics, Inc. Common Stock",
+        "market_cap": 197399120.22,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "2026-02-27",
+        "description": "Atrium Therapeutics Inc is a biopharmaceutical firm focused on developing RNA-based therapeutics for cardiac conditions, including cardiomyopathies. Its platform technology is designed to enable targeted delivery of RNA therapeutics to heart tissue by combining ligand-based targeting approaches with oligonucleotide-based therapies. The company's development pipeline includes programs targeting genetically associated forms of cardiomyopathy, specifically involving the PRKAG2 and PLN genes.",
+        "website": "https://www.aviditybiosciences.com"
+      }
+    },
+    "RXRX": {
+      "fetched_at": "2026-08-05T20:17:50Z",
+      "value": {
+        "ticker": "RXRX",
+        "provider_name": "Recursion Pharmaceuticals, Inc. Class A Common Stock",
+        "market_cap": 1756822875.38,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "2021-04-16",
+        "description": "Recursion Pharmaceuticals Inc is a clinical-stage biotechnology company. The company is decoding biology by integrating technological innovations across biology, chemistry, automation, data science, and engineering, with the goal of radically improving the lives of patients and industrializing drug discovery. Geographically, the company operates in United States, United Kingdom, and Others. It derives maximum revenue from United States.",
+        "website": "https://www.recursion.com"
+      }
+    },
+    "CGON": {
+      "fetched_at": "2026-08-05T20:18:16Z",
+      "value": {
+        "ticker": "CGON",
+        "provider_name": "CG Oncology, Inc. Common stock",
+        "market_cap": 6297656572.200001,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "2024-01-25",
+        "description": "CG Oncology Inc is a late-stage clinical biopharmaceutical company focused on developing and commercializing its product candidate, cretostimogene grenadenorepvec, for patients with bladder cancer. The company's candidate, cretostimogene grenadenorepvec, is a targeted oncolytic intravesically delivered immunotherapy agent that is in two phase three trials (one high-risk BCG unresponsive NMIBC trial and one intermediate-risk NMIBC trial) and a phase two clinical study with a checkpoint inhibitor for high-risk BCG unresponsive NMIBC disease.",
+        "website": "https://www.cgoncology.com"
+      }
+    },
+    "BBIO": {
+      "fetched_at": "2026-08-05T20:18:42Z",
+      "value": {
+        "ticker": "BBIO",
+        "provider_name": "BridgeBio Pharma, Inc. Common Stock",
+        "market_cap": 16074332130.939999,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "2019-06-27",
+        "description": "BridgeBio Pharma is a biotechnology company focused on discovering, developing, testing, and delivering transformative treatments for patients with genetic diseases. The company has four programs in its late-stage pipeline focusing on Mendelian disorders, oncology, and gene therapy. One of its key programs, Attruby (acoramidis), is an orally administered small molecule designed to stabilize tetrameric transthyretin for the treatment of transthyretin amyloid cardiomyopathy.",
+        "website": "https://www.bridgebio.com"
+      }
+    },
+    "NTRA": {
+      "fetched_at": "2026-08-05T20:19:08Z",
+      "value": {
+        "ticker": "NTRA",
+        "provider_name": "Natera, Inc. Common Stock",
+        "market_cap": 39411440972.58,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "2015-07-02",
+        "description": "Natera Inc is a diagnostic and research company with proprietary molecular and bioinformatics technology. The company's key product offerings include its Panorama Non-Invasive Prenatal Test (NIPT) which screens for chromosomal abnormalities of a fetus as well as in twin pregnancies, typically with a blood draw from the mother, Horizon Carrier Screening (HCS) to determine carrier status for a large number of severe genetic diseases that could be passed on to the carrier's children, Signatera molecular residual disease (MRD) test, which detects circulating tumor DNA in patients previously diagnosed with cancer to assess molecular residual disease and monitor for recurrence; and Prospera, to assess organ transplant rejection.",
+        "website": "https://www.natera.com"
+      }
+    },
+    "NEO": {
+      "fetched_at": "2026-08-05T20:19:34Z",
+      "value": {
+        "ticker": "NEO",
+        "provider_name": "NeoGenomics, Inc.",
+        "market_cap": 2092864917.6,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "1996-01-25",
+        "description": "NeoGenomics Inc provides oncology diagnostic testing and consultative services which include technical laboratory services and professional interpretation of laboratory test results by licensed physicians or molecular experts in pathology and oncology. The company operates a network of cancer-focused testing laboratories in the United States and the United Kingdom. The company operates in a single segment and derives revenue from clients by providing clinical cancer testing, interpretation, and consultative services, molecular and NGS testing, comprehensive technical and professional services offerings, clinical trials and research, validation laboratory services, and oncology data solutions.",
+        "website": "https://www.neogenomics.com"
+      }
+    },
+    "BLLN": {
+      "fetched_at": "2026-08-05T20:20:00Z",
+      "value": {
+        "ticker": "BLLN",
+        "provider_name": "BillionToOne, Inc. Class A Common Stock",
+        "market_cap": 6542857599.0,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "2025-11-06",
+        "description": "BillionToOne Inc is a molecular diagnostics company. It offers a portfolio of ultrasensitive tests covering prenatal genetic testing, cancer therapy selection, and response monitoring, which are based on its Quantitative Counting Templates (QCT) molecular counting platform. The company's product portfolio comprises UNITY, a portfolio of prenatal testing products that can conduct fetal risk analysis without requiring a paternal sample; Northstar Select, a ultrasensitive liquid biopsy test that provides insights into appropriate therapies for stage III or IV cancer patients; and Northstar Response, a tissue-free, pan-cancer, liquid biopsy test that measures several genomic loci uniquely methylated in cancer to provide insight into dynamic changes in therapy response.",
+        "website": "https://www.billiontoone.com"
+      }
+    },
+    "GH": {
+      "fetched_at": "2026-08-05T20:20:26Z",
+      "value": {
+        "ticker": "GH",
+        "provider_name": "Guardant Health, Inc. Common Stock",
+        "market_cap": 21443206004.3,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "2018-10-04",
+        "description": "Guardant Health, based in Redwood City, California, is a leader in liquid-based cancer tests for clinical and research use. The company's main franchises are Guardant360 for genomic profiling of tumors, Reveal for molecular residual disease testing, and Shield for colorectal cancer screening. Additionally, Guardant offers research development services such as regulatory approval consultancy and clinical trial referrals.",
+        "website": "https://www.guardanthealth.com"
+      }
+    },
+    "TEM": {
+      "fetched_at": "2026-08-05T20:20:52Z",
+      "value": {
+        "ticker": "TEM",
+        "provider_name": "Tempus AI, Inc. Class A Common Stock",
+        "market_cap": 8489455269.799999,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "2024-06-14",
+        "description": "Tempus AI Inc is a technology company. It has built the Tempus Platform, which comprises both a technology platform to free healthcare data from silos and an operating system to make the resulting data useful. Its Intelligent Diagnostics use AI, including generative AI, to make laboratory tests more accurate, tailored, and personal.",
+        "website": "https://www.tempus.com"
+      }
+    },
+    "ILMN": {
+      "fetched_at": "2026-08-05T20:21:18Z",
+      "value": {
+        "ticker": "ILMN",
+        "provider_name": "Illumina Inc",
+        "market_cap": 30654510000.0,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "2000-07-28",
+        "description": "Illumina provides tools and services to analyze genetic material with life science and clinical lab applications. The company generates over 90% of its revenue from sequencing instruments, consumables, and services. Illumina's high-throughput technology enables whole genome sequencing in humans and other large organisms. Its lower throughput tools enable applications that require smaller data outputs, such as viral and cancer tumor screening. Illumina also sells microarrays that enable lower-cost, focused genetic screening with primarily consumer and agricultural applications.",
+        "website": "https://www.illumina.com"
+      }
+    },
+    "TXG": {
+      "fetched_at": "2026-08-05T20:21:44Z",
+      "value": {
+        "ticker": "TXG",
+        "provider_name": "10x Genomics, Inc. Class A Common Stock",
+        "market_cap": 6076123205.54,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "2019-09-12",
+        "description": "10x Genomics Inc is a life science technology company based in the United States. Its solutions include instruments, consumables, and software for analyzing biological systems. The company's integrated solutions include instruments, consumables, and software for analyzing biological systems at a resolution and scale that matches the complexity of biology. Its product offerings include a Chromium platform comprising microfluidic chips and related consumables, Chromium X series, Visium and Xenium platforms, and others, which are predominantly used for the study of biological components. Geographically, the company derives operates from the United States and the rest from Americas (excluding the United States), Europe, Middle East and Africa, China, and Asia-Pacific (excluding China).",
+        "website": "https://www.10xgenomics.com"
+      }
+    },
+    "PACB": {
+      "fetched_at": "2026-08-05T20:22:10Z",
+      "value": {
+        "ticker": "PACB",
+        "provider_name": "Pacific Biosciences of California, Inc.",
+        "market_cap": 447266430.71999997,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "2010-10-27",
+        "description": "Pacific Biosciences of California Inc is a biotechnology company focused on designing, developing, and manufacturing sequencing solutions that enable scientists and clinical researchers to improve their understanding of the genome and ultimately, resolve genetically complex problems. It operates in, one reportable segment: the development, manufacturing, and marketing of an integrated platform for genetic analysis. The majority of the company's revenue is derived from Americas, followed by Europe Middle East, and Africa and Asia-Pacific.",
+        "website": "https://www.pacb.com"
+      }
+    },
+    "QDEL": {
+      "fetched_at": "2026-08-05T20:22:36Z",
+      "value": {
+        "ticker": "QDEL",
+        "provider_name": "QuidelOrtho Corporation Common Stock",
+        "market_cap": 1198797586.62,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "1981-08-04",
+        "description": "QuidelOrtho Corp is engaged in the development, manufacturing, and marketing of rapid diagnostic testing solutions. The company is engaged in immunoassay and molecular testing, clinical chemistry, and transfusion medicine, which helps clinicians and patients to make decisions across the globe. Geographically, the company has its presence in North America, EMEA, China, and Other countries. It generates the majority of its revenue from North America.",
+        "website": "https://www.quidelortho.com"
+      }
+    },
+    "DGX": {
+      "fetched_at": "2026-08-05T20:23:02Z",
+      "value": {
+        "ticker": "DGX",
+        "provider_name": "Quest Diagnostics Inc.",
+        "market_cap": 25796461699.2,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNYS",
+        "list_date": "1996-12-17",
+        "description": "Quest Diagnostics is a leading independent provider of diagnostic testing, information, and services in the US. The company generates over 97% of its revenue through clinical testing, anatomic pathology, esoteric testing, and substance abuse testing with specimens collected at its national network of roughly 2,400 patient service centers, as well as multiple doctors offices and hospitals. The firm also runs a much smaller diagnostic solutions segment that provides clinical trials testing, risk-assessment services, and information technology solutions.",
+        "website": "https://www.questdiagnostics.com"
+      }
+    },
+    "LH": {
+      "fetched_at": "2026-08-05T20:23:28Z",
+      "value": {
+        "ticker": "LH",
+        "provider_name": "Labcorp Holdings Inc.",
+        "market_cap": 25268305999.999996,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNYS",
+        "list_date": "1988-07-07",
+        "description": "Labcorp is one of the nation's two largest independent clinical laboratories, with roughly 20% of the independent lab market. The company operates approximately 2,000 patient-service centers, offering a broad range of 5,000 clinical lab tests, ranging from uncomplicated routine blood and urine screens to complex oncology and genomic testing.",
+        "website": "https://www.labcorp.com"
+      }
+    },
+    "CERT": {
+      "fetched_at": "2026-08-05T20:23:54Z",
+      "value": {
+        "ticker": "CERT",
+        "provider_name": "Certara, Inc. Common Stock",
+        "market_cap": 1189802484.0,
+        "market_cap_date": "2026-08-05",
+        "exchange": "XNAS",
+        "list_date": "2020-12-11",
+        "description": "Certara Inc accelerates medicines to patients using biosimulation software and technology to transform traditional drug discovery and development. It provides modeling and simulation, regulatory science, and assessment software and services to help clients reduce clinical trials, accelerate regulatory approval, and increase patient access to medicines. The company has its business presence in the Americas, which is also its key revenue-generating market, EMEA, and the Asia Pacific region.",
+        "website": "https://www.certara.com"
+      }
     }
   }
 }

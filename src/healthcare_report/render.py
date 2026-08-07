@@ -1024,8 +1024,14 @@ def build_markdown(context: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
-def report_html_name(report_date: date) -> str:
-    return f"Healthcare Intel-{report_date.isoformat()}.html"
+def _report_file_prefix(config: ProjectConfig | None) -> str:
+    if config is None or config.scope == "healthcare":
+        return "Healthcare Intel"
+    return config.report_name
+
+
+def report_html_name(report_date: date, config: ProjectConfig | None = None) -> str:
+    return f"{_report_file_prefix(config)}-{report_date.isoformat()}.html"
 
 
 def _navigation(body: str) -> tuple[str, str]:
@@ -1095,20 +1101,22 @@ def _html_document(
     )
 
 
-def write_report_files(folder: Path, markdown_text: str, report_date: date) -> Path:
+def write_report_files(
+    folder: Path, markdown_text: str, report_date: date, config: ProjectConfig | None = None
+) -> Path:
     markdown_path = folder / "report.md"
     markdown_path.write_text(markdown_text, encoding="utf-8")
     # The primary HTML is commonly downloaded, previewed, or shared without its
     # sibling assets directory. Keep it portable so charts survive those paths;
     # the WebP files remain alongside report.md for Markdown and chart reuse.
     document = _html_document(folder, markdown_text, embed_images=True)
-    html_path = folder / report_html_name(report_date)
+    html_path = folder / report_html_name(report_date, config)
     html_path.write_text(document, encoding="utf-8")
     return html_path
 
 
-def standalone_html_name(report_date: date) -> str:
-    return f"Healthcare Intel-{report_date.isoformat()}-standalone.html"
+def standalone_html_name(report_date: date, config: ProjectConfig | None = None) -> str:
+    return f"{_report_file_prefix(config)}-{report_date.isoformat()}-standalone.html"
 
 
 def write_standalone_report(folder: Path, report_date: date, destination: Path) -> Path:

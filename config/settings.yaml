@@ -1,4 +1,5 @@
 report:
+  slug: healthcare
   name: Healthcare Intel Digest
   description: >-
     Weekly review of category and company performance, changes since the previous
@@ -38,3 +39,41 @@ strategy_narrative:
   url: https://chatgpt.com/share/6a70f023-5050-83e8-91b8-5ffa9e09b7a4
   pattern: 'Week of\s+\w+\s+\d{1,2},\s+\d{4}'
   stale_after_days: 7
+
+# Keep the Life Science URL easy to replace before its first production run.
+report_profiles:
+  healthcare:
+    name: Healthcare Intel Digest
+    description: >-
+      Weekly review of healthcare services, technology, distribution, and diagnostic
+      company performance, changes, earnings activity, and strategy narrative.
+    categories:
+      - Payers
+      - Health System Providers
+      - Inpatient Non-Acute Providers
+      - Health Care Real Estate
+      - Value-Based Care
+      - Outpatient and Home Providers
+      - Digital Health, Specialty, Benefits
+      - Health IT and Data
+      - Pharma Distribution
+      - Precision Diagnostics
+    strategy_narrative:
+      url: https://chatgpt.com/share/6a70f023-5050-83e8-91b8-5ffa9e09b7a4
+      pattern: 'Week of\s+\w+\s+\d{1,2},\s+\d{4}'
+      stale_after_days: 7
+  life-science-device:
+    name: Life Science and Device Intel
+    description: >-
+      Weekly review of pharmaceutical, biotech, biologics, and medical-device
+      company performance, changes, earnings activity, and strategy narrative.
+    categories:
+      - Devices & Diagnostic
+      - Big Pharma
+      - Established Biotech
+      - Emerging Biotech
+    strategy_narrative:
+      # Replace this with the Life Science and Device ChatGPT share before first run.
+      url: https://chatgpt.com/share/6a70f023-5050-83e8-91b8-5ffa9e09b7a4
+      pattern: 'Week of\s+\w+\s+\d{1,2},\s+\d{4}'
+      stale_after_days: 7

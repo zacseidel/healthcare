@@ -165,7 +165,7 @@ def test_end_to_end_report_and_baseline(project, monkeypatch):
     earnings_heading = soup.select_one("h2#recent-earnings-highlights-3m-ret")
     assert earnings_heading is not None
     first_earnings = earnings_heading.find_next_sibling("ul").find("li").get_text(" ", strip=True)
-    assert first_earnings.startswith("Veeva Systems (VEEV)")
+    assert first_earnings.startswith("Certara (CERT)")
     company_nav_links = soup.select('nav.report-nav li ul a[href^="#company-"]')
     assert len(company_nav_links) == len(project.universe.companies)
     company_headings = soup.select('h3[id^="earnings-"]')

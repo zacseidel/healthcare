@@ -45,6 +45,10 @@ SITE_CSS = """
   letter-spacing:.13em; text-transform:uppercase; }
 .site-lede { max-width:740px; color:#40505e; font-size:1.13rem; }
 .report-list { list-style:none; margin:2rem 0 0; padding:0; border-top:1px solid var(--site-line); }
+.report-group { margin-top:2.5rem; }
+.report-group h2 { margin:0; padding-bottom:.45rem; color:var(--site-navy);
+  border-bottom:2px solid var(--site-line); font:700 1.45rem/1.2 Georgia,"Times New Roman",serif; }
+.report-group .report-list { margin-top:0; }
 .report-list li { border-bottom:1px solid var(--site-line); }
 .report-list a { display:grid; grid-template-columns:minmax(190px,1fr) minmax(150px,.8fr) auto;
   gap:1rem; align-items:center; padding:1rem .2rem; color:inherit; text-decoration:none; }
@@ -69,9 +73,12 @@ SITE_CSS = """
 @dataclass(frozen=True)
 class SiteReport:
     report_date: date
+    report_type: str
+    report_name: str
     market_data_as_of: str
     quality: str
     source: Path
+    archive_path: str
 
 
 def _long_date(value: date) -> str:
@@ -83,26 +90,44 @@ def _discover_reports(config: ProjectConfig) -> list[SiteReport]:
     reports: list[SiteReport] = []
     if not final_root.is_dir():
         return reports
+    profiles = config.settings.get("report_profiles", {})
+    candidates: list[tuple[Path, ProjectConfig, str]] = []
     for folder in final_root.iterdir():
-        if not folder.is_dir() or not re.fullmatch(r"\d{4}-\d{2}-\d{2}", folder.name):
+        if not folder.is_dir():
             continue
+        if re.fullmatch(r"\d{4}-\d{2}-\d{2}", folder.name):
+            candidates.append((folder, config.for_scope("healthcare"), folder.name))
+        elif folder.name in profiles:
+            scoped = config.for_scope(folder.name)
+            for report_folder in folder.iterdir():
+                if report_folder.is_dir() and re.fullmatch(r"\d{4}-\d{2}-\d{2}", report_folder.name):
+                    candidates.append((report_folder, scoped, f"{folder.name}/{report_folder.name}"))
+    for folder, scoped, archive_path in candidates:
         try:
             published = date.fromisoformat(folder.name)
         except ValueError:
             continue
-        source = folder / report_html_name(published)
+        source = folder / report_html_name(published, scoped)
         manifest = read_json(folder / "manifest.json", {})
         if not source.is_file() or not isinstance(manifest, dict):
             continue
+        report_type = str(manifest.get("report_type") or scoped.scope)
         reports.append(
             SiteReport(
                 report_date=published,
+                report_type=report_type,
+                report_name=str(manifest.get("report_name") or scoped.report_name),
                 market_data_as_of=str(manifest.get("market_data_as_of") or ""),
                 quality=str(manifest.get("quality") or "unknown"),
                 source=source,
+                archive_path=archive_path,
             )
         )
-    return sorted(reports, key=lambda item: item.report_date, reverse=True)
+    return sorted(
+        reports,
+        key=lambda item: (item.report_date, item.report_type == "healthcare"),
+        reverse=True,
+    )
 
 
 def _site_header(prefix: str, active: str) -> str:
@@ -165,23 +190,35 @@ def _content_page(config: ProjectConfig, name: str, *, prefix: str) -> str:
 
 
 def _archive_page(reports: list[SiteReport]) -> str:
-    rows: list[str] = []
-    for index, report in enumerate(reports):
-        market_date = ""
-        if report.market_data_as_of:
-            try:
-                market_date = _long_date(date.fromisoformat(report.market_data_as_of))
-            except ValueError:
-                market_date = report.market_data_as_of
-        badge = "Latest" if index == 0 else ("Data warning" if report.quality != "ok" else "Final")
-        badge_class = "site-badge-warning" if report.quality != "ok" and index != 0 else ""
-        rows.append(
-            f'<li><a href="{report.report_date.isoformat()}/">'
-            f"<strong>{_long_date(report.report_date)}</strong>"
-            f"<span>Market data through {html.escape(market_date or 'not recorded')}</span>"
-            f'<span class="site-badge {badge_class}">{badge}</span></a></li>'
+    groups = (
+        ("healthcare", "Healthcare Intel Report"),
+        ("life-science-device", "Life Sciences Intel Report"),
+    )
+    sections: list[str] = []
+    for report_type, heading in groups:
+        group_reports = [report for report in reports if report.report_type == report_type]
+        rows: list[str] = []
+        for index, report in enumerate(group_reports):
+            market_date = ""
+            if report.market_data_as_of:
+                try:
+                    market_date = _long_date(date.fromisoformat(report.market_data_as_of))
+                except ValueError:
+                    market_date = report.market_data_as_of
+            badge = "Latest" if index == 0 else ("Data warning" if report.quality != "ok" else "Final")
+            badge_class = "site-badge-warning" if report.quality != "ok" and index != 0 else ""
+            rows.append(
+                f'<li><a href="{report.archive_path}/">'
+                f"<strong>{_long_date(report.report_date)}</strong>"
+                f"<span>Market data through {html.escape(market_date or 'not recorded')}</span>"
+                f'<span class="site-badge {badge_class}">{badge}</span></a></li>'
+            )
+        listing = "".join(rows) or '<li class="report-empty">No reports published yet.</li>'
+        sections.append(
+            f'<section class="report-group"><h2>{heading}</h2>'
+            f'<ul class="report-list">{listing}</ul></section>'
         )
-    listing = "".join(rows) if rows else "<li>No final reports have been published yet.</li>"
+    listing = "".join(sections) or "<p>No final reports have been published yet.</p>"
     body = (
         '<p class="site-eyebrow">Archive</p><h1>Past reports</h1>'
         '<p class="site-lede">Browse the complete set of published weekly reports. '
@@ -228,12 +265,15 @@ def build_site(config: ProjectConfig, output: Path | None = None) -> dict[str, A
                 _content_page(config, name, prefix="../"), encoding="utf-8"
             )
         if reports:
-            latest = reports[0]
+            latest = next(
+                (report for report in reports if report.report_type == "healthcare"), reports[0]
+            )
             _decorate_report(latest.source, temporary / "index.html", prefix="", active="latest")
             _copy_assets(latest.source, temporary)
             for report in reports:
-                folder = temporary / "reports" / report.report_date.isoformat()
-                _decorate_report(report.source, folder / "index.html", prefix="../../", active="reports")
+                folder = temporary / "reports" / report.archive_path
+                prefix = "../" * (len(report.archive_path.split("/")) + 1)
+                _decorate_report(report.source, folder / "index.html", prefix=prefix, active="reports")
                 _copy_assets(report.source, folder)
         else:
             (temporary / "index.html").write_text(_empty_home(config), encoding="utf-8")

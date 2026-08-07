@@ -14,7 +14,9 @@ from .storage import read_json, utc_now, write_json
 
 
 def narrative_path(config: ProjectConfig) -> Path:
-    return config.root / "state" / "narrative.json"
+    if config.scope == "healthcare":
+        return config.root / "state" / "narrative.json"
+    return config.root / "state" / f"narrative-{config.report_slug}.json"
 
 
 def _legacy_path(config: ProjectConfig) -> Path:

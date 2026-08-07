@@ -178,7 +178,7 @@ def _render_final(
     reuse_assets_from: Path | None = None,
 ) -> tuple[Path, dict[str, Any]]:
     render_started = time.perf_counter()
-    final_root = config.root / "reports" / "final"
+    final_root = config.final_root
     final_root.mkdir(parents=True, exist_ok=True)
     temporary = Path(tempfile.mkdtemp(prefix=f".{report_date.isoformat()}-", dir=final_root))
     try:
@@ -243,8 +243,8 @@ def _render_final(
             "issues": issues,
         }
         markdown_text = build_markdown(context)
-        html_name = report_html_name(report_date)
-        write_report_files(temporary, markdown_text, report_date)
+        html_name = report_html_name(report_date, config)
+        write_report_files(temporary, markdown_text, report_date, config)
         write_csv(temporary / "snapshot.csv", snapshot, SNAPSHOT_FIELDS)
         write_csv(temporary / "changes.csv", changes, CHANGE_FIELDS)
         write_gzip_json(
@@ -271,6 +271,8 @@ def _render_final(
         durations["rendering"] = _round_seconds(time.perf_counter() - render_started)
         manifest = {
             "schema": 2,
+            "report_type": config.scope,
+            "report_name": config.report_name,
             "report_date": report_date.isoformat(),
             "market_data_as_of": market_data_as_of.isoformat(),
             "generated_at": generated_at or utc_now(),
@@ -517,13 +519,14 @@ def run_report(
     from .site import build_site
 
     site = build_site(config)
-    html_name = report_html_name(report_date)
-    _progress(f"Complete: reports/final/{report_date.isoformat()}/{html_name}")
+    html_name = report_html_name(report_date, config)
+    _progress(f"Complete: {destination.relative_to(config.root)}/{html_name}")
     _progress("Public site rebuilt: docs/index.html")
     return {
         "status": manifest["quality"],
         "report_date": report_date.isoformat(),
         "market_data_as_of": market_data_as_of.isoformat(),
+        "report_type": config.scope,
         "output": str((destination / html_name).relative_to(config.root)),
         "site_output": str(Path(site["output"]).relative_to(config.root)),
         "baseline": baseline.report_date.isoformat() if baseline else None,
@@ -539,7 +542,7 @@ def rerender_report(
     refresh_charts: bool = False,
 ) -> dict[str, Any]:
     total_started = time.perf_counter()
-    folder = config.root / "reports" / "final" / report_date.isoformat()
+    folder = config.report_folder(report_date)
     manifest = read_json(folder / "manifest.json", {})
     if not isinstance(manifest, dict) or not manifest.get("report_date"):
         raise RuntimeError(f"No published report is available for {report_date.isoformat()}")
@@ -616,7 +619,7 @@ def rerender_report(
     from .site import build_site
 
     site = build_site(config)
-    html_name = report_html_name(report_date)
+    html_name = report_html_name(report_date, config)
     return {
         "status": final_manifest["quality"],
         "report_date": report_date.isoformat(),
@@ -634,11 +637,11 @@ def export_standalone_report(
     report_date: date,
     output: Path | None = None,
 ) -> dict[str, Any]:
-    folder = config.root / "reports" / "final" / report_date.isoformat()
+    folder = config.report_folder(report_date)
     if not folder.is_dir():
         raise RuntimeError(f"No published report is available for {report_date.isoformat()}")
     destination = output or (
-        config.root / "reports" / "standalone" / standalone_html_name(report_date)
+        config.root / "reports" / "standalone" / standalone_html_name(report_date, config)
     )
     path = write_standalone_report(folder, report_date, destination.resolve())
     return {

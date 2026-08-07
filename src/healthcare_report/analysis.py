@@ -260,7 +260,7 @@ def build_snapshot(
 
 
 def find_baseline(config: ProjectConfig, report_date: date) -> Baseline | None:
-    root = config.root / "reports" / "final"
+    root = config.final_root
     if not root.exists():
         return None
     minimum = int(config.settings["report"].get("previous_report_minimum_days", 5))
@@ -277,7 +277,13 @@ def find_baseline(config: ProjectConfig, report_date: date) -> Baseline | None:
     for _, folder in sorted(candidates, reverse=True):
         snapshot = read_csv(folder / "snapshot.csv")
         manifest = read_json(folder / "manifest.json", {})
-        if snapshot and isinstance(manifest, dict) and manifest.get("report_date"):
+        report_type = str(manifest.get("report_type") or "healthcare")
+        if (
+            snapshot
+            and isinstance(manifest, dict)
+            and manifest.get("report_date")
+            and report_type == config.scope
+        ):
             return Baseline(folder, [coerce_snapshot(row) for row in snapshot], manifest)
     return None
 

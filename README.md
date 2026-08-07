@@ -1,15 +1,18 @@
 # Healthcare Intel Digest
 
-A Python application that creates a weekly healthcare-stock intelligence report from
+A Python application that creates weekly healthcare and life-science stock intelligence reports from
 Massive market data, public earnings pages, and a shared ChatGPT strategy narrative.
 Reports are generated as final versions immediately and stored in Git.
 
 ## What it produces
 
-Every report is written to `reports/final/YYYY-MM-DD/`:
+Healthcare reports are written to `reports/final/YYYY-MM-DD/`; Life Science and Device reports are
+written to `reports/final/life-science-device/YYYY-MM-DD/`:
 
 - `Healthcare Intel-YYYY-MM-DD.html`: self-contained report HTML with embedded charts, so it
   can be downloaded, previewed, or shared on its own.
+- `Life Science and Device Intel-YYYY-MM-DD.html`: the same report format for the pharma,
+  biotech, and device universe.
 - `report.md` and `assets/`: diffable Markdown and lossless WebP chart images.
 - `snapshot.csv`: the published performance values and ranks.
 - `changes.csv`: every comparison with the previous eligible final.
@@ -56,6 +59,10 @@ Validate the project and create a report:
 ```sh
 python -m healthcare_report validate
 python -m healthcare_report run
+
+# Update only one report when needed:
+python -m healthcare_report run --report healthcare
+python -m healthcare_report run --report life-science-device
 ```
 
 Create or recreate a report for a specific date:
@@ -74,7 +81,8 @@ python -m healthcare_report run --date 2026-08-03 --force-secondary
 Rebuild an existing report from its saved snapshot and cache without network or browser work:
 
 ```sh
-python -m healthcare_report render --date 2026-08-03
+python -m healthcare_report render --date 2026-08-03 --report healthcare
+python -m healthcare_report render --date 2026-08-03 --report life-science-device
 ```
 
 The renderer reuses only the charts required by that saved report. If chart styling changed,
@@ -87,7 +95,7 @@ python -m healthcare_report render --date 2026-08-03 --refresh-charts
 Create a portable single-file copy on demand:
 
 ```sh
-python -m healthcare_report export-standalone --date 2026-08-03
+python -m healthcare_report export-standalone --date 2026-08-03 --report healthcare
 python -m healthcare_report export-standalone --date 2026-08-03 --output /tmp/report.html
 ```
 
@@ -103,6 +111,9 @@ The generated `docs/` directory opens to the newest report and includes a past-r
 an About page, and a Methodology page. It is tracked in Git so a local report run produces the
 exact static site that will be published. Both `run` and `render` rebuild it automatically;
 `build-site` remains useful after editing only the About or Methodology copy.
+
+The homepage always uses the latest Healthcare report. The Past reports page groups the archive
+under Healthcare Intel Report and Life Sciences Intel Report.
 
 The normal local publishing flow is:
 
@@ -125,6 +136,9 @@ Playwright Chromium, and the existing `.env` automatically:
 ```sh
 ./bin/run-report
 ```
+
+This updates both report profiles. Use the Python CLI's `--report` option when only one profile
+needs to be refreshed.
 
 To create or replace a report for a particular date:
 
@@ -154,7 +168,13 @@ mypy src
 - `inputs/companies.md` defines categories and their stocks using the original
   `Ticker: Name; Description` format. A ticker may belong to more than one category.
 - `config/settings.yaml` defines horizons, thresholds, source behavior, report presentation,
-  and the ChatGPT share URL.
+  report-profile category membership, and one ChatGPT share URL per report profile.
+
+The Healthcare profile includes services, providers, real estate, value-based care, outpatient
+and home care, digital health, health IT/data, pharma distribution, and precision diagnostics.
+The Life Science and Device profile includes Devices & Diagnostic, Big Pharma, Established Biotech,
+and Emerging Biotech. Its narrative URL initially matches Healthcare as a placeholder; replace
+`report_profiles.life-science-device.strategy_narrative.url` before its first production run.
 
 The report date and its automatic earnings selections are runtime values rather than mutable
 configuration. This keeps scheduled reports reproducible.
@@ -246,13 +266,15 @@ If the link cannot be read, the report uses the committed snapshot and visibly r
 Refresh only the snapshot with:
 
 ```sh
-python -m healthcare_report refresh-narrative
+python -m healthcare_report refresh-narrative --report healthcare
+python -m healthcare_report refresh-narrative --report life-science-device
 ```
 
 ## GitHub automation
 
 The **Run full healthcare update** workflow runs every Monday at 8:00 AM America/Denver and
-can also be dispatched manually with an optional report date. Add `MASSIVE_API_KEY` under
+updates both report profiles. Manual dispatch accepts an optional report date and a report scope
+of Healthcare, Life Science and Device, or Both. Add `MASSIVE_API_KEY` under
 **Settings → Secrets and variables → Actions** and allow GitHub Actions read/write repository
 permissions. A manual run forces fresh earnings and strategy-narrative checks, even if those
 sources were already checked that day.
@@ -263,10 +285,10 @@ using `github-actions[bot]`, and deploys the refreshed public site. If core mark
 cannot be built, it commits nothing. Earnings or narrative failures yield a degraded manifest
 while preserving the valid market report.
 
-The separate **Refresh strategy narrative** workflow is a lightweight manual action. Its
-`share_url` field is prefilled with the currently configured ChatGPT share URL; replacing that
-value refreshes the snapshot and saves the new URL in `config/settings.yaml` for subsequent
-full updates. The workflow commits only the URL configuration and `state/narrative.json`.
+The separate **Refresh strategy narrative** workflow is a lightweight manual action. Select a
+report profile and provide its ChatGPT share URL. The workflow refreshes that profile's snapshot
+and saves the URL in `config/settings.yaml` for subsequent updates. Narrative snapshots are kept
+separately under `state/`.
 
 Both update workflows share a concurrency lock, verify that the branch has not changed while
 they were running, and push through `github-actions[bot]`. The full workflow deploys Pages only
@@ -284,5 +306,6 @@ does the same after producing a new report because GitHub does not automatically
 branch-based Pages build for commits pushed with the workflow's `GITHUB_TOKEN`.
 
 Public page copy lives in `site_content/about.md` and `site_content/methodology.md`. The site
-generator automatically publishes every valid folder under `reports/final/`, sorts the archive
-newest-first, and uses the newest report as the homepage.
+generator automatically publishes legacy Healthcare folders and report-profile folders under
+`reports/final/`, lists both types in the Past reports archive, sorts newest-first, and uses the
+newest report as the homepage.

@@ -20,6 +20,32 @@ def test_current_universe_is_valid(project):
     assert str(project.timezone) == "America/Denver"
 
 
+def test_report_profiles_split_the_source_universe(project):
+    life = project.for_scope("life-science-device")
+    assert list(life.universe.categories) == [
+        "Devices & Diagnostic",
+        "Big Pharma",
+        "Established Biotech",
+        "Emerging Biotech",
+    ]
+    assert "MDT" in life.universe.companies
+    assert "LLY" in life.universe.companies
+    assert "UNH" not in life.universe.companies
+    assert "NTRA" not in life.universe.companies
+    assert project.scope == "healthcare"
+
+
+def test_life_science_profile_has_separate_outputs_and_narrative(project):
+    from healthcare_report.narrative import narrative_path
+    from healthcare_report.render import report_html_name, standalone_html_name
+
+    life = project.for_scope("life-science-device")
+    assert life.final_root == project.root / "reports" / "final" / "life-science-device"
+    assert report_html_name(date(2026, 8, 3), life) == "Life Science and Device Intel-2026-08-03.html"
+    assert standalone_html_name(date(2026, 8, 3), life).startswith("Life Science and Device Intel-")
+    assert narrative_path(life).name == "narrative-life-science-device.json"
+
+
 def test_cli_date_is_strict():
     assert parse_date("2026-08-03") == date(2026, 8, 3)
     with pytest.raises(Exception, match="YYYY-MM-DD"):

@@ -11,8 +11,8 @@ requirements_marker="$venv_dir/.environment-sha256"
 usage() {
   cat <<'EOF'
 Usage:
-  ./bin/run-report                 Create today's final report
-  ./bin/run-report YYYY-MM-DD      Create or replace a dated final report
+  ./bin/run-report                 Create today's Healthcare and Life Science reports
+  ./bin/run-report YYYY-MM-DD      Create or replace both dated final reports
   ./bin/run-report --validate      Validate the local installation without fetching data
   ./bin/run-report --render DATE [--refresh-charts]
                                    Rerender a saved report without network requests
@@ -173,6 +173,6 @@ fi
 
 cd "$project_dir"
 if [ "$#" -eq 1 ]; then
-  exec "$python_bin" -m healthcare_report run --date "$1"
+  exec "$python_bin" -m healthcare_report run --date "$1" --report both
 fi
-exec "$python_bin" -m healthcare_report run
+exec "$python_bin" -m healthcare_report run --report both

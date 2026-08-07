@@ -8,6 +8,14 @@ on:
         required: true
         type: string
         default: https://chatgpt.com/share/6a70f023-5050-83e8-91b8-5ffa9e09b7a4
+      report:
+        description: Report narrative to refresh
+        required: true
+        default: healthcare
+        type: choice
+        options:
+          - healthcare
+          - life-science-device
 
 permissions:
   contents: write
@@ -48,7 +56,7 @@ jobs:
       - name: Refresh the narrative from the selected share
         env:
           SHARE_URL: ${{ inputs.share_url }}
-        run: python -m healthcare_report refresh-narrative --url "$SHARE_URL" | tee narrative-result.json
+        run: python -m healthcare_report refresh-narrative --report "${{ inputs.report }}" --url "$SHARE_URL" | tee narrative-result.json
 
       - name: Add the refresh summary
         run: |
@@ -66,7 +74,7 @@ jobs:
             echo "::error::The branch changed during the refresh. Rerun from the new head."
             exit 1
           fi
-          git add -- config/settings.yaml state/narrative.json
+          git add -- config/settings.yaml state/narrative.json state/narrative-life-science-device.json
           if git diff --cached --quiet; then
             echo "The strategy narrative and share URL are already current."
             exit 0

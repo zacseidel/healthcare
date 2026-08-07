@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import os
 import re
+from copy import deepcopy
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -53,10 +54,54 @@ class ProjectConfig:
     root: Path
     settings: dict[str, Any]
     universe: Universe
+    scope: str = "healthcare"
+    available_universe: Universe | None = None
 
     @property
     def timezone(self) -> ZoneInfo:
         return ZoneInfo(self.settings["report"]["timezone"])
+
+    @property
+    def report_slug(self) -> str:
+        return str(self.settings["report"].get("slug") or self.scope)
+
+    @property
+    def report_name(self) -> str:
+        return str(self.settings["report"]["name"])
+
+    @property
+    def final_root(self) -> Path:
+        root = self.root / "reports" / "final"
+        return root if self.scope == "healthcare" else root / self.report_slug
+
+    def report_folder(self, report_date: Any) -> Path:
+        return self.final_root / str(report_date)
+
+    def for_scope(self, scope: str) -> ProjectConfig:
+        profiles = self.settings.get("report_profiles", {})
+        profile = profiles.get(scope)
+        if not isinstance(profile, dict):
+            raise ConfigurationError(f"Unknown report scope: {scope}")
+        source_universe = self.available_universe or self.universe
+        categories = profile.get("categories")
+        if not isinstance(categories, list) or not categories:
+            raise ConfigurationError(f"report profile {scope} must list categories")
+        missing = [category for category in categories if category not in source_universe.categories]
+        if missing:
+            raise ConfigurationError(
+                f"report profile {scope} references unknown categories: {', '.join(missing)}"
+            )
+        settings = deepcopy(self.settings)
+        report = dict(settings["report"])
+        report.update({key: value for key, value in profile.items() if key != "categories"})
+        report["slug"] = scope
+        settings["report"] = report
+        narrative = profile.get("strategy_narrative")
+        if not isinstance(narrative, dict):
+            raise ConfigurationError(f"report profile {scope} must define strategy_narrative")
+        settings["strategy_narrative"] = deepcopy(narrative)
+        selected = {category: source_universe.categories[category] for category in categories}
+        return ProjectConfig(self.root, settings, Universe(selected), scope, source_universe)
 
 
 def project_root(start: Path | None = None) -> Path:
@@ -141,6 +186,23 @@ def _validate_settings(settings: dict[str, Any]) -> None:
     if interval <= lead or lead < 0:
         raise ConfigurationError("earnings tentative interval must be greater than its check lead")
     validate_strategy_narrative_url(str(settings["strategy_narrative"].get("url") or ""))
+    profiles = settings.get("report_profiles")
+    if not isinstance(profiles, dict) or not profiles:
+        raise ConfigurationError("settings.report_profiles must define at least one profile")
+    for scope, profile in profiles.items():
+        if not isinstance(profile, dict):
+            raise ConfigurationError(f"settings.report_profiles.{scope} must be a mapping")
+        if not str(profile.get("name") or "").strip():
+            raise ConfigurationError(f"settings.report_profiles.{scope}.name is required")
+        categories = profile.get("categories")
+        if not isinstance(categories, list) or not categories:
+            raise ConfigurationError(f"settings.report_profiles.{scope}.categories is required")
+        narrative = profile.get("strategy_narrative")
+        if not isinstance(narrative, dict):
+            raise ConfigurationError(
+                f"settings.report_profiles.{scope}.strategy_narrative is required"
+            )
+        validate_strategy_narrative_url(str(narrative.get("url") or ""))
 
 
 def _load_universe(document: dict[str, Any]) -> Universe:
@@ -176,7 +238,15 @@ def load_config(root: Path | None = None) -> ProjectConfig:
     settings = _read_yaml(root / "config" / "settings.yaml")
     _validate_settings(settings)
     universe = _load_universe(_read_markdown_frontmatter(root / "inputs" / "companies.md"))
-    return ProjectConfig(root=root, settings=settings, universe=universe)
+    config = ProjectConfig(root=root, settings=settings, universe=universe, available_universe=universe)
+    if "healthcare" in settings["report_profiles"]:
+        try:
+            return config.for_scope("healthcare")
+        except ConfigurationError:
+            # Preserve the useful legacy behavior for callers editing a temporary
+            # company fixture before its profile category list is updated.
+            return config
+    return config
 
 
 def validate_strategy_narrative_url(value: str) -> str:
@@ -195,25 +265,34 @@ def persist_strategy_narrative_url(config: ProjectConfig, value: str) -> bool:
     url = validate_strategy_narrative_url(value)
     path = config.root / "config" / "settings.yaml"
     lines = path.read_text(encoding="utf-8").splitlines()
+    profile_path = f"report_profiles.{config.scope}.strategy_narrative"
     in_section = False
+    profile_depth = 0
     replaced = False
+    changed = False
     for index, line in enumerate(lines):
         if line and not line[0].isspace():
-            in_section = line.strip() == "strategy_narrative:"
+            in_section = config.scope == "healthcare" and line.strip() == "strategy_narrative:"
+            profile_depth = 0
             continue
+        if line.strip() == f"{config.scope}:" and index > 0 and lines[index - 1].strip() == "report_profiles:":
+            profile_depth = len(line) - len(line.lstrip())
+            in_section = False
+        if profile_depth and line.startswith(" " * (profile_depth + 2)) and line.strip() == "strategy_narrative:":
+            in_section = True
         if in_section and re.match(r"^\s+url:\s*", line):
             indent = line[: len(line) - len(line.lstrip())]
             replacement = f"{indent}url: {url}"
             replaced = True
-            if replacement == line:
-                config.settings["strategy_narrative"]["url"] = url
-                return False
-            lines[index] = replacement
-            break
+            if replacement != line:
+                lines[index] = replacement
+                changed = True
     if not replaced:
-        raise ConfigurationError("settings.strategy_narrative.url is missing")
+        raise ConfigurationError(f"settings.{profile_path}.url is missing")
     temporary = path.with_suffix(path.suffix + ".tmp")
     temporary.write_text("\n".join(lines) + "\n", encoding="utf-8")
     os.replace(temporary, path)
     config.settings["strategy_narrative"]["url"] = url
-    return True
+    if config.scope == "healthcare":
+        config.settings["report_profiles"][config.scope]["strategy_narrative"]["url"] = url
+    return changed

@@ -27,6 +27,12 @@ def build_parser() -> argparse.ArgumentParser:
     run = subparsers.add_parser("run", help="refresh data and create or replace a final report")
     run.add_argument("--date", type=parse_date, help="report date; defaults to today in Denver")
     run.add_argument(
+        "--report",
+        choices=("healthcare", "life-science-device", "both"),
+        default="both",
+        help="report scope to update (default: both)",
+    )
+    run.add_argument(
         "--force-secondary",
         action="store_true",
         help="repeat earnings and narrative checks even if they already ran today",
@@ -36,6 +42,9 @@ def build_parser() -> argparse.ArgumentParser:
     )
     render.add_argument("--date", type=parse_date, required=True, help="published report date")
     render.add_argument(
+        "--report", choices=("healthcare", "life-science-device"), default="healthcare"
+    )
+    render.add_argument(
         "--refresh-charts",
         action="store_true",
         help="regenerate charts from the price cache instead of reusing published assets",
@@ -44,6 +53,9 @@ def build_parser() -> argparse.ArgumentParser:
         "export-standalone", help="create a self-contained HTML copy of an existing report"
     )
     standalone.add_argument("--date", type=parse_date, required=True, help="published report date")
+    standalone.add_argument(
+        "--report", choices=("healthcare", "life-science-device"), default="healthcare"
+    )
     standalone.add_argument("--output", type=Path, help="destination HTML path")
     site = subparsers.add_parser("build-site", help="build the static GitHub Pages website")
     site.add_argument("--output", type=Path, help="destination directory; defaults to docs/")
@@ -54,6 +66,9 @@ def build_parser() -> argparse.ArgumentParser:
     narrative.add_argument(
         "--url",
         help="ChatGPT share URL to use and save for subsequent report runs",
+    )
+    narrative.add_argument(
+        "--report", choices=("healthcare", "life-science-device"), default="healthcare"
     )
     return parser
 
@@ -77,6 +92,7 @@ def main(argv: list[str] | None = None) -> int:
         if args.command == "refresh-narrative":
             from .narrative import refresh_narrative
 
+            config = config.for_scope(args.report)
             requested_url = str(args.url or "").strip()
             if requested_url:
                 config.settings["strategy_narrative"]["url"] = validate_strategy_narrative_url(
@@ -90,12 +106,14 @@ def main(argv: list[str] | None = None) -> int:
         from .pipeline import export_standalone_report, rerender_report, run_report
 
         if args.command == "render":
+            config = config.for_scope(args.report)
             result = rerender_report(
                 config,
                 args.date,
                 refresh_charts=bool(args.refresh_charts),
             )
         elif args.command == "export-standalone":
+            config = config.for_scope(args.report)
             result = export_standalone_report(config, args.date, args.output)
         elif args.command == "build-site":
             from .site import build_site
@@ -103,11 +121,17 @@ def main(argv: list[str] | None = None) -> int:
             result = build_site(config, args.output)
         else:
             report_date = args.date or datetime.now(config.timezone).date()
-            result = run_report(
-                config,
-                report_date,
-                force_secondary=bool(args.force_secondary),
-            )
+            scopes = ("healthcare", "life-science-device") if args.report == "both" else (args.report,)
+            results = []
+            for scope in scopes:
+                results.append(
+                    run_report(
+                        config.for_scope(scope),
+                        report_date,
+                        force_secondary=bool(args.force_secondary),
+                    )
+                )
+            result = results[0] if len(results) == 1 else {"status": "ok", "reports": results}
         print(json.dumps(result, indent=2))
         return 0
     except (ConfigurationError, RuntimeError, ValueError) as exc:
