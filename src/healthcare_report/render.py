@@ -74,6 +74,8 @@ code { background:var(--panel); padding:.1rem .25rem; }
 img { display:block; max-width:100%; height:auto; margin:1rem auto 1.7rem; }
 .metadata { color:var(--muted); margin-top:-.6rem; }
 .good {color:#167344}.bad {color:#b42318}
+.rank-change-up { color:#167344; font-weight:800; }
+.rank-change-down { color:#b42318; font-weight:800; }
 @media (max-width:1050px) {
   .page-shell { display:block; padding:0; }
   .report-nav { position:relative; top:0; max-height:none; border-top:0; border-bottom:4px solid var(--navy);
@@ -295,29 +297,35 @@ def _presentation_narrative(body: str) -> str:
 
 def _add_strategy_narrative_links(body: str) -> str:
     lines = body.splitlines()
-    headings: list[tuple[int, int, str]] = []
+    headings: list[tuple[int, int, str, str]] = []
     for index, line in enumerate(lines):
-        match = re.match(r"^(#{1,6})\s+(.+?)\s*$", line)
-        if match:
-            headings.append((index, len(match.group(1)), match.group(2).strip()))
+        markdown_match = re.match(r"^(#{1,6})\s+(.+?)\s*$", line)
+        html_match = re.match(r"^<h([1-6])(?:\s[^>]*)?>(.*?)</h\1>\s*$", line)
+        if markdown_match:
+            headings.append((index, len(markdown_match.group(1)), markdown_match.group(2).strip(), "markdown"))
+        elif html_match:
+            label = BeautifulSoup(html_match.group(2), "html.parser").get_text(" ", strip=True)
+            headings.append((index, int(html_match.group(1)), label, "html"))
     if not headings:
         return body
 
-    section_level = min(level for _index, level, _label in headings)
+    section_level = min(level for _index, level, _label, _format in headings)
     numbered_links: list[tuple[str, str]] = []
-    current_section_slug = ""
-    for index, level, raw_label in headings:
-        label = re.sub(r"[*_`]+", "", raw_label).strip()
-        if level == section_level:
+    current_section_slug = "executive"
+    for index, level, raw_label, heading_format in headings:
+        label = _clean_strategy_headline(raw_label)
+        is_numbered = bool(re.match(r"^\d+\.\s", label))
+        if level == section_level and not is_numbered:
             anchor = _slug(label)
             current_section_slug = "executive" if anchor == "executive-readout" else anchor
-        elif current_section_slug:
-            anchor = f"strategy-{current_section_slug}-{_slug(label)}"
-            if re.match(r"^\d+\.", label):
-                numbered_links.append((label, anchor))
         else:
-            continue
-        lines[index] = f'<h{level} id="{anchor}">{html.escape(label)}</h{level}>'
+            anchor = f"strategy-{current_section_slug}-{_slug(label)}"
+        if is_numbered:
+            numbered_links.append((label, anchor))
+        if heading_format == "markdown":
+            lines[index] = f'<h{level} id="{anchor}">{html.escape(label)}</h{level}>'
+        else:
+            lines[index] = f'<h{level} id="{anchor}">{html.escape(label)}</h{level}>'
 
     if not numbered_links:
         return "\n".join(lines)
@@ -331,6 +339,15 @@ def _add_strategy_narrative_links(body: str) -> str:
     )
     jump_list.extend(["</ul>", "</nav>", ""])
     return "\n".join([*jump_list, *lines])
+
+
+def _clean_strategy_headline(label: str) -> str:
+    label = re.sub(r"[*_`]+", "", label).strip()
+    return re.sub(
+        r"^(\d+\.\s+)(?:[A-Z][A-Z0-9]*(?:\s*/\s*[A-Z][A-Z0-9]*)*)\s+[—–-]\s+",
+        r"\1",
+        label,
+    )
 
 
 def format_cap(value: float | None) -> str:
@@ -689,6 +706,7 @@ def _rank_change_table(
     overview_tickers: set[str],
 ) -> str:
     table_rows: list[list[HtmlCell]] = []
+    rows = sorted(rows, key=lambda row: (int(row["current_rank"]), row["name"]))
     return_cells = _return_cells([row.get("current_return") for row in rows])
     for index, row in enumerate(rows):
         if stocks:
@@ -702,12 +720,13 @@ def _rank_change_table(
             )
         delta = int(row["rank_delta"])
         direction = "↑" if delta > 0 else "↓" if delta < 0 else "—"
+        change_class = "rank-change-up" if delta > 0 else "rank-change-down" if delta < 0 else ""
         table_rows.append(
             [
                 entity,
                 HtmlCell(f"#{int(row['previous_rank'])}", int(row["previous_rank"])),
                 HtmlCell(f"#{int(row['current_rank'])}", int(row["current_rank"])),
-                HtmlCell(f"{direction} {abs(delta)}", -delta),
+                HtmlCell(f"{direction} {abs(delta)}", -delta, change_class),
                 return_cells[index],
             ]
         )
@@ -782,18 +801,27 @@ def build_markdown(context: dict[str, Any]) -> str:
             f"Comparison with the final report dated {_long_date(baseline.report_date)} "
             f"(market data through {_long_date(baseline.market_data_as_of)})."
         )
-    rank_chart = context.get("rank_chart")
-    if baseline and rank_chart:
-        lines.extend(
-            [
-                "",
-                f"Ranking comparison uses the {int(notable_summary.get('horizon_months', 12))}-month return horizon.",
-                "",
-                f"![Previous versus current top-three ranking comparison](assets/{rank_chart.name})",
-                "",
-            ]
-        )
     if baseline and notable_summary:
+        lines.extend(["", "### Sectors", "", "#### Top-three comparison", ""])
+        lines.append(
+            _rank_change_table(
+                notable_summary.get("categories", {}).get("top", []),
+                stocks=False,
+                earnings_tickers=earnings_tickers,
+                overview_tickers=overview_tickers,
+            )
+        )
+        category_largest = notable_summary.get("categories", {}).get("largest", [])
+        if category_largest:
+            lines.extend(["", "#### Largest rank changes", ""])
+            lines.append(
+                _rank_change_table(
+                    category_largest,
+                    stocks=False,
+                    earnings_tickers=earnings_tickers,
+                    overview_tickers=overview_tickers,
+                )
+            )
         lines.extend(["", "### Stocks", "", "#### Top-three comparison", ""])
         lines.append(
             _rank_change_table(
@@ -812,24 +840,6 @@ def build_markdown(context: dict[str, Any]) -> str:
                 overview_tickers=overview_tickers,
             )
         )
-        lines.extend(["", "### Sectors", "", "#### Top-three comparison", ""])
-        lines.append(
-            _rank_change_table(
-                notable_summary.get("categories", {}).get("top", []),
-                stocks=False,
-                earnings_tickers=earnings_tickers,
-                overview_tickers=overview_tickers,
-            )
-        )
-        lines.extend(["", "#### Largest rank changes", ""])
-        lines.append(
-            _rank_change_table(
-                notable_summary.get("categories", {}).get("largest", []),
-                stocks=False,
-                earnings_tickers=earnings_tickers,
-                overview_tickers=overview_tickers,
-            )
-        )
     elif notable:
         for notable_row in notable:
             lines.append(f"- {notable_row['detail']}")
@@ -840,19 +850,47 @@ def build_markdown(context: dict[str, Any]) -> str:
             key=lambda item: item["price_move"] if item["price_move"] is not None else -math.inf,
             reverse=True,
         )
+        current_category_returns = {
+            row["category"]: row.get("price_return")
+            for row in snapshot
+            if row["entity_type"] == "category" and row["horizon_months"] == 12
+        }
+        previous_category_returns = {
+            row["category"]: row.get("price_return")
+            for row in (baseline.snapshot if baseline else [])
+            if row["entity_type"] == "category" and row["horizon_months"] == 12
+        }
         return_cells = _return_cells([row["price_move"] for row in rows])
+        previous_cells = _return_cells(
+            [previous_category_returns.get(row["category"]) for row in rows]
+        )
+        current_cells = _return_cells(
+            [current_category_returns.get(row["category"]) for row in rows]
+        )
         lines.extend(["", "### Subcategory movement since the previous report", ""])
         lines.append(
             sortable_table(
-                ["Subcategory", "Move"],
+                [
+                    "Subcategory",
+                    "Move",
+                    "Last Report, 12m Ret",
+                    "Current Report, 12m Ret",
+                ],
                 [
                     [
-                        HtmlCell(html.escape(row["category"]), row["category"].casefold()),
+                        HtmlCell(
+                            _internal_link(
+                                row["category"], f"category-{_slug(row['category'])}"
+                            ),
+                            row["category"].casefold(),
+                        ),
                         return_cells[index],
+                        previous_cells[index],
+                        current_cells[index],
                     ]
                     for index, row in enumerate(rows)
                 ],
-                numeric_columns={1},
+                numeric_columns={1, 2, 3},
             )
         )
     if moves["stocks"]:
@@ -1143,6 +1181,7 @@ def build_markdown(context: dict[str, Any]) -> str:
             )
 
     lines.extend(["", "## Company Overviews", ""])
+    overview_charts: dict[str, Path] = context.get("overview_charts", {})
     for ticker, company in config.universe.companies.items():
         reference = context["reference"].get(ticker, {})
         fact = facts.get(ticker, {})
@@ -1154,10 +1193,20 @@ def build_markdown(context: dict[str, Any]) -> str:
                 f"*{', '.join(fact.get('categories', [])) or 'Uncategorized'} · {format_cap(fact.get('market_cap'))} · "
                 f"3m {format_percent(returns.get(3))} · 12m {format_percent(returns.get(12))} · 24m {format_percent(returns.get(24))}*",
                 "",
+                f"[Google Finance]({google_url(ticker, reference.get('exchange'))})",
+                "",
                 company.description,
                 "",
             ]
         )
+        chart_path = overview_charts.get(ticker)
+        if chart_path:
+            lines.extend(
+                [
+                    f"![{html.escape(company.name)} versus category peers and the S&P 500](assets/{chart_path.name})",
+                    "",
+                ]
+            )
         if reference.get("description") and reference["description"] != company.description:
             lines.extend([str(reference["description"]), ""])
 

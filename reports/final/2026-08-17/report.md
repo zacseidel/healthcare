@@ -6,11 +6,20 @@ Weekly review of healthcare services, technology, distribution, and diagnostic c
 
 ## Strategy Narrative
 
+<nav class="strategy-narrative-links" aria-label="Strategy narrative sections">
+<ul>
+<li><a href="#strategy-executive-1-prior-authorization-transparency-has-moved-from-theoretical-reputational-risk-to-measurable-payer-differentiation">1. Prior-authorization transparency has moved from theoretical reputational risk to measurable payer differentiation</a></li>
+<li><a href="#strategy-executive-2-the-no-surprises-act-ruling-shifts-dollars-toward-providers-and-increases-the-value-of-contract-rate-intelligence">2. The No Surprises Act ruling shifts dollars toward providers and increases the value of contract-rate intelligence</a></li>
+<li><a href="#strategy-executive-3-epic-is-turning-interoperability-from-document-exchange-into-workflow-infrastructure">3. Epic is turning interoperability from document exchange into workflow infrastructure</a></li>
+<li><a href="#strategy-executive-4-the-administration-is-linking-coverage-policy-coding-analytics-and-fraud-enforcement">4. The administration is linking coverage policy, coding analytics and fraud enforcement</a></li>
+</ul>
+</nav>
+
 This week produced four developments worth carrying forward. The most consequential is **new empirical prior-authorization data that turns the transparency regime discussed in prior briefs into an actual competitive benchmark**. Separately, the Fifth Circuit materially altered No Surprises Act economics, Epic extended its interoperability platform into diagnostic imaging, and the administration converted a Medicaid coverage policy into a payment-integrity enforcement campaign.
 
 I am intentionally **not** giving Aetna, Humana or UnitedHealth standalone earnings updates this week. Their recent-quarter theses remain largely unchanged, and I found no company-specific disclosure in the last seven days significant enough to justify repeating them. The one exception is UnitedHealth's appearance in the new cross-payer prior-authorization data.
 
-<h3 id="1-resolve-prior-authorization-transparency-has-moved-from-theoretical-reputational-risk-to-measurable-payer-differentiation">1. RESOLVE — Prior-authorization transparency has moved from theoretical reputational risk to measurable payer differentiation</h3>
+<h3 id="strategy-executive-1-prior-authorization-transparency-has-moved-from-theoretical-reputational-risk-to-measurable-payer-differentiation">1. Prior-authorization transparency has moved from theoretical reputational risk to measurable payer differentiation</h3>
 
 Prior briefs identified CMS's new authorization reporting regime as likely to create external comparisons among insurers. This week, KFF performed essentially that first large-scale comparison using federally required 2025 disclosures across Medicare Advantage, Medicaid managed care and ACA plans. [KFF+1](https://www.kff.org/patient-consumer-protections/prior-authorization-metrics-provide-new-insights-into-insurer-practices-but-gaps-remain/)
 
@@ -30,7 +39,7 @@ A high overturn rate can reflect missing documentation rather than an incorrect 
 
 ---
 
-<h3 id="2-new-the-no-surprises-act-ruling-shifts-dollars-toward-providers-and-increases-the-value-of-contract-rate-intelligence">2. NEW — The No Surprises Act ruling shifts dollars toward providers and increases the value of contract-rate intelligence</h3>
+<h3 id="strategy-executive-2-the-no-surprises-act-ruling-shifts-dollars-toward-providers-and-increases-the-value-of-contract-rate-intelligence">2. The No Surprises Act ruling shifts dollars toward providers and increases the value of contract-rate intelligence</h3>
 
 On August 11, the en banc Fifth Circuit invalidated key elements of the federal methodology for calculating the No Surprises Act's **Qualifying Payment Amount (QPA)**. The court ruled that insurers may not incorporate “ghost rates”—contracted prices for services a provider does not actually perform—and must include bonus and incentive payments when calculating the benchmark. It allowed insurers to continue excluding one-off agreements such as individual air-ambulance arrangements. [Reuters+1](https://www.reuters.com/legal/litigation/us-appeals-court-voids-formula-used-avert-surprise-medical-bills-2026-08-12/)
 
@@ -46,7 +55,7 @@ This also intersects with payment integrity. As out-of-network settlements becom
 
 ---
 
-<h3 id="3-confirm-epic-is-turning-interoperability-from-document-exchange-into-workflow-infrastructure">3. CONFIRM — Epic is turning interoperability from document exchange into workflow infrastructure</h3>
+<h3 id="strategy-executive-3-epic-is-turning-interoperability-from-document-exchange-into-workflow-infrastructure">3. Epic is turning interoperability from document exchange into workflow infrastructure</h3>
 
 On August 13, Epic made **Care Everywhere Diagnostic Image Exchange** broadly available, allowing clinicians to retrieve full diagnostic-quality CTs, MRIs, X-rays and other images from participating Epic health systems with one click. Previously, Epic could exchange radiology reports and lower-resolution reference images; full diagnostic images frequently required separate retrieval processes or physical media. [Epic](https://www.epic.com/epic/post/diagnostic-image-exchange-helps-clinicians-and-patients-get-answers-sooner/)
 
@@ -62,7 +71,7 @@ For payers, there is an indirect but important implication. As richer clinical e
 
 ---
 
-<h3 id="4-new-the-administration-is-linking-coverage-policy-coding-analytics-and-fraud-enforcement">4. NEW — The administration is linking coverage policy, coding analytics and fraud enforcement</h3>
+<h3 id="strategy-executive-4-the-administration-is-linking-coverage-policy-coding-analytics-and-fraud-enforcement">4. The administration is linking coverage policy, coding analytics and fraud enforcement</h3>
 
 CMS finalized a rule on August 11 ending federal Medicaid and CHIP funding for specified gender-transition procedures for minors, effective **October 13, 2026**, with a limited six-month transition for certain existing hormone-therapy patients. The policy applies to federal matching funds rather than prohibiting states from financing care themselves. [Centers for Medicare & Medicaid Services+1](https://www.cms.gov/newsroom/press-releases/cms-ends-federal-medicaid-chip-funding-sex-rejecting-procedures-children-youth)
 
@@ -104,38 +113,28 @@ That is the incremental strategic thesis I would carry into next week.
 
 Comparison with the final report dated August 10, 2026 (market data through August 7, 2026).
 
-Ranking comparison uses the 12-month return horizon.
+### Sectors
 
-![Previous versus current top-three ranking comparison](assets/rank-comparison.webp)
+#### Top-three comparison
+
+<div class="table-wrap"><table class="sortable"><thead><tr><th class="sortable-heading" data-column="0" data-type="text">Entity</th><th class="sortable-heading" data-column="1" data-type="number">Previous</th><th class="sortable-heading" data-column="2" data-type="number">Current</th><th class="sortable-heading" data-column="3" data-type="number">Change</th><th class="sortable-heading" data-column="4" data-type="number">Current return</th></tr></thead><tbody><tr><td class="text" data-sort="precision diagnostics" style=""><a href="#category-precision-diagnostics">Precision Diagnostics</a></td><td class="" data-sort="2" style="">#2</td><td class="" data-sort="1" style="">#1</td><td class="rank-change-up" data-sort="-1" style="">↑ 1</td><td class="" data-sort="0.806611434939" style="background:#1a7a3c;color:#ffffff;">+80.7%</td></tr><tr><td class="text" data-sort="value-based care" style=""><a href="#category-value-based-care">Value-Based Care</a></td><td class="" data-sort="1" style="">#1</td><td class="" data-sort="2" style="">#2</td><td class="rank-change-down" data-sort="1" style="">↓ 1</td><td class="" data-sort="0.806406698893" style="background:#1a7a3c;color:#ffffff;">+80.6%</td></tr><tr><td class="text" data-sort="inpatient non-acute providers" style=""><a href="#category-inpatient-non-acute-providers">Inpatient Non-Acute Providers</a></td><td class="" data-sort="3" style="">#3</td><td class="" data-sort="3" style="">#3</td><td class="" data-sort="0" style="">— 0</td><td class="" data-sort="0.744697156406" style="background:#1a7a3c;color:#ffffff;">+74.5%</td></tr></tbody></table></div>
 
 
 ### Stocks
 
 #### Top-three comparison
 
-<div class="table-wrap"><table class="sortable"><thead><tr><th class="sortable-heading" data-column="0" data-type="text">Entity</th><th class="sortable-heading" data-column="1" data-type="number">Previous</th><th class="sortable-heading" data-column="2" data-type="number">Current</th><th class="sortable-heading" data-column="3" data-type="number">Change</th><th class="sortable-heading" data-column="4" data-type="number">Current return</th></tr></thead><tbody><tr><td class="text" data-sort="10x genomics" style="">10x Genomics (<a href="#company-txg">TXG</a>)</td><td class="" data-sort="3" style="">#3</td><td class="" data-sort="1" style="">#1</td><td class="" data-sort="-2" style="">↑ 2</td><td class="" data-sort="3.19835329341" style="background:#1a7a3c;color:#ffffff;">+319.8%</td></tr><tr><td class="text" data-sort="agilon health" style="">Agilon Health (<a href="#company-agl">AGL</a>)</td><td class="" data-sort="1" style="">#1</td><td class="" data-sort="3" style="">#3</td><td class="" data-sort="2" style="">↓ 2</td><td class="" data-sort="2.49189189189" style="background:#2f9e44;color:#111820;">+249.2%</td></tr><tr><td class="text" data-sort="pacs group" style="">PACS Group (<a href="#company-pacs">PACS</a>)</td><td class="" data-sort="2" style="">#2</td><td class="" data-sort="2" style="">#2</td><td class="" data-sort="0" style="">— 0</td><td class="" data-sort="2.86434782609" style="background:#1a7a3c;color:#ffffff;">+286.4%</td></tr></tbody></table></div>
+<div class="table-wrap"><table class="sortable"><thead><tr><th class="sortable-heading" data-column="0" data-type="text">Entity</th><th class="sortable-heading" data-column="1" data-type="number">Previous</th><th class="sortable-heading" data-column="2" data-type="number">Current</th><th class="sortable-heading" data-column="3" data-type="number">Change</th><th class="sortable-heading" data-column="4" data-type="number">Current return</th></tr></thead><tbody><tr><td class="text" data-sort="10x genomics" style="">10x Genomics (<a href="#company-txg">TXG</a>)</td><td class="" data-sort="3" style="">#3</td><td class="" data-sort="1" style="">#1</td><td class="rank-change-up" data-sort="-2" style="">↑ 2</td><td class="" data-sort="3.19835329341" style="background:#1a7a3c;color:#ffffff;">+319.8%</td></tr><tr><td class="text" data-sort="pacs group" style="">PACS Group (<a href="#company-pacs">PACS</a>)</td><td class="" data-sort="2" style="">#2</td><td class="" data-sort="2" style="">#2</td><td class="" data-sort="0" style="">— 0</td><td class="" data-sort="2.86434782609" style="background:#1a7a3c;color:#ffffff;">+286.4%</td></tr><tr><td class="text" data-sort="agilon health" style="">Agilon Health (<a href="#company-agl">AGL</a>)</td><td class="" data-sort="1" style="">#1</td><td class="" data-sort="3" style="">#3</td><td class="rank-change-down" data-sort="2" style="">↓ 2</td><td class="" data-sort="2.49189189189" style="background:#2f9e44;color:#111820;">+249.2%</td></tr></tbody></table></div>
 
 
 #### Largest rank changes
 
-<div class="table-wrap"><table class="sortable"><thead><tr><th class="sortable-heading" data-column="0" data-type="text">Entity</th><th class="sortable-heading" data-column="1" data-type="number">Previous</th><th class="sortable-heading" data-column="2" data-type="number">Current</th><th class="sortable-heading" data-column="3" data-type="number">Change</th><th class="sortable-heading" data-column="4" data-type="number">Current return</th></tr></thead><tbody><tr><td class="text" data-sort="unitedhealth" style="">UnitedHealth (<a href="#company-unh">UNH</a>)</td><td class="" data-sort="17" style="">#17</td><td class="" data-sort="30" style="">#30</td><td class="" data-sort="13" style="">↓ 13</td><td class="" data-sort="0.321436794842" style="background:#1a7a3c;color:#ffffff;">+32.1%</td></tr><tr><td class="text" data-sort="solventum" style="">Solventum (<a href="#company-solv">SOLV</a>)</td><td class="" data-sort="46" style="">#46</td><td class="" data-sort="35" style="">#35</td><td class="" data-sort="-11" style="">↑ 11</td><td class="" data-sort="0.240408849062" style="background:#2f9e44;color:#111820;">+24.0%</td></tr><tr><td class="text" data-sort="astrana health" style="">Astrana Health (<a href="#company-asth">ASTH</a>)</td><td class="" data-sort="34" style="">#34</td><td class="" data-sort="25" style="">#25</td><td class="" data-sort="-9" style="">↑ 9</td><td class="" data-sort="0.391408114558" style="background:#1a7a3c;color:#ffffff;">+39.1%</td></tr></tbody></table></div>
-
-
-### Sectors
-
-#### Top-three comparison
-
-<div class="table-wrap"><table class="sortable"><thead><tr><th class="sortable-heading" data-column="0" data-type="text">Entity</th><th class="sortable-heading" data-column="1" data-type="number">Previous</th><th class="sortable-heading" data-column="2" data-type="number">Current</th><th class="sortable-heading" data-column="3" data-type="number">Change</th><th class="sortable-heading" data-column="4" data-type="number">Current return</th></tr></thead><tbody><tr><td class="text" data-sort="precision diagnostics" style=""><a href="#category-precision-diagnostics">Precision Diagnostics</a></td><td class="" data-sort="2" style="">#2</td><td class="" data-sort="1" style="">#1</td><td class="" data-sort="-1" style="">↑ 1</td><td class="" data-sort="0.806611434939" style="background:#1a7a3c;color:#ffffff;">+80.7%</td></tr><tr><td class="text" data-sort="value-based care" style=""><a href="#category-value-based-care">Value-Based Care</a></td><td class="" data-sort="1" style="">#1</td><td class="" data-sort="2" style="">#2</td><td class="" data-sort="1" style="">↓ 1</td><td class="" data-sort="0.806406698893" style="background:#1a7a3c;color:#ffffff;">+80.6%</td></tr><tr><td class="text" data-sort="inpatient non-acute providers" style=""><a href="#category-inpatient-non-acute-providers">Inpatient Non-Acute Providers</a></td><td class="" data-sort="3" style="">#3</td><td class="" data-sort="3" style="">#3</td><td class="" data-sort="0" style="">— 0</td><td class="" data-sort="0.744697156406" style="background:#1a7a3c;color:#ffffff;">+74.5%</td></tr></tbody></table></div>
-
-
-#### Largest rank changes
-
-<div class="table-wrap"><table class="sortable"><thead><tr><th class="sortable-heading" data-column="0" data-type="text">Entity</th><th class="sortable-heading" data-column="1" data-type="number">Previous</th><th class="sortable-heading" data-column="2" data-type="number">Current</th><th class="sortable-heading" data-column="3" data-type="number">Change</th><th class="sortable-heading" data-column="4" data-type="number">Current return</th></tr></thead><tbody><tr><td class="text" data-sort="precision diagnostics" style=""><a href="#category-precision-diagnostics">Precision Diagnostics</a></td><td class="" data-sort="2" style="">#2</td><td class="" data-sort="1" style="">#1</td><td class="" data-sort="-1" style="">↑ 1</td><td class="" data-sort="0.806611434939" style="background:#1a7a3c;color:#ffffff;">+80.7%</td></tr><tr><td class="text" data-sort="value-based care" style=""><a href="#category-value-based-care">Value-Based Care</a></td><td class="" data-sort="1" style="">#1</td><td class="" data-sort="2" style="">#2</td><td class="" data-sort="1" style="">↓ 1</td><td class="" data-sort="0.806406698893" style="background:#1a7a3c;color:#ffffff;">+80.6%</td></tr><tr><td class="text" data-sort="health care real estate" style=""><a href="#category-health-care-real-estate">Health Care Real Estate</a></td><td class="" data-sort="6" style="">#6</td><td class="" data-sort="5" style="">#5</td><td class="" data-sort="-1" style="">↑ 1</td><td class="" data-sort="0.372038086192" style="background:#7cc077;color:#111820;">+37.2%</td></tr></tbody></table></div>
+<div class="table-wrap"><table class="sortable"><thead><tr><th class="sortable-heading" data-column="0" data-type="text">Entity</th><th class="sortable-heading" data-column="1" data-type="number">Previous</th><th class="sortable-heading" data-column="2" data-type="number">Current</th><th class="sortable-heading" data-column="3" data-type="number">Change</th><th class="sortable-heading" data-column="4" data-type="number">Current return</th></tr></thead><tbody><tr><td class="text" data-sort="astrana health" style="">Astrana Health (<a href="#company-asth">ASTH</a>)</td><td class="" data-sort="34" style="">#34</td><td class="" data-sort="25" style="">#25</td><td class="rank-change-up" data-sort="-9" style="">↑ 9</td><td class="" data-sort="0.391408114558" style="background:#1a7a3c;color:#ffffff;">+39.1%</td></tr><tr><td class="text" data-sort="unitedhealth" style="">UnitedHealth (<a href="#company-unh">UNH</a>)</td><td class="" data-sort="17" style="">#17</td><td class="" data-sort="30" style="">#30</td><td class="rank-change-down" data-sort="13" style="">↓ 13</td><td class="" data-sort="0.321436794842" style="background:#1a7a3c;color:#ffffff;">+32.1%</td></tr><tr><td class="text" data-sort="solventum" style="">Solventum (<a href="#company-solv">SOLV</a>)</td><td class="" data-sort="46" style="">#46</td><td class="" data-sort="35" style="">#35</td><td class="rank-change-up" data-sort="-11" style="">↑ 11</td><td class="" data-sort="0.240408849062" style="background:#2f9e44;color:#111820;">+24.0%</td></tr></tbody></table></div>
 
 
 ### Subcategory movement since the previous report
 
-<div class="table-wrap"><table class="sortable"><thead><tr><th class="sortable-heading" data-column="0" data-type="text">Subcategory</th><th class="sortable-heading" data-column="1" data-type="number">Move</th></tr></thead><tbody><tr><td class="text" data-sort="health it and data" style="">Health IT and Data</td><td class="" data-sort="0.14529637693820402" style="background:#1a7a3c;color:#ffffff;">+14.5%</td></tr><tr><td class="text" data-sort="value-based care" style="">Value-Based Care</td><td class="" data-sort="0.04879338734059127" style="background:#a9d9a4;color:#111820;">+4.9%</td></tr><tr><td class="text" data-sort="inpatient non-acute providers" style="">Inpatient Non-Acute Providers</td><td class="" data-sort="0.04165026400878604" style="background:#a9d9a4;color:#111820;">+4.2%</td></tr><tr><td class="text" data-sort="digital health, specialty, benefits" style="">Digital Health, Specialty, Benefits</td><td class="" data-sort="0.0403270128263293" style="background:#a9d9a4;color:#111820;">+4.0%</td></tr><tr><td class="text" data-sort="precision diagnostics" style="">Precision Diagnostics</td><td class="" data-sort="0.02811909868930254" style="background:#d6ecd4;color:#111820;">+2.8%</td></tr><tr><td class="text" data-sort="pharma distribution" style="">Pharma Distribution</td><td class="" data-sort="0.01440231574872148" style="background:#d6ecd4;color:#111820;">+1.4%</td></tr><tr><td class="text" data-sort="health system providers" style="">Health System Providers</td><td class="" data-sort="0.013941480139320356" style="background:#d6ecd4;color:#111820;">+1.4%</td></tr><tr><td class="text" data-sort="payers" style="">Payers</td><td class="" data-sort="-0.010119278506951658" style="background:#fbd5d4;color:#111820;">-1.0%</td></tr><tr><td class="text" data-sort="health care real estate" style="">Health Care Real Estate</td><td class="" data-sort="-0.013455785022063441" style="background:#fbd5d4;color:#111820;">-1.3%</td></tr><tr><td class="text" data-sort="outpatient and home providers" style="">Outpatient and Home Providers</td><td class="" data-sort="-0.045829542924277156" style="background:#f5aead;color:#111820;">-4.6%</td></tr></tbody></table></div>
+<div class="table-wrap"><table class="sortable"><thead><tr><th class="sortable-heading" data-column="0" data-type="text">Subcategory</th><th class="sortable-heading" data-column="1" data-type="number">Move</th><th class="sortable-heading" data-column="2" data-type="number">Last Report, 12m Ret</th><th class="sortable-heading" data-column="3" data-type="number">Current Report, 12m Ret</th></tr></thead><tbody><tr><td class="text" data-sort="health it and data" style=""><a href="#category-health-it-and-data">Health IT and Data</a></td><td class="" data-sort="0.14529637693820402" style="background:#1a7a3c;color:#ffffff;">+14.5%</td><td class="" data-sort="-0.316780857156" style="background:#f5aead;color:#111820;">-31.7%</td><td class="" data-sort="-0.303148912292" style="background:#f5aead;color:#111820;">-30.3%</td></tr><tr><td class="text" data-sort="value-based care" style=""><a href="#category-value-based-care">Value-Based Care</a></td><td class="" data-sort="0.04879338734059127" style="background:#a9d9a4;color:#111820;">+4.9%</td><td class="" data-sort="1.05235726491" style="background:#1a7a3c;color:#ffffff;">+105.2%</td><td class="" data-sort="0.806406698893" style="background:#1a7a3c;color:#ffffff;">+80.6%</td></tr><tr><td class="text" data-sort="inpatient non-acute providers" style=""><a href="#category-inpatient-non-acute-providers">Inpatient Non-Acute Providers</a></td><td class="" data-sort="0.04165026400878604" style="background:#a9d9a4;color:#111820;">+4.2%</td><td class="" data-sort="0.900251012903" style="background:#1a7a3c;color:#ffffff;">+90.0%</td><td class="" data-sort="0.744697156406" style="background:#1a7a3c;color:#ffffff;">+74.5%</td></tr><tr><td class="text" data-sort="digital health, specialty, benefits" style=""><a href="#category-digital-health-specialty-benefits">Digital Health, Specialty, Benefits</a></td><td class="" data-sort="0.0403270128263293" style="background:#a9d9a4;color:#111820;">+4.0%</td><td class="" data-sort="0.10782356663" style="background:#d6ecd4;color:#111820;">+10.8%</td><td class="" data-sort="0.091407915079" style="background:#d6ecd4;color:#111820;">+9.1%</td></tr><tr><td class="text" data-sort="precision diagnostics" style=""><a href="#category-precision-diagnostics">Precision Diagnostics</a></td><td class="" data-sort="0.02811909868930254" style="background:#d6ecd4;color:#111820;">+2.8%</td><td class="" data-sort="0.9562101026" style="background:#1a7a3c;color:#ffffff;">+95.6%</td><td class="" data-sort="0.806611434939" style="background:#1a7a3c;color:#ffffff;">+80.7%</td></tr><tr><td class="text" data-sort="pharma distribution" style=""><a href="#category-pharma-distribution">Pharma Distribution</a></td><td class="" data-sort="0.01440231574872148" style="background:#d6ecd4;color:#111820;">+1.4%</td><td class="" data-sort="0.301601906138" style="background:#a9d9a4;color:#111820;">+30.2%</td><td class="" data-sort="0.300068673074" style="background:#a9d9a4;color:#111820;">+30.0%</td></tr><tr><td class="text" data-sort="health system providers" style=""><a href="#category-health-system-providers">Health System Providers</a></td><td class="" data-sort="0.013941480139320356" style="background:#d6ecd4;color:#111820;">+1.4%</td><td class="" data-sort="0.161300007794" style="background:#d6ecd4;color:#111820;">+16.1%</td><td class="" data-sort="0.106456369394" style="background:#d6ecd4;color:#111820;">+10.6%</td></tr><tr><td class="text" data-sort="payers" style=""><a href="#category-payers">Payers</a></td><td class="" data-sort="-0.010119278506951658" style="background:#fbd5d4;color:#111820;">-1.0%</td><td class="" data-sort="0.531294337324" style="background:#7cc077;color:#111820;">+53.1%</td><td class="" data-sort="0.351948184652" style="background:#7cc077;color:#111820;">+35.2%</td></tr><tr><td class="text" data-sort="health care real estate" style=""><a href="#category-health-care-real-estate">Health Care Real Estate</a></td><td class="" data-sort="-0.013455785022063441" style="background:#fbd5d4;color:#111820;">-1.3%</td><td class="" data-sort="0.364251877603" style="background:#a9d9a4;color:#111820;">+36.4%</td><td class="" data-sort="0.372038086192" style="background:#7cc077;color:#111820;">+37.2%</td></tr><tr><td class="text" data-sort="outpatient and home providers" style=""><a href="#category-outpatient-and-home-providers">Outpatient and Home Providers</a></td><td class="" data-sort="-0.045829542924277156" style="background:#f5aead;color:#111820;">-4.6%</td><td class="" data-sort="0.616279890136" style="background:#7cc077;color:#111820;">+61.6%</td><td class="" data-sort="0.518902426763" style="background:#2f9e44;color:#111820;">+51.9%</td></tr></tbody></table></div>
 
 
 ### Largest company moves
@@ -418,6 +417,8 @@ Definitive Healthcare reported Q2 2026 revenue of $55.2 million, down 9% year-ov
 
 *Payers · $380.1B · 3m +2.0% · 12m +32.1% · 24m -30.5%*
 
+[Google Finance](https://www.google.com/finance/quote/UNH:NYSE?tab=earnings&hl=en)
+
 Diversified healthcare company operating UHC insurance businesses and the Optum health services platform.
 
 UnitedHealth Group is one of the largest private health insurers and provides medical benefits to about 51 million members globally, including 1 million outside the US as of December 2025. As a leader in employer-sponsored, self-directed, and government-backed insurance plans, UnitedHealth has obtained massive scale in medical insurance. Along with its insurance assets, UnitedHealth's Optum franchises help create a healthcare services colossus that spans everything from pharmaceutical benefits to providing outpatient care and analytics to affiliates and third parties.
@@ -425,6 +426,8 @@ UnitedHealth Group is one of the largest private health insurers and provides me
 <h3 id="company-cvs">CVS Health (CVS)</h3>
 
 *Payers · $135.1B · 3m +1.3% · 12m +41.6% · 24m +66.5%*
+
+[Google Finance](https://www.google.com/finance/quote/CVS:NYSE?tab=earnings&hl=en)
 
 Healthcare retail ecosystem.
 
@@ -434,6 +437,8 @@ CVS Health offers a diverse set of healthcare services. Its roots are in its ret
 
 *Payers · $43.7B · 3m +27.5% · 12m +35.8% · 24m +11.0%*
 
+[Google Finance](https://www.google.com/finance/quote/HUM:NYSE?tab=earnings&hl=en)
+
 Large payer, Medicare and Medicare Advantage focused.
 
 Humana is one of the largest private health insurers in the US, and the firm has built a niche specializing in government-sponsored programs, with nearly all its medical membership stemming from Medicare, Medicaid, and the military's Tricare program. Beyond medical insurance, the company provides other healthcare services, including primary-care services, at-home services, and pharmacy benefit management.
@@ -441,6 +446,8 @@ Humana is one of the largest private health insurers in the US, and the firm has
 <h3 id="company-oscr">Oscar Health (OSCR)</h3>
 
 *Payers · $9.4B · 3m +40.5% · 12m +109.5% · 24m +75.2%*
+
+[Google Finance](https://www.google.com/finance/quote/OSCR:NYSE?tab=earnings&hl=en)
 
 Tech-focused payer with large exposure to exchange products and ICHRAs.
 
@@ -450,6 +457,8 @@ Oscar Health Inc is a healthcare technology company built around a full stack te
 
 *Payers · $10.2B · 3m +14.8% · 12m +26.8% · 24m -39.3%*
 
+[Google Finance](https://www.google.com/finance/quote/MOH:NYSE?tab=earnings&hl=en)
+
 Managed-care company providing health insurance through government programs.
 
 Molina Healthcare Inc provides medical insurance plans through Medicaid, the individual exchanges, and Medicare. The company operates in four reportable segments consisting of: 1) Medicaid; 2) Medicare; 3) Marketplace; and 4) Other. It manages health benefit risks for more than 5 million people, with more than 85% of those members coming through contracts with state governments for their Medicaid programs. Medicaid contracts in four states-California, New York, Texas, and Washington-account for over half of its enrollees.
@@ -457,6 +466,8 @@ Molina Healthcare Inc provides medical insurance plans through Medicaid, the ind
 <h3 id="company-ci">Cigna (CI)</h3>
 
 *Payers · $73.7B · 3m -0.9% · 12m -4.8% · 24m -17.5%*
+
+[Google Finance](https://www.google.com/finance/quote/CI:NYSE?tab=earnings&hl=en)
 
 Employer-focused health insurance company.
 
@@ -466,6 +477,8 @@ Cigna primarily provides pharmacy benefit management and health insurance servic
 
 *Payers · $81.5B · 3m +1.9% · 12m +29.3% · 24m -26.4%*
 
+[Google Finance](https://www.google.com/finance/quote/ELV:NYSE?tab=earnings&hl=en)
+
 Health insurance company, previously named Anthem.
 
 Elevance Health remains one of the leading health insurers in the US, providing medical benefits to 45 million medical members at the end of 2025. The company offers employer, individual, and government-sponsored coverage plans. Elevance differs from its peers in its unique position as the largest single provider of Blue Cross Blue Shield branded coverage, operating as the licensee for the Blue Cross Blue Shield Association in 14 states. Through acquisitions, such as the Amerigroup deal in 2012 and MMM in 2021, Elevance's reach expands beyond those states in government-sponsored programs, such as Medicaid and Medicare Advantage plans, too. It is also an emerging player in pharmacy benefit management and other healthcare services.
@@ -473,6 +486,8 @@ Elevance Health remains one of the leading health insurers in the US, providing 
 <h3 id="company-clov">Clover Health (CLOV)</h3>
 
 *Payers · $2.2B · 3m +32.6% · 12m +73.6% · 24m +62.5%*
+
+[Google Finance](https://www.google.com/finance/quote/CLOV:NASDAQ?tab=earnings&hl=en)
 
 American healthcare company company providing Medicare Advantage insurance plans.
 
@@ -482,6 +497,8 @@ Clover Health Investments Corp is a healthcare technology company. It focuses on
 
 *Payers · $30.7B · 3m +15.8% · 12m +136.8% · 24m -13.6%*
 
+[Google Finance](https://www.google.com/finance/quote/CNC:NYSE?tab=earnings&hl=en)
+
 Health insurance for government and privately insured healthcare programs.
 
 Centene is a managed care organization that focuses on government-sponsored healthcare plans, including Medicaid, Medicare, and the individual exchanges. Centene served 20 million medical members as of December 2025, mostly in Medicaid (about 64% of membership), the individual exchanges (about 28%), and Medicare (about 5%). The company also provides Medicare Part D pharmaceutical plans.
@@ -489,6 +506,8 @@ Centene is a managed care organization that focuses on government-sponsored heal
 <h3 id="company-alhc">Alignment Health (ALHC)</h3>
 
 *Payers · $3.1B · 3m -11.3% · 12m -7.2% · 24m +60.5%*
+
+[Google Finance](https://www.google.com/finance/quote/ALHC:NASDAQ?tab=earnings&hl=en)
 
 Tech-enabled Medicare Advantage Company.
 
@@ -498,6 +517,8 @@ Alignment Healthcare Inc is a next-generation, consumer-centric platform that is
 
 *Health System Providers · $87.2B · 3m -4.3% · 12m +2.2% · 24m +8.3%*
 
+[Google Finance](https://www.google.com/finance/quote/HCA:NYSE?tab=earnings&hl=en)
+
 Largest for-profit hospital and outpatient care operator in the United States.
 
 HCA Healthcare is a Nashville-based healthcare provider organization operating the largest collection of acute-care hospitals in the United States. As of December 2025, the firm owned and operated 190 hospitals and over 2,500 outpatient facillities across 19 states and a small foothold in the United Kingdom.
@@ -505,6 +526,8 @@ HCA Healthcare is a Nashville-based healthcare provider organization operating t
 <h3 id="company-thc">Tenet Health (THC)</h3>
 
 *Health System Providers · $20.5B · 3m +36.2% · 12m +55.7% · 24m +71.0%*
+
+[Google Finance](https://www.google.com/finance/quote/THC:NYSE?tab=earnings&hl=en)
 
 Diversified healthcare provider with hospitals and a leading ambulatory surgery center platform through USPI.
 
@@ -514,6 +537,8 @@ Tenet Healthcare is a Dallas-based healthcare services organization. It operates
 
 *Health System Providers · $10.2B · 3m +0.8% · 12m -4.7% · 24m -24.9%*
 
+[Google Finance](https://www.google.com/finance/quote/UHS:NYSE?tab=earnings&hl=en)
+
 Hospital operator with significant acute care and behavioral health business.
 
 Universal Health Services Inc offers healthcare services through its behavioral health centers, acute care hospitals, and related outpatient facilities. As of late 2025, the company operated 346 inpatient behavioral health centers, 29 acute care hospitals, and many supportive outpatient facilities. Its operations are concentrated in the U.S, particularly in Nevada (21% of 2025 operating profits), Texas (19%), and California (13%), although it does have some exposure to the UK behavioral health market (6% of 2025 sales) too. While its acute care services account for over 55% of revenue, the behavioral health centers sport higher margins and account for over 55% of pretax profits.
@@ -521,6 +546,8 @@ Universal Health Services Inc offers healthcare services through its behavioral 
 <h3 id="company-cyh">Community Health Systems (CYH)</h3>
 
 *Health System Providers · $417.4M · 3m +6.4% · 12m +9.9% · 24m -40.1%*
+
+[Google Finance](https://www.google.com/finance/quote/CYH:NYSE?tab=earnings&hl=en)
 
 Operator of community hospitals primarily serving non-urban and regional markets.
 
@@ -530,6 +557,8 @@ Community Health Systems Inc is a publicly owned hospital operator in the United
 
 *Health System Providers · $1.5B · 3m +8.0% · 12m -12.6% · 24m -35.6%*
 
+[Google Finance](https://www.google.com/finance/quote/ARDT:NYSE?tab=earnings&hl=en)
+
 Regional hospital operator focused on integrated health systems across mid-sized US markets.
 
 Ardent Health Inc is a provider of healthcare in growing mid-sized urban communities across the U.S and operating in eight growing mid-sized urban markets across six states Texas, Oklahoma, New Mexico, New Jersey, Idaho, and Kansas. The main focus on people and investments in services and technologies.
@@ -537,6 +566,8 @@ Ardent Health Inc is a provider of healthcare in growing mid-sized urban communi
 <h3 id="company-ensg">The Ensign Group (ENSG)</h3>
 
 *Inpatient Non-Acute Providers · $10.4B · 3m +2.2% · 12m +9.3% · 24m +28.6%*
+
+[Google Finance](https://www.google.com/finance/quote/ENSG:NASDAQ?tab=earnings&hl=en)
 
 Leading operator of skilled nursing facilities, rehabilitation centers, and senior-care services.
 
@@ -546,6 +577,8 @@ Ensign Group Inc provides post-acute healthcare services in the United States. I
 
 *Inpatient Non-Acute Providers · $2.8B · 3m +19.4% · 12m +46.9% · 24m -58.6%*
 
+[Google Finance](https://www.google.com/finance/quote/ACHC:NASDAQ?tab=earnings&hl=en)
+
 Largest provider of behavioral health and addiction treatment services.
 
 Acadia Healthcare Co Inc acquires and develops behavioral healthcare facilities. Its facilities and services are classified into the following categories: acute inpatient psychiatric facilities; specialty treatment facilities; CTCs; and residential treatment centers. In which Acute inpatient psychiatric facilities contribute the majority of revenue in the United States. The Company has one reportable segment, behavioral healthcare services. The behavioral healthcare services segment provides inpatient and outpatient behavioral healthcare services.
@@ -553,6 +586,8 @@ Acadia Healthcare Co Inc acquires and develops behavioral healthcare facilities.
 <h3 id="company-ehc">Encompass Health (EHC)</h3>
 
 *Inpatient Non-Acute Providers · $11.0B · 3m +15.9% · 12m +2.7% · 24m +39.5%*
+
+[Google Finance](https://www.google.com/finance/quote/EHC:NYSE?tab=earnings&hl=en)
 
 In-patient post-acute rehabilitation services.
 
@@ -562,6 +597,8 @@ Encompass Health Corp provides post-acute healthcare services in the United Stat
 
 *Inpatient Non-Acute Providers · $7.3B · 3m +18.6% · 12m +286.4% · 24m +14.6%*
 
+[Google Finance](https://www.google.com/finance/quote/PACS:NYSE?tab=earnings&hl=en)
+
 Post-acute care and skilled nursing company.
 
 PACS Group Inc is a post-acute healthcare company mainly focused on delivering skilled nursing care through a portfolio of independently operated facilities. The post-acute care ecosystem serves individuals who need additional help recuperating from acute conditions, illnesses, or serious medical procedures after getting discharged from the hospital. It also provides senior care, assisted living, and independent living options in some of the communities. The company has one reportable segment.
@@ -569,6 +606,8 @@ PACS Group Inc is a post-acute healthcare company mainly focused on delivering s
 <h3 id="company-doc">Healthpeak properties (DOC)</h3>
 
 *Health Care Real Estate · $15.1B · 3m +7.4% · 12m +20.1% · 24m -3.2%*
+
+[Google Finance](https://www.google.com/finance/quote/DOC:NYSE?tab=earnings&hl=en)
 
 Healthcare industry real estate investment trust focused on outpatient medical offices, life science properties, an senior housing.
 
@@ -578,6 +617,8 @@ Healthpeak owns a diversified healthcare portfolio of approximately 700 in-place
 
 *Health Care Real Estate · $48.0B · 3m +4.7% · 12m +35.0% · 24m +56.7%*
 
+[Google Finance](https://www.google.com/finance/quote/VTR:NYSE?tab=earnings&hl=en)
+
 Real estate investment trust focused  on ownership and management of senior housing, research, medicine office buildings, and healthcare facilities.
 
 Ventas owns a diversified healthcare portfolio of almost 1,400 in-place properties spread across the senior housing, medical office, hospital, life science, and skilled nursing/post-acute care. The portfolio includes almost 100 properties in Canada and the United Kingdom as the company looks for additional investment opportunities in countries with mature healthcare systems that operate similarly to the United States. The firm also owns mortgages and other loans, contributing about 1% of net operating income.
@@ -585,6 +626,8 @@ Ventas owns a diversified healthcare portfolio of almost 1,400 in-place properti
 <h3 id="company-mpt">Medical Properties Trust (MPT)</h3>
 
 *Health Care Real Estate · $2.8B · 3m -17.2% · 12m n/a · 24m n/a*
+
+[Google Finance](https://www.google.com/finance/quote/MPT:NYSE?tab=earnings&hl=en)
 
 Real estate investment trust for healthcare facilities in the US and Europe.
 
@@ -594,6 +637,8 @@ Medical Properties Trust Inc acquires and develops net-leased healthcare facilit
 
 *Health Care Real Estate · $3.7B · 3m -2.3% · 12m -2.3% · 24m -1.8%*
 
+[Google Finance](https://www.google.com/finance/quote/NHI:NYSE?tab=earnings&hl=en)
+
 Healthcare REIT focused on senior housing, skilled nursing, and long-term care properties.
 
 National Health Investors Inc is a self-managed REIT that owns, leases, operates, and finances the development of senior housing communities and medical facilities. It operates through two segments: Real Estate Investments and Senior Housing Operating Portfolio (SHOP). The Real Estate Investments segment, which generates the majority of revenue, includes real estate leases, mortgages, and other notes receivable related to independent living facilities, assisted living facilities, entrance fee communities, senior living campuses, skilled nursing facilities, and a hospital. The SHOP segment consists of ventures that own and operate independent living facilities. The company's revenues are derived from rental income, interest and other income, and resident fees and services.
@@ -601,6 +646,8 @@ National Health Investors Inc is a self-managed REIT that owns, leases, operates
 <h3 id="company-ohi">Omega Healthcare Investors (OHI)</h3>
 
 *Health Care Real Estate · $15.1B · 3m -1.7% · 12m +13.5% · 24m +24.3%*
+
+[Google Finance](https://www.google.com/finance/quote/OHI:NYSE?tab=earnings&hl=en)
 
 Healthcare REIT healthcare REIT focused on skilled nursing and assisted living facilities.
 
@@ -610,6 +657,8 @@ Omega Healthcare Investors Inc is a real estate investment trust that invests in
 
 *Health Care Real Estate · $166.9B · 3m +10.2% · 12m +44.6% · 24m +103.2%*
 
+[Google Finance](https://www.google.com/finance/quote/WELL:NYSE?tab=earnings&hl=en)
+
 Largest healthcare REIT, focused on senior housing, outpatient medical, and wellness-oriented healthcare properties.
 
 Welltower owns a diversified healthcare portfolio of 2,800 in-place properties spread across the senior housing, medical office, and skilled nursing/postacute care sectors. The portfolio includes over 900 properties in Canada and the United Kingdom as the company looks for additional investment opportunities in countries with mature healthcare systems that operate similarly to that of the United States.
@@ -617,6 +666,8 @@ Welltower owns a diversified healthcare portfolio of 2,800 in-place properties s
 <h3 id="company-ctre">CareTrust REIT (CTRE)</h3>
 
 *Health Care Real Estate · $9.6B · 3m -5.8% · 12m +14.4% · 24m +39.3%*
+
+[Google Finance](https://www.google.com/finance/quote/CTRE:NYSE?tab=earnings&hl=en)
 
 Healthcare REIT focused on skilled nursing, senior housing, and other post-acute care facilities.
 
@@ -626,6 +677,8 @@ CareTrust REIT Inc is a self-administered, publicly traded REIT engaged in the o
 
 *Health Care Real Estate · $5.3B · 3m -1.7% · 12m +10.1% · 24m +25.5%*
 
+[Google Finance](https://www.google.com/finance/quote/SBRA:NASDAQ?tab=earnings&hl=en)
+
 healthcare REIT focused on skilled nursing, senior housing, and behavioral health properties.
 
 Sabra Health Care REIT Inc is a healthcare facility real estate investment trust. The company operates one segment that owns and invests in healthcare real estate. All of the company's revenue is generated in the United States. Sabra's operations consist of nursing facilities, assisted living centers, and mental health facilities.
@@ -633,6 +686,8 @@ Sabra Health Care REIT Inc is a healthcare facility real estate investment trust
 <h3 id="company-prva">Privia Health Group (PRVA)</h3>
 
 *Value-Based Care · $3.0B · 3m -4.1% · 12m +3.4% · 24m +10.6%*
+
+[Google Finance](https://www.google.com/finance/quote/PRVA:NASDAQ?tab=earnings&hl=en)
 
 Value-based care company focusing on physician enablement for independent practices.
 
@@ -642,6 +697,8 @@ Privia Health Group Inc is one of the physician enablement companies in the Unit
 
 *Value-Based Care · $1.8B · 3m +6.7% · 12m +39.1% · 24m -15.4%*
 
+[Google Finance](https://www.google.com/finance/quote/ASTH:NASDAQ?tab=earnings&hl=en)
+
 Physician centric management company that operates and coordinates provider networks to take on risk contracts.
 
 Astrana Health Inc is a patient-centered, physician-centric integrated population health management company. The company is working to provide coordinated, outcomes-based medical care cost-effectively. It is focused on physicians providing high-quality medical care, population health management, and care coordination for patients, particularly senior patients and patients with multiple chronic conditions. The company's three reportable segments are Care Partners, Care Delivery, and Care Enablement. It generates the majority of its revenue from the Care Partners segment.
@@ -649,6 +706,8 @@ Astrana Health Inc is a patient-centered, physician-centric integrated populatio
 <h3 id="company-agl">Agilon Health (AGL)</h3>
 
 *Value-Based Care · $2.1B · 3m +18.6% · 12m +249.2% · 24m -20.1%*
+
+[Google Finance](https://www.google.com/finance/quote/AGL:NYSE?tab=earnings&hl=en)
 
 Value-based care company focused on partnerships with primary care physicians for Medicare Advantage seniors.
 
@@ -658,6 +717,8 @@ Agilon Health Inc is a healthcare services company that partners with primary ca
 
 *Value-Based Care · $347.6M · 3m +18.2% · 12m -49.7% · 24m -82.9%*
 
+[Google Finance](https://www.google.com/finance/quote/EVH:NYSE?tab=earnings&hl=en)
+
 Specialty-care management and healthcare-services company focused on oncology, cardiology, and musculoskeletal care.
 
 Evolent Health Inc is engaged in healthcare delivery and payment. The company supports health systems and physician organizations in their migration toward value-based care and population health management. It provides specialty care management services in oncology, cardiology, musculoskeletal markets and holistic total cost of care management along with an integrated platform for health plan administration and value-based business infrastructure under one go to market package. The solutions provided by the company includes: Oncology, Cardiology, Musculoskeletal, Administrative Services, Advanced Illness, Genetic Testing, Physical Medicine, Radiology, and Surgical Management.
@@ -665,6 +726,8 @@ Evolent Health Inc is engaged in healthcare delivery and payment. The company su
 <h3 id="company-piii">P3 Health (PIII)</h3>
 
 *Value-Based Care · $32.7M · 3m -5.4% · 12m +57.7% · 24m -64.3%*
+
+[Google Finance](https://www.google.com/finance/quote/PIII:NASDAQ?tab=earnings&hl=en)
 
 Physician-led population ehalth company focused on coordinating care for Medicare Advantage Patients.
 
@@ -674,6 +737,8 @@ P3 Health Partners Inc is a patient-centered and physician-led population health
 
 *Outpatient and Home Providers · $15.4B · 3m -9.9% · 12m +33.0% · 24m +19.8%*
 
+[Google Finance](https://www.google.com/finance/quote/DVA:NYSE?tab=earnings&hl=en)
+
 One of two dominant US dialysis providers.
 
 DaVita is one of the largest providers of dialysis services in the United States, boasting a market share of about 35%. The firm operates over 3,200 facilities worldwide, mostly in the US, and treats about 300,000 patients annually. Government payers dominate US dialysis reimbursement. DaVita receives about two-thirds of US sales at government (primarily Medicare) reimbursement rates, with the remainder coming from commercial insurers. While commercial insurers represent only about 10% of US patients treated, they represent nearly all of the profits generated by DaVita in the US dialysis business.
@@ -681,6 +746,8 @@ DaVita is one of the largest providers of dialysis services in the United States
 <h3 id="company-fms">Fresenius (FMS)</h3>
 
 *Outpatient and Home Providers · $13.8B · 3m +10.0% · 12m -5.2% · 24m +25.3%*
+
+[Google Finance](https://www.google.com/finance/quote/FMS:NYSE?tab=earnings&hl=en)
 
 Global leaders in dialysis clinics, equipment, and renal services.
 
@@ -690,6 +757,8 @@ Fresenius Medical Care is the largest dialysis company in the world, treating ne
 
 *Outpatient and Home Providers · $2.0B · 3m +7.7% · 12m -34.1% · 24m -48.2%*
 
+[Google Finance](https://www.google.com/finance/quote/SGRY:NASDAQ?tab=earnings&hl=en)
+
 Operator of Ambulatory Surgery Centers.
 
 Surgery Partners Inc is a healthcare services company with an integrated outpatient delivery model focused on providing quality, cost-effective solutions for surgical and related ancillary care in support of both patients and physicians. It has one reportable segment: Surgical Facilities, which includes the operation of ASCs, surgical hospitals, anesthesia services, and multi-specialty physician practices, which earn revenues from contracts with patients in which the performance obligations are to provide health care services.
@@ -697,6 +766,8 @@ Surgery Partners Inc is a healthcare services company with an integrated outpati
 <h3 id="company-opch">Option Care Health (OPCH)</h3>
 
 *Outpatient and Home Providers · $3.4B · 3m +22.7% · 12m -15.4% · 24m -23.7%*
+
+[Google Finance](https://www.google.com/finance/quote/OPCH:NASDAQ?tab=earnings&hl=en)
 
 Largest independent provider of home and alternate-site infusion therapy services in the United States.
 
@@ -706,6 +777,8 @@ Option Care Health Inc is the provider of home and alternate-site infusion servi
 
 *Outpatient and Home Providers · $4.0B · 3m +62.4% · 12m +128.3% · 24m +119.8%*
 
+[Google Finance](https://www.google.com/finance/quote/LFST:NASDAQ?tab=earnings&hl=en)
+
 Outpatient behavioral-health providers of psychiatry and therapy services.
 
 LifeStance Health Group Inc is a mental healthcare company that operates as a provider of outpatient mental health services, spanning psychiatric evaluations and treatment, psychological and neuropsychological testing, and individual, family, and group therapy. It treats a broad range of mental health conditions, including anxiety, depression, bipolar disorder, eating disorders, psychotic disorders, and post-traumatic stress disorder, using evidence-based approaches to ensure effective treatment. The group has a single operating and reportable segment of mental health services.
@@ -713,6 +786,8 @@ LifeStance Health Group Inc is a mental healthcare company that operates as a pr
 <h3 id="company-che">Chemed (Vitas) (CHE)</h3>
 
 *Outpatient and Home Providers · $7.1B · 3m +22.6% · 12m +19.7% · 24m -7.5%*
+
+[Google Finance](https://www.google.com/finance/quote/CHE:NYSE?tab=earnings&hl=en)
 
 Hospice and end of life provider through VITAS healthcare.
 
@@ -722,6 +797,8 @@ Chemed Corp purchases, operates, and divests subsidiaries engaged in diverse bus
 
 *Outpatient and Home Providers · $2.1B · 3m +27.6% · 12m +0.8% · 24m -11.6%*
 
+[Google Finance](https://www.google.com/finance/quote/ADUS:NASDAQ?tab=earnings&hl=en)
+
 Provider of personal care, hospice, and home health services.
 
 Addus HomeCare Corp is engaged in the provision of in-home care services. The Company has three reportable segments: Personal Care, Hospice, and Home Health. The Personal Care segment provides non-medical assistance with activities of daily living, mainly to the elderly, chronically ill, and disabled individuals. The Hospice segment provides physical, emotional, and spiritual care for terminally ill patients and their families. The Home Health segment provides medical services to individuals requiring care during illness or recovery. It generates the majority of its revenue from the Personal Care segment.
@@ -729,6 +806,8 @@ Addus HomeCare Corp is engaged in the provision of in-home care services. The Co
 <h3 id="company-pntg">Pennant Group (PNTG)</h3>
 
 *Outpatient and Home Providers · $1.3B · 3m +10.6% · 12m +55.7% · 24m +23.9%*
+
+[Google Finance](https://www.google.com/finance/quote/PNTG:NASDAQ?tab=earnings&hl=en)
 
 provider of home health, hospice, and senior living services.
 
@@ -738,6 +817,8 @@ Pennant Group Inc is engaged in providing healthcare services to patients of all
 
 *Outpatient and Home Providers · $1.2B · 3m +29.3% · 12m -5.3% · 24m -3.5%*
 
+[Google Finance](https://www.google.com/finance/quote/USPH:NYSE?tab=earnings&hl=en)
+
 operator of outpatient physical therapy clinics and industrial injury prevention services.
 
 US Physical Therapy Inc through its subsidiaries operate outpatient physical therapy clinics that provide pre-and post-operative care and treatment for orthopedic-related disorders, sports-related injuries, preventative care, rehabilitation of injured workers, and neurological-related injuries. The principal payment sources for the clinics' services are managed care programs, commercial health insurance, Medicare/Medicaid, workers' compensation insurance, and proceeds from personal injury cases. Its operating segment includes Physical therapy operations and Industrial injury prevention services. The company generates maximum revenue from the Physical therapy operations segment.
@@ -745,6 +826,8 @@ US Physical Therapy Inc through its subsidiaries operate outpatient physical the
 <h3 id="company-btsg">BrightSpring Health Services (BTSG)</h3>
 
 *Outpatient and Home Providers · $12.4B · 3m +6.6% · 12m +175.0% · 24m +413.8%*
+
+[Google Finance](https://www.google.com/finance/quote/BTSG:NASDAQ?tab=earnings&hl=en)
 
 provider of home and community-based healthcare services, including pharmacy, rehabilitation, primary care, and hospice.
 
@@ -754,6 +837,8 @@ BrightSpring Health Services Inc is a home and community-based healthcare servic
 
 *Outpatient and Home Providers · $2.0B · 3m +59.6% · 12m +74.0% · 24m +147.9%*
 
+[Google Finance](https://www.google.com/finance/quote/AVAH:NASDAQ?tab=earnings&hl=en)
+
 provider of pediatric and adult home healthcare, private-duty nursing, and hospice services.
 
 Aveanna Healthcare Holdings Inc is a diversified home care platform that provides care to medically complex, high-cost patient populations. It directly addresses the pressing challenges facing the U.S. healthcare system by providing safe, high-quality care in the home. The firm provides its services through three segments: Private Duty Services (PDS); Home Health & Hospice (HHH); and Medical Solutions (MS). The Private Duty Services segment generates the majority of revenue, which includes private duty skilled nursing services, non-clinical and personal care services, and pediatric therapy services, and is principally reimbursed by Medicaid and Medicaid MCO.
@@ -761,6 +846,8 @@ Aveanna Healthcare Holdings Inc is a diversified home care platform that provide
 <h3 id="company-tdoc">Teladoc (TDOC)</h3>
 
 *Digital Health, Specialty, Benefits · $1.2B · 3m +7.1% · 12m -9.4% · 24m -4.2%*
+
+[Google Finance](https://www.google.com/finance/quote/TDOC:NYSE?tab=earnings&hl=en)
 
 Largest pure-play virtual care platform, offering telemedicine, chronic-care management, and specialty virtual health services.
 
@@ -770,6 +857,8 @@ Teladoc Health Inc is engaged in the provision of virtual healthcare services, c
 
 *Digital Health, Specialty, Benefits · $179.6M · 3m +64.5% · 12m +74.1% · 24m +43.8%*
 
+[Google Finance](https://www.google.com/finance/quote/AMWL:NYSE?tab=earnings&hl=en)
+
 Telehealth infrastructure company providing virtual-care technology.
 
 American Well Corp is an enterprise platform and software company digitally enabling hybrid care by offering payers and health systems a technology-enabled care platform. The Amwell Platform, its cloud-based enablement platform, digitally enables a scalable healthcare experience across all care settings by enabling critical services like virtual primary care, urgent care, clinical partner programs, scheduling visits, etc. Additionally, the healthcare providers can use the platform to access familiar workflows for taking notes, prescribing, referencing clinical treatment guidelines, and other related activities. The firm also offers various paid services, including licensed clinical staffing, implementation support, workflow design, etc, to help clients execute their hybrid care strategies.
@@ -777,6 +866,8 @@ American Well Corp is an enterprise platform and software company digitally enab
 <h3 id="company-talk">Talkspace (TALK)</h3>
 
 *Digital Health, Specialty, Benefits · $874.4M · 3m +1.0% · 12m +105.1% · 24m +198.3%*
+
+[Google Finance](https://www.google.com/finance/quote/TALK:NASDAQ?tab=earnings&hl=en)
 
 Digital behavioral-health company providing online therapy and mental-health services through employers and health-plans.
 
@@ -786,6 +877,8 @@ Talkspace Inc is a virtual behavioral healthcare company offering its members co
 
 *Digital Health, Specialty, Benefits · $6.4B · 3m +12.4% · 12m -38.8% · 24m +80.7%*
 
+[Google Finance](https://www.google.com/finance/quote/HIMS:NYSE?tab=earnings&hl=en)
+
 Direct-to-Consumer telehealth platform for primary care, weight management, mental health, sexual health, and wellness.
 
 Hims & Hers, launched in 2017, is a telehealth platform that connects patients and healthcare providers to offer treatment options for specialties like erectile dysfunction, hair loss, skin care, mental health, and weight loss. Its offerings include generic, branded, and compounded prescription drugs as well as over-the-counter medicines, cosmetics, and supplements. The platform, which has more than 2 million subscribers, is available in all 50 states and certain European markets like the UK. It includes provider networks, electronic medical records, cloud pharmacy fulfillment, and personalization capabilities. Hims does not take insurance and only accepts payments directly from customers.
@@ -793,6 +886,8 @@ Hims & Hers, launched in 2017, is a telehealth platform that connects patients a
 <h3 id="company-lfmd">LifeMD (LFMD)</h3>
 
 *Digital Health, Specialty, Benefits · $169.3M · 3m -20.3% · 12m -46.3% · 24m -33.8%*
+
+[Google Finance](https://www.google.com/finance/quote/LFMD:NASDAQ?tab=earnings&hl=en)
 
 Virtual primary-care and telehealth company known for chronic condition management.
 
@@ -802,6 +897,8 @@ LifeMD Inc is a patient-centric, direct-to-patient healthcare company providing 
 
 *Digital Health, Specialty, Benefits · $1.2B · 3m +45.2% · 12m +17.1% · 24m n/a*
 
+[Google Finance](https://www.google.com/finance/quote/OMDA:NASDAQ?tab=earnings&hl=en)
+
 Virtual chronic-care platform focused on diabetes, hypertension, obesity, and musculoskeletal conditions through employers and health plans.
 
 Omada Health Inc empowers individuals to make lasting health changes through personalized, virtual care between doctor's visits. The integrated platform of the company supports members with cardiometabolic conditions like prediabetes, diabetes, hypertension, musculoskeletal issues, and behavioral health needs. The company's specialized care tracks also assist members using GLP-1 medications. The company delivers measurable health outcomes and value for employers, health plans, health systems, and pharmacy benefit managers.
@@ -809,6 +906,8 @@ Omada Health Inc empowers individuals to make lasting health changes through per
 <h3 id="company-gdrx">GoodRx (GDRX)</h3>
 
 *Digital Health, Specialty, Benefits · $1.0B · 3m +53.5% · 12m +0.0% · 24m -48.0%*
+
+[Google Finance](https://www.google.com/finance/quote/GDRX:NASDAQ?tab=earnings&hl=en)
 
 Prescription-pricing and healthcare-shopping platform that helps consumers find discounts on medications and healthcare services.
 
@@ -818,6 +917,8 @@ GoodRx Holdings Inc is a consumer-focused digital healthcare platform that aims 
 
 *Digital Health, Specialty, Benefits · $2.5B · 3m +13.0% · 12m +12.3% · 24m +24.9%*
 
+[Google Finance](https://www.google.com/finance/quote/PGNY:NASDAQ?tab=earnings&hl=en)
+
 fertility and family-building benefits manager that provides employer-sponsored fertility, maternity, and women's health programs.
 
 Progyny Inc is a benefits management company specializing in fertility, family building, and women's health benefits solutions. Its clients include employers across various industries. The fertility benefits solution consists of treatment services (Smart Cycles), access to the Progyny network of high-quality fertility specialists that perform the Smart Cycle treatments, and active management of the selective network of high-quality provider clinics.
@@ -825,6 +926,8 @@ Progyny Inc is a benefits management company specializing in fertility, family b
 <h3 id="company-con">Concentra Group (CON)</h3>
 
 *Digital Health, Specialty, Benefits · $4.0B · 3m +37.0% · 12m +52.5% · 24m +51.3%*
+
+[Google Finance](https://www.google.com/finance/quote/CON:NYSE?tab=earnings&hl=en)
 
 leading provider of occupational health, workers’ compensation, and employer health services.
 
@@ -834,6 +937,8 @@ Concentra Group Holdings Parent Inc is a provider of occupational health service
 
 *Digital Health, Specialty, Benefits · $8.8B · 3m +27.5% · 12m +16.5% · 24m +39.9%*
 
+[Google Finance](https://www.google.com/finance/quote/HQY:NASDAQ?tab=earnings&hl=en)
+
 administrator of health savings accounts (HSAs) and consumer-directed healthcare benefits.
 
 HealthEquity Inc provides solutions that allow consumers to make healthcare saving and spending decisions. It provides payment processing services, personalized benefit information, the ability to earn wellness incentives, and investment advice to grow their tax-advantaged healthcare savings. It manages consumers' tax-advantaged health savings accounts (HSAs) and other consumer-directed benefits (CDBs) offered by employers, including flexible spending accounts and health reimbursement arrangements (FSAs and HRAs), and administers Consolidated Omnibus Budget Reconciliation Act (COBRA), commuter and other benefits. It also provides investment advisory services to customers whose account balances exceed a certain threshold. HealthEquity generates its revenue in the United States.
@@ -841,6 +946,8 @@ HealthEquity Inc provides solutions that allow consumers to make healthcare savi
 <h3 id="company-orcl">Oracle-Cerner (ORCL)</h3>
 
 *Health IT and Data · $374.1B · 3m -22.0% · 12m -39.4% · 24m +9.5%*
+
+[Google Finance](https://www.google.com/finance/quote/ORCL:NYSE?tab=earnings&hl=en)
 
 Largest healthcare IT platform vendor, providing EHRs, clinical workflow software, and healthcare data infrastructure.
 
@@ -850,6 +957,8 @@ Oracle provides enterprise applications and infrastructure offerings through a v
 
 *Health IT and Data · n/a · 3m -4.0% · 12m +4.3% · 24m -50.0%*
 
+[Google Finance](https://www.google.com/finance/quote/MDRX:NYSE?tab=earnings&hl=en)
+
 Healthcare data, EHR (AllScripts) and interoperability.
 
 VERADIGM INC
@@ -857,6 +966,8 @@ VERADIGM INC
 <h3 id="company-way">Waystar (WAY)</h3>
 
 *Health IT and Data · $4.0B · 3m +38.2% · 12m -31.3% · 24m -3.8%*
+
+[Google Finance](https://www.google.com/finance/quote/WAY:NASDAQ?tab=earnings&hl=en)
 
 Healthcare payments and revenue cycle platform.
 
@@ -866,6 +977,8 @@ Waystar Holding Corp is a provider of mission-critical cloud technology to healt
 
 *Health IT and Data · $13.6B · 3m +19.3% · 12m +24.0% · 24m +49.1%*
 
+[Google Finance](https://www.google.com/finance/quote/SOLV:NYSE?tab=earnings&hl=en)
+
 Revenue-cycle, clinical documentation, coding, and healthcare workflow solutions.
 
 Solventum Corp is a healthcare company developing, manufacturing, and commercializing solutions leveraging material science, data science, and digital capabilities to address customer and patient needs. Its segments include MedSurg, which earns maximum revenue and provides wound therapy, I.V. site management, surgical supplies, medical tapes and wraps, stethoscopes, medical electrodes, and OEM medical technologies; Dental Solutions, offering dental and orthodontic products such as brackets, restorative cements, and bonding agents; and Health Information Systems, providing software solutions including physician documentation, coding automation, speech recognition, and data visualization platforms. It operates in the United States, which earns the majority of revenue, and internationally.
@@ -873,6 +986,8 @@ Solventum Corp is a healthcare company developing, manufacturing, and commercial
 <h3 id="company-phr">Phreesia (PHR)</h3>
 
 *Health IT and Data · $663.2M · 3m +40.0% · 12m -57.2% · 24m -49.4%*
+
+[Google Finance](https://www.google.com/finance/quote/PHR:NYSE?tab=earnings&hl=en)
 
 Patient-intake and engagement platform that digitizes registration, scheduling, intake forms, payments, and communications.
 
@@ -882,6 +997,8 @@ Phreesia Inc is a provides an integrated software, payments, and engagement plat
 
 *Health IT and Data · $669.7M · 3m +38.0% · 12m +51.0% · 24m +93.7%*
 
+[Google Finance](https://www.google.com/finance/quote/CCSI:NASDAQ?tab=earnings&hl=en)
+
 Healthcare-focused cloud communications company known for secure-faxing, interoperability, and clinical document exchange.
 
 Consensus Cloud Solutions Inc is a provider of secure information delivery services with a scalable Software-as-a-Service SaaS platform. It is engaged in the fax cloud business. The company's offerings include communication, data extraction, and digital signature solutions that enable users to securely access, exchange, and manage information across organizational and geographic boundaries. It serves multiple industry verticals, including healthcare, government, financial services, legal, and education. Geographically, the company operates in the United States, Canada, Ireland, and other countries. It derives the maximum revenue from the United States.
@@ -889,6 +1006,8 @@ Consensus Cloud Solutions Inc is a provider of secure information delivery servi
 <h3 id="company-dh">Definitive Healthcare (DH)</h3>
 
 *Health IT and Data · $85.5M · 3m -20.9% · 12m -83.5% · 24m -84.1%*
+
+[Google Finance](https://www.google.com/finance/quote/DH:NASDAQ?tab=earnings&hl=en)
 
 Healthcare data providers for provider, hospital, physician, and payer intelligence databases.
 
@@ -898,6 +1017,8 @@ Definitive Healthcare Corp is a provider of healthcare commercial intelligence. 
 
 *Health IT and Data · $38.7B · 3m +39.9% · 12m +23.8% · 24m -1.2%*
 
+[Google Finance](https://www.google.com/finance/quote/IQV:NYSE?tab=earnings&hl=en)
+
 Dominant healthcare data, analytics, and contract research organization, supplying pharmaceutical companies with clinical reearch and commercial intelligence.
 
 Iqvia is a global leader in clinical research and technology solutions for the life science industry. Formed in 2016 from the merger of Quintiles and IMS Health, it combined clinical trial services with extensive healthcare data and analytics. Its research and development solutions segment provides outsourced clinical development services spanning drug discovery, trial design, patient recruitment, site management, clinical testing, real-world studies, and the regulatory approval process. Its commercial solutions segment helps companies optimize product commercialization through analytics, technology, and outsourced sales and medical services. Together, Iqvia supports customers across the life science industry, and it serves biopharmaceutical firms, providers, payers, and policymakers.
@@ -905,6 +1026,8 @@ Iqvia is a global leader in clinical research and technology solutions for the l
 <h3 id="company-hcat">Health Catalyst (HCAT)</h3>
 
 *Health IT and Data · $154.4M · 3m +55.5% · 12m -36.6% · 24m -72.6%*
+
+[Google Finance](https://www.google.com/finance/quote/HCAT:NASDAQ?tab=earnings&hl=en)
 
 Healthcare analytics and data-platform company that helps providers improve clinical, operational, and financial performance.
 
@@ -914,6 +1037,8 @@ Health Catalyst Inc provides data and analytics technology and services to healt
 
 *Health IT and Data · $3.8B · 3m +30.7% · 12m -61.9% · 24m -30.6%*
 
+[Google Finance](https://www.google.com/finance/quote/DOCS:NYSE?tab=earnings&hl=en)
+
 Professional network for physicians, combining recruiting, communications, telehealth, and workflow tools.
 
 Doximity Inc provides an online platform, which enables physicians and other healthcare professionals to collaborate with colleagues, stay up to date with the latest medical news and research, manage their careers and on-call schedules, streamline documentation and administrative paperwork, and conduct virtual patient visits. The Company's customers include pharmaceutical companies and health systems that connect with healthcare professionals through the Company's digital Marketing, Hiring, and Workflow Solutions. Marketing Solutions provide customers with the ability to share tailored content on the network. Hiring Solutions enable customers to identify, connect with, and hire from the network of both active and passive potential medical professional candidates.
@@ -921,6 +1046,8 @@ Doximity Inc provides an online platform, which enables physicians and other hea
 <h3 id="company-veev">Veeva Systems (VEEV)</h3>
 
 *Health IT and Data · $33.1B · 3m +53.4% · 12m -13.1% · 24m +26.6%*
+
+[Google Finance](https://www.google.com/finance/quote/VEEV:NYSE?tab=earnings&hl=en)
 
 Leading cloud-software provider for life sciences companies, supporting CRM, clinical trails, regulatory processes, and commercialization.
 
@@ -930,6 +1057,8 @@ Veeva is the global leading supplier of cloud-based software solutions for the l
 
 *Health IT and Data · $1.7B · 3m -13.5% · 12m +17.7% · 24m -12.3%*
 
+[Google Finance](https://www.google.com/finance/quote/OMCL:NASDAQ?tab=earnings&hl=en)
+
 Pharmacy automation, medication management, and healthcare workflow software.
 
 Omnicell Inc provides automation and business analytics software for healthcare providers. The company is engaged in transforming the pharmacy and nursing care delivery model. The company helps its customers define and deliver cost-effective medication management designed to equip and empower pharmacists and nurses to focus on patient care rather than administrative tasks and drive improved clinical, operational, and financial outcomes across all care settings. The company derives the majority of its revenue from the United States.
@@ -937,6 +1066,8 @@ Omnicell Inc provides automation and business analytics software for healthcare 
 <h3 id="company-mck">McKesson (MCK)</h3>
 
 *Pharma Distribution · $97.2B · 3m +14.3% · 12m +29.1% · 24m +58.7%*
+
+[Google Finance](https://www.google.com/finance/quote/MCK:NYSE?tab=earnings&hl=en)
 
 Largest pharmaceutical distributor in North America.
 
@@ -946,6 +1077,8 @@ McKesson is one of three leading pharmaceutical wholesalers in the US engaged in
 
 *Pharma Distribution · $54.7B · 3m +20.5% · 12m +57.2% · 24m +114.1%*
 
+[Google Finance](https://www.google.com/finance/quote/CAH:NYSE?tab=earnings&hl=en)
+
 One of the big three drug wholesalesrs, providing pharma distribution, medical products, and supply chain services.
 
 Cardinal Health is one of three leading pharmaceutical wholesalers in the US, engaged in sourcing and distributing of branded, generic, and specialty pharmaceutical products to pharmacies (retail chains, independent, and mail order), hospital networks, and healthcare providers. Cardinal, Cencora, and McKesson hold well over 90% of the US pharmaceutical wholesale industry. Cardinal Health also supplies medical-surgical products and equipment to healthcare facilities in North America, Europe, and Asia.
@@ -953,6 +1086,8 @@ Cardinal Health is one of three leading pharmaceutical wholesalers in the US, en
 <h3 id="company-cor">Cencora (COR)</h3>
 
 *Pharma Distribution · $59.6B · 3m +21.8% · 12m +7.2% · 24m +31.8%*
+
+[Google Finance](https://www.google.com/finance/quote/COR:NYSE?tab=earnings&hl=en)
 
 Formerly AmerisourceBergen, Global pharmaceutical distribution and specialty-services leader.
 
@@ -962,6 +1097,8 @@ Cencora is one of three leading domestic pharmaceutical wholesalers. It sources 
 
 *Pharma Distribution · $912.9M · 3m -45.5% · 12m -38.7% · 24m -44.5%*
 
+[Google Finance](https://www.google.com/finance/quote/AHCO:NASDAQ?tab=earnings&hl=en)
+
 Medical and Surgical supply distributor with a significant healthcare logistics business.
 
 AdaptHealth Corp is engaged in providing patient-centered, healthcare-at-home solutions including home medical equipment (HME), medical supplies, and related services. The Company operates under four reportable segments that align with its product categories: (i) Sleep Health, (ii) Respiratory Health, (iii) Diabetes Health, and (iv) Wellness at Home. The company generates majority of its revenue from the Sleep Health segment. The Sleep Health segment provides sleep therapy equipment, supplies and related services (including continuous positive airway pressure and BiLevel services) to individuals for the treatment of obstructive sleep apnea.
@@ -969,6 +1106,8 @@ AdaptHealth Corp is engaged in providing patient-centered, healthcare-at-home so
 <h3 id="company-hsic">Henry Schein (HSIC)</h3>
 
 *Pharma Distribution · $10.2B · 3m +23.4% · 12m +32.3% · 24m +28.6%*
+
+[Google Finance](https://www.google.com/finance/quote/HSIC:NASDAQ?tab=earnings&hl=en)
 
 Leading dental product, tech, and physician office supply distributor.
 
@@ -978,6 +1117,8 @@ Henry Schein Inc is a solutions company for healthcare professionals. It offers 
 
 *Precision Diagnostics · $39.4B · 3m +66.3% · 12m +90.1% · 24m +150.0%*
 
+[Google Finance](https://www.google.com/finance/quote/NTRA:NASDAQ?tab=earnings&hl=en)
+
 molecular diagnostics leader using cell-free DNA testing for prenatal screening, oncology monitoring, and transplant surveillance.
 
 Natera Inc is a diagnostic and research company with proprietary molecular and bioinformatics technology. The company's key product offerings include its Panorama Non-Invasive Prenatal Test (NIPT) which screens for chromosomal abnormalities of a fetus as well as in twin pregnancies, typically with a blood draw from the mother, Horizon Carrier Screening (HCS) to determine carrier status for a large number of severe genetic diseases that could be passed on to the carrier's children, Signatera molecular residual disease (MRD) test, which detects circulating tumor DNA in patients previously diagnosed with cancer to assess molecular residual disease and monitor for recurrence; and Prospera, to assess organ transplant rejection.
@@ -985,6 +1126,8 @@ Natera Inc is a diagnostic and research company with proprietary molecular and b
 <h3 id="company-neo">NeoGenomics (NEO)</h3>
 
 *Precision Diagnostics · $2.1B · 3m +93.4% · 12m +156.7% · 24m -1.5%*
+
+[Google Finance](https://www.google.com/finance/quote/NEO:NASDAQ?tab=earnings&hl=en)
 
 precision oncology diagnostics company providing cancer testing, genomic profiling, and biomarker services.
 
@@ -994,6 +1137,8 @@ NeoGenomics Inc provides oncology diagnostic testing and consultative services w
 
 *Precision Diagnostics · $6.5B · 3m +12.9% · 12m n/a · 24m n/a*
 
+[Google Finance](https://www.google.com/finance/quote/BLLN:NASDAQ?tab=earnings&hl=en)
+
 molecular diagnostics company focused on prenatal screening and precision oncology testing.
 
 BillionToOne Inc is a molecular diagnostics company. It offers a portfolio of ultrasensitive tests covering prenatal genetic testing, cancer therapy selection, and response monitoring, which are based on its Quantitative Counting Templates (QCT) molecular counting platform. The company's product portfolio comprises UNITY, a portfolio of prenatal testing products that can conduct fetal risk analysis without requiring a paternal sample; Northstar Select, a ultrasensitive liquid biopsy test that provides insights into appropriate therapies for stage III or IV cancer patients; and Northstar Response, a tissue-free, pan-cancer, liquid biopsy test that measures several genomic loci uniquely methylated in cancer to provide insight into dynamic changes in therapy response.
@@ -1001,6 +1146,8 @@ BillionToOne Inc is a molecular diagnostics company. It offers a portfolio of ul
 <h3 id="company-gh">Guardant Health (GH)</h3>
 
 *Precision Diagnostics · $21.4B · 3m +65.6% · 12m +167.0% · 24m +462.5%*
+
+[Google Finance](https://www.google.com/finance/quote/GH:NASDAQ?tab=earnings&hl=en)
 
 liquid-biopsy leader using blood-based genomic testing for cancer detection, treatment selection, and disease monitoring.
 
@@ -1010,6 +1157,8 @@ Guardant Health, based in Redwood City, California, is a leader in liquid-based 
 
 *Precision Diagnostics · $8.5B · 3m +18.6% · 12m -29.4% · 24m +2.4%*
 
+[Google Finance](https://www.google.com/finance/quote/TEM:NASDAQ?tab=earnings&hl=en)
+
 precision medicine company combining genomic testing, clinical data, and artificial intelligence to support treatment decisions and drug development.
 
 Tempus AI Inc is a technology company. It has built the Tempus Platform, which comprises both a technology platform to free healthcare data from silos and an operating system to make the resulting data useful. Its Intelligent Diagnostics use AI, including generative AI, to make laboratory tests more accurate, tailored, and personal.
@@ -1017,6 +1166,8 @@ Tempus AI Inc is a technology company. It has built the Tempus Platform, which c
 <h3 id="company-ilmn">Illumina (ILMN)</h3>
 
 *Precision Diagnostics · $30.7B · 3m +33.9% · 12m +90.7% · 24m +46.5%*
+
+[Google Finance](https://www.google.com/finance/quote/ILMN:NASDAQ?tab=earnings&hl=en)
 
 leading DNA sequencing platform company providing foundational technology for genomics research and clinical testing.
 
@@ -1026,6 +1177,8 @@ Illumina provides tools and services to analyze genetic material with life scien
 
 *Precision Diagnostics · $6.1B · 3m +164.6% · 12m +319.8% · 24m +157.9%*
 
+[Google Finance](https://www.google.com/finance/quote/TXG:NASDAQ?tab=earnings&hl=en)
+
 leader in single-cell and spatial biology technologies used in genomics research and drug discovery.
 
 10x Genomics Inc is a life science technology company based in the United States. Its solutions include instruments, consumables, and software for analyzing biological systems. The company's integrated solutions include instruments, consumables, and software for analyzing biological systems at a resolution and scale that matches the complexity of biology. Its product offerings include a Chromium platform comprising microfluidic chips and related consumables, Chromium X series, Visium and Xenium platforms, and others, which are predominantly used for the study of biological components. Geographically, the company derives operates from the United States and the rest from Americas (excluding the United States), Europe, Middle East and Africa, China, and Asia-Pacific (excluding China).
@@ -1033,6 +1186,8 @@ leader in single-cell and spatial biology technologies used in genomics research
 <h3 id="company-pacb">PacBio (PACB)</h3>
 
 *Precision Diagnostics · $447.3M · 3m +2.7% · 12m -12.2% · 24m -26.3%*
+
+[Google Finance](https://www.google.com/finance/quote/PACB:NASDAQ?tab=earnings&hl=en)
 
 developer of long-read DNA sequencing technologies used to analyze complex genomes.
 
@@ -1042,6 +1197,8 @@ Pacific Biosciences of California Inc is a biotechnology company focused on desi
 
 *Precision Diagnostics · $1.2B · 3m +38.6% · 12m -44.9% · 24m -67.5%*
 
+[Google Finance](https://www.google.com/finance/quote/QDEL:NASDAQ?tab=earnings&hl=en)
+
 diagnostics company providing clinical laboratory, immunoassay, and point-of-care testing solutions.
 
 QuidelOrtho Corp is engaged in the development, manufacturing, and marketing of rapid diagnostic testing solutions. The company is engaged in immunoassay and molecular testing, clinical chemistry, and transfusion medicine, which helps clinicians and patients to make decisions across the globe. Geographically, the company has its presence in North America, EMEA, China, and Other countries. It generates the majority of its revenue from North America.
@@ -1049,6 +1206,8 @@ QuidelOrtho Corp is engaged in the development, manufacturing, and marketing of 
 <h3 id="company-dgx">Quest Diagnostics (DGX)</h3>
 
 *Precision Diagnostics · $25.8B · 3m +25.6% · 12m +30.4% · 24m +54.8%*
+
+[Google Finance](https://www.google.com/finance/quote/DGX:NYSE?tab=earnings&hl=en)
 
 largest U.S. independent clinical laboratory and diagnostic testing company.
 
@@ -1058,6 +1217,8 @@ Quest Diagnostics is a leading independent provider of diagnostic testing, infor
 
 *Precision Diagnostics · $25.3B · 3m +27.0% · 12m +17.7% · 24m +39.8%*
 
+[Google Finance](https://www.google.com/finance/quote/LH:NYSE?tab=earnings&hl=en)
+
 leading diagnostics and laboratory services company with substantial genomic and specialty testing capabilities.
 
 Labcorp is one of the nation's two largest independent clinical laboratories, with roughly 20% of the independent lab market. The company operates approximately 2,000 patient-service centers, offering a broad range of 5,000 clinical lab tests, ranging from uncomplicated routine blood and urine screens to complex oncology and genomic testing.
@@ -1065,6 +1226,8 @@ Labcorp is one of the nation's two largest independent clinical laboratories, wi
 <h3 id="company-cert">Certara (CERT)</h3>
 
 *Precision Diagnostics · $1.2B · 3m +78.6% · 12m -27.4% · 24m -33.6%*
+
+[Google Finance](https://www.google.com/finance/quote/CERT:NASDAQ?tab=earnings&hl=en)
 
 biosimulation and data-driven drug development company supporting precision medicine and clinical development.
 

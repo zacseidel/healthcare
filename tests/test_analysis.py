@@ -122,7 +122,7 @@ def test_notable_summary_is_capped_and_uses_the_configured_horizon(project):
         ("Sector A", 1, 2),
         ("Sector B", 2, 1),
         ("Sector C", 3, 4),
-        ("Sector D", 4, 3),
+        ("Sector D", 4, 1),
     ):
         changes.append(
             {
@@ -141,5 +141,5 @@ def test_notable_summary_is_capped_and_uses_the_configured_horizon(project):
     summary = notable_change_summary(changes, project)
     assert summary["horizon_months"] == 12
     assert {row["ticker"] for row in summary["stocks"]["top"]} == {"A", "B", "C"}
-    assert [row["ticker"] for row in summary["stocks"]["largest"]] == ["D", "A", "B"]
-    assert len(summary["categories"]["largest"]) == 3
+    assert [row["ticker"] for row in summary["stocks"]["largest"]] == ["B", "A", "D"]
+    assert [row["name"] for row in summary["categories"]["largest"]] == ["Sector D"]

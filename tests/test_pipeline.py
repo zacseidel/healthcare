@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 
 from healthcare_report.cache import MarketCache
 from healthcare_report.pipeline import export_standalone_report, rerender_report, run_report
+from healthcare_report.render import _presentation_narrative
 from healthcare_report.storage import read_gzip_json, write_gzip_json
 
 
@@ -84,6 +85,24 @@ class FakeBrowser:
         <span class="kcbpeb">2m 10s</span><span class="h3qzgf">Management raised guidance.</span></div>
         </body></html>
         """
+
+
+def test_strategy_narrative_links_support_html_headings_and_strip_delta_labels():
+    body = """
+<h3>1. NEW / RESOLVE — First development</h3>
+<p>First detail.</p>
+<h3>2. CONFIRM — Second development</h3>
+<p>Second detail.</p>
+"""
+    presented = _presentation_narrative(body)
+    soup = BeautifulSoup(presented, "html.parser")
+    links = soup.select("nav.strategy-narrative-links a")
+    assert [link.get_text(" ", strip=True) for link in links] == [
+        "1. First development",
+        "2. Second development",
+    ]
+    assert "NEW / RESOLVE" not in presented
+    assert "CONFIRM" not in presented
 
 
 def test_end_to_end_report_and_baseline(project, monkeypatch):

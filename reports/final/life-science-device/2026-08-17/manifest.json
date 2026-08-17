@@ -5,7 +5,7 @@
   "report_date": "2026-08-17",
   "market_data_as_of": "2026-08-14",
   "generated_at": "2026-08-17T13:02:04Z",
-  "rendered_at": "2026-08-17T13:26:37Z",
+  "rendered_at": "2026-08-17T15:50:31Z",
   "baseline_report_date": null,
   "configuration_sha256": "b960bea3ae82f0421329d5a48fdc8cdc0df1edeaa381d9547543891baa4a3192",
   "quality": "degraded",
@@ -1008,9 +1008,9 @@
   "metrics": {
     "mode": "render-only",
     "durations_seconds": {
-      "render_input_load": 0.002,
-      "rendering": 0.709,
-      "total": 0.722
+      "render_input_load": 0.001,
+      "rendering": 0.269,
+      "total": 0.277
     },
     "counts": {
       "companies": 54,
@@ -1023,13 +1023,13 @@
       }
     },
     "output_bytes": {
-      "html": 799954,
-      "markdown": 102641,
+      "html": 807117,
+      "markdown": 108589,
       "charts": 513226,
       "data": 41592,
-      "total_without_manifest": 1457413
+      "total_without_manifest": 1470524
     },
-    "directory_bytes": 1482409
+    "directory_bytes": 1495520
   },
   "files": [
     "Life Science and Device Intel-2026-08-17.html",

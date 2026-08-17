@@ -42,7 +42,6 @@ from .render import (
     build_markdown,
     render_charts,
     render_earnings_charts,
-    render_rank_comparison_chart,
     report_html_name,
     select_chart_tickers,
     standalone_html_name,
@@ -194,9 +193,12 @@ def _render_final(
             for item in recent
             if item.get("summary") or item.get("at_a_glance") or item.get("key_moments")
         ]
+        overview_chart_tickers = [
+            ticker for ticker in config.universe.companies if ticker not in earnings_chart_tickers
+        ]
         charts: list[tuple[int, Path]] = []
         earnings_charts: dict[str, Path] = {}
-        rank_chart: Path | None = None
+        overview_charts: dict[str, Path] = {}
         if reuse_assets_from is not None:
             assets = temporary / "assets"
             assets.mkdir(parents=True, exist_ok=True)
@@ -212,10 +214,12 @@ def _render_final(
                     destination = assets / source.name
                     shutil.copy2(source, destination)
                     earnings_charts[ticker] = destination
-            source = reuse_assets_from / "assets" / "rank-comparison.webp"
-            if source.is_file():
-                rank_chart = assets / source.name
-                shutil.copy2(source, rank_chart)
+            for ticker in overview_chart_tickers:
+                source = reuse_assets_from / "assets" / f"earnings-{_asset_slug(ticker)}-3m.webp"
+                if source.is_file():
+                    destination = assets / source.name
+                    shutil.copy2(source, destination)
+                    overview_charts[ticker] = destination
         expected_horizons = {
             int(item) for item in config.settings["report"]["chart_horizons_months"]
         }
@@ -230,8 +234,13 @@ def _render_final(
             earnings_charts.update(
                 render_earnings_charts(temporary, config, report_date, bars, missing_earnings)
             )
-        if rank_chart is None:
-            rank_chart = render_rank_comparison_chart(temporary, notable_summary)
+        missing_overview = [
+            ticker for ticker in overview_chart_tickers if ticker not in overview_charts
+        ]
+        if missing_overview and any(bars.values()):
+            overview_charts.update(
+                render_earnings_charts(temporary, config, report_date, bars, missing_overview)
+            )
         context = {
             "config": config,
             "report_date": report_date,
@@ -241,7 +250,7 @@ def _render_final(
             "changes": changes,
             "notable": notable_summary["items"],
             "notable_summary": notable_summary,
-            "rank_chart": rank_chart,
+            "overview_charts": overview_charts,
             "period_moves": moves,
             "charts": charts,
             "earnings_charts": earnings_charts,
@@ -276,8 +285,8 @@ def _render_final(
             "changes.csv",
             "render-data.json.gz",
             *[f"assets/{path.name}" for _, path in charts],
-            *([f"assets/{rank_chart.name}"] if rank_chart else []),
             *[f"assets/{path.name}" for path in earnings_charts.values()],
+            *[f"assets/{path.name}" for path in overview_charts.values()],
         ]
         durations = {key: _round_seconds(value) for key, value in stage_durations.items()}
         durations["rendering"] = _round_seconds(time.perf_counter() - render_started)

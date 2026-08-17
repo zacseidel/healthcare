@@ -5,7 +5,7 @@
   "report_date": "2026-08-17",
   "market_data_as_of": "2026-08-14",
   "generated_at": "2026-08-17T12:56:19Z",
-  "rendered_at": "2026-08-17T13:26:36Z",
+  "rendered_at": "2026-08-17T15:50:30Z",
   "baseline_report_date": "2026-08-10",
   "configuration_sha256": "b960bea3ae82f0421329d5a48fdc8cdc0df1edeaa381d9547543891baa4a3192",
   "quality": "degraded",
@@ -1512,9 +1512,9 @@
   "metrics": {
     "mode": "render-only",
     "durations_seconds": {
-      "render_input_load": 0.008,
-      "rendering": 1.121,
-      "total": 1.141
+      "render_input_load": 0.007,
+      "rendering": 0.458,
+      "total": 0.476
     },
     "counts": {
       "companies": 82,
@@ -1527,13 +1527,13 @@
       }
     },
     "output_bytes": {
-      "html": 1509127,
-      "markdown": 178781,
-      "charts": 984490,
+      "html": 1500783,
+      "markdown": 187749,
+      "charts": 970176,
       "data": 192428,
-      "total_without_manifest": 2864826
+      "total_without_manifest": 2851136
     },
-    "directory_bytes": 2903374
+    "directory_bytes": 2889649
   },
   "files": [
     "Healthcare Intel-2026-08-17.html",
@@ -1544,7 +1544,6 @@
     "assets/performance-6m.webp",
     "assets/performance-12m.webp",
     "assets/performance-24m.webp",
-    "assets/rank-comparison.webp",
     "assets/earnings-mpt-3m.webp",
     "assets/earnings-nhi-3m.webp",
     "assets/earnings-sgry-3m.webp",

@@ -502,14 +502,21 @@ def notable_change_summary(
             if min(int(row["previous_rank"]), int(row["current_rank"])) <= top_n
         ]
         top.sort(key=lambda row: (min(row["previous_rank"], row["current_rank"]), row["name"]))
+        minimum_change = 2 if change_type == "category_performance" else 1
         largest = sorted(
-            (row for row in ranked if row.get("rank_delta")),
+            (
+                row
+                for row in ranked
+                if row.get("rank_delta") and abs(float(row["rank_delta"])) >= minimum_change
+            ),
             key=lambda row: (
                 -abs(float(row["rank_delta"])),
                 row["current_rank"],
                 row["name"],
             ),
         )[:largest_n]
+        top.sort(key=lambda row: (row["current_rank"], row["name"]))
+        largest.sort(key=lambda row: (row["current_rank"], row["name"]))
         return {"top": top, "largest": largest}
 
     stock_summary = summary_for("overall_stock")

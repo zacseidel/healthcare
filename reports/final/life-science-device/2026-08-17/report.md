@@ -6,9 +6,20 @@ Weekly review of pharmaceutical, biotech, biologics, and medical-device company 
 
 ## Strategy Narrative
 
+<nav class="strategy-narrative-links" aria-label="Strategy narrative sections">
+<ul>
+<li><a href="#strategy-executive-1-zenbexus-validates-the-next-generation-of-myeloma-protein-degraders">1. Zenbexus validates the next generation of myeloma protein degraders</a></li>
+<li><a href="#strategy-executive-2-zipalertinib-raises-the-bar-in-egfr-exon-20-lung-cancer">2. Zipalertinib raises the bar in EGFR exon 20 lung cancer</a></li>
+<li><a href="#strategy-executive-3-a-monthly-antibody-may-reopen-the-menopause-market">3. A monthly antibody may reopen the menopause market</a></li>
+<li><a href="#strategy-executive-4-sangamo-s-bankruptcy-produced-a-surprisingly-bullish-signal-for-selected-gene-therapies">4. Sangamo’s bankruptcy produced a surprisingly bullish signal for selected gene therapies</a></li>
+<li><a href="#strategy-executive-5-capricor-s-duchenne-program-unexpectedly-regained-regulatory-optionality">5. Capricor’s Duchenne program unexpectedly regained regulatory optionality</a></li>
+<li><a href="#strategy-executive-6-tau-imaging-gets-another-tool-but-its-strategic-value-depends-on-tau-therapeutics">6. Tau imaging gets another tool—but its strategic value depends on tau therapeutics</a></li>
+</ul>
+</nav>
+
 **Reporting window: August 10–16, 2026.** This is a delta report against last week’s briefing. The strongest new signals came from multiple myeloma, genetically defined lung cancer, women’s health, gene therapy, Alzheimer’s diagnostics, and an unexpectedly fluid Duchenne regulatory process. CMS did **not** produce a comparably material new reimbursement action this week, so I have not recycled last week’s drug-pricing discussion.
 
-#### Executive take
+<h4 id="strategy-executive-executive-take">Executive take</h4>
 
 Three developments deserve particular attention.
 
@@ -18,7 +29,7 @@ Second, oncology continues shifting from broad disease categories toward ever na
 
 Third, the week produced unusually interesting evidence about **what kinds of gene therapy still attract capital**. Sangamo itself entered bankruptcy, yet a near-registration Fabry program drew a competitive auction and a substantially higher price than the original stalking-horse bid, while Lilly bought Sangamo’s underlying editing and delivery platforms. That argues against “gene therapy is dead”; the better interpretation is that capital is becoming much more discriminating between platform promise and assets with credible clinical/regulatory paths.
 
-<h3 id="1-zenbexus-validates-the-next-generation-of-myeloma-protein-degraders">1. Zenbexus validates the next generation of myeloma protein degraders</h3>
+<h3 id="strategy-executive-1-zenbexus-validates-the-next-generation-of-myeloma-protein-degraders">1. Zenbexus validates the next generation of myeloma protein degraders</h3>
 
 **NEW / RESOLVE — August 13.** FDA granted accelerated approval to Bristol Myers Squibb’s **Zenbexus (iberdomide)** with daratumumab and dexamethasone for multiple myeloma after at least one prior line containing both a proteasome inhibitor and an immunomodulatory drug. In EXCALIBER-RRMM, the regimen produced MRD-negative complete responses in **41% versus 21%** for the comparator regimen. [U.S. Food and Drug Administration+1](https://www.fda.gov/drugs/resources-information-approved-drugs/fda-grants-accelerated-approval-iberdomide-daratumumab-and-hyaluronidase-fihj-and-dexamethasone?utm_source=chatgpt.com)
 
@@ -30,7 +41,7 @@ Commercially, the timing is notable. Revlimid and Pomalyst are being eroded by g
 
 **Watch next:** PFS from EXCALIBER-RRMM and whether CELMoDs move into front-line disease.
 
-<h3 id="2-zipalertinib-raises-the-bar-in-egfr-exon-20-lung-cancer">2. Zipalertinib raises the bar in EGFR exon 20 lung cancer</h3>
+<h3 id="strategy-executive-2-zipalertinib-raises-the-bar-in-egfr-exon-20-lung-cancer">2. Zipalertinib raises the bar in EGFR exon 20 lung cancer</h3>
 
 **NEW / CONFIRM — August 12.** Taiho Oncology and Cullinan reported that **zipalertinib plus chemotherapy met the Phase 3 REZILIENT3 primary endpoint**, producing a statistically significant and clinically meaningful progression-free-survival improvement in previously untreated EGFR exon 20 insertion-mutated NSCLC. The companies intend to use the interim results to pursue U.S. approval. [Taiho Oncology+1](https://www.taihooncology.com/us/news/zipalertinib-plus-chemotherapy-meets-primary-endpoint-of-progression-free-survival-in-planned-interim-analysis-of-phase-3-rezilient3-trial-in-first-line-egfr-exon-20-insertion-mutation-non-small-cell-lung-cancer/?utm_source=chatgpt.com)
 
@@ -42,7 +53,7 @@ There is also a modality question. Zipalertinib is an oral small-molecule EGFR i
 
 **Watch next:** the actual PFS hazard ratio, CNS activity, toxicity, regulatory timing, and comparison with J&J’s Rybrevant-based standard.
 
-<h3 id="3-a-monthly-antibody-may-reopen-the-menopause-market">3. A monthly antibody may reopen the menopause market</h3>
+<h3 id="strategy-executive-3-a-monthly-antibody-may-reopen-the-menopause-market">3. A monthly antibody may reopen the menopause market</h3>
 
 **NEW HYPOTHESIS — August 10.** AbCellera reported unexpectedly strong Phase 2 results for **ABCL635**, a long-acting antibody targeting neurokinin-3 receptor signaling in women with moderate-to-severe menopausal vasomotor symptoms. A single dose significantly reduced both hot-flash frequency and severity by week four, with improvements in sleep and no discontinuations for adverse events among 92 participants. [AbCellera Investors+1](https://investors.abcellera.com/news/news-releases/2026/AbCellera-Announces-Positive-Top-Line-Phase-2-Clinical-Trial-Results-for-ABCL635-Demonstrating-Significant-Reduction-in-Frequency-and-Severity-of-Vasomotor-Symptoms-and-a-Favorable-Tolerability-Profile/default.aspx?utm_source=chatgpt.com)
 
@@ -56,7 +67,7 @@ The science is encouraging; the commercial thesis remains less settled. Women ma
 
 **Watch next:** durability beyond four weeks, dose interval, Phase 3 design and head-to-head differentiation on safety and convenience.
 
-<h3 id="4-sangamo-s-bankruptcy-produced-a-surprisingly-bullish-signal-for-selected-gene-therapies">4. Sangamo’s bankruptcy produced a surprisingly bullish signal for selected gene therapies</h3>
+<h3 id="strategy-executive-4-sangamo-s-bankruptcy-produced-a-surprisingly-bullish-signal-for-selected-gene-therapies">4. Sangamo’s bankruptcy produced a surprisingly bullish signal for selected gene therapies</h3>
 
 **NEW — August 12.** PTC Therapeutics won a bankruptcy auction for Sangamo’s Fabry gene therapy **ST-920 (isaralgagene civaparvovec)**, paying **$111 million upfront plus up to $100 million in approval milestones**. The rolling BLA is expected to be completed in Q4, with accelerated approval based on 52-week renal-function evidence and 104-week results intended as confirmatory evidence. [PTC Therapeutics.+1](https://ir.ptcbio.com/news-releases/news-release-details/ptc-expand-rare-disease-portfolio-acquisition-bla-stage-st-920?utm_source=chatgpt.com)
 
@@ -70,7 +81,7 @@ For PTC specifically, this is a capital-efficient bolt-on: it already has rare-d
 
 **Watch next:** bankruptcy-court approval, CMC completion, FDA acceptance of eGFR as the accelerated-approval endpoint and long-term durability.
 
-<h3 id="5-capricor-s-duchenne-program-unexpectedly-regained-regulatory-optionality">5. Capricor’s Duchenne program unexpectedly regained regulatory optionality</h3>
+<h3 id="strategy-executive-5-capricor-s-duchenne-program-unexpectedly-regained-regulatory-optionality">5. Capricor’s Duchenne program unexpectedly regained regulatory optionality</h3>
 
 **UPDATE / REVISE — August 14.** Last month’s FDA advisory committee vote appeared to put **deramiocel**, Capricor’s cell therapy for Duchenne muscular dystrophy, in severe regulatory jeopardy. The committee voted 9–3 against the effectiveness evidence.
 
@@ -84,7 +95,7 @@ The distinction is important. FDA reviewers had questioned endpoint changes and 
 
 **Watch next:** whether FDA classifies the amendment as major, the resulting PDUFA extension, and whether the 24-month functional effect is large and internally consistent enough to overcome trial-design concerns.
 
-<h3 id="6-tau-imaging-gets-another-tool-but-its-strategic-value-depends-on-tau-therapeutics">6. Tau imaging gets another tool—but its strategic value depends on tau therapeutics</h3>
+<h3 id="strategy-executive-6-tau-imaging-gets-another-tool-but-its-strategic-value-depends-on-tau-therapeutics">6. Tau imaging gets another tool—but its strategic value depends on tau therapeutics</h3>
 
 **NEW — August 14.** FDA approved Lantheus’ **Tauklarify (florquinitau F-18)** PET tracer for imaging tau neurofibrillary tangles in cognitively impaired adults being evaluated for Alzheimer’s disease. The evidence included independent interpretation of scans from more than 500 participants. [Reuters](https://www.reuters.com/business/healthcare-pharmaceuticals/us-fda-approves-lantheus-brain-imaging-agent-alzheimers-assessment-2026-08-14/?utm_source=chatgpt.com)
 
@@ -96,7 +107,7 @@ That creates an interesting option value. If tau-directed therapies finally demo
 
 The approval also arrives shortly after Curium agreed to acquire Lantheus for up to $8 billion, strengthening the logic of owning diagnostic radiopharmaceutical infrastructure across multiple diseases. [Reuters](https://www.reuters.com/business/healthcare-pharmaceuticals/us-fda-approves-lantheus-brain-imaging-agent-alzheimers-assessment-2026-08-14/?utm_source=chatgpt.com)
 
-<h4 id="strategy-6-tau-imaging-gets-another-tool-but-its-strategic-value-depends-on-tau-therapeutics-policy-delta">Policy delta</h4>
+<h4 id="strategy-executive-policy-delta">Policy delta</h4>
 
 There was **no CMS development this week large enough to justify repeating last week’s drug-pricing analysis**. The important near-term policy catalyst is instead August 17: comments close on CMS’s proposed rule that would make the Medicare Drug Price Negotiation Program’s framework permanent beginning with the 2029 cycle. [Centers for Medicare & Medicaid Services](https://www.cms.gov/initiatives/medicare-prescription-drug-affordability/overview/medicare-drug-price-negotiation-program/regulations-guidance-policy-documents?utm_source=chatgpt.com)
 
@@ -221,6 +232,8 @@ The regulatory pipeline advanced significantly with three NDAs under review. BBP
 
 *Devices & Diagnostic · $110.3B · 3m +19.9% · 12m -1.9% · 24m +7.9%*
 
+[Google Finance](https://www.google.com/finance/quote/MDT:NYSE?tab=earnings&hl=en)
+
 Large medical device company with broad portfolio across cardiovascular, neuroscience, surgical, and diabetes care.
 
 One of the largest medical-device companies, Medtronic develops and manufactures therapeutic medical devices for chronic diseases. Its portfolio includes pacemakers, defibrillators, transcatheter heart valves, stents, spinal fixation devices, neurovascular products, advanced energy, ablation laser therapy, and surgical tools. The company primarily markets its products to healthcare institutions and physicians in the United States, Western Europe, and Japan. Foreign sales account for roughly 50% of the company's total sales.
@@ -228,6 +241,8 @@ One of the largest medical-device companies, Medtronic develops and manufactures
 <h3 id="company-bsx">Boston Scientific (BSX)</h3>
 
 *Devices & Diagnostic · $71.1B · 3m -1.6% · 12m -49.8% · 24m -33.8%*
+
+[Google Finance](https://www.google.com/finance/quote/BSX:NYSE?tab=earnings&hl=en)
 
 Growth-focused medtech leader specializing in minimally invasive cardiovascular, electrophysiology, endoscopy, and neuromodulation devices.
 
@@ -237,6 +252,8 @@ Boston Scientific focuses on less invasive medical devices that are inserted int
 
 *Devices & Diagnostic · $128.9B · 3m +10.6% · 12m -11.2% · 24m +0.4%*
 
+[Google Finance](https://www.google.com/finance/quote/SYK:NYSE?tab=earnings&hl=en)
+
 Premier orthopedic and surgical technology company best known for joint replacements, MedSurg equipment, and Mako robotic assisted surgery systems.
 
 Stryker designs, manufactures, and markets an array of medical equipment, instruments, consumable supplies, and implantable devices. The product portfolio includes hip and knee replacements, extremities, endoscopy systems, operating room equipment, embolic coils, mechanical thrombectomy systems, hospital beds and gurneys, and orthopedic robotics. Stryker remains one of the three largest competitors in reconstructive orthopedic implants and holds the leadership position in operating room equipment. Roughly one-fourth of Stryker's total revenue currently comes from outside the United States.
@@ -244,6 +261,8 @@ Stryker designs, manufactures, and markets an array of medical equipment, instru
 <h3 id="company-zbh">Zimmer Biomet (ZBH)</h3>
 
 *Devices & Diagnostic · $18.5B · 3m +20.3% · 12m -2.0% · 24m -9.0%*
+
+[Google Finance](https://www.google.com/finance/quote/ZBH:NYSE?tab=earnings&hl=en)
 
 Orthopedic specialist centered on knee, hip, and extremity implants, with robotic surgery offerings for joint reconstruction.
 
@@ -253,6 +272,8 @@ Zimmer Biomet designs, manufactures, and markets orthopedic reconstructive impla
 
 *Devices & Diagnostic · $182.5B · 3m +31.7% · 12m -15.6% · 24m +0.2%*
 
+[Google Finance](https://www.google.com/finance/quote/ABT:NYSE?tab=earnings&hl=en)
+
 Diversified healthcare company spanning diagnostics, medical devices, nutrition products, and established pharmaceuticals.
 
 Abbott manufactures and markets cardiovascular and diabetes devices, adult and pediatric nutritional products, diagnostic equipment and testing kits, and branded generic drugs. Products include pacemakers, implantable cardioverter defibrillators, neuromodulation devices, coronary stents, catheters, infant formula, nutritional liquids for adults, continuous glucose monitors, and immunoassays and point-of-care diagnostic equipment. Abbott derives roughly 60% of sales outside the United States.
@@ -261,11 +282,15 @@ Abbott manufactures and markets cardiovascular and diabetes devices, adult and p
 
 *Devices & Diagnostic · n/a · 3m n/a · 12m n/a · 24m n/a*
 
+[Google Finance](https://www.google.com/finance/quote/BD:NYSEARCA?tab=earnings&hl=en)
+
 leading medical product and component company.
 
 <h3 id="company-ew">Edwards LifeSciences (EW)</h3>
 
 *Devices & Diagnostic · $51.6B · 3m +12.6% · 12m +17.0% · 24m +32.9%*
+
+[Google Finance](https://www.google.com/finance/quote/EW:NYSE?tab=earnings&hl=en)
 
 Cardiovascular company focused on structural heart therapies, particularly transcatheter and surgical heart valve tech.
 
@@ -275,6 +300,8 @@ Spun off from Baxter International in 2000, Edwards Lifesciences designs, manufa
 
 *Devices & Diagnostic · $32.8B · 3m +45.6% · 12m +10.9% · 24m +20.2%*
 
+[Google Finance](https://www.google.com/finance/quote/DXCM:NASDAQ?tab=earnings&hl=en)
+
 Leading independent continuous glucose monitoring company.
 
 DexCom designs and commercializes continuous glucose monitoring systems for diabetic patients. CGM systems serve as an alternative to the traditional blood glucose meter process, and the company is evolving its CGM systems to provide integration with insulin pumps from Insulet and Tandem for automatic insulin delivery. DexCom's CGMs are available through medical equipment distributors as well as retail pharmacies.
@@ -282,6 +309,8 @@ DexCom designs and commercializes continuous glucose monitoring systems for diab
 <h3 id="company-rmd">ResMed (RMD)</h3>
 
 *Devices & Diagnostic · $32.4B · 3m +11.2% · 12m -21.2% · 24m -1.4%*
+
+[Google Finance](https://www.google.com/finance/quote/RMD:NYSE?tab=earnings&hl=en)
 
 Sleep and respiratory care known for CPAP devices, masks, and connected software for sleep apnea and respiratory disorders.
 
@@ -291,6 +320,8 @@ ResMed is one of the largest respiratory care device companies globally, primari
 
 *Devices & Diagnostic · $11.6B · 3m -2.8% · 12m -55.4% · 24m -25.9%*
 
+[Google Finance](https://www.google.com/finance/quote/PODD:NASDAQ?tab=earnings&hl=en)
+
 Diabetes technology company whose Omnipod platform pioneered the tubeless wearable insulin pump market.
 
 Insulet was founded in 2000 with the goal of making continuous subcutaneous insulin infusion therapy for diabetes easier to use. The result was the Omnipod system, which consists of a small disposable insulin infusion device that can be operated through a smartphone to control dosage. Since the Omnipod was approved by the US Food and Drug Administration in 2005, more than 600,000 insulin-dependent diabetic patients are using it worldwide.
@@ -298,6 +329,8 @@ Insulet was founded in 2000 with the goal of making continuous subcutaneous insu
 <h3 id="company-gmed">Globus Medical (GMED)</h3>
 
 *Devices & Diagnostic · $11.1B · 3m +12.1% · 12m +41.8% · 24m +23.0%*
+
+[Google Finance](https://www.google.com/finance/quote/GMED:NYSE?tab=earnings&hl=en)
 
 Musculoskeletal device company focused on spine surgery, orthopedic trauma, and robotic navigation techniques.
 
@@ -307,6 +340,8 @@ Globus Medical Inc is a medical device company that develops and provides health
 
 *Devices & Diagnostic · $130.1B · 3m -6.3% · 12m -17.9% · 24m -17.6%*
 
+[Google Finance](https://www.google.com/finance/quote/ISRG:NASDAQ?tab=earnings&hl=en)
+
 Dominant robotic surgery company whose da Vinci systems have come the standard platform for many minimally invasive surgeries.
 
 Intuitive develops, produces, and markets a robotic system for assisting minimally invasive surgery. It also provides the instrumentation, disposable accessories, and warranty services for the system. The company has placed more than 10,000 da Vinci systems in hospitals worldwide, with more than 6,000 installations in the US and a growing number in emerging markets.
@@ -314,6 +349,8 @@ Intuitive develops, produces, and markets a robotic system for assisting minimal
 <h3 id="company-gehc">GE Healthcare (GEHC)</h3>
 
 *Devices & Diagnostic · $31.7B · 3m +21.3% · 12m +0.4% · 24m -13.1%*
+
+[Google Finance](https://www.google.com/finance/quote/GEHC:NASDAQ?tab=earnings&hl=en)
 
 Medical technology & diagnostic company focused on imaging equipment, patient monitoring, ultrasound, and healthcare IT infrastructure.
 
@@ -323,6 +360,8 @@ GE HealthCare Technologies is a leading medical technology firm with leading mar
 
 *Devices & Diagnostic · $2.8B · 3m +40.2% · 12m -30.6% · 24m -48.0%*
 
+[Google Finance](https://www.google.com/finance/quote/TMDX:NASDAQ?tab=earnings&hl=en)
+
 Transplant technology and transportation company whose Organ Care System keeps donor organs functioning outside the body, expanding organ supply.
 
 TransMedics Group Inc is a commercial-stage medical technology company transforming organ transplant therapy for end-stage organ failure patients across multiple disease states. It has developed the Organ Care System (OCS) to comprehensively address the limitations of cold storage. The OCS is a portable organ perfusion, optimization, and monitoring system that utilizes technology to replicate near-physiologic conditions for donor organs outside of the human body. The company has developed and is commercializing a proprietary system to preserve and deliver human organs for transplant in a near-physiologic condition to address the limitations of cold storage organ preservation.
@@ -330,6 +369,8 @@ TransMedics Group Inc is a commercial-stage medical technology company transform
 <h3 id="company-ste">STERIS (STE)</h3>
 
 *Devices & Diagnostic · $22.7B · 3m +10.0% · 12m -5.0% · 24m +0.4%*
+
+[Google Finance](https://www.google.com/finance/quote/STE:NYSE?tab=earnings&hl=en)
 
 provider of infection prevention, sterilization, and surgical support products and services.
 
@@ -339,11 +380,15 @@ Steris is an Ireland-domiciled medical technology company focused on sterilizati
 
 *Devices & Diagnostic · n/a · 3m +0.8% · 12m +16.9% · 24m +45.8%*
 
+[Google Finance](https://www.google.com/finance/quote/MASI:NYSE?tab=earnings&hl=en)
+
 provider of patient-monitoring and pulse-oximetry technologies.
 
 <h3 id="company-insp">Inspire Medical Systems (INSP)</h3>
 
 *Devices & Diagnostic · $1.9B · 3m +42.6% · 12m -34.9% · 24m -69.7%*
+
+[Google Finance](https://www.google.com/finance/quote/INSP:NYSE?tab=earnings&hl=en)
 
 developer of implantable neurostimulation devices for obstructive sleep apnea.
 
@@ -353,6 +398,8 @@ Inspire Medical Systems Inc operates as a medical technology company. It focuses
 
 *Big Pharma · $1.0T · 3m +17.4% · 12m +68.3% · 24m +28.0%*
 
+[Google Finance](https://www.google.com/finance/quote/LLY:NYSE?tab=earnings&hl=en)
+
 Obesity and diabetes powerhouse with GLP-1 franchise (Zepbound/Mounjaro) fueling growth.
 
 Eli Lilly is a drug firm with a focus on neuroscience, cardiometabolic, cancer, and immunology. Lilly's key products include Verzenio and Jaypirca for cancer; Mounjaro, Zepbound, Foundayo, Jardiance, Trulicity, Humalog, and Humulin for cardiometabolic; and Taltz and Olumiant for immunology.
@@ -360,6 +407,8 @@ Eli Lilly is a drug firm with a focus on neuroscience, cardiometabolic, cancer, 
 <h3 id="company-nvo">Novo Nordisk (NVO)</h3>
 
 *Big Pharma · $195.8B · 3m +2.6% · 12m -12.4% · 24m -66.0%*
+
+[Google Finance](https://www.google.com/finance/quote/NVO:NYSE?tab=earnings&hl=en)
 
 Primary GLP-1 competitor to Lilly.
 
@@ -369,6 +418,8 @@ With roughly one-third of the global branded diabetes treatment market, Novo Nor
 
 *Big Pharma · $430.8B · 3m +18.6% · 12m +20.7% · 24m +28.7%*
 
+[Google Finance](https://www.google.com/finance/quote/ABBV:NYSE?tab=earnings&hl=en)
+
 Immunology and aesthetics leader built around drugs like Skyrizi, Rinvoq, and Botox.
 
 AbbVie is a pharmaceutical firm with a strong exposure to immunology (with Humira, Skyrizi, and Rinvoq) and oncology (with Imbruvica and Venclexta). The company was spun off from Abbott in early 2013. The 2020 acquisition of Allergan added several new products and drugs in aesthetics, including Botox. The 2024 acquisitions of Cerevel (neuroscience) and ImmunoGen (oncology) help supplement AbbVie's portfolio.
@@ -376,6 +427,8 @@ AbbVie is a pharmaceutical firm with a strong exposure to immunology (with Humir
 <h3 id="company-jnj">Johnson &amp; Johnson (JNJ)</h3>
 
 *Big Pharma · $614.4B · 3m +14.8% · 12m +47.4% · 24m +63.3%*
+
+[Google Finance](https://www.google.com/finance/quote/JNJ:NYSE?tab=earnings&hl=en)
 
 Diversified healthcare giant, combining pharmaceuticals with medical devices.
 
@@ -385,6 +438,8 @@ Johnson & Johnson is the world's largest and most diverse healthcare firm. It ha
 
 *Big Pharma · $144.8B · 3m +5.8% · 12m +6.6% · 24m -5.3%*
 
+[Google Finance](https://www.google.com/finance/quote/PFE:NYSE?tab=earnings&hl=en)
+
 Global pharma company known for vaccines and oncology.
 
 Pfizer is one of the world's largest pharmaceutical firms, with annual sales of roughly $60 billion. While it historically sold many types of healthcare products and chemicals, now prescription drugs and vaccines account for the majority of sales. Top sellers include pneumococcal vaccine Prevnar 13 and cardiology drugs Vyndaqel and Eliquis. Pfizer sells these products globally, with international sales representing 40% of total sales. Within international sales, emerging markets are a major contributor.
@@ -392,6 +447,8 @@ Pfizer is one of the world's largest pharmaceutical firms, with annual sales of 
 <h3 id="company-mrk">Merck (MRK)</h3>
 
 *Big Pharma · $316.1B · 3m +22.0% · 12m +61.3% · 24m +19.5%*
+
+[Google Finance](https://www.google.com/finance/quote/MRK:NYSE?tab=earnings&hl=en)
 
 Pharma leader driven by Keytruda, one of the world's most important cancer drugs.
 
@@ -401,6 +458,8 @@ Merck makes pharmaceutical products to treat several conditions in a number of t
 
 *Big Pharma · $134.6B · 3m +12.0% · 12m +31.8% · 24m +29.3%*
 
+[Google Finance](https://www.google.com/finance/quote/BMY:NYSE?tab=earnings&hl=en)
+
 Oncology and immunology specialist with a porfolio centered on cancer and cardiovascular medicines.
 
 Bristol Myers Squibb discovers, develops, and markets drugs for various therapeutic areas, such as cardiovascular, cancer, and immune disorders. A key focus for Bristol is immuno-oncology, where the firm is a leader in drug development. Bristol derives close to 70% of total sales from the US, showing a higher dependence on the US market than most of its peer group.
@@ -408,6 +467,8 @@ Bristol Myers Squibb discovers, develops, and markets drugs for various therapeu
 <h3 id="company-vtrs">Viatris (VTRS)</h3>
 
 *Big Pharma · $20.6B · 3m -1.5% · 12m +53.0% · 24m +39.2%*
+
+[Google Finance](https://www.google.com/finance/quote/VTRS:NASDAQ?tab=earnings&hl=en)
 
 Global generic and off-patent medicine company focused on scale manufacturing and cash generation, rather than breakthrough innovation.
 
@@ -417,6 +478,8 @@ Viatris was formed in November 2020 through the combination of Upjohn, a wholly 
 
 *Big Pharma · $241.3B · 3m -13.8% · 12m -1.2% · 24m -7.3%*
 
+[Google Finance](https://www.google.com/finance/quote/AZN:NYSE?tab=earnings&hl=en)
+
 global pharmaceutical company with leading oncology, cardiovascular, and rare disease franchises.
 
 A merger between Astra of Sweden and Zeneca of the United Kingdom formed AstraZeneca in 1999. The firm sells branded drugs across a number of major therapeutic areas, including oncology (over 40% of total revenue), cardiovascular, renal, and metabolic (over 20%), rare disease (16%), and respiratory and immunology (15%). The majority of sales comes from international markets, with the United States representing close to one-third of its sales.
@@ -424,6 +487,8 @@ A merger between Astra of Sweden and Zeneca of the United Kingdom formed AstraZe
 <h3 id="company-nvs">Novartis (NVS)</h3>
 
 *Big Pharma · $291.3B · 3m +1.9% · 12m +21.5% · 24m +31.5%*
+
+[Google Finance](https://www.google.com/finance/quote/NVS:NYSE?tab=earnings&hl=en)
 
 innovative pharmaceutical company focused on cardiovascular, immunology, neuroscience, and oncology therapies.
 
@@ -433,6 +498,8 @@ Novartis develops and manufactures innovative drugs. Key areas of drug developme
 
 *Big Pharma · $103.6B · 3m +2.4% · 12m -12.2% · 24m -19.1%*
 
+[Google Finance](https://www.google.com/finance/quote/SNY:NASDAQ?tab=earnings&hl=en)
+
 diversified pharmaceutical company with strengths in vaccines, immunology, and rare diseases.
 
 Sanofi develops and markets drugs with a concentration in immunology, vaccines, and rare diseases. Although the company offers a diverse array of drugs, its highest-revenue product, Dupixent, accounts for over 30% of total sales. Profits for this immunology blockbuster drug are shared with Regeneron. About 45% of total revenue comes from the United States, 20% from Europe, and 6% from China.
@@ -440,6 +507,8 @@ Sanofi develops and markets drugs with a concentration in immunology, vaccines, 
 <h3 id="company-gsk">GSK (GSK)</h3>
 
 *Big Pharma · $103.2B · 3m -0.3% · 12m +25.8% · 24m +20.0%*
+
+[Google Finance](https://www.google.com/finance/quote/GSK:NYSE?tab=earnings&hl=en)
 
 pharmaceutical and vaccine company focused on infectious disease, respiratory, oncology, and specialty medicines.
 
@@ -449,6 +518,8 @@ In the pharmaceutical industry, GSK ranks as one of the largest firms by total s
 
 *Established Biotech · $121.3B · 3m +15.7% · 12m +28.8% · 24m +5.9%*
 
+[Google Finance](https://www.google.com/finance/quote/VRTX:NASDAQ?tab=earnings&hl=en)
+
 Dominant cystic fibrosis company expanding into gene editing, pain, and other specialty diseases.
 
 Vertex Pharmaceuticals is a global biotechnology company that discovers and develops small-molecule drugs for the treatment of serious diseases. Its key drugs are Kalydeco, Orkambi, Symdeko, and Trikafta/Kaftrio, and Alyftrek for cystic fibrosis, where Vertex therapies remain the standard of care globally. Vertex has diversified its portfolio through Casgevy, a gene-editing therapy for beta thalassemia and sickle-cell disease, and Journavx, a non-opioid pain medication approved for the treatment of moderate-to-severe acute pain in adults. Additionally, Vertex is evaluating small-molecule inhibitors of APOL1-mediated kidney diseases. Vertex is also investigating cell therapies to deliver a potential functional cure for type 1 diabetes.
@@ -456,6 +527,8 @@ Vertex Pharmaceuticals is a global biotechnology company that discovers and deve
 <h3 id="company-regn">Regeneron (REGN)</h3>
 
 *Established Biotech · $78.3B · 3m +15.1% · 12m +38.4% · 24m -31.9%*
+
+[Google Finance](https://www.google.com/finance/quote/REGN:NASDAQ?tab=earnings&hl=en)
 
 Antibody-engineering company known for Eylea and a deep immunology and oncology pipeline.
 
@@ -465,6 +538,8 @@ Regeneron Pharmaceuticals discovers, develops, and commercializes products that 
 
 *Established Biotech · $210.5B · 3m +27.2% · 12m +40.1% · 24m +29.2%*
 
+[Google Finance](https://www.google.com/finance/quote/AMGN:NASDAQ?tab=earnings&hl=en)
+
 Biotech giant with major franchises in inflammation, bone health, oncology, and cardiovascular disease.
 
 Amgen is a leader in biotechnology-based human therapeutics. Flagship drugs include red blood cell boosters Epogen and Aranesp, immune system boosters Neupogen and Neulasta, and Enbrel and Otezla for inflammatory diseases. Amgen introduced its first cancer therapeutic, Vectibix, in 2006 and markets bone-strengthening drugs Prolia/Xgeva (approved 2010) and Evenity (2019). The acquisition of Onyx Pharmaceuticals bolstered the firm's therapeutic oncology portfolio with Kyprolis. Recent launches include Repatha (cholesterol-lowering), Aimovig (migraine), Lumakras (lung cancer), and Tezspire (asthma). The 2023 Horizon acquisition brought several rare-disease drugs, including thyroid eye disease drug Tepezza. Amgen also has a growing biosimilar portfolio.
@@ -472,6 +547,8 @@ Amgen is a leader in biotechnology-based human therapeutics. Flagship drugs incl
 <h3 id="company-gild">Gilead (GILD)</h3>
 
 *Established Biotech · $167.9B · 3m +6.8% · 12m +16.9% · 24m +87.5%*
+
+[Google Finance](https://www.google.com/finance/quote/GILD:NASDAQ?tab=earnings&hl=en)
 
 Lead in HIV therapies that has expanded into oncology and liver disease.
 
@@ -481,6 +558,8 @@ Gilead Sciences develops and markets therapies to treat and prevent life-threate
 
 *Established Biotech · $30.8B · 3m +8.7% · 12m +51.4% · 24m +3.9%*
 
+[Google Finance](https://www.google.com/finance/quote/BIIB:NASDAQ?tab=earnings&hl=en)
+
 Neurology-focused biotech best known for multiple sclerosis and Alzheimer's disease therapies.
 
 Biogen is an established biopharmaceutical company focused on treatments for neurodegenerative and rare diseases. Its declining multiple sclerosis franchise is its largest revenue generator and contributed 40% of total revenue in 2025. Biogen also generates significant revenue from its CD20 collaboration agreements with Roche (19% of total in 2025), which includes oncology drugs Rituxan and Gazyva and multiple sclerosis drug Ocrevus. Biogen's newer franchises include Spinraza (spinal muscular atrophy, with partner Ionis), Leqembi (Alzheimer's disease, collabroation revenue from its partner Eisai), Skyclarys (Friedreich's ataxia, Reata), Zurzuvae (postpartum depression, Sage), and Qalsody (amyotrophic lateral sclerosis, Ionis).
@@ -488,6 +567,8 @@ Biogen is an established biopharmaceutical company focused on treatments for neu
 <h3 id="company-alny">Alnylam (ALNY)</h3>
 
 *Established Biotech · $29.3B · 3m -20.3% · 12m -49.1% · 24m -14.8%*
+
+[Google Finance](https://www.google.com/finance/quote/ALNY:NASDAQ?tab=earnings&hl=en)
 
 Leader in RNA interference therapeutics, commercializing gene-silencing medicines for rare diseases.
 
@@ -497,6 +578,8 @@ Alnylam Pharmaceuticals is a leader in the study of RNA interference (RNAi) ther
 
 *Established Biotech · $1.7B · 3m +3.1% · 12m -17.0% · 24m -86.4%*
 
+[Google Finance](https://www.google.com/finance/quote/SRPT:NASDAQ?tab=earnings&hl=en)
+
 Rare disease biotech centered on Duchenne muscular dystrophy and gene therapies.
 
 Sarepta Therapeutics Inc is a commercial-stage biopharmaceutical company focused on the discovery and development of RNA-targeted therapies, gene therapies, and other genetic medicines for rare diseases, particularly neuromuscular disorders. The company has developed approved treatments for Duchenne muscular dystrophy, including EXONDYS 51, VYONDYS 53, AMONDYS 45, and ELEVIDYS, and is advancing additional therapeutic candidates for neuromuscular and other rare diseases. The company operates in one segment: discovering, developing, manufacturing, and delivering therapies to patients with rare diseases.
@@ -504,6 +587,8 @@ Sarepta Therapeutics Inc is a commercial-stage biopharmaceutical company focused
 <h3 id="company-mrna">Moderna (MRNA)</h3>
 
 *Established Biotech · $22.8B · 3m +29.1% · 12m +126.0% · 24m -27.1%*
+
+[Google Finance](https://www.google.com/finance/quote/MRNA:NASDAQ?tab=earnings&hl=en)
 
 Leading MRNA platform company seeking to expand beyond COVID vaccines into cancer, respiratory, and rare-disease therapies.
 
@@ -513,6 +598,8 @@ Moderna is a commercial-stage biotech that was founded in 2010 and had its initi
 
 *Established Biotech · $14.1B · 3m +2.2% · 12m +33.8% · 24m +94.5%*
 
+[Google Finance](https://www.google.com/finance/quote/EXEL:NASDAQ?tab=earnings&hl=en)
+
 Oncology-focused biotech generating substantial cashflow from cabometyx while advancing a next-generation cancer pipeline.
 
 Exelixis Inc is a biopharmaceutical firm that discovers, develops, and commercializes treatments for cancer. Its molecule, cabozantinib, is indicated for the treatment of patients with metastatic medullary thyroid cancer under the name Cometriq and for the treatment of kidney and liver cancer under the name Cabometyx. Exelixis and its partner Roche have also brought Cotellic to market for the treatment of melanoma.
@@ -520,6 +607,8 @@ Exelixis Inc is a biopharmaceutical firm that discovers, develops, and commercia
 <h3 id="company-argx">Argenx (ARGX)</h3>
 
 *Established Biotech · $52.8B · 3m +6.5% · 12m +30.2% · 24m +62.2%*
+
+[Google Finance](https://www.google.com/finance/quote/ARGX:NASDAQ?tab=earnings&hl=en)
 
 Immunology-focused biotech with flagship drug Vyvgart for rare autoimmune diseases, expanding into additional indications.
 
@@ -529,6 +618,8 @@ Argenx is a Dutch biopharmaceutical company focused on developing antibody-based
 
 *Established Biotech · $16.9B · 3m -3.6% · 12m +14.9% · 24m +5.3%*
 
+[Google Finance](https://www.google.com/finance/quote/NBIX:NASDAQ?tab=earnings&hl=en)
+
 Commercial stage neuroscience company best known for Ingrezza, and a growing pipeline in neurology and psychiatry.
 
 Neurocrine Biosciences Inc is a biopharmaceutical firm focused on the research, development, and commercialization of treatments for neurological, psychiatric, endocrine, and immunological disorders. Its portfolio includes therapies for conditions such as tardive dyskinesia, chorea associated with Huntington's disease, classic congenital adrenal hyperplasia due to 21-hydroxylase deficiency, and treatments for endometriosis and uterine fibroids. The company also maintains a pipeline of drug candidates in various stages of clinical and preclinical development across its therapeutic areas, including small molecules, peptides, proteins, antibodies, conjugates, and gene therapies. It derives revenue from the sale of its pharmaceutical products.
@@ -536,6 +627,8 @@ Neurocrine Biosciences Inc is a biopharmaceutical firm focused on the research, 
 <h3 id="company-uthr">United Therapeutics (UTHR)</h3>
 
 *Established Biotech · $22.0B · 3m -12.1% · 12m +59.6% · 24m +55.7%*
+
+[Google Finance](https://www.google.com/finance/quote/UTHR:NASDAQ?tab=earnings&hl=en)
 
 A rare-disease biotech focused on pulmonary arterial hypertension while investing heavily in organ transplantation and xenotransplantation tech.
 
@@ -545,6 +638,8 @@ United Therapeutics Corp specializes in drug development for pulmonary arterial 
 
 *Established Biotech · $24.4B · 3m +26.1% · 12m +38.2% · 24m +93.3%*
 
+[Google Finance](https://www.google.com/finance/quote/INCY:NASDAQ?tab=earnings&hl=en)
+
 oncology and immunology biotechnology company led by Jakafi.
 
 Incyte focuses on the discovery and development of small-molecule drugs. The firm's leading drug, Jakafi, treats two types of rare blood cancer and graft versus host disease and is partnered with Novartis. Incyte's other marketed drugs include rheumatoid arthritis treatment Olumiant (licensed to Lilly), and oncology drugs Iclusig (chronic myeloid leukemia), Pemazyre (cholangiocarcinoma), Tabrecta (lung cancer), and Monjuvi (diffuse large B-cell lymphoma). The firm's first dermatology product, Opzelura, was approved in 2021 for atopic dermatitis and 2022 for vitiligo. Incyte's pipeline includes an array of oncology and dermatology programs.
@@ -552,6 +647,8 @@ Incyte focuses on the discovery and development of small-molecule drugs. The fir
 <h3 id="company-bmrn">BioMarin Pharmaceutical (BMRN)</h3>
 
 *Established Biotech · $11.7B · 3m +30.0% · 12m +17.1% · 24m -24.8%*
+
+[Google Finance](https://www.google.com/finance/quote/BMRN:NASDAQ?tab=earnings&hl=en)
 
 rare-disease biotechnology company specializing in genetic disorders.
 
@@ -561,6 +658,8 @@ BioMarin is a global biotechnology company focused on developing and commerciali
 
 *Established Biotech · $9.2B · 3m -22.9% · 12m +30.7% · 24m +23.2%*
 
+[Google Finance](https://www.google.com/finance/quote/IONS:NASDAQ?tab=earnings&hl=en)
+
 antisense therapeutics pioneer focused on neurological and rare diseases.
 
 Ionis Pharmaceuticals is the leading developer of antisense technology to discover and develop novel drugs. Its broad clinical and preclinical pipeline targets a wide variety of diseases, with an emphasis on cardiovascular, metabolic, neurological, and rare diseases. Ionis and Biogen brought Spinraza to market in 2016 as a treatment for spinal muscular atrophy, and Biogen launched ALS drug Qalsody in 2023. Ionis brought two additional drugs to market via its cardiovascular-focused subsidiary Akcea, including ATTR amyloidosis drug Tegsedi (2018) and cardiology drug Waylivra (Europe, 2019). Ionis and AstraZeneca launched polyneuropathy drug Wainua in 2024. Ionis marked its first two independent launches in 2025 for Tryngolza (for FCS) and Dawnzera (for HAE).
@@ -568,6 +667,8 @@ Ionis Pharmaceuticals is the leading developer of antisense technology to discov
 <h3 id="company-adma">ADMA Biologics (ADMA)</h3>
 
 *Emerging Biotech · $2.1B · 3m +14.5% · 12m -44.3% · 24m -46.0%*
+
+[Google Finance](https://www.google.com/finance/quote/ADMA:NASDAQ?tab=earnings&hl=en)
 
 Plasma-derived immunology company that develops and manufactures specialty immune globulin products.
 
@@ -577,6 +678,8 @@ ADMA Biologics Inc is an end-to-end commercial biopharmaceutical company dedicat
 
 *Emerging Biotech · $1.9B · 3m +9.6% · 12m -20.4% · 24m +23.8%*
 
+[Google Finance](https://www.google.com/finance/quote/OCUL:NASDAQ?tab=earnings&hl=en)
+
 Ophthalmology biotech developing long-acting eye therapies, particularly for retinal diseases.
 
 Ocular Therapeutix Inc is a biotechnology company that specializes in therapies for diseases and conditions of the eye. The company uses its proprietary hydrogel platform technology to deliver therapeutic agents to the eye. Its pipeline consists of eye medication that aims to overcome the limitations of current eye-drop-based therapies for ophthalmic diseases and conditions. Its pipeline product includes Dextenza, OTX-TIC, OTX-TKI, and OTX-IVT.
@@ -584,6 +687,8 @@ Ocular Therapeutix Inc is a biotechnology company that specializes in therapies 
 <h3 id="company-nvcr">Novocure (NVCR)</h3>
 
 *Emerging Biotech · $1.9B · 3m -3.6% · 12m +44.5% · 24m -5.3%*
+
+[Google Finance](https://www.google.com/finance/quote/NVCR:NASDAQ?tab=earnings&hl=en)
 
 Medical technolgoy company using tumor-treating electric fields rather than drugs to treat cancer.
 
@@ -593,6 +698,8 @@ NovoCure Ltd is an oncology company with a proprietary platform technology in th
 
 *Emerging Biotech · $11.9B · 3m +103.1% · 12m +59.6% · 24m +237.0%*
 
+[Google Finance](https://www.google.com/finance/quote/CORT:NASDAQ?tab=earnings&hl=en)
+
 Specialty biotech targeting cortisol biology, primarily for endocrine and oncology indications.
 
 Corcept Therapeutics Inc is a commercial-stage pharmaceutical company engaged in the discovery and development of medications that treat severe metabolic, oncologic, and neuropsychiatric disorders by modulating the effect of the cortisol hormone. The company markets Korlym (mifepristone) tablets and its authorized generic version, which is an oral medication for the treatment of hypercortisolism (also known as Cushing's syndrome). Additionally, its pipeline contains several key compounds, such as Relacorilant, Dazucorilant, Miricorilant, etc., that are being evaluated in clinical trials as potential treatments for a variety of serious disorders like hypercortisolism, solid tumors (including ovarian, endometrial, cervical, pancreatic, and prostate cancers), ALS, and MASH.
@@ -600,6 +707,8 @@ Corcept Therapeutics Inc is a commercial-stage pharmaceutical company engaged in
 <h3 id="company-acad">Acadia Pharmaceuticals (ACAD)</h3>
 
 *Emerging Biotech · $4.6B · 3m +32.0% · 12m +11.5% · 24m +83.4%*
+
+[Google Finance](https://www.google.com/finance/quote/ACAD:NASDAQ?tab=earnings&hl=en)
 
 neuroscience-focused biotech with commercial products for neurological and rare diseases.
 
@@ -609,6 +718,8 @@ Acadia Pharmaceuticals Inc is a biopharmaceutical company focused on turning sci
 
 *Emerging Biotech · $9.6B · 3m +8.5% · 12m +121.1% · 24m +72.7%*
 
+[Google Finance](https://www.google.com/finance/quote/KRYS:NASDAQ?tab=earnings&hl=en)
+
 commercial-stage gene therapy company focused on dermatological and rare diseases.
 
 Krystal Biotech Inc is an integrated, commercial-stage biotechnology company focused on the discovery, development, manufacturing, and commercialization of genetic medicines to treat diseases with high unmet medical needs. The company uses its patented HSV-1-based gene therapy platform to create vectors that deliver therapeutic transgenes to target cells. It possesses exclusive rights to develop, manufacture, and commercialize VYJUVEK internationally. The company operates as one operating segment focused on pharmaceutical products and manufactures, markets, and sells VYJUVEK in the United States and markets and sells VYJUVEK in the European Union, and Japan.
@@ -616,6 +727,8 @@ Krystal Biotech Inc is an integrated, commercial-stage biotechnology company foc
 <h3 id="company-rna">Avidity Biosciences (RNA)</h3>
 
 *Emerging Biotech · $197.4M · 3m -2.9% · 12m -72.4% · 24m -71.5%*
+
+[Google Finance](https://www.google.com/finance/quote/RNA:NASDAQ?tab=earnings&hl=en)
 
 developer of RNA-targeted therapeutics for rare neuromuscular diseases.
 
@@ -625,6 +738,8 @@ Atrium Therapeutics Inc is a biopharmaceutical firm focused on developing RNA-ba
 
 *Emerging Biotech · $1.8B · 3m +7.8% · 12m -45.2% · 24m -53.1%*
 
+[Google Finance](https://www.google.com/finance/quote/RXRX:NASDAQ?tab=earnings&hl=en)
+
 AI-enabled drug discovery company combining machine learning and large-scale biological data.
 
 Recursion Pharmaceuticals Inc is a clinical-stage biotechnology company. The company is decoding biology by integrating technological innovations across biology, chemistry, automation, data science, and engineering, with the goal of radically improving the lives of patients and industrializing drug discovery. Geographically, the company operates in United States, United Kingdom, and Others. It derives maximum revenue from United States.
@@ -633,6 +748,8 @@ Recursion Pharmaceuticals Inc is a clinical-stage biotechnology company. The com
 
 *Emerging Biotech · $6.3B · 3m +12.1% · 12m +191.9% · 24m +119.3%*
 
+[Google Finance](https://www.google.com/finance/quote/CGON:NASDAQ?tab=earnings&hl=en)
+
 bladder cancer-focused oncology biotech developing immunotherapies.
 
 CG Oncology Inc is a late-stage clinical biopharmaceutical company focused on developing and commercializing its product candidate, cretostimogene grenadenorepvec, for patients with bladder cancer. The company's candidate, cretostimogene grenadenorepvec, is a targeted oncolytic intravesically delivered immunotherapy agent that is in two phase three trials (one high-risk BCG unresponsive NMIBC trial and one intermediate-risk NMIBC trial) and a phase two clinical study with a checkpoint inhibitor for high-risk BCG unresponsive NMIBC disease.
@@ -640,6 +757,8 @@ CG Oncology Inc is a late-stage clinical biopharmaceutical company focused on de
 <h3 id="company-bbio">BridgeBio Pharma (BBIO)</h3>
 
 *Emerging Biotech · $16.1B · 3m +20.8% · 12m +55.6% · 24m +227.3%*
+
+[Google Finance](https://www.google.com/finance/quote/BBIO:NASDAQ?tab=earnings&hl=en)
 
 commercial-stage rare disease biotechnology company focused on genetically defined diseases.
 
