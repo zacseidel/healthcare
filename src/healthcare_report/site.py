@@ -158,6 +158,14 @@ def _decorate_report(source: Path, destination: Path, *, prefix: str, active: st
     soup = BeautifulSoup(source.read_text(encoding="utf-8"), "html.parser")
     if soup.head is None or soup.body is None:
         raise RuntimeError(f"Cannot publish malformed report HTML: {source}")
+    # Publishing can be rerun against an already decorated artifact. Strip
+    # wrapper chrome first so the report cannot acquire nested headers or
+    # repeated sidebars over successive site builds.
+    for existing in soup.select("header.public-site-header"):
+        existing.decompose()
+    report_navs = soup.select("nav.report-nav")
+    for duplicate in report_navs[1:]:
+        duplicate.decompose()
     styles = soup.new_tag("style")
     styles.string = SITE_CSS
     soup.head.append(styles)
@@ -205,8 +213,11 @@ def _archive_page(reports: list[SiteReport]) -> str:
                     market_date = _long_date(date.fromisoformat(report.market_data_as_of))
                 except ValueError:
                     market_date = report.market_data_as_of
-            badge = "Latest" if index == 0 else ("Data warning" if report.quality != "ok" else "Final")
-            badge_class = "site-badge-warning" if report.quality != "ok" and index != 0 else ""
+            # Archive entries are historical publications. Their data-quality
+            # state is preserved in each report's manifest, but should not
+            # turn the archive into a warning dashboard.
+            badge = "Latest" if index == 0 else "Final"
+            badge_class = ""
             rows.append(
                 f'<li><a href="{report.archive_path}/">'
                 f"<strong>{_long_date(report.report_date)}</strong>"

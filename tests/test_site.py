@@ -6,7 +6,7 @@ from pathlib import Path
 
 from bs4 import BeautifulSoup
 
-from healthcare_report.site import build_site
+from healthcare_report.site import _decorate_report, build_site
 
 
 def _fake_report(
@@ -53,6 +53,8 @@ def test_build_site_uses_latest_report_and_builds_public_pages(project):
     }
     home = BeautifulSoup((output / "index.html").read_text(), "html.parser")
     assert "Report for 2026-08-03" in home.get_text(" ", strip=True)
+    assert len(home.select("header.public-site-header")) == 1
+    assert len(home.select("nav.report-nav")) == 0
     assert home.select_one('nav.public-site-nav a[href="reports/"]') is not None
     assert (output / "assets" / "chart.webp").is_file()
 
@@ -60,6 +62,8 @@ def test_build_site_uses_latest_report_and_builds_public_pages(project):
     archive_links = [str(link["href"]) for link in archive.select(".report-list a")]
     assert archive_links == ["2026-08-03/", "2026-07-27/"]
     assert "Latest" in archive.get_text(" ", strip=True)
+    assert "Data warning" not in archive.get_text(" ", strip=True)
+    assert "Final" in archive.get_text(" ", strip=True)
 
     historical = BeautifulSoup(
         (output / "reports" / "2026-07-27" / "index.html").read_text(), "html.parser"
@@ -93,6 +97,24 @@ def test_build_site_lists_both_report_types(project):
     assert links == ["2026-08-03/", "life-science-device/2026-08-03/"]
     assert "Life Sciences Intel Report" in archive.get_text(" ", strip=True)
     assert (output / "reports" / "life-science-device" / "2026-08-03" / "index.html").is_file()
+
+
+def test_decorating_already_decorated_report_does_not_nest_navigation(tmp_path):
+    source = tmp_path / "source.html"
+    destination = tmp_path / "published.html"
+    source.write_text(
+        "<!doctype html><html><head></head><body>"
+        '<header class="public-site-header"></header>'
+        '<div class="page-shell"><nav class="report-nav"></nav>'
+        '<main><nav class="report-nav"></nav><h1>Report</h1></main></div>'
+        "</body></html>",
+        encoding="utf-8",
+    )
+
+    _decorate_report(source, destination, prefix="", active="latest")
+    published = BeautifulSoup(destination.read_text(), "html.parser")
+    assert len(published.select("header.public-site-header")) == 1
+    assert len(published.select("nav.report-nav")) == 1
 
 
 def test_homepage_remains_healthcare_when_life_science_is_newer(project):
