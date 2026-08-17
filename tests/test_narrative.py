@@ -7,6 +7,7 @@ import pytest
 from healthcare_report.narrative import (
     extract_messages,
     html_to_markdown,
+    narrative_period,
     narrative_refresh_needed,
     refresh_narrative_with_fallback,
     select_narrative,
@@ -33,6 +34,18 @@ def test_latest_matching_narrative_is_selected_and_sanitized():
 def test_no_matching_narrative_is_an_error():
     with pytest.raises(RuntimeError, match="matched"):
         select_narrative([{"text": "Updated", "html": "<p>Updated</p>"}], r"Week of")
+
+
+def test_life_science_narrative_heading_and_period():
+    message = {
+        "text": "Life Sciences Executive Brief — August 16, 2026",
+        "html": "<h1>Life Sciences Executive Brief — August 16, 2026</h1>",
+    }
+    selected = select_narrative(
+        [message],
+        r"Life Sciences Executive Brief\s+—\s+\w+\s+\d{1,2},\s+\d{4}",
+    )
+    assert narrative_period(selected["text"]) == "August 16, 2026"
 
 
 def test_narrative_same_day_refresh_is_reused():

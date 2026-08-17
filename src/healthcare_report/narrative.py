@@ -111,7 +111,11 @@ def _heading_level(line: str) -> int:
 
 
 def narrative_period(text: str) -> str | None:
-    match = re.search(r"Week of\s+([A-Za-z]+\s+\d{1,2},\s+\d{4})", text)
+    match = re.search(
+        r"(?:Week of|Life Sciences Executive Brief\s+—)\s*"
+        r"([A-Za-z]+\s+\d{1,2},\s+\d{4})",
+        text,
+    )
     return match.group(1) if match else None
 
 

@@ -2017,9 +2017,45 @@
     {
       "date": "2026-08-07",
       "close": 3.0
+<<<<<<< Updated upstream
     }
   ],
   "covered_start": "2024-07-22",
   "covered_end": "2026-08-09",
   "updated_at": "2026-08-10T11:33:29Z"
+=======
+<<<<<<< HEAD
+    },
+    {
+      "date": "2026-08-10",
+      "close": 2.94
+    },
+    {
+      "date": "2026-08-11",
+      "close": 2.84
+    },
+    {
+      "date": "2026-08-12",
+      "close": 2.91
+    },
+    {
+      "date": "2026-08-13",
+      "close": 2.97
+    },
+    {
+      "date": "2026-08-14",
+      "close": 3.0
+    }
+  ],
+  "covered_start": "2024-07-22",
+  "covered_end": "2026-08-16",
+  "updated_at": "2026-08-17T12:50:17Z"
+=======
+    }
+  ],
+  "covered_start": "2024-07-22",
+  "covered_end": "2026-08-09",
+  "updated_at": "2026-08-10T11:33:29Z"
+>>>>>>> 97ea3068bdcc947f1fdc3559819a5b43f78a7613
+>>>>>>> Stashed changes
 }

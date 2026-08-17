@@ -36,7 +36,7 @@ notable_changes:
   movers_shown: 3
 
 strategy_narrative:
-  url: https://chatgpt.com/share/6a70f023-5050-83e8-91b8-5ffa9e09b7a4
+  url: https://chatgpt.com/share/6a82f78e-6e34-83e8-a3b6-18f541f09367
   pattern: 'Week of\s+\w+\s+\d{1,2},\s+\d{4}'
   stale_after_days: 7
 
@@ -59,7 +59,7 @@ report_profiles:
       - Pharma Distribution
       - Precision Diagnostics
     strategy_narrative:
-      url: https://chatgpt.com/share/6a70f023-5050-83e8-91b8-5ffa9e09b7a4
+      url: https://chatgpt.com/share/6a82f78e-6e34-83e8-a3b6-18f541f09367
       pattern: 'Week of\s+\w+\s+\d{1,2},\s+\d{4}'
       stale_after_days: 7
   life-science-device:
@@ -74,6 +74,6 @@ report_profiles:
       - Emerging Biotech
     strategy_narrative:
       # Replace this with the Life Science and Device ChatGPT share before first run.
-      url: https://chatgpt.com/share/6a70f023-5050-83e8-91b8-5ffa9e09b7a4
-      pattern: 'Week of\s+\w+\s+\d{1,2},\s+\d{4}'
+      url: https://chatgpt.com/share/6a82f9bc-a560-83e8-ab3b-d87a49150cee
+      pattern: 'Life Sciences Executive Brief\s+—\s+\w+\s+\d{1,2},\s+\d{4}'
       stale_after_days: 7

@@ -266,21 +266,38 @@ def persist_strategy_narrative_url(config: ProjectConfig, value: str) -> bool:
     path = config.root / "config" / "settings.yaml"
     lines = path.read_text(encoding="utf-8").splitlines()
     profile_path = f"report_profiles.{config.scope}.strategy_narrative"
-    in_section = False
-    profile_depth = 0
+    in_top_strategy = False
+    in_report_profiles = False
+    current_profile: str | None = None
+    in_profile_strategy = False
     replaced = False
     changed = False
     for index, line in enumerate(lines):
-        if line and not line[0].isspace():
-            in_section = config.scope == "healthcare" and line.strip() == "strategy_narrative:"
-            profile_depth = 0
+        if line == "strategy_narrative:":
+            in_top_strategy = config.scope == "healthcare"
+            in_report_profiles = False
+            current_profile = None
+            in_profile_strategy = False
             continue
-        if line.strip() == f"{config.scope}:" and index > 0 and lines[index - 1].strip() == "report_profiles:":
-            profile_depth = len(line) - len(line.lstrip())
-            in_section = False
-        if profile_depth and line.startswith(" " * (profile_depth + 2)) and line.strip() == "strategy_narrative:":
-            in_section = True
-        if in_section and re.match(r"^\s+url:\s*", line):
+        if line == "report_profiles:":
+            in_top_strategy = False
+            in_report_profiles = True
+            current_profile = None
+            in_profile_strategy = False
+            continue
+        profile_match = re.match(r"^  ([^ ].*):$", line) if in_report_profiles else None
+        if profile_match:
+            current_profile = profile_match.group(1)
+            in_profile_strategy = False
+            continue
+        if (
+            in_report_profiles
+            and current_profile == config.scope
+            and line == "    strategy_narrative:"
+        ):
+            in_profile_strategy = True
+            continue
+        if (in_top_strategy or in_profile_strategy) and re.match(r"^\s+url:\s*", line):
             indent = line[: len(line) - len(line.lstrip())]
             replacement = f"{indent}url: {url}"
             replaced = True

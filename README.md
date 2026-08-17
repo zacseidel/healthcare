@@ -140,6 +140,26 @@ Playwright Chromium, and the existing `.env` automatically:
 This updates both report profiles. Use the Python CLI's `--report` option when only one profile
 needs to be refreshed.
 
+To replace the Healthcare strategy narrative share URL and immediately generate the Healthcare
+report in one step:
+
+```sh
+./bin/run-report --url 'https://chatgpt.com/share/6a82f78e-6e34-83e8-a3b6-18f541f09367'
+```
+
+This saves the URL in `config/settings.yaml`, refreshes the narrative snapshot, and runs the
+Healthcare report with fresh secondary-source checks. The URL form is `--url URL` (without a
+colon after `--url`).
+
+To refresh both profiles, provide `--url` twice—in Healthcare order, then Life Science and
+Device order:
+
+```sh
+./bin/run-report \
+  --url 'https://chatgpt.com/share/HEALTHCARE_SHARE_ID' \
+  --url 'https://chatgpt.com/share/LIFE_SCIENCE_SHARE_ID'
+```
+
 To create or replace a report for a particular date:
 
 ```sh
