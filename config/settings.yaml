@@ -28,11 +28,9 @@ earnings:
   confirmed_recheck_lead_days: 21
 
 notable_changes:
-  category_rank_change: 1
-  overall_stock_rank_change: 2
-  within_category_rank_change: 1
-  return_delta_threshold: 0.02
-  top_stocks: 3
+  comparison_horizon_months: 12
+  top_n: 3
+  largest_rank_changes: 3
   movers_shown: 3
 
 strategy_narrative:

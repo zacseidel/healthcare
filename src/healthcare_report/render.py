@@ -473,6 +473,59 @@ def render_charts(
     return charts
 
 
+def render_rank_comparison_chart(
+    folder: Path, summary: dict[str, Any]
+) -> Path | None:
+    """Render the previous/current top-three rank comparison used in Notable Changes."""
+    _mdates, plt = _plotting()
+    groups = (
+        ("Stocks", summary.get("stocks", {}).get("top", []), "ticker"),
+        ("Sectors", summary.get("categories", {}).get("top", []), "category"),
+    )
+    if not any(rows for _title, rows, _field in groups):
+        return None
+    figure, axes = plt.subplots(1, 2, figsize=(12, 5.2), squeeze=False)
+    axes_list = list(axes[0])
+    for axis, (title, rows, label_field) in zip(axes_list, groups, strict=True):
+        rows = list(rows)
+        if not rows:
+            axis.axis("off")
+            axis.set_title(title)
+            continue
+        labels = [
+            str(row.get(label_field) or row.get("name", ""))
+            for row in rows
+        ][::-1]
+        previous = [int(row["previous_rank"]) for row in rows][::-1]
+        current = [int(row["current_rank"]) for row in rows][::-1]
+        positions = list(range(len(rows)))
+        for position, old_rank, new_rank in zip(positions, previous, current, strict=True):
+            color = "#167344" if new_rank < old_rank else "#b42318" if new_rank > old_rank else "#64717d"
+            axis.plot([old_rank, new_rank], [position, position], color=color, linewidth=2.4)
+            axis.scatter([old_rank, new_rank], [position, position], color=["#8ca0ad", color], s=42, zorder=3)
+        axis.set_yticks(positions, labels)
+        axis.set_xlabel("Rank (1 = best)")
+        axis.set_title(f"Top {int(summary.get('top_n', 3))} {title.lower()}")
+        axis.set_xlim(max(previous + current) + 0.7, 0.5)
+        axis.set_xticks(range(1, max(previous + current) + 1))
+        axis.grid(axis="x", alpha=0.18)
+        axis.spines[["top", "right", "left"]].set_visible(False)
+    figure.suptitle("Previous report → current report", fontsize=14, fontweight="bold")
+    figure.tight_layout()
+    assets = folder / "assets"
+    assets.mkdir(parents=True, exist_ok=True)
+    path = assets / "rank-comparison.webp"
+    figure.savefig(
+        path,
+        dpi=150,
+        bbox_inches="tight",
+        format="webp",
+        pil_kwargs={"lossless": True, "method": 6},
+    )
+    plt.close(figure)
+    return path
+
+
 def render_earnings_charts(
     folder: Path,
     config: ProjectConfig,
@@ -628,6 +681,44 @@ def _ticker_cell(ticker: str, overview_tickers: set[str]) -> HtmlCell:
     return HtmlCell(content, ticker.casefold(), "text")
 
 
+def _rank_change_table(
+    rows: list[dict[str, Any]],
+    *,
+    stocks: bool,
+    earnings_tickers: set[str],
+    overview_tickers: set[str],
+) -> str:
+    table_rows: list[list[HtmlCell]] = []
+    return_cells = _return_cells([row.get("current_return") for row in rows])
+    for index, row in enumerate(rows):
+        if stocks:
+            name = _company_cell(row["name"], row["ticker"], earnings_tickers)
+            ticker = _ticker_cell(row["ticker"], overview_tickers)
+            entity = HtmlCell(f"{name.content} ({ticker.content})", row["name"].casefold())
+        else:
+            entity = HtmlCell(
+                _internal_link(row["name"], f"category-{_slug(row['name'])}"),
+                row["name"].casefold(),
+            )
+        delta = int(row["rank_delta"])
+        direction = "↑" if delta > 0 else "↓" if delta < 0 else "—"
+        table_rows.append(
+            [
+                entity,
+                HtmlCell(f"#{int(row['previous_rank'])}", int(row["previous_rank"])),
+                HtmlCell(f"#{int(row['current_rank'])}", int(row["current_rank"])),
+                HtmlCell(f"{direction} {abs(delta)}", -delta),
+                return_cells[index],
+            ]
+        )
+    return sortable_table(
+        ["Entity", "Previous", "Current", "Change", "Current return"],
+        table_rows,
+        numeric_columns={1, 2, 3, 4},
+        text_columns={0},
+    )
+
+
 def _summary_text(value: Any) -> str:
     return re.sub(
         r"\b(?:summarize_auto|insights_auto|expand_more|search_spark)\b\s*",
@@ -641,6 +732,7 @@ def build_markdown(context: dict[str, Any]) -> str:
     report_date: date = context["report_date"]
     snapshot: list[dict[str, Any]] = context["snapshot"]
     notable: list[dict[str, Any]] = context["notable"]
+    notable_summary: dict[str, Any] = context.get("notable_summary", {})
     horizons = [int(item) for item in config.settings["report"]["return_horizons_months"]]
     facts = _stock_facts(snapshot)
     recent = context["recent_earnings"]
@@ -690,8 +782,57 @@ def build_markdown(context: dict[str, Any]) -> str:
             f"Comparison with the final report dated {_long_date(baseline.report_date)} "
             f"(market data through {_long_date(baseline.market_data_as_of)})."
         )
-    for notable_row in notable:
-        lines.append(f"- {notable_row['detail']}")
+    rank_chart = context.get("rank_chart")
+    if baseline and rank_chart:
+        lines.extend(
+            [
+                "",
+                f"Ranking comparison uses the {int(notable_summary.get('horizon_months', 12))}-month return horizon.",
+                "",
+                f"![Previous versus current top-three ranking comparison](assets/{rank_chart.name})",
+                "",
+            ]
+        )
+    if baseline and notable_summary:
+        lines.extend(["", "### Stocks", "", "#### Top-three comparison", ""])
+        lines.append(
+            _rank_change_table(
+                notable_summary.get("stocks", {}).get("top", []),
+                stocks=True,
+                earnings_tickers=earnings_tickers,
+                overview_tickers=overview_tickers,
+            )
+        )
+        lines.extend(["", "#### Largest rank changes", ""])
+        lines.append(
+            _rank_change_table(
+                notable_summary.get("stocks", {}).get("largest", []),
+                stocks=True,
+                earnings_tickers=earnings_tickers,
+                overview_tickers=overview_tickers,
+            )
+        )
+        lines.extend(["", "### Sectors", "", "#### Top-three comparison", ""])
+        lines.append(
+            _rank_change_table(
+                notable_summary.get("categories", {}).get("top", []),
+                stocks=False,
+                earnings_tickers=earnings_tickers,
+                overview_tickers=overview_tickers,
+            )
+        )
+        lines.extend(["", "#### Largest rank changes", ""])
+        lines.append(
+            _rank_change_table(
+                notable_summary.get("categories", {}).get("largest", []),
+                stocks=False,
+                earnings_tickers=earnings_tickers,
+                overview_tickers=overview_tickers,
+            )
+        )
+    elif notable:
+        for notable_row in notable:
+            lines.append(f"- {notable_row['detail']}")
     moves = context["period_moves"]
     if moves["categories"]:
         rows = sorted(

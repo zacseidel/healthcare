@@ -5,9 +5,9 @@
   "report_date": "2026-08-10",
   "market_data_as_of": "2026-08-07",
   "generated_at": "2026-08-10T11:39:22Z",
-  "rendered_at": "2026-08-10T11:39:22Z",
+  "rendered_at": "2026-08-17T13:26:23Z",
   "baseline_report_date": "2026-08-03",
-  "configuration_sha256": "7e396658a17f0b470371b05ad9f9861d3b5843b35fd660a0f5f3157799612371",
+  "configuration_sha256": "b960bea3ae82f0421329d5a48fdc8cdc0df1edeaa381d9547543891baa4a3192",
   "quality": "degraded",
   "issues": [
     "Stale or missing prices: MDRX.",
@@ -1510,17 +1510,15 @@
     }
   ],
   "metrics": {
-    "mode": "full",
+    "mode": "render-only",
     "durations_seconds": {
-      "market_data": 27.015,
-      "analysis": 0.025,
-      "secondary_sources": 341.366,
-      "rendering": 11.198,
-      "total": 379.647
+      "render_input_load": 0.009,
+      "rendering": 1.839,
+      "total": 1.873
     },
     "counts": {
       "companies": 82,
-      "price_bars_loaded": 40940,
+      "price_bars_loaded": 0,
       "performance_charts": 3,
       "earnings_charts": 36,
       "source_statuses": {
@@ -1529,19 +1527,13 @@
       }
     },
     "output_bytes": {
-      "html": 5163472,
-      "markdown": 321391,
-      "charts": 3608480,
-      "data": 173922,
-      "total_without_manifest": 9267265
+      "html": 5159400,
+      "markdown": 296164,
+      "charts": 3624234,
+      "data": 173747,
+      "total_without_manifest": 9253545
     },
-    "price_retention": {
-      "cutoff": "2024-06-26",
-      "files_changed": 0,
-      "bars_removed": 0,
-      "bars_retained": 40990
-    },
-    "directory_bytes": 9306464
+    "directory_bytes": 9292725
   },
   "files": [
     "Healthcare Intel-2026-08-10.html",
@@ -1552,6 +1544,7 @@
     "assets/performance-6m.webp",
     "assets/performance-12m.webp",
     "assets/performance-24m.webp",
+    "assets/rank-comparison.webp",
     "assets/earnings-cvs-3m.webp",
     "assets/earnings-oscr-3m.webp",
     "assets/earnings-clov-3m.webp",

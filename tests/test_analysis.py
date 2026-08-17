@@ -8,6 +8,7 @@ from healthcare_report.analysis import (
     compare_snapshots,
     min_ranks,
     months_before,
+    notable_change_summary,
     price_base,
 )
 
@@ -96,3 +97,49 @@ def test_comparison_uses_stored_ranks_instead_of_recomputed_intersection(project
     overall = next(row for row in changes if row["change_type"] == "overall_stock")
     assert within["rank_delta"] == 1
     assert overall["rank_delta"] == 2
+
+
+def test_notable_summary_is_capped_and_uses_the_configured_horizon(project):
+    changes = []
+    for index, (ticker, old_rank, new_rank) in enumerate(
+        (("A", 1, 3), ("B", 2, 1), ("C", 3, 2), ("D", 20, 5))
+    ):
+        changes.append(
+            {
+                "change_type": "overall_stock",
+                "ticker": ticker,
+                "category": "Category",
+                "name": f"Stock {ticker}",
+                "horizon_months": 12,
+                "previous_rank": old_rank,
+                "current_rank": new_rank,
+                "rank_delta": old_rank - new_rank,
+                "previous_return": 0.1,
+                "current_return": 0.2 + index / 100,
+            }
+        )
+    for category, old_rank, new_rank in (
+        ("Sector A", 1, 2),
+        ("Sector B", 2, 1),
+        ("Sector C", 3, 4),
+        ("Sector D", 4, 3),
+    ):
+        changes.append(
+            {
+                "change_type": "category_performance",
+                "category": category,
+                "name": category,
+                "horizon_months": 12,
+                "previous_rank": old_rank,
+                "current_rank": new_rank,
+                "rank_delta": old_rank - new_rank,
+                "previous_return": 0.1,
+                "current_return": 0.2,
+            }
+        )
+
+    summary = notable_change_summary(changes, project)
+    assert summary["horizon_months"] == 12
+    assert {row["ticker"] for row in summary["stocks"]["top"]} == {"A", "B", "C"}
+    assert [row["ticker"] for row in summary["stocks"]["largest"]] == ["D", "A", "B"]
+    assert len(summary["categories"]["largest"]) == 3

@@ -3,11 +3,11 @@ name: Refresh strategy narrative
 on:
   workflow_dispatch:
     inputs:
-      share_url: https://chatgpt.com/share/6a67c29c-e150-83e8-86ca-7189577413be
+      share_url:
         description: ChatGPT share URL to refresh and save for future full updates
         required: true
         type: string
-        default: https://chatgpt.com/share/6a70f023-5050-83e8-91b8-5ffa9e09b7a4
+        default: https://chatgpt.com/share/6a67c29c-e150-83e8-86ca-7189577413be
       report:
         description: Report narrative to refresh
         required: true

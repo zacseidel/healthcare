@@ -20,7 +20,7 @@ from .analysis import (
     find_baseline,
     load_snapshot,
     months_before,
-    notable_changes,
+    notable_change_summary,
     period_moves,
 )
 from .cache import MarketCache
@@ -42,6 +42,7 @@ from .render import (
     build_markdown,
     render_charts,
     render_earnings_charts,
+    render_rank_comparison_chart,
     report_html_name,
     select_chart_tickers,
     standalone_html_name,
@@ -186,6 +187,7 @@ def _render_final(
             recent, upcoming = _earnings_sections(config, earnings, report_date)
         if moves is None:
             moves = period_moves(config, bars, reference, baseline, report_date)
+        notable_summary = notable_change_summary(changes, config)
         chart_tickers = select_chart_tickers(snapshot, config)
         earnings_chart_tickers = [
             item["ticker"]
@@ -194,6 +196,7 @@ def _render_final(
         ]
         charts: list[tuple[int, Path]] = []
         earnings_charts: dict[str, Path] = {}
+        rank_chart: Path | None = None
         if reuse_assets_from is not None:
             assets = temporary / "assets"
             assets.mkdir(parents=True, exist_ok=True)
@@ -209,6 +212,10 @@ def _render_final(
                     destination = assets / source.name
                     shutil.copy2(source, destination)
                     earnings_charts[ticker] = destination
+            source = reuse_assets_from / "assets" / "rank-comparison.webp"
+            if source.is_file():
+                rank_chart = assets / source.name
+                shutil.copy2(source, rank_chart)
         expected_horizons = {
             int(item) for item in config.settings["report"]["chart_horizons_months"]
         }
@@ -223,6 +230,8 @@ def _render_final(
             earnings_charts.update(
                 render_earnings_charts(temporary, config, report_date, bars, missing_earnings)
             )
+        if rank_chart is None:
+            rank_chart = render_rank_comparison_chart(temporary, notable_summary)
         context = {
             "config": config,
             "report_date": report_date,
@@ -230,7 +239,9 @@ def _render_final(
             "snapshot": snapshot,
             "baseline": baseline,
             "changes": changes,
-            "notable": notable_changes(changes, config),
+            "notable": notable_summary["items"],
+            "notable_summary": notable_summary,
+            "rank_chart": rank_chart,
             "period_moves": moves,
             "charts": charts,
             "earnings_charts": earnings_charts,
@@ -265,6 +276,7 @@ def _render_final(
             "changes.csv",
             "render-data.json.gz",
             *[f"assets/{path.name}" for _, path in charts],
+            *([f"assets/{rank_chart.name}"] if rank_chart else []),
             *[f"assets/{path.name}" for path in earnings_charts.values()],
         ]
         durations = {key: _round_seconds(value) for key, value in stage_durations.items()}
@@ -566,13 +578,24 @@ def rerender_report(
         if isinstance(reference_value, dict)
         else cache.reference()
     )
-    bars = {
-        ticker: cache.price_bars(ticker, price_start, price_end)
-        for ticker in [*config.universe.companies, benchmark]
-    }
+    # A normal rerender reuses the already-published chart assets and the saved
+    # period-move data. Avoid reopening the provider cache unless charts were
+    # explicitly requested for refresh; this keeps presentation-only rebuilds
+    # independent of unrelated cache files.
+    bars = (
+        {
+            ticker: cache.price_bars(ticker, price_start, price_end)
+            for ticker in [*config.universe.companies, benchmark]
+        }
+        if refresh_charts
+        else {}
+    )
     baseline = find_baseline(config, report_date)
     changes = compare_snapshots(snapshot, baseline, config)
-    earnings = load_earnings_state(config)
+    # The published render data already contains the earnings sections needed
+    # for a presentation-only rebuild; do not reopen the mutable earnings
+    # cache unless a full report update is being run.
+    earnings: dict[str, dict[str, Any]] = {}
     narrative_value = render_data.get("narrative")
     narrative = narrative_value if isinstance(narrative_value, dict) else load_narrative(config)
     recent_value = render_data.get("recent_earnings")

@@ -476,27 +476,74 @@ def _change_detail(
     return f"{row['name']} moved from {rank_text} {scope} at {horizon} months; {return_text}."
 
 
-def notable_changes(changes: list[dict[str, Any]], config: ProjectConfig) -> list[dict[str, Any]]:
+def notable_change_summary(
+    changes: list[dict[str, Any]], config: ProjectConfig
+) -> dict[str, Any]:
     settings = config.settings["notable_changes"]
-    thresholds = {
-        "category_performance": int(settings.get("category_rank_change", 1)),
-        "overall_stock": int(settings.get("overall_stock_rank_change", 2)),
-        "within_category": int(settings.get("within_category_rank_change", 1)),
+    horizon = int(settings.get("comparison_horizon_months", 12))
+    top_n = int(settings.get("top_n", 3))
+    largest_n = int(settings.get("largest_rank_changes", 3))
+
+    def rows(change_type: str) -> list[dict[str, Any]]:
+        return [
+            row
+            for row in changes
+            if row.get("change_type") == change_type
+            and row.get("horizon_months") == horizon
+            and row.get("previous_rank") is not None
+            and row.get("current_rank") is not None
+        ]
+
+    def summary_for(change_type: str) -> dict[str, list[dict[str, Any]]]:
+        ranked = rows(change_type)
+        top = [
+            row
+            for row in ranked
+            if min(int(row["previous_rank"]), int(row["current_rank"])) <= top_n
+        ]
+        top.sort(key=lambda row: (min(row["previous_rank"], row["current_rank"]), row["name"]))
+        largest = sorted(
+            (row for row in ranked if row.get("rank_delta")),
+            key=lambda row: (
+                -abs(float(row["rank_delta"])),
+                row["current_rank"],
+                row["name"],
+            ),
+        )[:largest_n]
+        return {"top": top, "largest": largest}
+
+    stock_summary = summary_for("overall_stock")
+    category_summary = summary_for("category_performance")
+    selected: dict[tuple[str, str, int], dict[str, Any]] = {}
+    for group in (stock_summary, category_summary):
+        for rows_for_group in group.values():
+            for row in rows_for_group:
+                selected[
+                    (
+                        str(row.get("change_type")),
+                        str(row.get("ticker") or row.get("category") or row.get("name")),
+                        int(row["horizon_months"]),
+                    )
+                ] = row
+    selected_items = list(selected.values())
+    selected_items.sort(key=lambda row: (row["change_type"], row["current_rank"], row["name"]))
+    selected_items.extend(
+        row
+        for row in changes
+        if row.get("change_type") in {"baseline", "watchlist_added", "watchlist_removed"}
+    )
+    return {
+        "horizon_months": horizon,
+        "top_n": top_n,
+        "stocks": stock_summary,
+        "categories": category_summary,
+        "items": selected_items,
     }
-    return_threshold = float(settings.get("return_delta_threshold", 0.02))
-    output = []
-    for row in changes:
-        if row["change_type"] in {"baseline", "watchlist_added", "watchlist_removed"}:
-            output.append(row)
-            continue
-        rank_delta = row.get("rank_delta")
-        return_delta = row.get("return_delta")
-        if (
-            rank_delta is not None
-            and abs(float(rank_delta)) >= thresholds.get(row["change_type"], 1)
-        ) or (return_delta is not None and abs(float(return_delta)) >= return_threshold):
-            output.append(row)
-    return output
+
+
+def notable_changes(changes: list[dict[str, Any]], config: ProjectConfig) -> list[dict[str, Any]]:
+    """Return the capped rows retained for the report's notable-change section."""
+    return notable_change_summary(changes, config)["items"]
 
 
 def period_moves(
