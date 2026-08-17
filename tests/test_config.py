@@ -8,7 +8,6 @@ from healthcare_report.cli import main, parse_date
 from healthcare_report.config import (
     ConfigurationError,
     load_config,
-    persist_strategy_narrative_url,
     validate_strategy_narrative_url,
 )
 
@@ -91,20 +90,81 @@ def test_companies_markdown_requires_requested_line_format(project):
         load_config(project.root)
 
 
-def test_strategy_narrative_url_validation_and_persistence(project):
+def test_strategy_narrative_markdown_drives_both_report_urls(project):
+    healthcare = "https://chatgpt.com/share/11111111-2222-3333-4444-555555555555"
+    life_science = "https://chatgpt.com/share/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"
+    path = project.root / "inputs" / "strategy-narratives.md"
+    path.write_text(
+        f"# Strategy Narrative Links\n\nHealthcare: {healthcare}\n"
+        f"Life Science and Device: {life_science}\n",
+        encoding="utf-8",
+    )
+
+    updated = load_config(project.root)
+    assert updated.settings["strategy_narrative"]["url"] == healthcare
+    assert updated.for_scope("healthcare").settings["strategy_narrative"]["url"] == healthcare
+    assert (
+        updated.for_scope("life-science-device").settings["strategy_narrative"]["url"]
+        == life_science
+    )
+
+
+@pytest.mark.parametrize(
+    ("body", "message"),
+    [
+        (
+            "# Strategy Narrative Links\n\nHealthcare: https://chatgpt.com/share/valid\n",
+            "missing links for: Life Science and Device",
+        ),
+        (
+            "# Strategy Narrative Links\n\n"
+            "Healthcare: https://chatgpt.com/share/one\n"
+            "Healthcare: https://chatgpt.com/share/two\n"
+            "Life Science and Device: https://chatgpt.com/share/three\n",
+            "duplicates the Healthcare link",
+        ),
+        (
+            "# Strategy Narrative Links\n\n"
+            "Healthcare: https://example.com/share/one\n"
+            "Life Science and Device: https://chatgpt.com/share/two\n",
+            "must be an HTTPS chatgpt.com/share URL",
+        ),
+        (
+            "# Strategy Narrative Links\n\n"
+            "Healthcare: https://chatgpt.com/conversation/one\n"
+            "Life Science and Device: https://chatgpt.com/share/two\n",
+            "must be an HTTPS chatgpt.com/share URL",
+        ),
+        (
+            "# Strategy Narrative Links\n\n"
+            "Health: https://chatgpt.com/share/one\n"
+            "Life Science and Device: https://chatgpt.com/share/two\n",
+            "must use Label: https://chatgpt.com/share/",
+        ),
+    ],
+)
+def test_strategy_narrative_markdown_rejects_invalid_entries(project, body, message):
+    path = project.root / "inputs" / "strategy-narratives.md"
+    path.write_text(body, encoding="utf-8")
+    with pytest.raises(ConfigurationError, match=message):
+        load_config(project.root)
+
+
+def test_strategy_narrative_url_validation():
     updated = "https://chatgpt.com/share/11111111-2222-3333-4444-555555555555"
     assert validate_strategy_narrative_url(f" {updated} ") == updated
-    assert persist_strategy_narrative_url(project, updated)
-    assert load_config(project.root).settings["strategy_narrative"]["url"] == updated
-    assert not persist_strategy_narrative_url(project, updated)
     with pytest.raises(ConfigurationError):
         validate_strategy_narrative_url("https://example.com/share/not-chatgpt")
 
 
-def test_refresh_narrative_cli_uses_and_saves_url(project, monkeypatch, capsys):
+def test_refresh_narrative_cli_uses_markdown_url_without_rewriting_it(
+    project, monkeypatch, capsys
+):
     import healthcare_report.narrative as narrative
 
-    updated = "https://chatgpt.com/share/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"
+    path = project.root / "inputs" / "strategy-narratives.md"
+    original = path.read_text(encoding="utf-8")
+    expected = project.for_scope("life-science-device").settings["strategy_narrative"]["url"]
     seen: list[str] = []
 
     def fake_refresh(config):
@@ -113,7 +173,7 @@ def test_refresh_narrative_cli_uses_and_saves_url(project, monkeypatch, capsys):
 
     monkeypatch.setattr(narrative, "refresh_narrative", fake_refresh)
     monkeypatch.chdir(project.root)
-    assert main(["refresh-narrative", "--url", updated]) == 0
-    assert seen == [updated]
-    assert load_config(project.root).settings["strategy_narrative"]["url"] == updated
+    assert main(["refresh-narrative", "--report", "life-science-device"]) == 0
+    assert seen == [expected]
+    assert path.read_text(encoding="utf-8") == original
     assert '"status": "ok"' in capsys.readouterr().out

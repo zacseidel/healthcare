@@ -13,9 +13,6 @@ usage() {
 Usage:
   ./bin/run-report                 Create today's Healthcare and Life Science reports
   ./bin/run-report YYYY-MM-DD      Create or replace both dated final reports
-  ./bin/run-report --url URL       Refresh the Healthcare narrative URL and report
-  ./bin/run-report --url URL --url URL
-                                   Refresh Healthcare and Life Science narratives and reports
   ./bin/run-report --validate      Validate the local installation without fetching data
   ./bin/run-report --render DATE [--refresh-charts]
                                    Rerender a saved report without network requests
@@ -32,30 +29,9 @@ case "${1:-}" in
     ;;
 esac
 
-narrative_url=""
-life_science_narrative_url=""
-narrative_url_count=0
 report_date=""
 while [ "$#" -gt 0 ]; do
   case "$1" in
-    --url)
-      if [ "$#" -lt 2 ] || [ -z "$2" ]; then
-        echo "error: --url requires a ChatGPT share URL." >&2
-        usage >&2
-        exit 1
-      fi
-      narrative_url_count=$((narrative_url_count + 1))
-      if [ "$narrative_url_count" -eq 1 ]; then
-        narrative_url="$2"
-      elif [ "$narrative_url_count" -eq 2 ]; then
-        life_science_narrative_url="$2"
-      else
-        echo "error: at most two --url values are supported." >&2
-        usage >&2
-        exit 1
-      fi
-      shift 2
-      ;;
     --validate|--render|--export-standalone|--setup-only)
       # These existing modes are handled below and retain their original arguments.
       break
@@ -208,12 +184,6 @@ if [ -z "${MASSIVE_API_KEY:-}" ] || [ "$MASSIVE_API_KEY" = "your_api_key_here" ]
   exit 1
 fi
 
-if [ "$narrative_url_count" -gt 0 ] && [ -n "$report_date" ]; then
-  echo "error: --url cannot be combined with a report date." >&2
-  usage >&2
-  exit 1
-fi
-
 if [ -n "$report_date" ] && [[ ! "$report_date" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
   echo "error: report date must use YYYY-MM-DD." >&2
   usage >&2
@@ -226,16 +196,6 @@ if [ "$#" -gt 1 ]; then
 fi
 
 cd "$project_dir"
-if [ -n "$narrative_url" ]; then
-  "$python_bin" -m healthcare_report refresh-narrative \
-    --report healthcare --url "$narrative_url"
-  if [ -n "$life_science_narrative_url" ]; then
-    "$python_bin" -m healthcare_report refresh-narrative \
-      --report life-science-device --url "$life_science_narrative_url"
-    exec "$python_bin" -m healthcare_report run --report both --force-secondary
-  fi
-  exec "$python_bin" -m healthcare_report run --report healthcare --force-secondary
-fi
 if [ -n "$report_date" ]; then
   exec "$python_bin" -m healthcare_report run --date "$report_date" --report both
 fi

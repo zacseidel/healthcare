@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import os
 import re
 from copy import deepcopy
 from dataclasses import dataclass
@@ -146,6 +145,54 @@ def _read_markdown_frontmatter(path: Path) -> dict[str, Any]:
     return value
 
 
+def _read_strategy_narrative_urls(path: Path) -> dict[str, str]:
+    labels = {
+        "Healthcare": "healthcare",
+        "Life Science and Device": "life-science-device",
+    }
+    try:
+        lines = path.read_text(encoding="utf-8").splitlines()
+    except FileNotFoundError as exc:
+        raise ConfigurationError(f"Missing configuration file: {path}") from exc
+    urls: dict[str, str] = {}
+    expected_format = "Label: https://chatgpt.com/share/..."
+    for line_number, raw_line in enumerate(lines, start=1):
+        line = raw_line.strip()
+        if not line or line.startswith("#"):
+            continue
+        label, separator, raw_url = line.partition(":")
+        label = label.strip()
+        if not separator or label not in labels or not raw_url.strip():
+            raise ConfigurationError(
+                f"{path}:{line_number} must use {expected_format} with one of: "
+                f"{', '.join(labels)}"
+            )
+        scope = labels[label]
+        if scope in urls:
+            raise ConfigurationError(f"{path}:{line_number} duplicates the {label} link")
+        urls[scope] = validate_strategy_narrative_url(raw_url)
+    missing = [label for label, scope in labels.items() if scope not in urls]
+    if missing:
+        raise ConfigurationError(f"{path} is missing links for: {', '.join(missing)}")
+    return urls
+
+
+def _apply_strategy_narrative_urls(settings: dict[str, Any], urls: dict[str, str]) -> None:
+    top_level = settings.get("strategy_narrative")
+    if isinstance(top_level, dict):
+        top_level["url"] = urls["healthcare"]
+    profiles = settings.get("report_profiles")
+    if not isinstance(profiles, dict):
+        return
+    for scope, url in urls.items():
+        profile = profiles.get(scope)
+        if not isinstance(profile, dict):
+            continue
+        narrative = profile.get("strategy_narrative")
+        if isinstance(narrative, dict):
+            narrative["url"] = url
+
+
 def _require_mapping(settings: dict[str, Any], name: str) -> dict[str, Any]:
     value = settings.get(name)
     if not isinstance(value, dict):
@@ -236,6 +283,8 @@ def _load_universe(document: dict[str, Any]) -> Universe:
 def load_config(root: Path | None = None) -> ProjectConfig:
     root = (root or project_root()).resolve()
     settings = _read_yaml(root / "config" / "settings.yaml")
+    narrative_urls = _read_strategy_narrative_urls(root / "inputs" / "strategy-narratives.md")
+    _apply_strategy_narrative_urls(settings, narrative_urls)
     _validate_settings(settings)
     universe = _load_universe(_read_markdown_frontmatter(root / "inputs" / "companies.md"))
     config = ProjectConfig(root=root, settings=settings, universe=universe, available_universe=universe)
@@ -256,60 +305,7 @@ def validate_strategy_narrative_url(value: str) -> str:
         parsed.scheme != "https"
         or parsed.hostname not in {"chatgpt.com", "www.chatgpt.com"}
         or not parsed.path.startswith("/share/")
+        or not parsed.path.removeprefix("/share/").strip("/")
     ):
         raise ConfigurationError("strategy narrative URL must be an HTTPS chatgpt.com/share URL")
     return url
-
-
-def persist_strategy_narrative_url(config: ProjectConfig, value: str) -> bool:
-    url = validate_strategy_narrative_url(value)
-    path = config.root / "config" / "settings.yaml"
-    lines = path.read_text(encoding="utf-8").splitlines()
-    profile_path = f"report_profiles.{config.scope}.strategy_narrative"
-    in_top_strategy = False
-    in_report_profiles = False
-    current_profile: str | None = None
-    in_profile_strategy = False
-    replaced = False
-    changed = False
-    for index, line in enumerate(lines):
-        if line == "strategy_narrative:":
-            in_top_strategy = config.scope == "healthcare"
-            in_report_profiles = False
-            current_profile = None
-            in_profile_strategy = False
-            continue
-        if line == "report_profiles:":
-            in_top_strategy = False
-            in_report_profiles = True
-            current_profile = None
-            in_profile_strategy = False
-            continue
-        profile_match = re.match(r"^  ([^ ].*):$", line) if in_report_profiles else None
-        if profile_match:
-            current_profile = profile_match.group(1)
-            in_profile_strategy = False
-            continue
-        if (
-            in_report_profiles
-            and current_profile == config.scope
-            and line == "    strategy_narrative:"
-        ):
-            in_profile_strategy = True
-            continue
-        if (in_top_strategy or in_profile_strategy) and re.match(r"^\s+url:\s*", line):
-            indent = line[: len(line) - len(line.lstrip())]
-            replacement = f"{indent}url: {url}"
-            replaced = True
-            if replacement != line:
-                lines[index] = replacement
-                changed = True
-    if not replaced:
-        raise ConfigurationError(f"settings.{profile_path}.url is missing")
-    temporary = path.with_suffix(path.suffix + ".tmp")
-    temporary.write_text("\n".join(lines) + "\n", encoding="utf-8")
-    os.replace(temporary, path)
-    config.settings["strategy_narrative"]["url"] = url
-    if config.scope == "healthcare":
-        config.settings["report_profiles"][config.scope]["strategy_narrative"]["url"] = url
-    return changed

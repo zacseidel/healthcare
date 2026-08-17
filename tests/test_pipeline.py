@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 from healthcare_report.cache import MarketCache
 from healthcare_report.pipeline import export_standalone_report, rerender_report, run_report
 from healthcare_report.render import _presentation_narrative
-from healthcare_report.storage import read_gzip_json, write_gzip_json
+from healthcare_report.storage import config_hash, read_gzip_json, write_gzip_json
 
 
 class FakeMassive:
@@ -165,7 +165,7 @@ def test_end_to_end_report_and_baseline(project, monkeypatch):
     assert "h2::after" not in report_html
     assert "border-bottom:3px solid var(--navy)" in report_html
     soup = BeautifulSoup(report_html, "html.parser")
-    strategy_heading = soup.select_one("h2#strategy-narrative")
+    strategy_heading = soup.select_one("h2#in-the-news")
     strategy_links = soup.select_one("nav.strategy-narrative-links")
     executive_heading = soup.select_one("h3#executive-readout")
     assert strategy_heading is not None
@@ -209,6 +209,13 @@ def test_end_to_end_report_and_baseline(project, monkeypatch):
     )
     assert len(requested_earnings_charts[0]) == len(project.universe.companies)
     assert manifest["schema"] == 2
+    assert manifest["configuration_sha256"] == config_hash(
+        [
+            project.root / "config" / "settings.yaml",
+            project.root / "inputs" / "companies.md",
+            project.root / "inputs" / "strategy-narratives.md",
+        ]
+    )
     assert manifest["metrics"]["output_bytes"]["charts"] > 0
     assert manifest["metrics"]["price_retention"]["cutoff"]
 

@@ -303,6 +303,7 @@ def _render_final(
                 [
                     config.root / "config" / "settings.yaml",
                     config.root / "inputs" / "companies.md",
+                    config.root / "inputs" / "strategy-narratives.md",
                 ]
             ),
             "quality": "degraded" if issues else "ok",

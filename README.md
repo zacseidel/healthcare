@@ -1,7 +1,7 @@
 # Healthcare Intel Digest
 
 A Python application that creates weekly healthcare and life-science stock intelligence reports from
-Massive market data, public earnings pages, and a shared ChatGPT strategy narrative.
+Massive market data, public earnings pages, and report-specific ChatGPT strategy narratives.
 Reports are generated as final versions immediately and stored in Git.
 
 ## What it produces
@@ -138,27 +138,8 @@ Playwright Chromium, and the existing `.env` automatically:
 ```
 
 This updates both report profiles. Use the Python CLI's `--report` option when only one profile
-needs to be refreshed.
-
-To replace the Healthcare strategy narrative share URL and immediately generate the Healthcare
-report in one step:
-
-```sh
-./bin/run-report --url 'https://chatgpt.com/share/6a82f78e-6e34-83e8-a3b6-18f541f09367'
-```
-
-This saves the URL in `config/settings.yaml`, refreshes the narrative snapshot, and runs the
-Healthcare report with fresh secondary-source checks. The URL form is `--url URL` (without a
-colon after `--url`).
-
-To refresh both profiles, provide `--url` twice—in Healthcare order, then Life Science and
-Device order:
-
-```sh
-./bin/run-report \
-  --url 'https://chatgpt.com/share/HEALTHCARE_SHARE_ID' \
-  --url 'https://chatgpt.com/share/LIFE_SCIENCE_SHARE_ID'
-```
+needs to be refreshed. Before running, update the two ChatGPT share URLs in
+`inputs/strategy-narratives.md` if the narratives have changed.
 
 To create or replace a report for a particular date:
 
@@ -187,14 +168,15 @@ mypy src
 
 - `inputs/companies.md` defines categories and their stocks using the original
   `Ticker: Name; Description` format. A ticker may belong to more than one category.
+- `inputs/strategy-narratives.md` contains the Healthcare and Life Science and Device ChatGPT
+  share URLs.
 - `config/settings.yaml` defines horizons, thresholds, source behavior, report presentation,
-  report-profile category membership, and one ChatGPT share URL per report profile.
+  report-profile category membership, and narrative matching rules.
 
 The Healthcare profile includes services, providers, real estate, value-based care, outpatient
 and home care, digital health, health IT/data, pharma distribution, and precision diagnostics.
 The Life Science and Device profile includes Devices & Diagnostic, Big Pharma, Established Biotech,
-and Emerging Biotech. Its narrative URL initially matches Healthcare as a placeholder; replace
-`report_profiles.life-science-device.strategy_narrative.url` before its first production run.
+and Emerging Biotech.
 
 The report date and its automatic earnings selections are runtime values rather than mutable
 configuration. This keeps scheduled reports reproducible.
@@ -276,9 +258,19 @@ not suppress otherwise valid market analysis and remains recorded in `manifest.j
 
 ## Strategy narrative
 
-Each run attempts to read the newest matching assistant brief from the configured public
-ChatGPT share link. The scraper removes ChatGPT navigation and decorative elements, keeps
-useful citation links, and stores the successful result at `state/narrative.json`.
+Each run attempts to read the newest matching assistant brief from the public ChatGPT share link
+for that report in `inputs/strategy-narratives.md`. Keep the file in this exact format:
+
+```markdown
+# Strategy Narrative Links
+
+Healthcare: https://chatgpt.com/share/HEALTHCARE_SHARE_ID
+Life Science and Device: https://chatgpt.com/share/LIFE_SCIENCE_SHARE_ID
+```
+
+The two labels must each appear exactly once. Each URL must be an HTTPS `chatgpt.com/share/` URL.
+The scraper removes ChatGPT navigation and decorative elements, keeps useful citation links, and
+stores the successful result in that report's narrative snapshot under `state/`.
 
 A ChatGPT share link is a snapshot: update the share in ChatGPT when the conversation changes.
 If the link cannot be read, the report uses the committed snapshot and visibly reports its age.
@@ -299,20 +291,18 @@ of Healthcare, Life Science and Device, or Both. Add `MASSIVE_API_KEY` under
 permissions. A manual run forces fresh earnings and strategy-narrative checks, even if those
 sources were already checked that day.
 
+For the normal weekly update, edit and commit both links in `inputs/strategy-narratives.md`, then
+manually run **Run full healthcare update** with report scope **both**. The workflow validates and
+uses the committed links automatically. Scheduled runs use the same file.
+
 The workflow validates and tests the project, installs anonymous Chromium, creates the final,
 uploads the standalone HTML artifact for 90 days, commits the final report plus compact `state/`
 using `github-actions[bot]`, and deploys the refreshed public site. If core market analysis
 cannot be built, it commits nothing. Earnings or narrative failures yield a degraded manifest
 while preserving the valid market report.
 
-The separate **Refresh strategy narrative** workflow is a lightweight manual action. Select a
-report profile and provide its ChatGPT share URL. The workflow refreshes that profile's snapshot
-and saves the URL in `config/settings.yaml` for subsequent updates. Narrative snapshots are kept
-separately under `state/`.
-
-Both update workflows share a concurrency lock, verify that the branch has not changed while
-they were running, and push through `github-actions[bot]`. The full workflow deploys Pages only
-when it committed a changed report or state snapshot.
+The workflow verifies that the branch has not changed while it runs and pushes through
+`github-actions[bot]`. It deploys Pages only when it committed a changed report or state snapshot.
 
 ### GitHub Pages
 

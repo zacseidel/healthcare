@@ -6,12 +6,7 @@ import sys
 from datetime import date, datetime
 from pathlib import Path
 
-from .config import (
-    ConfigurationError,
-    load_config,
-    persist_strategy_narrative_url,
-    validate_strategy_narrative_url,
-)
+from .config import ConfigurationError, load_config
 
 
 def parse_date(value: str) -> date:
@@ -64,10 +59,6 @@ def build_parser() -> argparse.ArgumentParser:
         "refresh-narrative", help="refresh only the ChatGPT narrative snapshot"
     )
     narrative.add_argument(
-        "--url",
-        help="ChatGPT share URL to use and save for subsequent report runs",
-    )
-    narrative.add_argument(
         "--report", choices=("healthcare", "life-science-device"), default="healthcare"
     )
     return parser
@@ -93,14 +84,7 @@ def main(argv: list[str] | None = None) -> int:
             from .narrative import refresh_narrative
 
             config = config.for_scope(args.report)
-            requested_url = str(args.url or "").strip()
-            if requested_url:
-                config.settings["strategy_narrative"]["url"] = validate_strategy_narrative_url(
-                    requested_url
-                )
             narrative = refresh_narrative(config)
-            if requested_url:
-                persist_strategy_narrative_url(config, requested_url)
             print(json.dumps(narrative, indent=2))
             return 0
         from .pipeline import export_standalone_report, rerender_report, run_report

@@ -786,7 +786,7 @@ def build_markdown(context: dict[str, Any]) -> str:
         "",
         str(config.settings["report"].get("description", "")),
         "",
-        "## Strategy Narrative",
+        "## In the News",
         "",
     ]
     if narrative:

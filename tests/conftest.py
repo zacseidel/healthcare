@@ -16,4 +16,8 @@ def project(tmp_path: Path):
     shutil.copytree(source / "site_content", tmp_path / "site_content")
     (tmp_path / "inputs").mkdir()
     shutil.copy(source / "inputs" / "companies.md", tmp_path / "inputs" / "companies.md")
+    shutil.copy(
+        source / "inputs" / "strategy-narratives.md",
+        tmp_path / "inputs" / "strategy-narratives.md",
+    )
     return load_config(tmp_path)
