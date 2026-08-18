@@ -58,6 +58,23 @@ SITE_CSS = """
 .site-badge { display:inline-block; justify-self:end; padding:.18rem .5rem; border-radius:999px;
   color:#31536b !important; background:#e7f0f5; font-size:.72rem !important; font-weight:800; text-transform:uppercase; }
 .site-badge-warning { color:#754b05 !important; background:#fff0c9; }
+.index-week { margin-top:2.5rem; }
+.index-week > h2 { margin-bottom:.3rem; }
+.index-report { margin:1.25rem 0 2rem; padding:1.1rem 1.25rem; border:1px solid var(--site-line);
+  border-radius:5px; background:#fbfcfd; }
+.index-report h3 { margin:0 0 .8rem; font-size:1.22rem; }
+.index-report h4 { margin:1rem 0 .35rem; color:var(--site-blue); font-size:.82rem;
+  letter-spacing:.09em; text-transform:uppercase; }
+.index-links { margin:.35rem 0 .6rem; padding-left:1.3rem; }
+.index-links li { margin:.35rem 0; }
+.topic-directory { margin-top:3.5rem; padding-top:.5rem; border-top:4px solid var(--site-gold); }
+.topic-group { margin-top:2.5rem; }
+.topic-section { margin:1.35rem 0; }
+.topic-section h3 { margin-bottom:.4rem; }
+.topic-links { list-style:none; margin:.35rem 0 0; padding:0; }
+.topic-links li { padding:.65rem 0; border-bottom:1px solid var(--site-line); }
+.topic-links span { display:block; margin-top:.15rem; color:var(--site-muted); font-size:.82rem; }
+.index-empty { color:var(--site-muted); font-style:italic; }
 .public-site-footer { margin-top:3rem; padding-top:1rem; border-top:1px solid var(--site-line);
   color:var(--site-muted); font-size:.84rem; }
 @media (max-width:700px) {
@@ -79,6 +96,176 @@ class SiteReport:
     quality: str
     source: Path
     archive_path: str
+
+
+@dataclass(frozen=True)
+class IndexedHeadline:
+    report: SiteReport
+    label: str
+    fragment: str
+
+
+@dataclass(frozen=True)
+class IndexedEarningsCall:
+    report: SiteReport
+    label: str
+    fragment: str
+
+
+TOPIC_GROUPS = (
+    (
+        "Payers",
+        (
+            (
+                "payer-strategy",
+                "Payer Strategy",
+                (
+                    r"\bpayers?\b",
+                    r"\binsurers?\b",
+                    r"\bhealth plans?\b",
+                    r"\bhumana\b",
+                    r"\bunitedhealth\b",
+                    r"\baetna\b",
+                    r"\bcentene\b",
+                    r"\bcigna\b",
+                    r"\belevance\b",
+                    r"\bmolina\b",
+                    r"\boscar health\b",
+                ),
+            ),
+            (
+                "payment-integrity",
+                "Payment Integrity",
+                (
+                    r"\bpayment integrity\b",
+                    r"\bimproper payments?\b",
+                    r"\bfraud\b",
+                    r"\bclaims?\b",
+                    r"\bcoding\b",
+                    r"\bdenials?\b",
+                    r"\bappeals?\b",
+                    r"\bprior[- ]authorization\b",
+                    r"\butilization management\b",
+                ),
+            ),
+            (
+                "risk-adjustment",
+                "Risk",
+                (
+                    r"\brisk adjustment\b",
+                    r"\brisk scores?\b",
+                    r"\bradv\b",
+                    r"\bhccs?\b",
+                    r"\bcoding intensity\b",
+                    r"\bmedical cost trends?\b",
+                    r"\bactuarial\b",
+                ),
+            ),
+            (
+                "quality",
+                "Quality",
+                (
+                    r"\bquality\b",
+                    r"\bhedis\b",
+                    r"\bstar ratings?\b",
+                    r"\bcare gaps?\b",
+                    r"\bpatient outcomes?\b",
+                ),
+            ),
+        ),
+    ),
+    (
+        "Providers",
+        (
+            (
+                "provider-strategy",
+                "Provider Strategy",
+                (
+                    r"\bproviders?\b",
+                    r"\bhealth systems?\b",
+                    r"\bhospitals?\b",
+                    r"\bambulatory\b",
+                    r"\bservice[- ]lines?\b",
+                ),
+            ),
+            (
+                "revenue-cycle-management",
+                "Revenue Cycle Management",
+                (
+                    r"\brevenue[- ]cycle\b",
+                    r"\breimbursement\b",
+                    r"\bunderpayments?\b",
+                    r"\bbilling\b",
+                    r"\bcollections?\b",
+                    r"\bno surprises act\b",
+                    r"\bqualifying payment amount\b",
+                    r"\bqpa\b",
+                    r"\bcontract(?:ed)? rates?\b",
+                ),
+            ),
+            (
+                "imaging",
+                "Imaging",
+                (
+                    r"\bimaging\b",
+                    r"\bradiology\b",
+                    r"\bdiagnostic images?\b",
+                    r"\bpacs\b",
+                    r"\b(?:ct|mri|pet) scans?\b",
+                ),
+            ),
+            (
+                "edi-interoperability",
+                "EDI & Interoperability",
+                (
+                    r"\bedi\b",
+                    r"\binteroperability\b",
+                    r"\bdata exchange\b",
+                    r"\bimage exchange\b",
+                    r"\bcare everywhere\b",
+                    r"\btefca\b",
+                    r"\bclearinghouses?\b",
+                ),
+            ),
+            (
+                "clinical-decision-support",
+                "Clinical Decision Support",
+                (
+                    r"\bclinical decision support\b",
+                    r"\bclinical workflows?\b",
+                    r"\bclinical evidence\b",
+                    r"\bdecision accuracy\b",
+                    r"\bdiagnostic support\b",
+                ),
+            ),
+        ),
+    ),
+    (
+        "Across the Business",
+        (
+            ("life-sciences", "Life Sciences", ()),
+            (
+                "policy-cross-sector",
+                "Policy & Cross-Sector",
+                (
+                    r"\bpolicy\b",
+                    r"\bregulation\b",
+                    r"\bregulatory\b",
+                    r"\bcms\b",
+                    r"\bfda\b",
+                    r"\bmedicaid\b",
+                    r"\bmedicare\b",
+                    r"\bcourt\b",
+                    r"\bruling\b",
+                    r"\badministration\b",
+                    r"\benforcement\b",
+                    r"\bfederal\b",
+                ),
+            ),
+            ("other", "Other", ()),
+        ),
+    ),
+)
 
 
 def _long_date(value: date) -> str:
@@ -134,6 +321,7 @@ def _site_header(prefix: str, active: str) -> str:
     home = prefix or "./"
     items = (
         ("latest", "Latest report", home),
+        ("news", "News & Earnings", f"{prefix}news/"),
         ("reports", "Past reports", f"{prefix}reports/"),
         ("about", "About", f"{prefix}about/"),
         ("methodology", "Methodology", f"{prefix}methodology/"),
@@ -240,6 +428,125 @@ def _archive_page(reports: list[SiteReport]) -> str:
     return _page_document("Past reports", body, prefix="../", active="reports")
 
 
+def _indexed_report_content(
+    report: SiteReport,
+) -> tuple[list[IndexedHeadline], list[IndexedEarningsCall]]:
+    soup = BeautifulSoup(report.source.read_text(encoding="utf-8"), "html.parser")
+    headlines: list[IndexedHeadline] = []
+    seen_headlines: set[str] = set()
+    for link in soup.select('nav.strategy-narrative-links a[href^="#"]'):
+        fragment = str(link.get("href") or "").removeprefix("#")
+        label = link.get_text(" ", strip=True)
+        if fragment and label and fragment not in seen_headlines:
+            headlines.append(IndexedHeadline(report, label, fragment))
+            seen_headlines.add(fragment)
+    earnings_calls: list[IndexedEarningsCall] = []
+    seen_earnings: set[str] = set()
+    earnings_links = soup.select('ul.section-jump-list a[href^="#earnings-"]')
+    if not earnings_links:
+        earnings_links = soup.select('nav.report-nav a[href^="#earnings-"]')
+    for link in earnings_links:
+        fragment = str(link.get("href") or "").removeprefix("#")
+        label = link.get_text(" ", strip=True)
+        if fragment and label and fragment not in seen_earnings:
+            earnings_calls.append(IndexedEarningsCall(report, label, fragment))
+            seen_earnings.add(fragment)
+    return headlines, earnings_calls
+
+
+def _topic_slugs(headline: IndexedHeadline) -> tuple[str, ...]:
+    text = headline.label.casefold()
+    matches: list[str] = []
+    if headline.report.report_type == "life-science-device":
+        matches.append("life-sciences")
+    for _group_label, topics in TOPIC_GROUPS:
+        for slug, _topic_label, patterns in topics:
+            if slug in {"life-sciences", "other"}:
+                continue
+            if any(re.search(pattern, text, flags=re.IGNORECASE) for pattern in patterns):
+                matches.append(slug)
+    return tuple(dict.fromkeys(matches)) if matches else ("other",)
+
+
+def _indexed_href(report: SiteReport, fragment: str = "") -> str:
+    suffix = f"#{fragment}" if fragment else ""
+    return f"../reports/{report.archive_path}/{suffix}"
+
+
+def _index_link_list(items: list[IndexedHeadline] | list[IndexedEarningsCall]) -> str:
+    if not items:
+        return '<p class="index-empty">None in this report.</p>'
+    return '<ul class="index-links">' + "".join(
+        f'<li><a href="{html.escape(_indexed_href(item.report, item.fragment), quote=True)}">'
+        f"{html.escape(item.label)}</a></li>"
+        for item in items
+    ) + "</ul>"
+
+
+def _news_index_page(reports: list[SiteReport]) -> str:
+    indexed = [(report, *_indexed_report_content(report)) for report in reports]
+    dates = sorted({report.report_date for report in reports}, reverse=True)
+    weeks: list[str] = []
+    for report_date in dates:
+        report_cards: list[str] = []
+        for report, headlines, earnings_calls in indexed:
+            if report.report_date != report_date:
+                continue
+            report_cards.append(
+                '<article class="index-report">'
+                f'<h3><a href="{html.escape(_indexed_href(report), quote=True)}">'
+                f"{html.escape(report.report_name)}</a></h3>"
+                f"<h4>In the News</h4>{_index_link_list(headlines)}"
+                f"<h4>Earnings Calls</h4>{_index_link_list(earnings_calls)}"
+                "</article>"
+            )
+        weeks.append(
+            f'<section class="index-week"><h2>{_long_date(report_date)}</h2>'
+            + "".join(report_cards)
+            + "</section>"
+        )
+    if not weeks:
+        weeks.append('<p class="index-empty">No published reports are available to index.</p>')
+
+    all_headlines = [headline for _report, headlines, _earnings in indexed for headline in headlines]
+    topic_sections: list[str] = []
+    for group_label, topics in TOPIC_GROUPS:
+        rendered_topics: list[str] = []
+        for slug, topic_label, _patterns in topics:
+            matches = [headline for headline in all_headlines if slug in _topic_slugs(headline)]
+            listing = '<ul class="topic-links">' + "".join(
+                f'<li><a href="{html.escape(_indexed_href(item.report, item.fragment), quote=True)}">'
+                f"{html.escape(item.label)}</a>"
+                f"<span>{_long_date(item.report.report_date)} · "
+                f"{html.escape(item.report.report_name)}</span></li>"
+                for item in matches
+            ) + "</ul>"
+            if not matches:
+                listing = '<p class="index-empty">No indexed headlines.</p>'
+            rendered_topics.append(
+                f'<section class="topic-section" id="topic-{slug}"><h3>{topic_label}</h3>'
+                f"{listing}</section>"
+            )
+        topic_sections.append(
+            f'<section class="topic-group"><h2>{group_label}</h2>'
+            + "".join(rendered_topics)
+            + "</section>"
+        )
+
+    body = (
+        '<p class="site-eyebrow">Intelligence library</p><h1>News &amp; Earnings Index</h1>'
+        '<p class="site-lede">Browse weekly news headlines and earnings-call coverage, then '
+        'review news across the business topics it affects.</p>'
+        '<section aria-labelledby="weekly-index-heading"><h2 id="weekly-index-heading">By week</h2>'
+        + "".join(weeks)
+        + '</section><section class="topic-directory" aria-labelledby="topic-index-heading">'
+        '<p class="site-eyebrow">Business topics</p><h2 id="topic-index-heading">By topic</h2>'
+        + "".join(topic_sections)
+        + "</section>"
+    )
+    return _page_document("News & Earnings Index", body, prefix="../", active="news")
+
+
 def _empty_home(config: ProjectConfig) -> str:
     name = html.escape(str(config.settings["report"]["name"]))
     body = (
@@ -268,6 +575,10 @@ def build_site(config: ProjectConfig, output: Path | None = None) -> dict[str, A
         (temporary / "reports").mkdir()
         (temporary / "reports" / "index.html").write_text(
             _archive_page(reports), encoding="utf-8"
+        )
+        (temporary / "news").mkdir()
+        (temporary / "news" / "index.html").write_text(
+            _news_index_page(reports), encoding="utf-8"
         )
         for name in ("about", "methodology"):
             folder = temporary / name

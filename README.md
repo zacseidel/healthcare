@@ -113,7 +113,17 @@ exact static site that will be published. Both `run` and `render` rebuild it aut
 `build-site` remains useful after editing only the About or Methodology copy.
 
 The homepage always uses the latest Healthcare report. The Past reports page groups the archive
-under Healthcare Intel Report and Life Sciences Intel Report.
+under Healthcare Intel Report and Life Sciences Intel Report. The News & Earnings page provides
+a newest-first weekly index of report headlines and earnings-call coverage, with direct links to
+the corresponding report sections. It also collects headlines under these business topics:
+
+- Payers: Payer Strategy, Payment Integrity, Risk, and Quality;
+- Providers: Provider Strategy, Revenue Cycle Management, Imaging, EDI & Interoperability, and
+  Clinical Decision Support;
+- Across the Business: Life Sciences, Policy & Cross-Sector, and Other.
+
+Topic assignment is deterministic and based on headline wording. A headline can appear under
+multiple relevant topics; unmatched headlines appear under Other.
 
 The normal local publishing flow is:
 
