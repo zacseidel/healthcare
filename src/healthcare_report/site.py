@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import html
 import re
 import shutil
@@ -8,39 +9,48 @@ from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
 from typing import Any
+from urllib.parse import quote
 
 import markdown
 from bs4 import BeautifulSoup
 
 from .config import ProjectConfig
 from .render import report_html_name
-from .storage import atomic_replace_directory, read_json
+from .storage import atomic_replace_directory, read_json, write_json
 
 SITE_CSS = """
-:root { --site-navy:#0d304d; --site-blue:#1d527e; --site-gold:#d4a43c;
+:root { --site-navy:#183e5a; --site-blue:#35647f; --site-gold:#d4a43c;
   --site-ink:#1d2935; --site-muted:#657482; --site-line:#d8e1e8; --site-paper:#fff;
-  --site-panel:#f2f6f8; }
-.public-site-header { position:relative; z-index:20; color:#fff; background:var(--site-navy);
-  border-bottom:4px solid var(--site-gold); box-shadow:0 2px 12px #071c2c26; }
-.public-site-header-inner { width:min(1500px,100%); min-height:68px; margin:0 auto;
-  padding:.7rem 1.5rem; display:flex; align-items:center; justify-content:space-between; gap:1.5rem; }
-.public-site-brand { color:#fff !important; font:700 1.15rem/1.2 Georgia,"Times New Roman",serif;
-  text-decoration:none; letter-spacing:.01em; }
+  --site-panel:#f3f7f9; --site-header:#f7fafb; }
+.public-site-header { position:relative; z-index:20; color:var(--site-ink); background:var(--site-header);
+  border-bottom:1px solid var(--site-line); box-shadow:0 1px 8px #1832480d; }
+.public-site-header-inner { width:min(1500px,100%); min-height:60px; margin:0 auto;
+  padding:.55rem 1.5rem; display:flex; align-items:center; justify-content:space-between; gap:1.5rem; }
+.public-site-brand { color:#294f69 !important;
+  font:500 1rem/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  text-decoration:none; letter-spacing:.015em; }
 .public-site-nav { display:flex; align-items:center; gap:.25rem; flex-wrap:wrap; }
-.public-site-nav a { color:#dce9f2 !important; padding:.48rem .7rem; border-radius:3px;
-  font:600 .88rem/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; text-decoration:none; }
-.public-site-nav a:hover,.public-site-nav a[aria-current="page"] { color:#fff !important;
-  background:#ffffff1f; }
+.public-site-nav a { color:#526879 !important; padding:.45rem .68rem; border-radius:4px;
+  font:500 .86rem/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; text-decoration:none; }
+.public-site-nav a:hover,.public-site-nav a[aria-current="page"] { color:#214b68 !important;
+  background:#e7eff4; }
 .public-page-body { margin:0; color:var(--site-ink); background:#edf2f5;
   font:16px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
-.public-page { width:min(1040px,calc(100% - 2rem)); min-height:calc(100vh - 68px); margin:0 auto;
+.public-page { width:min(1040px,calc(100% - 2rem)); min-height:calc(100vh - 60px); margin:0 auto;
   padding:3rem clamp(1.25rem,4vw,4rem) 5rem; background:var(--site-paper);
   box-shadow:0 8px 30px #18324814; }
 .public-page h1,.public-page h2,.public-page h3 { color:var(--site-navy);
   font-family:Georgia,"Times New Roman",serif; line-height:1.2; }
-.public-page h1 { margin:.15rem 0 1rem; font-size:clamp(2.15rem,5vw,3.4rem); letter-spacing:-.025em; }
+.public-page h1 { margin:.15rem 0 1rem; font-size:clamp(2.05rem,5vw,3.25rem);
+  font-weight:500; letter-spacing:-.025em; }
 .public-page h2 { margin-top:2.2rem; padding-bottom:.35rem; border-bottom:2px solid var(--site-line); }
 .public-page a { color:#1269a0; text-underline-offset:2px; }
+.public-site-header + .page-shell { padding-top:1.25rem; }
+.public-site-header + .page-shell main { border-top:1px solid var(--site-line); }
+.public-site-header + .page-shell main > h1 { color:#244b65;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:clamp(2rem,4vw,2.75rem); font-weight:500; letter-spacing:-.035em; }
+.public-site-header + .page-shell .report-nav { border-top:2px solid #9fb7c7; }
 .site-eyebrow { margin:0; color:var(--site-blue); font-size:.77rem; font-weight:800;
   letter-spacing:.13em; text-transform:uppercase; }
 .site-lede { max-width:740px; color:#40505e; font-size:1.13rem; }
@@ -49,10 +59,11 @@ SITE_CSS = """
 .report-group h2 { margin:0; padding-bottom:.45rem; color:var(--site-navy);
   border-bottom:2px solid var(--site-line); font:700 1.45rem/1.2 Georgia,"Times New Roman",serif; }
 .report-group .report-list { margin-top:0; }
-.report-list li { border-bottom:1px solid var(--site-line); }
-.report-list a { display:grid; grid-template-columns:minmax(190px,1fr) minmax(150px,.8fr) auto;
+.report-list li { display:flex; align-items:center; gap:.75rem; border-bottom:1px solid var(--site-line); }
+.report-list .report-list-link { min-width:0; flex:1; display:grid;
+  grid-template-columns:minmax(190px,1fr) minmax(150px,.8fr) auto;
   gap:1rem; align-items:center; padding:1rem .2rem; color:inherit; text-decoration:none; }
-.report-list a:hover { background:var(--site-panel); }
+.report-list li:hover { background:var(--site-panel); }
 .report-list strong { color:var(--site-navy); font:700 1.06rem/1.3 Georgia,"Times New Roman",serif; }
 .report-list span { color:var(--site-muted); font-size:.9rem; }
 .site-badge { display:inline-block; justify-self:end; padding:.18rem .5rem; border-radius:999px;
@@ -62,6 +73,7 @@ SITE_CSS = """
 .index-week > h2 { margin-bottom:.3rem; }
 .index-report { margin:1.25rem 0 2rem; padding:1.1rem 1.25rem; border:1px solid var(--site-line);
   border-radius:5px; background:#fbfcfd; }
+.index-report-heading { display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; }
 .index-report h3 { margin:0 0 .8rem; font-size:1.22rem; }
 .index-report h4 { margin:1rem 0 .35rem; color:var(--site-blue); font-size:.82rem;
   letter-spacing:.09em; text-transform:uppercase; }
@@ -75,13 +87,26 @@ SITE_CSS = """
 .topic-links li { padding:.65rem 0; border-bottom:1px solid var(--site-line); }
 .topic-links span { display:block; margin-top:.15rem; color:var(--site-muted); font-size:.82rem; }
 .index-empty { color:var(--site-muted); font-style:italic; }
+.report-downloads { display:flex; align-items:center; gap:.42rem; flex-wrap:wrap; margin:.8rem 0 1.35rem; }
+.report-downloads-compact { flex:0 0 auto; margin:0; }
+.report-download-label { margin-right:.15rem; color:var(--site-muted); font-size:.78rem; font-weight:600; }
+.download-button { display:inline-flex; align-items:center; justify-content:center; min-width:3.25rem;
+  padding:.36rem .62rem; border:1px solid #b7c8d3; border-radius:4px; color:#315b75 !important;
+  background:#fff; font:600 .76rem/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  letter-spacing:.025em; text-decoration:none !important; }
+.download-button:hover { border-color:#7193a8; background:#edf4f7; }
+.report-list-actions { padding-right:.2rem; }
 .public-site-footer { margin-top:3rem; padding-top:1rem; border-top:1px solid var(--site-line);
   color:var(--site-muted); font-size:.84rem; }
 @media (max-width:700px) {
   .public-site-header-inner { align-items:flex-start; flex-direction:column; gap:.45rem; }
   .public-site-nav { margin-left:-.7rem; }
   .public-page { width:100%; }
-  .report-list a { grid-template-columns:1fr; gap:.2rem; }
+  .report-list li { display:block; padding-bottom:.8rem; }
+  .report-list .report-list-link { grid-template-columns:1fr; gap:.2rem; padding-bottom:.45rem; }
+  .report-list-actions { padding:0 .2rem; }
+  .index-report-heading { display:block; }
+  .report-downloads-compact { margin:.2rem 0 .8rem; }
   .site-badge { justify-self:start; margin-top:.25rem; }
 }
 """
@@ -332,7 +357,7 @@ def _site_header(prefix: str, active: str) -> str:
     )
     return (
         '<header class="public-site-header"><div class="public-site-header-inner">'
-        f'<a class="public-site-brand" href="{home}">Healthcare Intel Digest</a>'
+        f'<a class="public-site-brand" href="{home}">Weekly Intelligence</a>'
         f'<nav class="public-site-nav" aria-label="Website navigation">{links}</nav>'
         "</div></header>"
     )
@@ -342,7 +367,38 @@ def _current_page(active: bool) -> str:
     return ' aria-current="page"' if active else ""
 
 
-def _decorate_report(source: Path, destination: Path, *, prefix: str, active: str) -> None:
+def _download_name(report: SiteReport, extension: str) -> str:
+    return f"{report.source.stem}.{extension}"
+
+
+def _report_download_links(
+    report: SiteReport,
+    href_prefix: str,
+    *,
+    compact: bool = False,
+) -> str:
+    classes = "report-downloads report-downloads-compact" if compact else "report-downloads"
+    label = "" if compact else '<span class="report-download-label">Download report</span>'
+    pdf_href = href_prefix + quote(_download_name(report, "pdf"))
+    html_href = href_prefix + quote(_download_name(report, "html"))
+    report_label = html.escape(f"{report.report_name} for {_long_date(report.report_date)}")
+    return (
+        f'<div class="{classes}" aria-label="Download {report_label}">{label}'
+        f'<a class="download-button" href="{html.escape(pdf_href, quote=True)}" download>PDF</a>'
+        f'<a class="download-button" href="{html.escape(html_href, quote=True)}" download>HTML</a>'
+        "</div>"
+    )
+
+
+def _decorate_report(
+    source: Path,
+    destination: Path,
+    *,
+    prefix: str,
+    active: str,
+    report: SiteReport | None = None,
+    download_prefix: str = "",
+) -> None:
     soup = BeautifulSoup(source.read_text(encoding="utf-8"), "html.parser")
     if soup.head is None or soup.body is None:
         raise RuntimeError(f"Cannot publish malformed report HTML: {source}")
@@ -350,6 +406,8 @@ def _decorate_report(source: Path, destination: Path, *, prefix: str, active: st
     # wrapper chrome first so the report cannot acquire nested headers or
     # repeated sidebars over successive site builds.
     for existing in soup.select("header.public-site-header"):
+        existing.decompose()
+    for existing in soup.select(".report-downloads-page"):
         existing.decompose()
     report_navs = soup.select("nav.report-nav")
     for duplicate in report_navs[1:]:
@@ -359,6 +417,17 @@ def _decorate_report(source: Path, destination: Path, *, prefix: str, active: st
     soup.head.append(styles)
     header = BeautifulSoup(_site_header(prefix, active), "html.parser")
     soup.body.insert(0, header)
+    if report is not None:
+        main = soup.select_one("main")
+        title = main.find("h1") if main else None
+        if title is not None:
+            controls = BeautifulSoup(
+                _report_download_links(report, download_prefix),
+                "html.parser",
+            ).div
+            if controls is not None:
+                controls["class"] = "report-downloads report-downloads-page"
+                title.insert_after(controls)
     destination.parent.mkdir(parents=True, exist_ok=True)
     destination.write_text(str(soup), encoding="utf-8")
 
@@ -407,10 +476,12 @@ def _archive_page(reports: list[SiteReport]) -> str:
             badge = "Latest" if index == 0 else "Final"
             badge_class = ""
             rows.append(
-                f'<li><a href="{report.archive_path}/">'
+                f'<li class="report-list-item"><a class="report-list-link" href="{report.archive_path}/">'
                 f"<strong>{_long_date(report.report_date)}</strong>"
                 f"<span>Market data through {html.escape(market_date or 'not recorded')}</span>"
-                f'<span class="site-badge {badge_class}">{badge}</span></a></li>'
+                f'<span class="site-badge {badge_class}">{badge}</span></a>'
+                f'<div class="report-list-actions">{_report_download_links(report, f"{report.archive_path}/", compact=True)}</div>'
+                "</li>"
             )
         listing = "".join(rows) or '<li class="report-empty">No reports published yet.</li>'
         sections.append(
@@ -423,7 +494,7 @@ def _archive_page(reports: list[SiteReport]) -> str:
         '<p class="site-lede">Browse the complete set of published weekly reports. '
         'Each report preserves the market data, earnings context, and strategy narrative '
         'available when it was produced.</p>'
-        f'<ul class="report-list">{listing}</ul>'
+        f"{listing}"
     )
     return _page_document("Past reports", body, prefix="../", active="reports")
 
@@ -494,8 +565,11 @@ def _news_index_page(reports: list[SiteReport]) -> str:
                 continue
             report_cards.append(
                 '<article class="index-report">'
+                '<div class="index-report-heading">'
                 f'<h3><a href="{html.escape(_indexed_href(report), quote=True)}">'
                 f"{html.escape(report.report_name)}</a></h3>"
+                f'{_report_download_links(report, f"../reports/{report.archive_path}/", compact=True)}'
+                "</div>"
                 f"<h4>In the News</h4>{_index_link_list(headlines)}"
                 f"<h4>Earnings Calls</h4>{_index_link_list(earnings_calls)}"
                 "</article>"
@@ -565,6 +639,73 @@ def _copy_assets(report_html: Path, destination_folder: Path) -> None:
         shutil.copytree(source, destination_folder / "assets")
 
 
+def _publish_report_downloads(
+    reports: list[SiteReport],
+    destination: Path,
+    previous_site: Path | None = None,
+) -> None:
+    if not reports:
+        return
+    previous_manifest = read_json(previous_site / ".download-manifest.json", {}) if previous_site else {}
+    previous_hashes = (
+        previous_manifest.get("reports", {}) if isinstance(previous_manifest, dict) else {}
+    )
+    previous_hashes = previous_hashes if isinstance(previous_hashes, dict) else {}
+    current_hashes: dict[str, str] = {}
+    pending: list[tuple[SiteReport, Path]] = []
+
+    for report in reports:
+        folder = destination / "reports" / report.archive_path
+        folder.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(report.source, folder / _download_name(report, "html"))
+        fingerprint = hashlib.sha256(report.source.read_bytes()).hexdigest()
+        current_hashes[report.archive_path] = fingerprint
+        old_pdf = (
+            previous_site / "reports" / report.archive_path / _download_name(report, "pdf")
+            if previous_site
+            else None
+        )
+        fingerprint_matches = previous_hashes.get(report.archive_path) == fingerprint
+        migration_cache = not previous_hashes and old_pdf is not None and old_pdf.is_file()
+        if old_pdf is not None and old_pdf.is_file() and (fingerprint_matches or migration_cache):
+            shutil.copy2(old_pdf, folder / _download_name(report, "pdf"))
+        else:
+            pending.append((report, folder))
+
+    if pending:
+        try:
+            from playwright.sync_api import sync_playwright
+        except ImportError as exc:
+            raise RuntimeError("Playwright is required to generate report PDFs") from exc
+
+        with sync_playwright() as playwright:
+            browser = playwright.chromium.launch(headless=True)
+            try:
+                page = browser.new_page()
+                page.emulate_media(media="print")
+                for report, folder in pending:
+                    page.set_content(report.source.read_text(encoding="utf-8"), wait_until="load")
+                    page.evaluate("document.fonts.ready")
+                    page.pdf(
+                        path=str(folder / _download_name(report, "pdf")),
+                        format="Letter",
+                        print_background=True,
+                        margin={
+                            "top": "0.45in",
+                            "right": "0.45in",
+                            "bottom": "0.45in",
+                            "left": "0.45in",
+                        },
+                    )
+            finally:
+                browser.close()
+
+    write_json(
+        destination / ".download-manifest.json",
+        {"schema": 1, "reports": current_hashes},
+    )
+
+
 def build_site(config: ProjectConfig, output: Path | None = None) -> dict[str, Any]:
     destination = (output or config.root / "docs").resolve()
     destination.parent.mkdir(parents=True, exist_ok=True)
@@ -590,13 +731,27 @@ def build_site(config: ProjectConfig, output: Path | None = None) -> dict[str, A
             latest = next(
                 (report for report in reports if report.report_type == "healthcare"), reports[0]
             )
-            _decorate_report(latest.source, temporary / "index.html", prefix="", active="latest")
+            _decorate_report(
+                latest.source,
+                temporary / "index.html",
+                prefix="",
+                active="latest",
+                report=latest,
+                download_prefix=f"reports/{latest.archive_path}/",
+            )
             _copy_assets(latest.source, temporary)
             for report in reports:
                 folder = temporary / "reports" / report.archive_path
                 prefix = "../" * (len(report.archive_path.split("/")) + 1)
-                _decorate_report(report.source, folder / "index.html", prefix=prefix, active="reports")
+                _decorate_report(
+                    report.source,
+                    folder / "index.html",
+                    prefix=prefix,
+                    active="reports",
+                    report=report,
+                )
                 _copy_assets(report.source, folder)
+            _publish_report_downloads(reports, temporary, destination if destination.is_dir() else None)
         else:
             (temporary / "index.html").write_text(_empty_home(config), encoding="utf-8")
         atomic_replace_directory(temporary, destination)

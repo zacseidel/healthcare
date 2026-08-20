@@ -56,10 +56,30 @@ def build_parser() -> argparse.ArgumentParser:
     site.add_argument("--output", type=Path, help="destination directory; defaults to docs/")
     subparsers.add_parser("validate", help="validate configuration without network requests")
     narrative = subparsers.add_parser(
-        "refresh-narrative", help="refresh only the ChatGPT narrative snapshot"
+        "refresh-narrative", help="refresh only the configured strategy narrative snapshot"
     )
     narrative.add_argument(
         "--report", choices=("healthcare", "life-science-device"), default="healthcare"
+    )
+    strategy = subparsers.add_parser(
+        "generate-strategy", help="generate a strategy brief with OpenAI"
+    )
+    strategy.add_argument("--date", type=parse_date, help="report date; defaults to today in Denver")
+    strategy.add_argument(
+        "--report",
+        choices=("healthcare", "life-science-device"),
+        default="healthcare",
+        help="strategy report profile (default: healthcare)",
+    )
+    strategy.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="assemble and print the request without calling OpenAI or writing reports",
+    )
+    strategy.add_argument(
+        "--force",
+        action="store_true",
+        help="replace an existing strategy report for the same date",
     )
     return parser
 
@@ -68,6 +88,12 @@ def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     try:
         config = load_config()
+        try:
+            from dotenv import load_dotenv
+
+            load_dotenv(config.root / ".env", override=False)
+        except ImportError:
+            pass
         if args.command == "validate":
             print(
                 json.dumps(
@@ -79,6 +105,18 @@ def main(argv: list[str] | None = None) -> int:
                     indent=2,
                 )
             )
+            return 0
+        if args.command == "generate-strategy":
+            from .narrative import refresh_narrative
+            from .strategy import generate_strategy_report
+
+            config = config.for_scope(args.report)
+            report_date = args.date or datetime.now(config.timezone).date()
+            if args.dry_run:
+                result = generate_strategy_report(config, report_date, dry_run=True)
+            else:
+                result = refresh_narrative(config, as_of=report_date, force=bool(args.force))
+            print(json.dumps(result, indent=2))
             return 0
         if args.command == "refresh-narrative":
             from .narrative import refresh_narrative

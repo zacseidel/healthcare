@@ -2,50 +2,43 @@ from __future__ import annotations
 
 from datetime import date
 
-import pytest
-
 from healthcare_report.narrative import (
-    extract_messages,
-    html_to_markdown,
-    narrative_period,
     narrative_refresh_needed,
+    refresh_narrative,
     refresh_narrative_with_fallback,
-    select_narrative,
 )
 from healthcare_report.storage import read_json
 
 
-def test_latest_matching_narrative_is_selected_and_sanitized():
-    page = """
-    <div data-message-author-role="assistant"><div class="markdown"><p>Setup response</p></div></div>
-    <div data-message-author-role="assistant"><div class="markdown">
-      <h1>Strategy Brief</h1><p><strong>Week of August 3, 2026</strong></p>
-      <h2>Executive readout</h2><p>Material point.</p>
-      <div testid="nav-list-widget"><p>Unrelated recommendation</p></div>
-    </div></div>
-    """
-    selected = select_narrative(extract_messages(page), r"Week of\s+\w+\s+\d{1,2},\s+\d{4}")
-    markdown = html_to_markdown(selected["html"])
-    assert "Executive readout" in markdown
-    assert "Unrelated recommendation" not in markdown
-    assert "### Executive readout" in markdown
+def test_life_sciences_refresh_uses_openai_archive(project, monkeypatch):
+    import healthcare_report.narrative as narrative
 
+    life = project.for_scope("life-science-device")
+    report_date = date(2026, 8, 24)
 
-def test_no_matching_narrative_is_an_error():
-    with pytest.raises(RuntimeError, match="matched"):
-        select_narrative([{"text": "Updated", "html": "<p>Updated</p>"}], r"Week of")
+    def fake_generate(config, generated_for, *, force=False):
+        assert config.scope == "life-science-device"
+        assert generated_for == report_date
+        assert not force
+        return {
+            "report_date": report_date.isoformat(),
+            "generated_at": "2026-08-24T14:00:00Z",
+            "model": "gpt-5.6-sol",
+            "content_markdown": """# Life Sciences Strategy Brief
+## Week of August 24, 2026
 
+## Executive View
+- Material clinical delta.
+""",
+        }
 
-def test_life_science_narrative_heading_and_period():
-    message = {
-        "text": "Life Sciences Executive Brief — August 16, 2026",
-        "html": "<h1>Life Sciences Executive Brief — August 16, 2026</h1>",
-    }
-    selected = select_narrative(
-        [message],
-        r"Life Sciences Executive Brief\s+—\s+\w+\s+\d{1,2},\s+\d{4}",
-    )
-    assert narrative_period(selected["text"]) == "August 16, 2026"
+    monkeypatch.setattr(narrative, "generate_strategy_report", fake_generate)
+    result = refresh_narrative(life, as_of=report_date)
+
+    assert result["source_type"] == "openai_responses"
+    assert result["checked_for_date"] == "2026-08-24"
+    assert result["body"].startswith("### Executive View")
+    assert "Life Sciences Strategy Brief" not in result["body"]
 
 
 def test_narrative_same_day_refresh_is_reused():

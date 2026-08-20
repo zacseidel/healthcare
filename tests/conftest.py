@@ -8,6 +8,20 @@ import pytest
 from healthcare_report.config import load_config
 
 
+@pytest.fixture(autouse=True)
+def stub_site_pdf_generation(monkeypatch):
+    import healthcare_report.site as site
+
+    def publish_downloads(reports, destination, _previous_site=None):
+        for report in reports:
+            folder = destination / "reports" / report.archive_path
+            folder.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(report.source, folder / f"{report.source.stem}.html")
+            (folder / f"{report.source.stem}.pdf").write_bytes(b"%PDF-1.4\nfixture\n")
+
+    monkeypatch.setattr(site, "_publish_report_downloads", publish_downloads)
+
+
 @pytest.fixture
 def project(tmp_path: Path):
     source = Path(__file__).resolve().parents[1]
@@ -19,5 +33,13 @@ def project(tmp_path: Path):
     shutil.copy(
         source / "inputs" / "strategy-narratives.md",
         tmp_path / "inputs" / "strategy-narratives.md",
+    )
+    shutil.copy(
+        source / "inputs" / "healthcare-strategy-prompt.md",
+        tmp_path / "inputs" / "healthcare-strategy-prompt.md",
+    )
+    shutil.copy(
+        source / "inputs" / "life-sciences-strategy-prompt.md",
+        tmp_path / "inputs" / "life-sciences-strategy-prompt.md",
     )
     return load_config(tmp_path)

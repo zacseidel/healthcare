@@ -106,10 +106,38 @@ def test_strategy_narrative_links_support_html_headings_and_strip_delta_labels()
 
 
 def test_end_to_end_report_and_baseline(project, monkeypatch):
+    import healthcare_report.narrative as narrative_module
     import healthcare_report.pipeline as pipeline
 
     monkeypatch.setattr(pipeline, "MassiveClient", FakeMassive)
     monkeypatch.setattr(pipeline, "BrowserSession", FakeBrowser)
+
+    def generate_fixture_strategy(_config, report_date, *, force=False):
+        return {
+            "report_date": report_date.isoformat(),
+            "generated_at": f"{report_date.isoformat()}T12:00:00Z",
+            "model": "gpt-5.6-sol",
+            "response_id": "resp_fixture",
+            "prompt_sha256": "fixture",
+            "usage": {},
+            "estimated_cost_usd": 0.0,
+            "content_markdown": """# Healthcare Strategy Brief
+## Week of August 3, 2026
+
+## Executive readout
+
+### 1. Cloud strategy headline
+Cloud fixture narrative.
+
+## Functional strategy summary
+Remove this section.
+
+## Bottom line
+Keep this section.
+""",
+        }
+
+    monkeypatch.setattr(narrative_module, "generate_strategy_report", generate_fixture_strategy)
     FakeBrowser.entered = 0
     actual_render_earnings_charts = pipeline.render_earnings_charts
     requested_earnings_charts: list[list[str]] = []
@@ -210,11 +238,11 @@ def test_end_to_end_report_and_baseline(project, monkeypatch):
     assert len(requested_earnings_charts[0]) == len(project.universe.companies)
     assert manifest["schema"] == 2
     assert manifest["configuration_sha256"] == config_hash(
-        [
-            project.root / "config" / "settings.yaml",
-            project.root / "inputs" / "companies.md",
-            project.root / "inputs" / "strategy-narratives.md",
-        ]
+            [
+                project.root / "config" / "settings.yaml",
+                project.root / "inputs" / "companies.md",
+                project.root / "inputs" / "healthcare-strategy-prompt.md",
+            ]
     )
     assert manifest["metrics"]["output_bytes"]["charts"] > 0
     assert manifest["metrics"]["price_retention"]["cutoff"]
@@ -237,7 +265,7 @@ def test_end_to_end_report_and_baseline(project, monkeypatch):
     rerun = run_report(project, date(2026, 8, 10))
     assert rerun["output"] == second["output"]
     assert not list((project.root / "reports" / "final").glob("2026-08-10-*"))
-    assert FakeBrowser.entered == 2
+    assert FakeBrowser.entered == 1
 
     class NetworkMustNotRun:
         def __init__(self, *_args, **_kwargs):

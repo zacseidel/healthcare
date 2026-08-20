@@ -35,6 +35,10 @@ jobs:
     timeout-minutes: 45
     env:
       MASSIVE_API_KEY: ${{ secrets.MASSIVE_API_KEY }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      OPENAI_MODEL: gpt-5.6-sol
+      OPENAI_REASONING_EFFORT: high
+      REPORT_HISTORY_COUNT: "4"
       MPLBACKEND: Agg
       PYTHONUNBUFFERED: "1"
 
@@ -65,10 +69,14 @@ jobs:
           mypy src
           pytest
 
-      - name: Require the market-data API key
+      - name: Require API keys
         run: |
           if [ -z "$MASSIVE_API_KEY" ]; then
             echo "::error::Add MASSIVE_API_KEY under Settings → Secrets and variables → Actions."
+            exit 1
+          fi
+          if [ -z "$OPENAI_API_KEY" ]; then
+            echo "::error::Add OPENAI_API_KEY under Settings → Secrets and variables → Actions."
             exit 1
           fi
 
@@ -124,14 +132,14 @@ jobs:
             echo "::error::The branch changed while the report was running. Rerun from the new head."
             exit 1
           fi
-          git add -- docs reports/final state
+          git add -- docs reports/final reports/strategy state
           if git diff --cached --quiet; then
             echo "No report, site, or state changes were produced."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          report_date=$(python -c 'import json; print(json.load(open("report-result.json"))["report_date"])')
+          report_date=$(python -c 'import json; value=json.load(open("report-result.json")); print((value.get("reports") or [value])[0]["report_date"])')
           git commit -m "Create healthcare report for $report_date"
           git push origin "HEAD:${GITHUB_REF_NAME}"
           echo "changed=true" >> "$GITHUB_OUTPUT"

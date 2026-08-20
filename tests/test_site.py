@@ -77,6 +77,15 @@ def test_build_site_uses_latest_report_and_builds_public_pages(project):
     assert "Report for 2026-08-03" in home.get_text(" ", strip=True)
     assert len(home.select("header.public-site-header")) == 1
     assert len(home.select("nav.report-nav")) == 0
+    assert home.select_one(".public-site-brand").get_text(strip=True) == "Weekly Intelligence"
+    home_downloads = {
+        link.get_text(strip=True): str(link["href"])
+        for link in home.select(".report-downloads-page a")
+    }
+    assert home_downloads == {
+        "PDF": "reports/2026-08-03/Healthcare%20Intel-2026-08-03.pdf",
+        "HTML": "reports/2026-08-03/Healthcare%20Intel-2026-08-03.html",
+    }
     assert home.select_one('nav.public-site-nav a[href="reports/"]') is not None
     assert home.select_one('nav.public-site-nav a[href="news/"]') is not None
     assert (output / "assets" / "chart.webp").is_file()
@@ -85,8 +94,9 @@ def test_build_site_uses_latest_report_and_builds_public_pages(project):
     ).read_text()
 
     archive = BeautifulSoup((output / "reports" / "index.html").read_text(), "html.parser")
-    archive_links = [str(link["href"]) for link in archive.select(".report-list a")]
+    archive_links = [str(link["href"]) for link in archive.select(".report-list-link")]
     assert archive_links == ["2026-08-03/", "2026-07-27/"]
+    assert len(archive.select(".report-list-actions .download-button")) == 4
     assert "Latest" in archive.get_text(" ", strip=True)
     assert "Data warning" not in archive.get_text(" ", strip=True)
     assert "Final" in archive.get_text(" ", strip=True)
@@ -95,7 +105,10 @@ def test_build_site_uses_latest_report_and_builds_public_pages(project):
         (output / "reports" / "2026-07-27" / "index.html").read_text(), "html.parser"
     )
     assert historical.select_one('nav.public-site-nav a[href="../../about/"]') is not None
+    assert len(historical.select(".report-downloads-page .download-button")) == 2
     assert (output / "reports" / "2026-07-27" / "assets" / "chart.webp").is_file()
+    assert (output / "reports" / "2026-08-03" / "Healthcare Intel-2026-08-03.html").is_file()
+    assert (output / "reports" / "2026-08-03" / "Healthcare Intel-2026-08-03.pdf").read_bytes().startswith(b"%PDF")
     assert "About" in (output / "about" / "index.html").read_text()
     assert "Market performance" in (output / "methodology" / "index.html").read_text()
     assert (output / ".nojekyll").is_file()
@@ -128,7 +141,7 @@ def test_build_site_lists_both_report_types(project):
 
     assert result["reports"] == 2
     archive = BeautifulSoup((output / "reports" / "index.html").read_text(), "html.parser")
-    links = [str(link["href"]) for link in archive.select(".report-list a")]
+    links = [str(link["href"]) for link in archive.select(".report-list-link")]
     assert links == ["2026-08-03/", "life-science-device/2026-08-03/"]
     assert "Life Sciences Intel Report" in archive.get_text(" ", strip=True)
     assert (output / "reports" / "life-science-device" / "2026-08-03" / "index.html").is_file()
@@ -171,6 +184,11 @@ def test_news_and_earnings_index_links_reports_by_week_and_business_topic(projec
     ) is not None
     assert index.select_one(
         'a[href="../reports/life-science-device/2026-08-10/#earnings-lly"]'
+    ) is not None
+    assert len(index.select(".index-report-heading .download-button")) == 6
+    assert index.select_one(
+        'a[href="../reports/life-science-device/2026-08-10/'
+        'Life%20Science%20and%20Device%20Intel-2026-08-10.pdf"]'
     ) is not None
 
     payment_integrity = index.select_one("#topic-payment-integrity")

@@ -34,7 +34,6 @@ notable_changes:
   movers_shown: 3
 
 strategy_narrative:
-  pattern: 'Week of\s+\w+\s+\d{1,2},\s+\d{4}'
   stale_after_days: 7
 
 report_profiles:
@@ -55,7 +54,6 @@ report_profiles:
       - Pharma Distribution
       - Precision Diagnostics
     strategy_narrative:
-      pattern: 'Week of\s+\w+\s+\d{1,2},\s+\d{4}'
       stale_after_days: 7
   life-science-device:
     name: Life Science and Device Intel
@@ -68,5 +66,4 @@ report_profiles:
       - Established Biotech
       - Emerging Biotech
     strategy_narrative:
-      pattern: 'Life Sciences Executive Brief\s+—\s+\w+\s+\d{1,2},\s+\d{4}'
       stale_after_days: 7

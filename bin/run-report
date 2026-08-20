@@ -168,7 +168,7 @@ fi
 
 if [ ! -f "$project_dir/.env" ]; then
   echo "error: $project_dir/.env does not exist." >&2
-  echo "Create it from .env.example and add MASSIVE_API_KEY." >&2
+  echo "Create it from .env.example and add MASSIVE_API_KEY and OPENAI_API_KEY." >&2
   exit 1
 fi
 
@@ -181,6 +181,11 @@ set +a
 
 if [ -z "${MASSIVE_API_KEY:-}" ] || [ "$MASSIVE_API_KEY" = "your_api_key_here" ]; then
   echo "error: MASSIVE_API_KEY is missing from .env." >&2
+  exit 1
+fi
+
+if [ -z "${OPENAI_API_KEY:-}" ] || [ "$OPENAI_API_KEY" = "your_openai_api_key_here" ]; then
+  echo "error: OPENAI_API_KEY is missing from .env." >&2
   exit 1
 fi
 

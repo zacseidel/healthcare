@@ -70,30 +70,38 @@ img { display:block; max-width:100%; height:auto; margin:1rem auto 1.7rem; }
 }
 @media print { body{background:#fff}.page-shell{display:block;padding:0}.report-nav{display:none}main{box-shadow:none;border:0;padding:0} }
 </style><style>
-:root { --site-navy:#0d304d; --site-blue:#1d527e; --site-gold:#d4a43c;
+:root { --site-navy:#183e5a; --site-blue:#35647f; --site-gold:#d4a43c;
   --site-ink:#1d2935; --site-muted:#657482; --site-line:#d8e1e8; --site-paper:#fff;
-  --site-panel:#f2f6f8; }
-.public-site-header { position:relative; z-index:20; color:#fff; background:var(--site-navy);
-  border-bottom:4px solid var(--site-gold); box-shadow:0 2px 12px #071c2c26; }
-.public-site-header-inner { width:min(1500px,100%); min-height:68px; margin:0 auto;
-  padding:.7rem 1.5rem; display:flex; align-items:center; justify-content:space-between; gap:1.5rem; }
-.public-site-brand { color:#fff !important; font:700 1.15rem/1.2 Georgia,"Times New Roman",serif;
-  text-decoration:none; letter-spacing:.01em; }
+  --site-panel:#f3f7f9; --site-header:#f7fafb; }
+.public-site-header { position:relative; z-index:20; color:var(--site-ink); background:var(--site-header);
+  border-bottom:1px solid var(--site-line); box-shadow:0 1px 8px #1832480d; }
+.public-site-header-inner { width:min(1500px,100%); min-height:60px; margin:0 auto;
+  padding:.55rem 1.5rem; display:flex; align-items:center; justify-content:space-between; gap:1.5rem; }
+.public-site-brand { color:#294f69 !important;
+  font:500 1rem/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  text-decoration:none; letter-spacing:.015em; }
 .public-site-nav { display:flex; align-items:center; gap:.25rem; flex-wrap:wrap; }
-.public-site-nav a { color:#dce9f2 !important; padding:.48rem .7rem; border-radius:3px;
-  font:600 .88rem/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; text-decoration:none; }
-.public-site-nav a:hover,.public-site-nav a[aria-current="page"] { color:#fff !important;
-  background:#ffffff1f; }
+.public-site-nav a { color:#526879 !important; padding:.45rem .68rem; border-radius:4px;
+  font:500 .86rem/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; text-decoration:none; }
+.public-site-nav a:hover,.public-site-nav a[aria-current="page"] { color:#214b68 !important;
+  background:#e7eff4; }
 .public-page-body { margin:0; color:var(--site-ink); background:#edf2f5;
   font:16px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
-.public-page { width:min(1040px,calc(100% - 2rem)); min-height:calc(100vh - 68px); margin:0 auto;
+.public-page { width:min(1040px,calc(100% - 2rem)); min-height:calc(100vh - 60px); margin:0 auto;
   padding:3rem clamp(1.25rem,4vw,4rem) 5rem; background:var(--site-paper);
   box-shadow:0 8px 30px #18324814; }
 .public-page h1,.public-page h2,.public-page h3 { color:var(--site-navy);
   font-family:Georgia,"Times New Roman",serif; line-height:1.2; }
-.public-page h1 { margin:.15rem 0 1rem; font-size:clamp(2.15rem,5vw,3.4rem); letter-spacing:-.025em; }
+.public-page h1 { margin:.15rem 0 1rem; font-size:clamp(2.05rem,5vw,3.25rem);
+  font-weight:500; letter-spacing:-.025em; }
 .public-page h2 { margin-top:2.2rem; padding-bottom:.35rem; border-bottom:2px solid var(--site-line); }
 .public-page a { color:#1269a0; text-underline-offset:2px; }
+.public-site-header + .page-shell { padding-top:1.25rem; }
+.public-site-header + .page-shell main { border-top:1px solid var(--site-line); }
+.public-site-header + .page-shell main > h1 { color:#244b65;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:clamp(2rem,4vw,2.75rem); font-weight:500; letter-spacing:-.035em; }
+.public-site-header + .page-shell .report-nav { border-top:2px solid #9fb7c7; }
 .site-eyebrow { margin:0; color:var(--site-blue); font-size:.77rem; font-weight:800;
   letter-spacing:.13em; text-transform:uppercase; }
 .site-lede { max-width:740px; color:#40505e; font-size:1.13rem; }
@@ -102,10 +110,11 @@ img { display:block; max-width:100%; height:auto; margin:1rem auto 1.7rem; }
 .report-group h2 { margin:0; padding-bottom:.45rem; color:var(--site-navy);
   border-bottom:2px solid var(--site-line); font:700 1.45rem/1.2 Georgia,"Times New Roman",serif; }
 .report-group .report-list { margin-top:0; }
-.report-list li { border-bottom:1px solid var(--site-line); }
-.report-list a { display:grid; grid-template-columns:minmax(190px,1fr) minmax(150px,.8fr) auto;
+.report-list li { display:flex; align-items:center; gap:.75rem; border-bottom:1px solid var(--site-line); }
+.report-list .report-list-link { min-width:0; flex:1; display:grid;
+  grid-template-columns:minmax(190px,1fr) minmax(150px,.8fr) auto;
   gap:1rem; align-items:center; padding:1rem .2rem; color:inherit; text-decoration:none; }
-.report-list a:hover { background:var(--site-panel); }
+.report-list li:hover { background:var(--site-panel); }
 .report-list strong { color:var(--site-navy); font:700 1.06rem/1.3 Georgia,"Times New Roman",serif; }
 .report-list span { color:var(--site-muted); font-size:.9rem; }
 .site-badge { display:inline-block; justify-self:end; padding:.18rem .5rem; border-radius:999px;
@@ -115,6 +124,7 @@ img { display:block; max-width:100%; height:auto; margin:1rem auto 1.7rem; }
 .index-week > h2 { margin-bottom:.3rem; }
 .index-report { margin:1.25rem 0 2rem; padding:1.1rem 1.25rem; border:1px solid var(--site-line);
   border-radius:5px; background:#fbfcfd; }
+.index-report-heading { display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; }
 .index-report h3 { margin:0 0 .8rem; font-size:1.22rem; }
 .index-report h4 { margin:1rem 0 .35rem; color:var(--site-blue); font-size:.82rem;
   letter-spacing:.09em; text-transform:uppercase; }
@@ -128,16 +138,29 @@ img { display:block; max-width:100%; height:auto; margin:1rem auto 1.7rem; }
 .topic-links li { padding:.65rem 0; border-bottom:1px solid var(--site-line); }
 .topic-links span { display:block; margin-top:.15rem; color:var(--site-muted); font-size:.82rem; }
 .index-empty { color:var(--site-muted); font-style:italic; }
+.report-downloads { display:flex; align-items:center; gap:.42rem; flex-wrap:wrap; margin:.8rem 0 1.35rem; }
+.report-downloads-compact { flex:0 0 auto; margin:0; }
+.report-download-label { margin-right:.15rem; color:var(--site-muted); font-size:.78rem; font-weight:600; }
+.download-button { display:inline-flex; align-items:center; justify-content:center; min-width:3.25rem;
+  padding:.36rem .62rem; border:1px solid #b7c8d3; border-radius:4px; color:#315b75 !important;
+  background:#fff; font:600 .76rem/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  letter-spacing:.025em; text-decoration:none !important; }
+.download-button:hover { border-color:#7193a8; background:#edf4f7; }
+.report-list-actions { padding-right:.2rem; }
 .public-site-footer { margin-top:3rem; padding-top:1rem; border-top:1px solid var(--site-line);
   color:var(--site-muted); font-size:.84rem; }
 @media (max-width:700px) {
   .public-site-header-inner { align-items:flex-start; flex-direction:column; gap:.45rem; }
   .public-site-nav { margin-left:-.7rem; }
   .public-page { width:100%; }
-  .report-list a { grid-template-columns:1fr; gap:.2rem; }
+  .report-list li { display:block; padding-bottom:.8rem; }
+  .report-list .report-list-link { grid-template-columns:1fr; gap:.2rem; padding-bottom:.45rem; }
+  .report-list-actions { padding:0 .2rem; }
+  .index-report-heading { display:block; }
+  .report-downloads-compact { margin:.2rem 0 .8rem; }
   .site-badge { justify-self:start; margin-top:.25rem; }
 }
-</style></head><body><header class="public-site-header"><div class="public-site-header-inner"><a class="public-site-brand" href="../../../">Healthcare Intel Digest</a><nav aria-label="Website navigation" class="public-site-nav"><a href="../../../">Latest report</a><a href="../../../news/">News &amp; Earnings</a><a aria-current="page" href="../../../reports/">Past reports</a><a href="../../../about/">About</a><a href="../../../methodology/">Methodology</a></nav></div></header><div class="page-shell"><nav aria-label="Report navigation" class="report-nav"><p class="report-nav-title">In this report</p><ul><li><a href="#strategy-narrative">Strategy Narrative</a></li><li><a href="#notable-changes">Notable Changes</a></li><li><a href="#subcategory-performance">Subcategory Performance</a></li><li><a href="#stock-performance-vs-spy">Stock Performance vs. SPY</a></li><li><a href="#current-top-stocks">Current Top Stocks</a></li><li><a href="#companies-by-subcategory">Companies by Subcategory</a></li><li><a href="#upcoming-earnings">Upcoming Earnings</a></li><li><a href="#recent-earnings-highlights-3m-ret">Recent Earnings Highlights — 3m Ret</a><ul><li><a href="#earnings-bbio">BridgeBio Pharma ( BBIO ) +20.8%</a></li><li><a href="#earnings-rna">Avidity Biosciences ( RNA ) -2.9%</a></li></ul></li><li><a href="#company-overviews">Company Overviews</a><ul><li><a href="#company-mdt">Medtronic (MDT)</a></li><li><a href="#company-bsx">Boston Scientific (BSX)</a></li><li><a href="#company-syk">Stryker (SYK)</a></li><li><a href="#company-zbh">Zimmer Biomet (ZBH)</a></li><li><a href="#company-abt">Abbott (ABT)</a></li><li><a href="#company-bd">Becton Dickinson (BD)</a></li><li><a href="#company-ew">Edwards LifeSciences (EW)</a></li><li><a href="#company-dxcm">Dexcom (DXCM)</a></li><li><a href="#company-rmd">ResMed (RMD)</a></li><li><a href="#company-podd">Insulet (PODD)</a></li><li><a href="#company-gmed">Globus Medical (GMED)</a></li><li><a href="#company-isrg">Intuitive Surgical (ISRG)</a></li><li><a href="#company-gehc">GE Healthcare (GEHC)</a></li><li><a href="#company-tmdx">Transmedics (TMDX)</a></li><li><a href="#company-ste">STERIS (STE)</a></li><li><a href="#company-masi">Masimo (MASI)</a></li><li><a href="#company-insp">Inspire Medical Systems (INSP)</a></li><li><a href="#company-lly">Eli Lilly (LLY)</a></li><li><a href="#company-nvo">Novo Nordisk (NVO)</a></li><li><a href="#company-abbv">AbbVie (ABBV)</a></li><li><a href="#company-jnj">Johnson &amp; Johnson (JNJ)</a></li><li><a href="#company-pfe">Pfizer (PFE)</a></li><li><a href="#company-mrk">Merck (MRK)</a></li><li><a href="#company-bmy">Bristol Myers Squibb (BMY)</a></li><li><a href="#company-vtrs">Viatris (VTRS)</a></li><li><a href="#company-azn">AstraZeneca (AZN)</a></li><li><a href="#company-nvs">Novartis (NVS)</a></li><li><a href="#company-sny">Sanofi (SNY)</a></li><li><a href="#company-gsk">GSK (GSK)</a></li><li><a href="#company-vrtx">Vertex (VRTX)</a></li><li><a href="#company-regn">Regeneron (REGN)</a></li><li><a href="#company-amgn">Amgen (AMGN)</a></li><li><a href="#company-gild">Gilead (GILD)</a></li><li><a href="#company-biib">Biogen (BIIB)</a></li><li><a href="#company-alny">Alnylam (ALNY)</a></li><li><a href="#company-srpt">Sarepta (SRPT)</a></li><li><a href="#company-mrna">Moderna (MRNA)</a></li><li><a href="#company-exel">Exelixis (EXEL)</a></li><li><a href="#company-argx">Argenx (ARGX)</a></li><li><a href="#company-nbix">Neurocrine Biosciences (NBIX)</a></li><li><a href="#company-uthr">United Therapeutics (UTHR)</a></li><li><a href="#company-incy">Incyte (INCY)</a></li><li><a href="#company-bmrn">BioMarin Pharmaceutical (BMRN)</a></li><li><a href="#company-ions">Ionis Pharmaceuticals (IONS)</a></li><li><a href="#company-adma">ADMA Biologics (ADMA)</a></li><li><a href="#company-ocul">Ocular therapeutix (OCUL)</a></li><li><a href="#company-nvcr">Novocure (NVCR)</a></li><li><a href="#company-cort">Corcept Therapeutics (CORT)</a></li><li><a href="#company-acad">Acadia Pharmaceuticals (ACAD)</a></li><li><a href="#company-krys">Krystal Biotech (KRYS)</a></li><li><a href="#company-rna">Avidity Biosciences (RNA)</a></li><li><a href="#company-rxrx">Recursion Pharmaceuticals (RXRX)</a></li><li><a href="#company-cgon">CG Oncology (CGON)</a></li><li><a href="#company-bbio">BridgeBio Pharma (BBIO)</a></li></ul></li></ul></nav><main id="main-content"><h1 id="life-science-and-device-intel">Life Science and Device Intel</h1>
+</style></head><body><header class="public-site-header"><div class="public-site-header-inner"><a class="public-site-brand" href="../../../">Weekly Intelligence</a><nav aria-label="Website navigation" class="public-site-nav"><a href="../../../">Latest report</a><a href="../../../news/">News &amp; Earnings</a><a aria-current="page" href="../../../reports/">Past reports</a><a href="../../../about/">About</a><a href="../../../methodology/">Methodology</a></nav></div></header><div class="page-shell"><nav aria-label="Report navigation" class="report-nav"><p class="report-nav-title">In this report</p><ul><li><a href="#strategy-narrative">Strategy Narrative</a></li><li><a href="#notable-changes">Notable Changes</a></li><li><a href="#subcategory-performance">Subcategory Performance</a></li><li><a href="#stock-performance-vs-spy">Stock Performance vs. SPY</a></li><li><a href="#current-top-stocks">Current Top Stocks</a></li><li><a href="#companies-by-subcategory">Companies by Subcategory</a></li><li><a href="#upcoming-earnings">Upcoming Earnings</a></li><li><a href="#recent-earnings-highlights-3m-ret">Recent Earnings Highlights — 3m Ret</a><ul><li><a href="#earnings-bbio">BridgeBio Pharma ( BBIO ) +20.8%</a></li><li><a href="#earnings-rna">Avidity Biosciences ( RNA ) -2.9%</a></li></ul></li><li><a href="#company-overviews">Company Overviews</a><ul><li><a href="#company-mdt">Medtronic (MDT)</a></li><li><a href="#company-bsx">Boston Scientific (BSX)</a></li><li><a href="#company-syk">Stryker (SYK)</a></li><li><a href="#company-zbh">Zimmer Biomet (ZBH)</a></li><li><a href="#company-abt">Abbott (ABT)</a></li><li><a href="#company-bd">Becton Dickinson (BD)</a></li><li><a href="#company-ew">Edwards LifeSciences (EW)</a></li><li><a href="#company-dxcm">Dexcom (DXCM)</a></li><li><a href="#company-rmd">ResMed (RMD)</a></li><li><a href="#company-podd">Insulet (PODD)</a></li><li><a href="#company-gmed">Globus Medical (GMED)</a></li><li><a href="#company-isrg">Intuitive Surgical (ISRG)</a></li><li><a href="#company-gehc">GE Healthcare (GEHC)</a></li><li><a href="#company-tmdx">Transmedics (TMDX)</a></li><li><a href="#company-ste">STERIS (STE)</a></li><li><a href="#company-masi">Masimo (MASI)</a></li><li><a href="#company-insp">Inspire Medical Systems (INSP)</a></li><li><a href="#company-lly">Eli Lilly (LLY)</a></li><li><a href="#company-nvo">Novo Nordisk (NVO)</a></li><li><a href="#company-abbv">AbbVie (ABBV)</a></li><li><a href="#company-jnj">Johnson &amp; Johnson (JNJ)</a></li><li><a href="#company-pfe">Pfizer (PFE)</a></li><li><a href="#company-mrk">Merck (MRK)</a></li><li><a href="#company-bmy">Bristol Myers Squibb (BMY)</a></li><li><a href="#company-vtrs">Viatris (VTRS)</a></li><li><a href="#company-azn">AstraZeneca (AZN)</a></li><li><a href="#company-nvs">Novartis (NVS)</a></li><li><a href="#company-sny">Sanofi (SNY)</a></li><li><a href="#company-gsk">GSK (GSK)</a></li><li><a href="#company-vrtx">Vertex (VRTX)</a></li><li><a href="#company-regn">Regeneron (REGN)</a></li><li><a href="#company-amgn">Amgen (AMGN)</a></li><li><a href="#company-gild">Gilead (GILD)</a></li><li><a href="#company-biib">Biogen (BIIB)</a></li><li><a href="#company-alny">Alnylam (ALNY)</a></li><li><a href="#company-srpt">Sarepta (SRPT)</a></li><li><a href="#company-mrna">Moderna (MRNA)</a></li><li><a href="#company-exel">Exelixis (EXEL)</a></li><li><a href="#company-argx">Argenx (ARGX)</a></li><li><a href="#company-nbix">Neurocrine Biosciences (NBIX)</a></li><li><a href="#company-uthr">United Therapeutics (UTHR)</a></li><li><a href="#company-incy">Incyte (INCY)</a></li><li><a href="#company-bmrn">BioMarin Pharmaceutical (BMRN)</a></li><li><a href="#company-ions">Ionis Pharmaceuticals (IONS)</a></li><li><a href="#company-adma">ADMA Biologics (ADMA)</a></li><li><a href="#company-ocul">Ocular therapeutix (OCUL)</a></li><li><a href="#company-nvcr">Novocure (NVCR)</a></li><li><a href="#company-cort">Corcept Therapeutics (CORT)</a></li><li><a href="#company-acad">Acadia Pharmaceuticals (ACAD)</a></li><li><a href="#company-krys">Krystal Biotech (KRYS)</a></li><li><a href="#company-rna">Avidity Biosciences (RNA)</a></li><li><a href="#company-rxrx">Recursion Pharmaceuticals (RXRX)</a></li><li><a href="#company-cgon">CG Oncology (CGON)</a></li><li><a href="#company-bbio">BridgeBio Pharma (BBIO)</a></li></ul></li></ul></nav><main id="main-content"><h1 id="life-science-and-device-intel">Life Science and Device Intel</h1><div aria-label="Download Life Science and Device Intel for August 17, 2026" class="report-downloads report-downloads-page"><span class="report-download-label">Download report</span><a class="download-button" download="" href="Life%20Science%20and%20Device%20Intel-2026-08-17.pdf">PDF</a><a class="download-button" download="" href="Life%20Science%20and%20Device%20Intel-2026-08-17.html">HTML</a></div>
 <div class="report-meta"><span><strong>Week of August 17, 2026</strong></span><span>Market data through: August 14, 2026</span><span>Narrative created: August 17, 2026</span></div>
 <p>Weekly review of pharmaceutical, biotech, biologics, and medical-device company performance, changes, earnings activity, and strategy narrative.</p>
 <h2 id="strategy-narrative">Strategy Narrative</h2>

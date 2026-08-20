@@ -1,7 +1,7 @@
 # Healthcare Intel Digest
 
 A Python application that creates weekly healthcare and life-science stock intelligence reports from
-Massive market data, public earnings pages, and report-specific ChatGPT strategy narratives.
+Massive market data, public earnings pages, and report-specific strategy narratives.
 Reports are generated as final versions immediately and stored in Git.
 
 ## What it produces
@@ -45,14 +45,8 @@ python -m playwright install chromium
 cp .env.example .env
 ```
 
-Set `MASSIVE_API_KEY` in `.env` or export it in the shell. The CLI does not load arbitrary
-shell files, so when using `.env` locally run:
-
-```sh
-set -a
-source .env
-set +a
-```
+Set `MASSIVE_API_KEY` and `OPENAI_API_KEY` in `.env` or export them in the shell. The CLI loads
+the project `.env` automatically and never overrides variables already exported by the shell.
 
 Validate the project and create a report:
 
@@ -112,6 +106,11 @@ an About page, and a Methodology page. It is tracked in Git so a local report ru
 exact static site that will be published. Both `run` and `render` rebuild it automatically;
 `build-site` remains useful after editing only the About or Methodology copy.
 
+Each published report has PDF and self-contained HTML downloads. Download buttons appear on the
+latest report, each Past reports row, each weekly report card in News & Earnings, and the report's
+own archive page. The site builder uses the installed Playwright Chromium to create a print-ready
+PDF, then reuses unchanged PDFs through `docs/.download-manifest.json` on later builds.
+
 The homepage always uses the latest Healthcare report. The Past reports page groups the archive
 under Healthcare Intel Report and Life Sciences Intel Report. The News & Earnings page provides
 a newest-first weekly index of report headlines and earnings-call coverage, with direct links to
@@ -123,13 +122,15 @@ the corresponding report sections. It also collects headlines under these busine
 - Across the Business: Life Sciences, Policy & Cross-Sector, and Other.
 
 Topic assignment is deterministic and based on headline wording. A headline can appear under
-multiple relevant topics; unmatched headlines appear under Other.
+multiple relevant topics; unmatched headlines appear under Other. The weekly and topic indexes are
+regenerated automatically from all saved final reports whenever `run`, `render`, or `build-site`
+executes; there is no separate topic-index refresh step.
 
 The normal local publishing flow is:
 
 ```sh
 ./bin/run-report
-git add docs reports/final state
+git add docs reports/final reports/strategy state
 git commit -m "Create healthcare report for YYYY-MM-DD"
 git push
 ```
@@ -148,8 +149,8 @@ Playwright Chromium, and the existing `.env` automatically:
 ```
 
 This updates both report profiles. Use the Python CLI's `--report` option when only one profile
-needs to be refreshed. Before running, update the two ChatGPT share URLs in
-`inputs/strategy-narratives.md` if the narratives have changed.
+needs to be refreshed. Both strategy narratives run through the OpenAI Responses API with separate
+prompts, histories, archives, and downstream latest files.
 
 To create or replace a report for a particular date:
 
@@ -178,10 +179,11 @@ mypy src
 
 - `inputs/companies.md` defines categories and their stocks using the original
   `Ticker: Name; Description` format. A ticker may belong to more than one category.
-- `inputs/strategy-narratives.md` contains the Healthcare and Life Science and Device ChatGPT
-  share URLs.
+- `inputs/healthcare-strategy-prompt.md` is the version-controlled Healthcare research brief.
+- `inputs/life-sciences-strategy-prompt.md` is the version-controlled pharmaceutical, biotech,
+  life-sciences, and medical-device research brief.
 - `config/settings.yaml` defines horizons, thresholds, source behavior, report presentation,
-  report-profile category membership, and narrative matching rules.
+  report-profile category membership, and narrative freshness rules.
 
 The Healthcare profile includes services, providers, real estate, value-based care, outpatient
 and home care, digital health, health IT/data, pharma distribution, and precision diagnostics.
@@ -268,24 +270,61 @@ not suppress otherwise valid market analysis and remains recorded in `manifest.j
 
 ## Strategy narrative
 
-Each run attempts to read the newest matching assistant brief from the public ChatGPT share link
-for that report in `inputs/strategy-narratives.md`. Keep the file in this exact format:
+Both profiles generate their weekly strategy briefs with the OpenAI Responses API using GPT-5.6
+Sol, high reasoning, and built-in web search by default. Each request explicitly supplies the report
+date, prior-seven-day window, profile-specific master prompt, and that profile's four newest prior
+reports. Reports are persisted under:
 
-```markdown
-# Strategy Narrative Links
-
-Healthcare: https://chatgpt.com/share/HEALTHCARE_SHARE_ID
-Life Science and Device: https://chatgpt.com/share/LIFE_SCIENCE_SHARE_ID
+```text
+reports/strategy/healthcare/YYYY-MM-DD.md
+reports/strategy/healthcare/YYYY-MM-DD.json
+reports/strategy/healthcare/latest.md
+reports/strategy/healthcare/latest.json
+reports/strategy/life-science-device/YYYY-MM-DD.md
+reports/strategy/life-science-device/YYYY-MM-DD.json
+reports/strategy/life-science-device/latest.md
+reports/strategy/life-science-device/latest.json
+state/strategy-runs-healthcare.jsonl
+state/strategy-runs-life-science-device.jsonl
 ```
 
-The two labels must each appear exactly once. Each URL must be an HTTPS `chatgpt.com/share/` URL.
-The scraper removes ChatGPT navigation and decorative elements, keeps useful citation links, and
-stores the successful result in that report's narrative snapshot under `state/`.
+The dated files are permanent history. `latest.md` and `latest.json` are replaced only after a
+successful, validated response, so downstream Python code can read either profile's stable location.
+The narratives are also written to `state/narrative.json` and
+`state/narrative-life-science-device.json` for the existing market-report renderer. If an API run
+fails, the last good narrative remains in place and the report is marked degraded.
 
-A ChatGPT share link is a snapshot: update the share in ChatGPT when the conversation changes.
-If the link cannot be read, the report uses the committed snapshot and visibly reports its age.
+Generate or inspect an individual strategy brief with:
 
-Refresh only the snapshot with:
+```sh
+python -m healthcare_report generate-strategy
+python -m healthcare_report generate-strategy --dry-run
+python -m healthcare_report generate-strategy --date 2026-08-24
+python -m healthcare_report generate-strategy --date 2026-08-24 --force
+python -m healthcare_report generate-strategy --report life-science-device
+python -m healthcare_report generate-strategy --report life-science-device --dry-run
+python -m healthcare_report generate-strategy --report life-science-device --date 2026-08-24 --force
+```
+
+The CLI loads `.env` without overriding variables already supplied by the shell. Supported
+configuration is:
+
+```text
+OPENAI_API_KEY=...
+OPENAI_MODEL=gpt-5.6-sol
+OPENAI_REASONING_EFFORT=high
+REPORT_HISTORY_COUNT=4
+OPENAI_MAX_OUTPUT_TOKENS=16000
+OPENAI_TIMEOUT_SECONDS=900
+```
+
+Set `OPENAI_MODEL=gpt-5.6-terra` for a lower-cost development run without changing code. Usage,
+web-search-call count, request identifiers, and estimated cost are recorded in the JSON report and
+JSONL run log. Cost estimates use the centralized model-price table in
+`src/healthcare_report/strategy.py`; update it when OpenAI pricing changes. The API key is read only
+from the environment and must never be committed.
+
+Refresh either profile's API-backed narrative snapshot with:
 
 ```sh
 python -m healthcare_report refresh-narrative --report healthcare
@@ -296,14 +335,14 @@ python -m healthcare_report refresh-narrative --report life-science-device
 
 The **Run full healthcare update** workflow runs every Monday at 8:00 AM America/Denver and
 updates both report profiles. Manual dispatch accepts an optional report date and a report scope
-of Healthcare, Life Science and Device, or Both. Add `MASSIVE_API_KEY` under
-**Settings → Secrets and variables → Actions** and allow GitHub Actions read/write repository
-permissions. A manual run forces fresh earnings and strategy-narrative checks, even if those
-sources were already checked that day.
+of Healthcare, Life Science and Device, or Both. Add both `MASSIVE_API_KEY` and `OPENAI_API_KEY`
+under **Settings → Secrets and variables → Actions**, and allow GitHub Actions read/write
+repository permissions. A manual run forces fresh earnings and strategy-narrative checks, even if
+those sources were already checked that day.
 
-For the normal weekly update, edit and commit both links in `inputs/strategy-narratives.md`, then
-manually run **Run full healthcare update** with report scope **both**. The workflow validates and
-uses the committed links automatically. Scheduled runs use the same file.
+The workflow runs at 8:00 AM Monday in `America/Denver`; GitHub's timezone-aware schedule handles
+Mountain Time daylight-saving changes. A successful run commits both dated strategy archives,
+stable latest files, final market reports, state, and the rebuilt site.
 
 The workflow validates and tests the project, installs anonymous Chromium, creates the final,
 uploads the standalone HTML artifact for 90 days, commits the final report plus compact `state/`
@@ -313,6 +352,17 @@ while preserving the valid market report.
 
 The workflow verifies that the branch has not changed while it runs and pushes through
 `github-actions[bot]`. It deploys Pages only when it committed a changed report or state snapshot.
+
+### Strategy troubleshooting
+
+- `OPENAI_API_KEY is not configured`: confirm `.env` is in the repository root for local runs, or
+  confirm the Actions secret name is exactly `OPENAI_API_KEY`.
+- Authentication or permission errors are not retried indefinitely; correct the key or project
+  access and rerun. Transient API and network failures receive the SDK's bounded retries.
+- An existing dated strategy file causes a no-op. Use `--force` only when intentionally replacing
+  that date's report.
+- A failed or invalid response is recorded in that profile's `state/strategy-runs-*.jsonl` and
+  never replaces its prior `latest.md`.
 
 ### GitHub Pages
 

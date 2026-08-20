@@ -5,7 +5,6 @@ from copy import deepcopy
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
-from urllib.parse import urlparse
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 import yaml
@@ -145,54 +144,6 @@ def _read_markdown_frontmatter(path: Path) -> dict[str, Any]:
     return value
 
 
-def _read_strategy_narrative_urls(path: Path) -> dict[str, str]:
-    labels = {
-        "Healthcare": "healthcare",
-        "Life Science and Device": "life-science-device",
-    }
-    try:
-        lines = path.read_text(encoding="utf-8").splitlines()
-    except FileNotFoundError as exc:
-        raise ConfigurationError(f"Missing configuration file: {path}") from exc
-    urls: dict[str, str] = {}
-    expected_format = "Label: https://chatgpt.com/share/..."
-    for line_number, raw_line in enumerate(lines, start=1):
-        line = raw_line.strip()
-        if not line or line.startswith("#"):
-            continue
-        label, separator, raw_url = line.partition(":")
-        label = label.strip()
-        if not separator or label not in labels or not raw_url.strip():
-            raise ConfigurationError(
-                f"{path}:{line_number} must use {expected_format} with one of: "
-                f"{', '.join(labels)}"
-            )
-        scope = labels[label]
-        if scope in urls:
-            raise ConfigurationError(f"{path}:{line_number} duplicates the {label} link")
-        urls[scope] = validate_strategy_narrative_url(raw_url)
-    missing = [label for label, scope in labels.items() if scope not in urls]
-    if missing:
-        raise ConfigurationError(f"{path} is missing links for: {', '.join(missing)}")
-    return urls
-
-
-def _apply_strategy_narrative_urls(settings: dict[str, Any], urls: dict[str, str]) -> None:
-    top_level = settings.get("strategy_narrative")
-    if isinstance(top_level, dict):
-        top_level["url"] = urls["healthcare"]
-    profiles = settings.get("report_profiles")
-    if not isinstance(profiles, dict):
-        return
-    for scope, url in urls.items():
-        profile = profiles.get(scope)
-        if not isinstance(profile, dict):
-            continue
-        narrative = profile.get("strategy_narrative")
-        if isinstance(narrative, dict):
-            narrative["url"] = url
-
-
 def _require_mapping(settings: dict[str, Any], name: str) -> dict[str, Any]:
     value = settings.get(name)
     if not isinstance(value, dict):
@@ -232,7 +183,6 @@ def _validate_settings(settings: dict[str, Any]) -> None:
     lead = int(earnings.get("tentative_check_lead_days", 21))
     if interval <= lead or lead < 0:
         raise ConfigurationError("earnings tentative interval must be greater than its check lead")
-    validate_strategy_narrative_url(str(settings["strategy_narrative"].get("url") or ""))
     profiles = settings.get("report_profiles")
     if not isinstance(profiles, dict) or not profiles:
         raise ConfigurationError("settings.report_profiles must define at least one profile")
@@ -249,7 +199,6 @@ def _validate_settings(settings: dict[str, Any]) -> None:
             raise ConfigurationError(
                 f"settings.report_profiles.{scope}.strategy_narrative is required"
             )
-        validate_strategy_narrative_url(str(narrative.get("url") or ""))
 
 
 def _load_universe(document: dict[str, Any]) -> Universe:
@@ -283,8 +232,6 @@ def _load_universe(document: dict[str, Any]) -> Universe:
 def load_config(root: Path | None = None) -> ProjectConfig:
     root = (root or project_root()).resolve()
     settings = _read_yaml(root / "config" / "settings.yaml")
-    narrative_urls = _read_strategy_narrative_urls(root / "inputs" / "strategy-narratives.md")
-    _apply_strategy_narrative_urls(settings, narrative_urls)
     _validate_settings(settings)
     universe = _load_universe(_read_markdown_frontmatter(root / "inputs" / "companies.md"))
     config = ProjectConfig(root=root, settings=settings, universe=universe, available_universe=universe)
@@ -296,16 +243,3 @@ def load_config(root: Path | None = None) -> ProjectConfig:
             # company fixture before its profile category list is updated.
             return config
     return config
-
-
-def validate_strategy_narrative_url(value: str) -> str:
-    url = value.strip()
-    parsed = urlparse(url)
-    if (
-        parsed.scheme != "https"
-        or parsed.hostname not in {"chatgpt.com", "www.chatgpt.com"}
-        or not parsed.path.startswith("/share/")
-        or not parsed.path.removeprefix("/share/").strip("/")
-    ):
-        raise ConfigurationError("strategy narrative URL must be an HTTPS chatgpt.com/share URL")
-    return url

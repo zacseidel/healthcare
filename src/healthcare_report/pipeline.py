@@ -34,7 +34,6 @@ from .earnings import (
 from .narrative import (
     load_narrative,
     narrative_age,
-    narrative_refresh_needed,
     refresh_narrative_with_fallback,
 )
 from .providers import BrowserSession, FetchStatus, MassiveClient
@@ -58,6 +57,7 @@ from .storage import (
     write_gzip_json,
     write_json,
 )
+from .strategy import strategy_prompt_path
 
 
 def _status(source: str, subject: str, status: str, detail: str = "") -> FetchStatus:
@@ -303,7 +303,7 @@ def _render_final(
                 [
                     config.root / "config" / "settings.yaml",
                     config.root / "inputs" / "companies.md",
-                    config.root / "inputs" / "strategy-narratives.md",
+                    strategy_prompt_path(config),
                 ]
             ),
             "quality": "degraded" if issues else "ok",
@@ -456,18 +456,15 @@ def run_report(
         secondary_started = time.perf_counter()
         checked_on = datetime.now(UTC).date()
         earnings_state = load_earnings_state(config)
-        cached_narrative = load_narrative(config)
         earnings_due = force_secondary or any(
             refresh_needed(earnings_state.get(ticker), report_date, config, checked_on=checked_on)
             for ticker in tickers
         )
-        narrative_due = force_secondary or narrative_refresh_needed(
-            cached_narrative, report_date, checked_on=checked_on
-        )
         browser: BrowserSession | None = None
-        if earnings_due or narrative_due:
+        browser_needed = earnings_due
+        if browser_needed:
             try:
-                _progress("Starting the earnings and strategy browser...")
+                _progress("Starting the secondary-source browser...")
                 browser = BrowserSession()
                 browser.__enter__()
                 statuses.append(_status("browser", "Chromium", "ok"))
@@ -488,7 +485,8 @@ def run_report(
                 force=force_secondary,
             )
             statuses.extend(earnings_status)
-            _progress("Refreshing the ChatGPT strategy narrative...")
+            narrative_provider = "OpenAI Responses API"
+            _progress(f"Refreshing the strategy narrative via {narrative_provider}...")
             narrative, narrative_status, narrative_detail = refresh_narrative_with_fallback(
                 config,
                 browser,
@@ -497,7 +495,12 @@ def run_report(
                 force=force_secondary,
             )
             statuses.append(
-                _status("strategy narrative", "ChatGPT share", narrative_status, narrative_detail)
+                _status(
+                    "strategy narrative",
+                    narrative_provider,
+                    narrative_status,
+                    narrative_detail,
+                )
             )
         finally:
             if browser is not None:
