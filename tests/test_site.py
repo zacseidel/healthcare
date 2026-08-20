@@ -77,7 +77,10 @@ def test_build_site_uses_latest_report_and_builds_public_pages(project):
     assert "Report for 2026-08-03" in home.get_text(" ", strip=True)
     assert len(home.select("header.public-site-header")) == 1
     assert len(home.select("nav.report-nav")) == 0
-    assert home.select_one(".public-site-brand").get_text(strip=True) == "Weekly Intelligence"
+    assert (
+        home.select_one(".public-site-brand").get_text(strip=True)
+        == "Weekly Healthcare Strategy Intelligence"
+    )
     home_downloads = {
         link.get_text(strip=True): str(link["href"])
         for link in home.select(".report-downloads-page a")

@@ -357,7 +357,7 @@ def _site_header(prefix: str, active: str) -> str:
     )
     return (
         '<header class="public-site-header"><div class="public-site-header-inner">'
-        f'<a class="public-site-brand" href="{home}">Weekly Intelligence</a>'
+        f'<a class="public-site-brand" href="{home}">Weekly Healthcare Strategy Intelligence</a>'
         f'<nav class="public-site-nav" aria-label="Website navigation">{links}</nav>'
         "</div></header>"
     )
