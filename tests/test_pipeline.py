@@ -6,6 +6,7 @@ from datetime import date, timedelta
 from bs4 import BeautifulSoup
 
 from healthcare_report.cache import MarketCache
+from healthcare_report.narrative import _embedded_strategy_body
 from healthcare_report.pipeline import export_standalone_report, rerender_report, run_report
 from healthcare_report.render import _presentation_narrative
 from healthcare_report.storage import config_hash, read_gzip_json, write_gzip_json
@@ -105,6 +106,39 @@ def test_strategy_narrative_links_support_html_headings_and_strip_delta_labels()
     assert "CONFIRM" not in presented
 
 
+def test_strategy_jump_list_uses_interpretive_headlines_not_form_sections():
+    raw = """# Healthcare Strategy Brief
+## Week of August 13, 2026
+
+## Executive View
+- Takeaway one.
+
+## 1. Prior-authorization transparency is now a competitive benchmark
+**Status:** NEW
+**What happened**
+CMS published new authorization metrics.
+
+## 2. NSA QPA ruling shifts dollars toward providers
+**What happened**
+The Fifth Circuit invalidated ghost rates.
+
+## Bottom Line
+Watch CMS guidance.
+"""
+    presented = _presentation_narrative(_embedded_strategy_body(raw))
+    soup = BeautifulSoup(presented, "html.parser")
+    labels = [link.get_text(" ", strip=True) for link in soup.select("nav.strategy-narrative-links a")]
+    assert labels == [
+        "1. Prior-authorization transparency is now a competitive benchmark",
+        "2. NSA QPA ruling shifts dollars toward providers",
+    ]
+    assert soup.select_one("h3#executive-view") is not None
+    assert soup.select_one("h3#bottom-line") is not None
+    assert all("Executive view" not in label for label in labels)
+    assert all("Risk dashboard" not in label for label in labels)
+    assert all("Bottom Line" not in label for label in labels)
+
+
 def test_end_to_end_report_and_baseline(project, monkeypatch):
     import healthcare_report.narrative as narrative_module
     import healthcare_report.pipeline as pipeline
@@ -125,6 +159,10 @@ def test_end_to_end_report_and_baseline(project, monkeypatch):
 ## Week of August 3, 2026
 
 ## Executive readout
+
+| Exposure | Main driver |
+| --- | --- |
+| Payment integrity | Authorization transparency |
 
 ### 1. Cloud strategy headline
 Cloud fixture narrative.
@@ -193,6 +231,10 @@ Keep this section.
     assert "h2::after" not in report_html
     assert "border-bottom:3px solid var(--navy)" in report_html
     soup = BeautifulSoup(report_html, "html.parser")
+    driver_heading = soup.find("th", string="Main driver")
+    assert driver_heading is not None
+    assert driver_heading.find_parent("div", class_="table-wrap") is not None
+    assert "table:not(.sortable)" in report_html
     strategy_heading = soup.select_one("h2#in-the-news")
     strategy_links = soup.select_one("nav.strategy-narrative-links")
     executive_heading = soup.select_one("h3#executive-readout")
