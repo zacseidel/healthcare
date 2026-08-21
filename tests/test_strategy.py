@@ -150,6 +150,17 @@ def test_prompt_assembly_delimits_history_and_dates():
     assert "<master_brief>\nMaster instructions\n</master_brief>" in prompt
 
 
+def test_healthcare_profile_uses_10x_master_prompt(project):
+    result = generate_strategy_report(project, date(2026, 8, 24), dry_run=True)
+
+    assert strategy_prompt_path(project).name == "healthcare-strategy-prompt.md"
+    assert "Scan the named primary-source circuit every week" in result["assembled_prompt"]
+    assert "Optional compact risk-dashboard table" in result["assembled_prompt"]
+    assert "This is a **proposal**, not the live Healthcare prompt" not in result[
+        "assembled_prompt"
+    ]
+
+
 def test_life_sciences_profile_uses_separate_prompt_and_research_task(project):
     life = project.for_scope("life-science-device")
     result = generate_strategy_report(life, date(2026, 8, 24), dry_run=True)
