@@ -16,7 +16,7 @@ def test_life_sciences_refresh_uses_openai_archive(project, monkeypatch):
     life = project.for_scope("life-science-device")
     report_date = date(2026, 8, 24)
 
-    def fake_generate(config, generated_for, *, force=False):
+    def fake_generate(config, generated_for, *, force=False, movers=None):
         assert config.scope == "life-science-device"
         assert generated_for == report_date
         assert not force

@@ -50,7 +50,8 @@ cp .env.example .env
 Set `MASSIVE_API_KEY` and `OPENAI_API_KEY` in `.env` or export them in the shell. The CLI loads
 the project `.env` automatically and never overrides variables already exported by the shell.
 
-Validate the project and create a report:
+Validate the project and create a report. `run` requires a Monday report date and defaults
+to today in Denver:
 
 ```sh
 python -m healthcare_report validate
@@ -339,15 +340,19 @@ python -m healthcare_report refresh-narrative --report life-science-device
 ## GitHub automation
 
 The **Run full healthcare update** workflow runs every Monday at 5:00 AM America/Denver and
-updates both report profiles. Manual dispatch accepts an optional report date and a report scope
-of Healthcare, Life Science and Device, or Both. Add both `MASSIVE_API_KEY` and `OPENAI_API_KEY`
+updates both report profiles. Weekly reports are Monday-dated and compare with the previous
+Monday only; mid-week strategy notes are not used as last week's published briefing. Manual
+dispatch accepts an optional Monday report date and a report scope of Healthcare, Life Science
+and Device, or Both. Add both `MASSIVE_API_KEY` and `OPENAI_API_KEY`
 under **Settings → Secrets and variables → Actions**, and allow GitHub Actions read/write
 repository permissions. A manual run forces fresh earnings and strategy-narrative checks, even if
 those sources were already checked that day.
 
 The workflow runs at 5:00 AM Monday in `America/Denver`; GitHub's timezone-aware schedule handles
-Mountain Time daylight-saving changes. A successful run commits both dated strategy archives,
-stable latest files, final market reports, state, and the rebuilt site.
+Mountain Time daylight-saving changes. The strategy prompt also receives a compact list of the
+week's largest watchlist movers so material names are not dropped as "already covered." A
+successful run commits both dated strategy archives, stable latest files, final market reports,
+state, and the rebuilt site.
 
 The workflow validates and tests the project, installs anonymous Chromium, creates the final,
 uploads the standalone HTML artifact for 90 days, commits the final report plus compact `state/`

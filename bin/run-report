@@ -11,8 +11,8 @@ requirements_marker="$venv_dir/.environment-sha256"
 usage() {
   cat <<'EOF'
 Usage:
-  ./bin/run-report                 Create today's Healthcare and Life Science reports
-  ./bin/run-report YYYY-MM-DD      Create or replace both dated final reports
+  ./bin/run-report                 Create today's Monday Healthcare and Life Science reports
+  ./bin/run-report YYYY-MM-DD      Create or replace both dated final reports (Monday dates)
   ./bin/run-report --validate      Validate the local installation without fetching data
   ./bin/run-report --render DATE [--refresh-charts]
                                    Rerender a saved report without network requests

@@ -20,7 +20,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="healthcare-report")
     subparsers = parser.add_subparsers(dest="command", required=True)
     run = subparsers.add_parser("run", help="refresh data and create or replace a final report")
-    run.add_argument("--date", type=parse_date, help="report date; defaults to today in Denver")
+    run.add_argument(
+        "--date",
+        type=parse_date,
+        help="Monday report date; defaults to today in Denver and must be a Monday",
+    )
     run.add_argument(
         "--report",
         choices=("healthcare", "life-science-device", "both"),
@@ -64,7 +68,11 @@ def build_parser() -> argparse.ArgumentParser:
     strategy = subparsers.add_parser(
         "generate-strategy", help="generate a strategy brief with OpenAI"
     )
-    strategy.add_argument("--date", type=parse_date, help="report date; defaults to today in Denver")
+    strategy.add_argument(
+        "--date",
+        type=parse_date,
+        help="Monday report date; defaults to today in Denver and must be a Monday",
+    )
     strategy.add_argument(
         "--report",
         choices=("healthcare", "life-science-device"),

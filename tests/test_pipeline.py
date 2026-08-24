@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from datetime import date, timedelta
 
+import pytest
 from bs4 import BeautifulSoup
 
 from healthcare_report.cache import MarketCache
@@ -139,6 +140,37 @@ Watch CMS guidance.
     assert all("Bottom Line" not in label for label in labels)
 
 
+def test_life_sciences_status_headers_are_omitted_from_presentation():
+    body = """
+### Strategy Narrative
+
+#### Personalized cancer vaccines cleared a pivotal hurdle
+**Status: NEW / RESOLVE**
+The INTerpath-001 result changed the modality.
+
+### Therapeutic & Clinical Signals
+Keep this standing section.
+"""
+    presented = _presentation_narrative(body, strip_status_headers=True)
+    text = BeautifulSoup(presented, "html.parser").get_text(" ", strip=True)
+    assert "Personalized cancer vaccines cleared a pivotal hurdle" in text
+    assert "Strategy Narrative" in text
+    assert "Therapeutic & Clinical Signals" in text
+    assert "Keep this standing section." in text
+    assert "Status" not in text
+    assert "NEW / RESOLVE" not in text
+
+
+def test_healthcare_status_headers_remain_in_presentation():
+    body = """
+## 1. Aetna commission changes
+**Status:** NEW
+Aetna confirmed the change.
+"""
+    presented = _presentation_narrative(body)
+    assert "**Status:** NEW" in presented
+
+
 def test_end_to_end_report_and_baseline(project, monkeypatch):
     import healthcare_report.narrative as narrative_module
     import healthcare_report.pipeline as pipeline
@@ -146,7 +178,7 @@ def test_end_to_end_report_and_baseline(project, monkeypatch):
     monkeypatch.setattr(pipeline, "MassiveClient", FakeMassive)
     monkeypatch.setattr(pipeline, "BrowserSession", FakeBrowser)
 
-    def generate_fixture_strategy(_config, report_date, *, force=False):
+    def generate_fixture_strategy(_config, report_date, *, force=False, movers=None):
         return {
             "report_date": report_date.isoformat(),
             "generated_at": f"{report_date.isoformat()}T12:00:00Z",
@@ -344,3 +376,8 @@ Keep this section.
     ).read_text()
     assert "Fixture earnings summary" in faithful_html
     assert "Cloud fixture narrative" in faithful_html
+
+
+def test_run_report_requires_a_monday_date(project):
+    with pytest.raises(ValueError, match="not a Monday"):
+        run_report(project, date(2026, 8, 20))

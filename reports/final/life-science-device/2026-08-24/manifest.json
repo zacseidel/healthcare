@@ -4,10 +4,10 @@
   "report_name": "Life Science and Device Intel",
   "report_date": "2026-08-24",
   "market_data_as_of": "2026-08-21",
-  "generated_at": "2026-08-24T15:06:11Z",
-  "rendered_at": "2026-08-24T15:25:25Z",
+  "generated_at": "2026-08-24T16:59:56Z",
+  "rendered_at": "2026-08-24T16:59:56Z",
   "baseline_report_date": "2026-08-17",
-  "configuration_sha256": "97b679cf1ae9a771fbbc511c47f656f7f88c0cb4d4c44d530a7e4dad9e948e0b",
+  "configuration_sha256": "0beb63b8cb3e30b591274cf3401e6ecb98c367f3aa106fa369e4fba3c6620247",
   "quality": "ok",
   "issues": [
     "Verify these stock symbols: MASI (Latest saved price is 2026-06-09, older than the 7-day limit. The market-data provider did not recognize this ticker.), BD (The public earnings page for this ticker was not found.).",
@@ -719,26 +719,26 @@
     {
       "source": "earnings",
       "subject": "BSX",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "SYK",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "ZBH",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "ABT",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -749,14 +749,14 @@
     {
       "source": "earnings",
       "subject": "EW",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "DXCM",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -767,8 +767,8 @@
     {
       "source": "earnings",
       "subject": "PODD",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -779,14 +779,14 @@
     {
       "source": "earnings",
       "subject": "ISRG",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "GEHC",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -809,50 +809,50 @@
     {
       "source": "earnings",
       "subject": "INSP",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "LLY",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "NVO",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "ABBV",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "JNJ",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "PFE",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "MRK",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "BMY",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -863,62 +863,62 @@
     {
       "source": "earnings",
       "subject": "AZN",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "NVS",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "SNY",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": "Client error '404 Not Found' for url 'https://finance.yahoo.com/quote/SNY/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
     },
     {
       "source": "earnings",
       "subject": "GSK",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "VRTX",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "REGN",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "AMGN",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "GILD",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "BIIB",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "ALNY",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -929,38 +929,38 @@
     {
       "source": "earnings",
       "subject": "MRNA",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "EXEL",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "ARGX",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "NBIX",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "UTHR",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": "Client error '404 Not Found' for url 'https://finance.yahoo.com/quote/UTHR/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
     },
     {
       "source": "earnings",
       "subject": "INCY",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -971,8 +971,8 @@
     {
       "source": "earnings",
       "subject": "IONS",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -989,8 +989,8 @@
     {
       "source": "earnings",
       "subject": "NVCR",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -1001,14 +1001,14 @@
     {
       "source": "earnings",
       "subject": "ACAD",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "KRYS",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -1019,8 +1019,8 @@
     {
       "source": "earnings",
       "subject": "RXRX",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -1042,31 +1042,38 @@
     }
   ],
   "metrics": {
-    "mode": "render-only",
+    "mode": "full",
     "durations_seconds": {
-      "render_input_load": 0.007,
-      "rendering": 0.722,
-      "total": 0.751
+      "market_data": 0.499,
+      "analysis": 0.032,
+      "secondary_sources": 426.01,
+      "rendering": 23.901,
+      "total": 450.573
     },
     "counts": {
       "companies": 54,
-      "price_bars_loaded": 0,
+      "price_bars_loaded": 27476,
       "performance_charts": 3,
       "earnings_charts": 0,
       "source_statuses": {
-        "ok": 120,
-        "warning": 7,
-        "skipped": 38
+        "ok": 158,
+        "warning": 7
       }
     },
     "output_bytes": {
-      "html": 8470103,
-      "markdown": 115961,
+      "html": 8468474,
+      "markdown": 114624,
       "charts": 6254278,
-      "data": 117962,
-      "total_without_manifest": 14967086
+      "data": 117710,
+      "total_without_manifest": 14963868
     },
-    "directory_bytes": 14996312
+    "price_retention": {
+      "cutoff": "2024-07-10",
+      "files_changed": 0,
+      "bars_removed": 0,
+      "bars_retained": 27770
+    },
+    "directory_bytes": 14992542
   },
   "files": [
     "Life Science and Device Intel-2026-08-24.html",

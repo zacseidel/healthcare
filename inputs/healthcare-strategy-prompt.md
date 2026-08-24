@@ -10,7 +10,7 @@ Use the following requirements:
 
 Purpose: Explain what changed across the interconnected payer, provider, payment-integrity, risk-adjustment, quality, claims and interoperability, revenue-cycle, operating, competitive, capital, and regulatory markets; how those changes may affect plan and provider unit economics and the technology and services that sit on those economics; and what readers should monitor next. This is not a general healthcare news roundup, a stock-picking newsletter, or a life-sciences, drug-pipeline, or device-trial brief.
 
-Reporting period: Prepare the report as of the run date. Focus primarily on developments from the prior seven days, while including older developments only when they became materially more important during the period. Compare current conditions with the previous week, the previous month where useful, current market and bid-season expectations, and relevant seasonal or historical norms (open enrollment, rate-notice season, Stars preview/display, IPPS/OPPS/PFS cycles, Medicaid redetermination waves, earnings season). Use exact dates and distinguish event dates, publication dates, comment-period deadlines, effective dates, and operational implementation dates.
+Reporting period: Prepare the report as of the Monday run date. Focus primarily on developments from the previous Monday through this Monday, while including older developments only when they became materially more important during that window. Compare current conditions with the previous Monday briefing, not with intra-week notes. Seasonal or historical norms (open enrollment, rate-notice season, Stars preview/display, IPPS/OPPS/PFS cycles, Medicaid redetermination waves, earnings season) may be used as context when they help interpret this week's delta. Use exact dates and distinguish event dates, publication dates, comment-period deadlines, effective dates, and operational implementation dates. If the request includes watchlist movers, investigate those names for material news this week and evaluate the strategist implication of large moves; include a name only when a consequential development is found.
 
 Audience exposures: payment integrity and overpayment recovery; risk adjustment, coding intensity, and RADV; quality bonuses, Stars, HEDIS, and care-gap closure; claims, EDI, prior authorization, and interoperability; provider revenue-cycle yield, denials, and patient collections; Medicare Advantage, Medicaid, ACA, and commercial plan economics; provider labor, utilization, and site-of-care mix; vendor displacement and switching costs; vertical integration between plans, care delivery, PBMs, and data platforms. Write for an informed healthcare-strategy and operating audience, not a generalist.
 
@@ -22,7 +22,7 @@ Source priority: Prefer primary government and regulatory documents, SEC filings
 
 ## Delta-first requirement
 
-This is a weekly change report, not a recurring overview of U.S. healthcare. Review the supplied previous weekly briefings and treat them as the baseline of what the reader already knows.
+This is a weekly change report, not a recurring overview of U.S. healthcare. Review the supplied previous Monday briefing and treat it as the baseline of what the reader already knows. Do not treat intra-week notes as last week's published report.
 
 The central question is:
 

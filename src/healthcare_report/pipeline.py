@@ -58,7 +58,7 @@ from .storage import (
     write_gzip_json,
     write_json,
 )
-from .strategy import strategy_prompt_path
+from .strategy import format_watchlist_movers, require_monday_report_date, strategy_prompt_path
 
 
 def _status(source: str, subject: str, status: str, detail: str = "") -> FetchStatus:
@@ -390,6 +390,7 @@ def run_report(
     *,
     force_secondary: bool = False,
 ) -> dict[str, Any]:
+    require_monday_report_date(report_date)
     total_started = time.perf_counter()
     _progress(
         f"Starting final report for {report_date.isoformat()}. "
@@ -401,6 +402,8 @@ def run_report(
     price_start, price_end, longest = _report_windows(config, report_date)
     reference: dict[str, dict[str, Any]] = {}
     bars: dict[str, list[dict[str, Any]]] = {}
+    moves: dict[str, Any] | None = None
+    mover_brief = ""
     stage_durations: dict[str, float] = {}
     market_started = time.perf_counter()
     massive = MassiveClient(config)
@@ -466,6 +469,13 @@ def run_report(
         snapshot, market_data_as_of = build_snapshot(config, report_date, bars, reference)
         baseline = find_baseline(config, report_date)
         changes = compare_snapshots(snapshot, baseline, config)
+        moves = period_moves(config, bars, reference, baseline, report_date)
+        mover_brief = format_watchlist_movers(
+            moves,
+            shown=int(config.settings["notable_changes"].get("movers_shown", 3)),
+            previous_market_data_as_of=baseline.market_data_as_of if baseline else None,
+            market_data_as_of=market_data_as_of,
+        )
         stage_durations["analysis"] = time.perf_counter() - analysis_started
 
         secondary_started = time.perf_counter()
@@ -508,6 +518,7 @@ def run_report(
                 as_of=report_date,
                 checked_on=checked_on,
                 force=force_secondary,
+                movers=mover_brief,
             )
             statuses.append(
                 _status(
@@ -545,6 +556,7 @@ def run_report(
         issues,
         recommendations,
         stage_durations,
+        moves=moves,
     )
     save_earnings_state(config, earnings)
     retention: dict[str, Any]

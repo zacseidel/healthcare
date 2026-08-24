@@ -37,8 +37,11 @@ fundamentals or total shareholder return.
 ## Strategy narrative
 
 The weekly narrative synthesizes publicly available company, regulatory, and market
-developments. Links are retained where available so readers can inspect source material. The
-narrative is analysis rather than a complete record of every event in the sector.
+developments, comparing each Monday briefing with the previous Monday. Large watchlist price
+moves are supplied as research hints so material names are not omitted merely because they
+appeared in an intra-week note. Links are retained where available so readers can inspect
+source material. The narrative is analysis rather than a complete record of every event in the
+sector.
 
 ## Timing and limitations
 

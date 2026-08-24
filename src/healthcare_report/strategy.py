@@ -123,6 +123,67 @@ def reporting_window(report_date: date) -> tuple[date, date]:
     return report_date - timedelta(days=7), report_date
 
 
+def require_monday_report_date(report_date: date) -> None:
+    if report_date.weekday() != 0:
+        raise ValueError(
+            f"{report_date.isoformat()} is not a Monday. "
+            "Weekly reports run on Mondays in America/Denver."
+        )
+
+
+def format_watchlist_movers(
+    moves: dict[str, Any] | None,
+    *,
+    shown: int = 3,
+    previous_market_data_as_of: date | None = None,
+    market_data_as_of: date | None = None,
+) -> str:
+    """Compact mover list for the strategy prompt. Keep this small; extra tokens are cheap,
+    extra web searches are the cost to avoid."""
+    stocks = moves.get("stocks") if isinstance(moves, dict) else None
+    if not stocks:
+        return ""
+    eligible = [row for row in stocks if isinstance(row, dict) and row.get("price_move") is not None]
+    if not eligible:
+        return ""
+    gainers = sorted(
+        (row for row in eligible if float(row["price_move"]) > 0),
+        key=lambda row: -float(row["price_move"]),
+    )[:shown]
+    decliners = sorted(
+        (row for row in eligible if float(row["price_move"]) < 0),
+        key=lambda row: float(row["price_move"]),
+    )[:shown]
+    if not gainers and not decliners:
+        return ""
+
+    def line(row: dict[str, Any]) -> str:
+        ticker = str(row.get("ticker") or "")
+        name = str(row.get("name") or ticker)
+        return f"- {ticker} {name} {float(row['price_move']):+.1%}"
+
+    header = "Watchlist price moves since the previous Monday report"
+    if previous_market_data_as_of and market_data_as_of:
+        header += (
+            f" (market data {previous_market_data_as_of.isoformat()} to "
+            f"{market_data_as_of.isoformat()})"
+        )
+    header += ":"
+    parts = [header]
+    if gainers:
+        parts.append("Largest gains:")
+        parts.extend(line(row) for row in gainers)
+    if decliners:
+        parts.append("Largest declines:")
+        parts.extend(line(row) for row in decliners)
+    parts.append(
+        "Investigate material news for these names. Include a name only when you find a "
+        "consequential development in the reporting window. Do not write filler for unexplained "
+        "price moves, and do not run a separate search for every name if one scan covers them."
+    )
+    return "\n".join(parts)
+
+
 def load_master_prompt(config: ProjectConfig) -> str:
     path = strategy_prompt_path(config)
     try:
@@ -186,7 +247,8 @@ def discover_history(
         return []
     combined = _published_history(config, report_date)
     combined.update(_archive_history(config, report_date))
-    selected = sorted(combined.items(), reverse=True)[:count]
+    mondays = {key: value for key, value in combined.items() if key.weekday() == 0}
+    selected = sorted(mondays.items(), reverse=True)[:count]
     return sorted(selected)
 
 
@@ -216,6 +278,7 @@ def assemble_prompt(
     history: list[tuple[date, str]],
     *,
     task_subject: str = "material healthcare developments",
+    movers: str | None = None,
 ) -> str:
     start, end = reporting_window(report_date)
     history_text = "\n\n".join(
@@ -224,10 +287,20 @@ def assemble_prompt(
     )
     if not history_text:
         history_text = "<prior_reports>None available. Establish the initial baseline.</prior_reports>"
+    movers_block = ""
+    if movers and movers.strip():
+        movers_block = f"\n<watchlist_movers>\n{movers.strip()}\n</watchlist_movers>\n"
+    previous_monday = next((prior_date.isoformat() for prior_date, _body in reversed(history)), None)
+    previous_clause = (
+        f"the previous Monday report ({previous_monday})"
+        if previous_monday
+        else "the previous Monday report"
+    )
     return f"""<run_context>
 Report run date: {report_date.isoformat()}
 Primary reporting window: {start.isoformat()} through {end.isoformat()}
 Timezone: America/Denver
+Weekly cadence: Monday reports only; compare with {previous_clause}
 </run_context>
 
 <master_brief>
@@ -237,12 +310,15 @@ Timezone: America/Denver
 <prior_report_history>
 {history_text}
 </prior_report_history>
-
+{movers_block}
 <task>
 Research {task_subject} that became available during the reporting window.
-Compare the evidence with the supplied prior reports and produce this week's finished Markdown
-briefing. Search multiple sources as needed. Include only meaningful deltas, preserve useful
-source links, and use the report run date in the Week of heading.
+Compare this week's briefing with {previous_clause} only. Do not treat intra-week notes as last
+week's published report. If a development in the window was mentioned in an intra-week note,
+still include it here if it would be new to a reader of the previous Monday report.
+If watchlist movers are supplied, investigate material news for large movers; omit a name when
+you find no consequential development. Search multiple sources as needed. Include only meaningful
+deltas, preserve useful source links, and use the report run date in the Week of heading.
 </task>"""
 
 
@@ -429,8 +505,10 @@ def generate_strategy_report(
     *,
     force: bool = False,
     dry_run: bool = False,
+    movers: str | None = None,
     response_client: Callable[[StrategySettings, str], Any] | None = None,
 ) -> dict[str, Any]:
+    require_monday_report_date(report_date)
     profile = strategy_profile(config)
     settings = StrategySettings.from_environment()
     existing = _existing_report(config, report_date)
@@ -444,6 +522,7 @@ def generate_strategy_report(
         report_date,
         history,
         task_subject=profile.task_subject,
+        movers=movers,
     )
     prompt_sha256 = hashlib.sha256(prompt.encode("utf-8")).hexdigest()
     if dry_run:

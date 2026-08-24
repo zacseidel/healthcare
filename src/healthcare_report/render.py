@@ -287,7 +287,16 @@ def _strip_narrative_section(body: str, title: str) -> str:
     return "\n".join(output)
 
 
-def _presentation_narrative(body: str) -> str:
+def _strip_status_headers(body: str) -> str:
+    return re.sub(
+        r"^\s*\*{0,2}Status:?\*{0,2}:?\s*[A-Z][A-Z0-9 /]*\*{0,2}\s*$",
+        "",
+        body,
+        flags=re.MULTILINE,
+    )
+
+
+def _presentation_narrative(body: str, *, strip_status_headers: bool = False) -> str:
     body = re.sub(
         r"^\s*\*{0,2}(?:Strategy brief for\s+)?Week of\s+.+?\*{0,2}\s*$",
         "",
@@ -296,6 +305,8 @@ def _presentation_narrative(body: str) -> str:
         flags=re.IGNORECASE | re.MULTILINE,
     )
     body = _strip_narrative_section(body, "Functional strategy summary")
+    if strip_status_headers:
+        body = _strip_status_headers(body)
     body = re.sub(r"\n{3,}", "\n\n", body).strip()
     return _add_strategy_narrative_links(body)
 
@@ -795,7 +806,12 @@ def build_markdown(context: dict[str, Any]) -> str:
         "",
     ]
     if narrative:
-        lines.append(_presentation_narrative(str(narrative.get("body") or "")))
+        lines.append(
+            _presentation_narrative(
+                str(narrative.get("body") or ""),
+                strip_status_headers=config.scope == "life-science-device",
+            )
+        )
     else:
         lines.append("No strategy narrative is available.")
 

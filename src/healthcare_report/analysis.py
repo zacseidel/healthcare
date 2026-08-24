@@ -272,6 +272,8 @@ def find_baseline(config: ProjectConfig, report_date: date) -> Baseline | None:
             candidate_date = date.fromisoformat(folder.name)
         except ValueError:
             continue
+        if candidate_date.weekday() != 0:
+            continue
         if candidate_date <= report_date - timedelta(days=minimum):
             candidates.append((candidate_date, folder))
     for _, folder in sorted(candidates, reverse=True):

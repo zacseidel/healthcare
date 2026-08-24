@@ -4,10 +4,10 @@
   "report_name": "Healthcare Intel Digest",
   "report_date": "2026-08-24",
   "market_data_as_of": "2026-08-21",
-  "generated_at": "2026-08-24T14:59:58Z",
-  "rendered_at": "2026-08-24T15:25:08Z",
+  "generated_at": "2026-08-24T16:52:11Z",
+  "rendered_at": "2026-08-24T16:52:11Z",
   "baseline_report_date": "2026-08-17",
-  "configuration_sha256": "548ff71fd77b8fc51e1e67fee8bce8ddc5f5520e7add5aad23ed55dde64947ca",
+  "configuration_sha256": "d71e9c1dfde493936a0de3bc88c8891168915380a4027f25816dfdf37a19783e",
   "quality": "ok",
   "issues": [
     "Verify these stock symbols: TALK (Latest saved price is 2026-08-14, older than the 7-day limit.), MDRX (Latest saved price is 2026-07-31, older than the 7-day limit.), ASTH (The public earnings page for this ticker was not found.).",
@@ -1054,8 +1054,8 @@
     {
       "source": "earnings",
       "subject": "UNH",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -1066,8 +1066,8 @@
     {
       "source": "earnings",
       "subject": "HUM",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -1078,20 +1078,20 @@
     {
       "source": "earnings",
       "subject": "MOH",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "CI",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "ELV",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -1102,56 +1102,56 @@
     {
       "source": "earnings",
       "subject": "CNC",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "ALHC",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "HCA",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "THC",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "UHS",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": "Client error '404 Not Found' for url 'https://finance.yahoo.com/quote/UHS/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
     },
     {
       "source": "earnings",
       "subject": "CYH",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": "Client error '404 Not Found' for url 'https://finance.yahoo.com/quote/CYH/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
     },
     {
       "source": "earnings",
       "subject": "ARDT",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "ENSG",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "ACHC",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -1174,8 +1174,8 @@
     {
       "source": "earnings",
       "subject": "VTR",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -1192,14 +1192,14 @@
     {
       "source": "earnings",
       "subject": "OHI",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "WELL",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -1210,8 +1210,8 @@
     {
       "source": "earnings",
       "subject": "SBRA",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -1252,8 +1252,8 @@
     {
       "source": "earnings",
       "subject": "FMS",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -1264,8 +1264,8 @@
     {
       "source": "earnings",
       "subject": "OPCH",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -1276,14 +1276,14 @@
     {
       "source": "earnings",
       "subject": "CHE",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": "Client error '404 Not Found' for url 'https://finance.yahoo.com/quote/CHE/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
     },
     {
       "source": "earnings",
       "subject": "ADUS",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": "Client error '404 Not Found' for url 'https://finance.yahoo.com/quote/ADUS/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
     },
     {
       "source": "earnings",
@@ -1300,8 +1300,8 @@
     {
       "source": "earnings",
       "subject": "BTSG",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -1312,8 +1312,8 @@
     {
       "source": "earnings",
       "subject": "TDOC",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -1384,8 +1384,8 @@
     {
       "source": "earnings",
       "subject": "WAY",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -1414,8 +1414,8 @@
     {
       "source": "earnings",
       "subject": "IQV",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -1438,14 +1438,14 @@
     {
       "source": "earnings",
       "subject": "OMCL",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "MCK",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -1456,8 +1456,8 @@
     {
       "source": "earnings",
       "subject": "COR",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -1468,8 +1468,8 @@
     {
       "source": "earnings",
       "subject": "HSIC",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -1492,20 +1492,20 @@
     {
       "source": "earnings",
       "subject": "GH",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "TEM",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "ILMN",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -1528,14 +1528,14 @@
     {
       "source": "earnings",
       "subject": "DGX",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "LH",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -1551,31 +1551,38 @@
     }
   ],
   "metrics": {
-    "mode": "render-only",
+    "mode": "full",
     "durations_seconds": {
-      "render_input_load": 0.013,
-      "rendering": 0.734,
-      "total": 0.785
+      "market_data": 0.41,
+      "analysis": 0.049,
+      "secondary_sources": 560.013,
+      "rendering": 28.071,
+      "total": 588.7
     },
     "counts": {
       "companies": 82,
-      "price_bars_loaded": 0,
+      "price_bars_loaded": 41325,
       "performance_charts": 3,
       "earnings_charts": 0,
       "source_statuses": {
-        "ok": 207,
-        "skipped": 35,
+        "ok": 242,
         "warning": 7
       }
     },
     "output_bytes": {
-      "html": 10574498,
-      "markdown": 173356,
+      "html": 10577275,
+      "markdown": 176004,
       "charts": 7786764,
-      "data": 184573,
-      "total_without_manifest": 18728056
+      "data": 185069,
+      "total_without_manifest": 18733977
     },
-    "directory_bytes": 18771523
+    "price_retention": {
+      "cutoff": "2024-07-10",
+      "files_changed": 0,
+      "bars_removed": 0,
+      "bars_retained": 41805
+    },
+    "directory_bytes": 18777294
   },
   "files": [
     "Healthcare Intel-2026-08-24.html",

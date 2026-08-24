@@ -86,9 +86,11 @@ whenever practical. Do not treat company promotional language as established sci
 
 ## Delta-first requirement
 
-This is a weekly change report, not a recurring industry overview. Treat the supplied previous weekly
-briefings as the reader's baseline and focus primarily on information that became available during the
-last seven days.
+This is a weekly change report, not a recurring industry overview. Treat the supplied previous Monday
+briefing as the reader's baseline and focus primarily on information that became available during the
+last seven days. Do not treat intra-week notes as last week's published report. If the request includes
+watchlist movers, investigate those names for material news this week and include a name only when a
+consequential development is found.
 
 The central question is:
 
@@ -165,7 +167,6 @@ Markdown using this structure when it improves clarity:
 ## Strategy Narrative
 
 ### [Interpretive headline]
-**Status:** NEW / UPDATE / CONFIRM / REFUTE / RESOLVE
 
 **What changed**
 ...
@@ -195,7 +196,9 @@ Markdown using this structure when it improves clarity:
 ```
 
 Do not force content into every section. Omit or combine sections when there is insufficient
-consequential new information.
+consequential new information. Do not emit NEW / UPDATE / CONFIRM / REFUTE / RESOLVE status
+headers such as `**Status:** NEW`. Fold that judgment into the prose of What changed / Why it
+matters instead.
 
 ## Citations and evidence
 
