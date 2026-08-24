@@ -338,14 +338,14 @@ python -m healthcare_report refresh-narrative --report life-science-device
 
 ## GitHub automation
 
-The **Run full healthcare update** workflow runs every Monday at 8:00 AM America/Denver and
+The **Run full healthcare update** workflow runs every Monday at 5:00 AM America/Denver and
 updates both report profiles. Manual dispatch accepts an optional report date and a report scope
 of Healthcare, Life Science and Device, or Both. Add both `MASSIVE_API_KEY` and `OPENAI_API_KEY`
 under **Settings → Secrets and variables → Actions**, and allow GitHub Actions read/write
 repository permissions. A manual run forces fresh earnings and strategy-narrative checks, even if
 those sources were already checked that day.
 
-The workflow runs at 8:00 AM Monday in `America/Denver`; GitHub's timezone-aware schedule handles
+The workflow runs at 5:00 AM Monday in `America/Denver`; GitHub's timezone-aware schedule handles
 Mountain Time daylight-saving changes. A successful run commits both dated strategy archives,
 stable latest files, final market reports, state, and the rebuilt site.
 
