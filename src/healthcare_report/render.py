@@ -1285,8 +1285,13 @@ def _html_document(
             image_node["src"] = f"data:{mime_type};base64,{encoded}"
     for table in soup.find_all("table"):
         parent = table.parent
-        classes = parent.get("class") if parent is not None else []
-        if parent is not None and parent.name == "div" and "table-wrap" in (classes or []):
+        raw_classes = parent.get("class") if parent is not None else None
+        class_names = (
+            [str(item) for item in raw_classes]
+            if isinstance(raw_classes, list)
+            else ([str(raw_classes)] if raw_classes else [])
+        )
+        if parent is not None and parent.name == "div" and "table-wrap" in class_names:
             continue
         wrapper = soup.new_tag("div")
         wrapper["class"] = "table-wrap"

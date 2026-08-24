@@ -92,6 +92,7 @@ jobs:
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             args+=(--force-secondary)
           fi
+          set -o pipefail
           python -m healthcare_report run "${args[@]}" | tee report-result.json
 
       - name: Add the run summary

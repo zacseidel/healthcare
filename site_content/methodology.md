@@ -43,9 +43,10 @@ narrative is analysis rather than a complete record of every event in the sector
 ## Timing and limitations
 
 Market prices, market capitalizations, earnings dates, and public web pages update on different
-schedules. A report may therefore contain clearly identified warnings or stale secondary data
-while retaining valid market analysis. Corporate actions, symbol changes, revisions, and gaps
-in source availability can also affect historical comparisons.
+schedules. When a symbol cannot be resolved or a source page is missing, the published report is
+still produced and the follow-up is recorded on that date's recommended-updates page, linked
+from Past reports. Corporate actions, symbol changes, revisions, and gaps in source availability
+can also affect historical comparisons.
 
 The report is informational and is not investment advice. Readers should verify material facts
 against primary filings, company disclosures, and regulatory publications.

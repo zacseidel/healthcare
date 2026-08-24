@@ -589,26 +589,70 @@ def period_moves(
     return {"stocks": stock_rows, "categories": category_rows}
 
 
-def data_issues(
+def _company_name(config: ProjectConfig, ticker: str) -> str:
+    company = config.universe.companies.get(ticker)
+    return company.name if company else ticker
+
+
+def _missing_remote_page(detail: str) -> bool:
+    text = detail.casefold()
+    return "404" in text or "was not found" in text or "not found at massive" in text
+
+
+def recommended_updates(
     config: ProjectConfig,
     snapshot: list[dict[str, Any]],
     statuses: list[dict[str, str]],
     narrative_age_days: int | None,
-) -> list[str]:
-    issues: list[str] = []
+) -> dict[str, list[dict[str, str]]]:
+    verify: dict[str, dict[str, str]] = {}
+    input_updates: list[dict[str, str]] = []
+    other: list[dict[str, str]] = []
+
+    def add_verify(ticker: str, reason: str) -> None:
+        if not ticker:
+            return
+        current = verify.get(ticker)
+        if current is None:
+            verify[ticker] = {
+                "ticker": ticker,
+                "name": _company_name(config, ticker),
+                "reason": reason,
+            }
+            return
+        if reason not in current["reason"]:
+            current["reason"] = f"{current['reason']} {reason}"
+
     max_age = int(config.settings["market_data"].get("maximum_price_age_days", 7))
-    report_date = snapshot[0]["report_date"]
+    report_date = snapshot[0]["report_date"] if snapshot else None
     stock_latest: dict[str, date | None] = {}
-    for row in snapshot:
-        if row["entity_type"] == "stock":
-            stock_latest.setdefault(row["ticker"], row.get("price_date"))
-    stale = [
-        ticker
-        for ticker, value in stock_latest.items()
-        if value is None or (report_date - value).days > max_age
-    ]
-    if stale:
-        issues.append(f"Stale or missing prices: {', '.join(stale)}.")
+    if report_date is not None:
+        for row in snapshot:
+            if row["entity_type"] == "stock":
+                stock_latest.setdefault(row["ticker"], row.get("price_date"))
+        stale = [
+            ticker
+            for ticker, value in stock_latest.items()
+            if value is None or (report_date - value).days > max_age
+        ]
+        for ticker in stale:
+            latest = stock_latest.get(ticker)
+            if latest is None:
+                add_verify(ticker, "No usable price history was available for this report.")
+            else:
+                add_verify(
+                    ticker,
+                    f"Latest saved price is {latest.isoformat()}, older than the {max_age}-day limit.",
+                )
+            input_updates.append(
+                {
+                    "title": f"Review {_company_name(config, ticker)} ({ticker}) in companies.md",
+                    "detail": (
+                        "Prices were missing or too old to use. Confirm the ticker is still listed, "
+                        "or replace/remove this company in the watchlist."
+                    ),
+                }
+            )
     minimum = float(config.settings["market_data"].get("minimum_market_cap_coverage", 0.8))
     low = [
         f"{row['category']} {row['horizon_months']}m"
@@ -617,20 +661,147 @@ def data_issues(
         and (row.get("market_cap_coverage") is None or row["market_cap_coverage"] < minimum)
     ]
     if low:
-        issues.append(f"Low market-cap coverage: {', '.join(low)}.")
-    failures = [
-        f"{row['source']}:{row['subject']} ({row.get('detail') or row['status']})"
-        for row in statuses
-        if row["status"] not in {"ok", "skipped"}
-    ]
-    if failures:
-        issues.append("Secondary source warnings: " + "; ".join(failures))
+        input_updates.append(
+            {
+                "title": "Check market-cap coverage in the company universe",
+                "detail": (
+                    "These subcategory windows had low market-cap coverage: "
+                    + ", ".join(low)
+                    + ". Missing capitalizations can distort weighted returns."
+                ),
+            }
+        )
+
+    earnings_layout: list[str] = []
+    for row in statuses:
+        if row.get("status") in {"ok", "skipped", None}:
+            continue
+        source = str(row.get("source") or "")
+        subject = str(row.get("subject") or "")
+        detail = str(row.get("detail") or row.get("status") or "")
+        if source == "Massive company":
+            add_verify(
+                subject,
+                "The market-data provider did not recognize this ticker."
+                if _missing_remote_page(detail)
+                else f"Company lookup warning: {detail}",
+            )
+            input_updates.append(
+                {
+                    "title": f"Update or remove {subject} in companies.md",
+                    "detail": (
+                        "The company profile lookup failed. The symbol may have changed after a "
+                        "merger, listing change, or delisting."
+                    ),
+                }
+            )
+        elif source.startswith("Massive"):
+            add_verify(subject, f"Market-data warning: {detail}")
+            input_updates.append(
+                {
+                    "title": f"Review {subject} market-data coverage",
+                    "detail": detail,
+                }
+            )
+        elif source == "earnings":
+            if _missing_remote_page(detail):
+                add_verify(subject, "The public earnings page for this ticker was not found.")
+                input_updates.append(
+                    {
+                        "title": f"Confirm the earnings ticker for {subject}",
+                        "detail": (
+                            "Yahoo or Google Finance did not have this symbol. The listed ticker "
+                            "in companies.md may be outdated."
+                        ),
+                    }
+                )
+            else:
+                earnings_layout.append(subject)
+        elif source == "strategy narrative":
+            other.append(
+                {
+                    "title": "Refresh the strategy narrative",
+                    "detail": detail or "The strategy narrative could not be updated for this report.",
+                }
+            )
+        elif subject:
+            other.append({"title": f"Review {source} for {subject}", "detail": detail})
+
+    if earnings_layout:
+        names = ", ".join(dict.fromkeys(earnings_layout))
+        input_updates.append(
+            {
+                "title": "Review earnings-page coverage in the company universe",
+                "detail": (
+                    f"Public earnings pages for {names} did not expose the usual report-date or "
+                    "transcript labels. The page layout may have changed, or these companies may "
+                    "no longer fit automated earnings collection."
+                ),
+            }
+        )
+
     stale_after = int(config.settings["strategy_narrative"].get("stale_after_days", 7))
     if narrative_age_days is None:
-        issues.append("No strategy narrative retrieval date is available.")
+        other.append(
+            {
+                "title": "Record a strategy narrative retrieval date",
+                "detail": "No strategy narrative retrieval date is available for this report.",
+            }
+        )
     elif narrative_age_days > stale_after:
-        issues.append(f"Strategy narrative was retrieved {narrative_age_days} days ago.")
-    return issues
+        other.append(
+            {
+                "title": "Consider regenerating the strategy narrative",
+                "detail": (
+                    f"The strategy narrative was retrieved {narrative_age_days} days before this "
+                    "report date."
+                ),
+            }
+        )
+
+    seen_titles: set[str] = set()
+    unique_input: list[dict[str, str]] = []
+    for item in input_updates:
+        if item["title"] in seen_titles:
+            continue
+        seen_titles.add(item["title"])
+        unique_input.append(item)
+    return {
+        "verify_symbols": list(verify.values()),
+        "input_updates": unique_input,
+        "other": other,
+    }
+
+
+def recommendation_lines(recommendations: dict[str, list[dict[str, str]]]) -> list[str]:
+    lines: list[str] = []
+    symbols = recommendations.get("verify_symbols") or []
+    if symbols:
+        lines.append(
+            "Verify these stock symbols: "
+            + ", ".join(f"{item['ticker']} ({item['reason']})" for item in symbols)
+            + "."
+        )
+    for item in recommendations.get("input_updates") or []:
+        lines.append(f"{item['title']}: {item['detail']}")
+    for item in recommendations.get("other") or []:
+        lines.append(f"{item['title']}: {item['detail']}")
+    return lines
+
+
+def data_issues(
+    config: ProjectConfig,
+    snapshot: list[dict[str, Any]],
+    statuses: list[dict[str, str]],
+    narrative_age_days: int | None,
+) -> list[str]:
+    return recommendation_lines(
+        recommended_updates(config, snapshot, statuses, narrative_age_days)
+    )
+
+
+def has_recommended_updates(recommendations: dict[str, list[dict[str, str]]]) -> bool:
+    return any(recommendations.get(key) for key in ("verify_symbols", "input_updates", "other"))
 
 
 def format_percent(value: float | None) -> str:

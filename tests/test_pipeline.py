@@ -273,6 +273,10 @@ Keep this section.
         assert category in markdown
     manifest = json.loads((first_folder / "manifest.json").read_text())
     assert html_name in manifest["files"]
+    assert "recommended-updates.html" in manifest["files"]
+    assert manifest["quality"] == "ok"
+    assert first["status"] == "ok"
+    assert (first_folder / "recommended-updates.html").is_file()
     assert not [row for row in manifest["sources"] if row["source"] == "Massive news"]
     assert any(
         name.startswith("assets/earnings-") and name.endswith(".webp") for name in manifest["files"]

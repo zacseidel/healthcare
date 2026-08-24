@@ -4,9 +4,19 @@ from datetime import date
 
 from healthcare_report.earnings import (
     apply_tentative,
+    load_earnings_state,
     parse_google_earnings,
     refresh_needed,
 )
+
+
+def test_corrupt_earnings_state_is_treated_as_empty(project):
+    (project.root / "state").mkdir(parents=True, exist_ok=True)
+    (project.root / "state" / "earnings.json").write_text(
+        '{\n<<<<<<< Updated upstream\n  "UNH": {}\n',
+        encoding="utf-8",
+    )
+    assert load_earnings_state(project) == {}
 
 
 def test_tentative_event_is_day_90_and_recheck_is_day_69(project):

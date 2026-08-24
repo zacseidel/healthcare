@@ -14,9 +14,11 @@ from urllib.parse import quote
 import markdown
 from bs4 import BeautifulSoup
 
+from .analysis import load_snapshot, recommended_updates
 from .config import ProjectConfig
+from .narrative import narrative_age
 from .render import report_html_name
-from .storage import atomic_replace_directory, read_json, write_json
+from .storage import atomic_replace_directory, read_gzip_json, read_json, write_json
 
 SITE_CSS = """
 :root { --site-navy:#183e5a; --site-blue:#35647f; --site-gold:#d4a43c;
@@ -96,6 +98,10 @@ SITE_CSS = """
   letter-spacing:.025em; text-decoration:none !important; }
 .download-button:hover { border-color:#7193a8; background:#edf4f7; }
 .report-list-actions { padding-right:.2rem; }
+.recommended-list { list-style:none; margin:.35rem 0 0; padding:0; }
+.recommended-list li { padding:.85rem 0; border-bottom:1px solid var(--site-line); }
+.recommended-list strong { display:block; color:var(--site-navy); }
+.recommended-list span { display:block; margin-top:.2rem; color:var(--site-muted); font-size:.92rem; }
 .public-site-footer { margin-top:3rem; padding-top:1rem; border-top:1px solid var(--site-line);
   color:var(--site-muted); font-size:.84rem; }
 @media (max-width:700px) {
@@ -375,22 +381,34 @@ def _news_index_download_name() -> str:
     return "News and Earnings Index.html"
 
 
+def recommended_updates_name() -> str:
+    return "recommended-updates.html"
+
+
 def _report_download_links(
     report: SiteReport,
     href_prefix: str,
     *,
     compact: bool = False,
+    include_updates: bool = False,
 ) -> str:
     classes = "report-downloads report-downloads-compact" if compact else "report-downloads"
     label = "" if compact else '<span class="report-download-label">Download report</span>'
     pdf_href = href_prefix + quote(_download_name(report, "pdf"))
     html_href = href_prefix + quote(_download_name(report, "html"))
     report_label = html.escape(f"{report.report_name} for {_long_date(report.report_date)}")
+    updates = ""
+    if include_updates:
+        updates_href = href_prefix + quote(recommended_updates_name())
+        updates = (
+            f'<a class="download-button" href="{html.escape(updates_href, quote=True)}">'
+            "Updates</a>"
+        )
     return (
         f'<div class="{classes}" aria-label="Download {report_label}">{label}'
         f'<a class="download-button" href="{html.escape(pdf_href, quote=True)}" download>PDF</a>'
         f'<a class="download-button" href="{html.escape(html_href, quote=True)}" download>HTML</a>'
-        "</div>"
+        f"{updates}</div>"
     )
 
 
@@ -495,7 +513,7 @@ def _archive_page(reports: list[SiteReport]) -> str:
                 f"<strong>{_long_date(report.report_date)}</strong>"
                 f"<span>Market data through {html.escape(market_date or 'not recorded')}</span>"
                 f'<span class="site-badge {badge_class}">{badge}</span></a>'
-                f'<div class="report-list-actions">{_report_download_links(report, f"{report.archive_path}/", compact=True)}</div>'
+                f'<div class="report-list-actions">{_report_download_links(report, f"{report.archive_path}/", compact=True, include_updates=True)}</div>'
                 "</li>"
             )
         listing = "".join(rows) or '<li class="report-empty">No reports published yet.</li>'
@@ -508,10 +526,114 @@ def _archive_page(reports: list[SiteReport]) -> str:
         '<p class="site-eyebrow">Archive</p><h1>Past reports</h1>'
         '<p class="site-lede">Browse the complete set of published weekly reports. '
         'Each report preserves the market data, earnings context, and strategy narrative '
-        'available when it was produced.</p>'
+        'available when it was produced. Use Updates to review symbols and input-data '
+        'changes worth checking after that week.</p>'
         f"{listing}"
     )
     return _page_document("Past reports", body, prefix="../", active="reports")
+
+
+def _item_list(items: list[dict[str, str]], *, ticker: bool = False) -> str:
+    if not items:
+        return ""
+    rows = []
+    for item in items:
+        heading = (
+            f"{html.escape(item['ticker'])} · {html.escape(item.get('name') or item['ticker'])}"
+            if ticker
+            else html.escape(item.get("title") or "")
+        )
+        detail = html.escape(item.get("reason") or item.get("detail") or "")
+        rows.append(f"<li><strong>{heading}</strong><span>{detail}</span></li>")
+    return f'<ul class="recommended-list">{"".join(rows)}</ul>'
+
+
+def _recommendations_for_report(
+    report: SiteReport, config: ProjectConfig
+) -> dict[str, list[dict[str, str]]]:
+    folder = report.source.parent
+    manifest = read_json(folder / "manifest.json", {})
+    stored = manifest.get("recommended_updates") if isinstance(manifest, dict) else None
+    if isinstance(stored, dict) and "verify_symbols" in stored:
+        return {
+            "verify_symbols": list(stored.get("verify_symbols") or []),
+            "input_updates": list(stored.get("input_updates") or []),
+            "other": list(stored.get("other") or []),
+        }
+    snapshot_path = folder / "snapshot.csv"
+    snapshot = load_snapshot(snapshot_path) if snapshot_path.is_file() else []
+    raw_sources = manifest.get("sources") if isinstance(manifest, dict) else []
+    if not isinstance(raw_sources, list):
+        raw_sources = []
+    sources = [dict(row) for row in raw_sources if isinstance(row, dict)]
+    render_data = read_gzip_json(folder / "render-data.json.gz", {})
+    narrative = render_data.get("narrative") if isinstance(render_data, dict) else None
+    try:
+        scoped = config.for_scope(report.report_type)
+    except Exception:
+        scoped = config
+    return recommended_updates(
+        scoped,
+        snapshot,
+        sources,
+        narrative_age(narrative if isinstance(narrative, dict) else None, report.report_date),
+    )
+
+
+def recommended_updates_document(
+    report_name: str,
+    report_date: date,
+    recommendations: dict[str, list[dict[str, str]]],
+    *,
+    prefix: str | None = None,
+) -> str:
+    verify = recommendations.get("verify_symbols") or []
+    inputs = recommendations.get("input_updates") or []
+    other = recommendations.get("other") or []
+    sections: list[str] = []
+    if verify:
+        sections.append(
+            '<section class="recommended-section">'
+            "<h2>Verify these stock symbols</h2>"
+            "<p>These tickers did not resolve cleanly in market data or public company pages. "
+            "Confirm each symbol is still the right listing.</p>"
+            f"{_item_list(verify, ticker=True)}</section>"
+        )
+    if inputs:
+        sections.append(
+            '<section class="recommended-section">'
+            "<h2>Consider these updates to the input data</h2>"
+            "<p>The company universe or related source configuration may need an edit before "
+            "the next report.</p>"
+            f"{_item_list(inputs)}</section>"
+        )
+    if other:
+        sections.append(
+            '<section class="recommended-section">'
+            "<h2>Other follow-ups</h2>"
+            f"{_item_list(other)}</section>"
+        )
+    if not sections:
+        sections.append(
+            '<p class="index-empty">No recommended updates. Symbols and source coverage looked '
+            "complete for this report.</p>"
+        )
+    body = (
+        '<p class="site-eyebrow">Follow-up</p>'
+        "<h1>Recommended updates</h1>"
+        f'<p class="site-lede">{html.escape(report_name)} for {_long_date(report_date)}. '
+        "These notes are a maintenance checklist. They do not change the published report.</p>"
+        + "".join(sections)
+    )
+    title = f"Recommended updates · {_long_date(report_date)}"
+    if prefix is None:
+        return (
+            '<!doctype html><html lang="en"><head><meta charset="utf-8">'
+            '<meta name="viewport" content="width=device-width,initial-scale=1">'
+            f"<title>{html.escape(title)}</title><style>{SITE_CSS}</style></head>"
+            f'<body class="public-page-body"><main class="public-page">{body}</main></body></html>'
+        )
+    return _page_document(title, body, prefix=prefix, active="reports")
 
 
 def _indexed_report_content(
@@ -769,6 +891,15 @@ def build_site(config: ProjectConfig, output: Path | None = None) -> dict[str, A
                     report=report,
                 )
                 _copy_assets(report.source, folder)
+                (folder / recommended_updates_name()).write_text(
+                    recommended_updates_document(
+                        report.report_name,
+                        report.report_date,
+                        _recommendations_for_report(report, config),
+                        prefix=prefix,
+                    ),
+                    encoding="utf-8",
+                )
             _publish_report_downloads(reports, temporary, destination if destination.is_dir() else None)
         else:
             (temporary / "index.html").write_text(_empty_home(config), encoding="utf-8")

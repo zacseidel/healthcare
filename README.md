@@ -18,7 +18,9 @@ written to `reports/final/life-science-device/YYYY-MM-DD/`:
 - `changes.csv`: every comparison with the previous eligible final.
 - `render-data.json.gz`: a compact copy of the report-specific narrative, earnings, and
   reference inputs used for faithful network-free rerenders.
-- `manifest.json`: data dates, configuration hash, source outcomes, quality warnings, stage
+- `recommended-updates.html`: a dated checklist of symbols to verify and input-data changes
+  to consider. It is linked from the Past reports page and does not label the report itself.
+- `manifest.json`: data dates, configuration hash, source outcomes, recommended updates, stage
   timings, output sizes, and cache-retention results.
 
 The scheduled workflow also publishes the self-contained HTML report as a conveniently named
@@ -108,9 +110,10 @@ exact static site that will be published. Both `run` and `render` rebuild it aut
 
 Each published report has PDF and self-contained HTML downloads. Download buttons appear on the
 latest report, each Past reports row, each weekly report card in News & Earnings, and the report's
-own archive page. The News & Earnings page also offers an HTML download of the full index. The
-site builder uses the installed Playwright Chromium to create a print-ready PDF, then reuses
-unchanged PDFs through `docs/.download-manifest.json` on later builds.
+own archive page. Past reports also links to a Recommended updates page for that week. The News
+& Earnings page also offers an HTML download of the full index. The site builder uses the
+installed Playwright Chromium to create a print-ready PDF, then reuses unchanged PDFs through
+`docs/.download-manifest.json` on later builds.
 
 The homepage always uses the latest Healthcare report. The Past reports page groups the archive
 under Healthcare Intel Report and Life Sciences Intel Report. The News & Earnings page provides
@@ -293,7 +296,8 @@ The dated files are permanent history. `latest.md` and `latest.json` are replace
 successful, validated response, so downstream Python code can read either profile's stable location.
 The narratives are also written to `state/narrative.json` and
 `state/narrative-life-science-device.json` for the existing market-report renderer. If an API run
-fails, the last good narrative remains in place and the report is marked degraded.
+fails, the last good narrative remains in place and the follow-up is recorded in that date's
+recommended-updates page.
 
 Generate or inspect an individual strategy brief with:
 
@@ -348,8 +352,8 @@ stable latest files, final market reports, state, and the rebuilt site.
 The workflow validates and tests the project, installs anonymous Chromium, creates the final,
 uploads the standalone HTML artifact for 90 days, commits the final report plus compact `state/`
 using `github-actions[bot]`, and deploys the refreshed public site. If core market analysis
-cannot be built, it commits nothing. Earnings or narrative failures yield a degraded manifest
-while preserving the valid market report.
+cannot be built, it commits nothing. Earnings or narrative follow-ups are recorded on that date's
+recommended-updates page while preserving the valid market report.
 
 The workflow verifies that the branch has not changed while it runs and pushes through
 `github-actions[bot]`. It deploys Pages only when it committed a changed report or state snapshot.

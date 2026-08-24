@@ -80,7 +80,12 @@ class MarketCache:
 
     def prices(self, ticker: str) -> dict[str, Any]:
         path = self.root / "prices" / f"{ticker}.json"
-        record = read_json(path)
+        try:
+            record = read_json(path)
+        except RuntimeError:
+            # Unreadable cache, including committed merge-conflict markers, is a
+            # miss. The next price fetch rewrites a valid file.
+            record = None
         if isinstance(record, dict) and isinstance(record.get("bars"), list):
             return record
         legacy = self._legacy_prices(ticker)

@@ -51,9 +51,27 @@ def _fake_report(
             {
                 "report_date": published.isoformat(),
                 "market_data_as_of": published.isoformat(),
-                "quality": quality,
+                "quality": "ok",
                 "report_type": report_type,
                 "report_name": name,
+                "recommended_updates": {
+                    "verify_symbols": [
+                        {
+                            "ticker": "TALK",
+                            "name": "Talkspace",
+                            "reason": "No usable price history was available for this report.",
+                        }
+                    ],
+                    "input_updates": [
+                        {
+                            "title": "Review Talkspace (TALK) in companies.md",
+                            "detail": "Confirm the ticker is still listed.",
+                        }
+                    ],
+                    "other": [],
+                }
+                if quality == "degraded"
+                else {"verify_symbols": [], "input_updates": [], "other": []},
             }
         ),
         encoding="utf-8",
@@ -99,7 +117,21 @@ def test_build_site_uses_latest_report_and_builds_public_pages(project):
     archive = BeautifulSoup((output / "reports" / "index.html").read_text(), "html.parser")
     archive_links = [str(link["href"]) for link in archive.select(".report-list-link")]
     assert archive_links == ["2026-08-03/", "2026-07-27/"]
-    assert len(archive.select(".report-list-actions .download-button")) == 4
+    assert len(archive.select(".report-list-actions .download-button")) == 6
+    assert archive.select_one('a[href="2026-08-03/recommended-updates.html"]') is not None
+    updates = BeautifulSoup(
+        (output / "reports" / "2026-08-03" / "recommended-updates.html").read_text(),
+        "html.parser",
+    )
+    assert updates.select_one("h1").get_text(strip=True) == "Recommended updates"
+    assert "Verify these stock symbols" in updates.get_text(" ", strip=True)
+    assert "TALK" in updates.get_text(" ", strip=True)
+    assert "Consider these updates to the input data" in updates.get_text(" ", strip=True)
+    empty = BeautifulSoup(
+        (output / "reports" / "2026-07-27" / "recommended-updates.html").read_text(),
+        "html.parser",
+    )
+    assert "No recommended updates" in empty.get_text(" ", strip=True)
     assert "Latest" in archive.get_text(" ", strip=True)
     assert "Data warning" not in archive.get_text(" ", strip=True)
     assert "Final" in archive.get_text(" ", strip=True)

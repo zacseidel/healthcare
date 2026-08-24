@@ -10,6 +10,7 @@ from healthcare_report.analysis import (
     months_before,
     notable_change_summary,
     price_base,
+    recommended_updates,
 )
 
 
@@ -143,3 +144,54 @@ def test_notable_summary_is_capped_and_uses_the_configured_horizon(project):
     assert {row["ticker"] for row in summary["stocks"]["top"]} == {"A", "B", "C"}
     assert [row["ticker"] for row in summary["stocks"]["largest"]] == ["B", "A", "D"]
     assert [row["name"] for row in summary["categories"]["largest"]] == ["Sector D"]
+
+
+def test_recommended_updates_group_symbols_and_input_changes(project):
+    report_date = date(2026, 8, 24)
+    snapshot = [
+        {
+            "entity_type": "stock",
+            "ticker": "TALK",
+            "report_date": report_date,
+            "price_date": date(2026, 1, 1),
+            "category": "Digital Health",
+            "horizon_months": 3,
+            "market_cap_coverage": None,
+        },
+        {
+            "entity_type": "category",
+            "ticker": "",
+            "report_date": report_date,
+            "price_date": None,
+            "category": "Digital Health",
+            "horizon_months": 12,
+            "market_cap_coverage": 0.4,
+        },
+    ]
+    recommendations = recommended_updates(
+        project,
+        snapshot,
+        [
+            {
+                "source": "earnings",
+                "subject": "ASTH",
+                "status": "warning",
+                "detail": "Client error '404 Not Found' for url 'https://finance.yahoo.com/quote/ASTH/'",
+            },
+            {
+                "source": "earnings",
+                "subject": "PIII",
+                "status": "warning",
+                "detail": "Google Finance earnings labels were not found",
+            },
+        ],
+        narrative_age_days=2,
+    )
+    symbols = [item["ticker"] for item in recommendations["verify_symbols"]]
+    assert symbols == ["TALK", "ASTH"]
+    titles = [item["title"] for item in recommendations["input_updates"]]
+    assert any("TALK" in title and "companies.md" in title for title in titles)
+    assert any("ASTH" in title for title in titles)
+    assert any("earnings-page coverage" in title for title in titles)
+    assert any("market-cap coverage" in title for title in titles)
+    assert recommendations["other"] == []

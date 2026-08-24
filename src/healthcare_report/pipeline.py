@@ -16,12 +16,13 @@ from .analysis import (
     Baseline,
     build_snapshot,
     compare_snapshots,
-    data_issues,
     find_baseline,
     load_snapshot,
     months_before,
     notable_change_summary,
     period_moves,
+    recommendation_lines,
+    recommended_updates,
 )
 from .cache import MarketCache
 from .config import ProjectConfig
@@ -168,6 +169,7 @@ def _render_final(
     narrative: dict[str, Any] | None,
     status_rows: list[dict[str, str]],
     issues: list[str],
+    recommendations: dict[str, list[dict[str, str]]],
     stage_durations: dict[str, float],
     *,
     generated_at: str | None = None,
@@ -261,10 +263,21 @@ def _render_final(
             "reference": reference,
             "statuses": status_rows,
             "issues": issues,
+            "recommended_updates": recommendations,
         }
         markdown_text = build_markdown(context)
         html_name = report_html_name(report_date, config)
         write_report_files(temporary, markdown_text, report_date, config)
+        from .site import recommended_updates_document, recommended_updates_name
+
+        (temporary / recommended_updates_name()).write_text(
+            recommended_updates_document(
+                config.report_name,
+                report_date,
+                recommendations,
+            ),
+            encoding="utf-8",
+        )
         write_csv(temporary / "snapshot.csv", snapshot, SNAPSHOT_FIELDS)
         write_csv(temporary / "changes.csv", changes, CHANGE_FIELDS)
         write_gzip_json(
@@ -280,6 +293,7 @@ def _render_final(
         )
         files = [
             html_name,
+            recommended_updates_name(),
             "report.md",
             "snapshot.csv",
             "changes.csv",
@@ -306,8 +320,9 @@ def _render_final(
                     strategy_prompt_path(config),
                 ]
             ),
-            "quality": "degraded" if issues else "ok",
+            "quality": "ok",
             "issues": issues,
+            "recommended_updates": recommendations,
             "sources": status_rows,
             "metrics": {
                 "mode": mode,
@@ -510,7 +525,10 @@ def run_report(
         massive.close()
 
     status_rows = [item.as_dict() for item in statuses]
-    issues = data_issues(config, snapshot, status_rows, narrative_age(narrative, report_date))
+    recommendations = recommended_updates(
+        config, snapshot, status_rows, narrative_age(narrative, report_date)
+    )
+    issues = recommendation_lines(recommendations)
     _progress("Rendering charts and final report files...")
     destination, _manifest = _render_final(
         config,
@@ -525,6 +543,7 @@ def run_report(
         narrative,
         status_rows,
         issues,
+        recommendations,
         stage_durations,
     )
     save_earnings_state(config, earnings)
@@ -626,7 +645,10 @@ def rerender_report(
     moves_value = render_data.get("period_moves")
     moves = dict(moves_value) if isinstance(moves_value, dict) else None
     status_rows = [dict(row) for row in manifest.get("sources", []) if isinstance(row, dict)]
-    issues = data_issues(config, snapshot, status_rows, narrative_age(narrative, report_date))
+    recommendations = recommended_updates(
+        config, snapshot, status_rows, narrative_age(narrative, report_date)
+    )
+    issues = recommendation_lines(recommendations)
     destination, _new_manifest = _render_final(
         config,
         report_date,
@@ -640,6 +662,7 @@ def rerender_report(
         narrative,
         status_rows,
         issues,
+        recommendations,
         {"render_input_load": time.perf_counter() - load_started},
         generated_at=str(manifest.get("generated_at") or utc_now()),
         mode="render-only",

@@ -30,7 +30,10 @@ def earnings_state_path(config: ProjectConfig) -> Path:
 
 
 def load_earnings_state(config: ProjectConfig) -> dict[str, dict[str, Any]]:
-    value = read_json(earnings_state_path(config), {})
+    try:
+        value = read_json(earnings_state_path(config), {})
+    except RuntimeError:
+        return {}
     return value if isinstance(value, dict) else {}
 
 

@@ -145,6 +145,17 @@ def test_grouped_daily_prices_update_all_cached_tickers(project):
     assert grouped_calls == [date(2026, 1, 5), date(2026, 1, 6)]
 
 
+def test_corrupt_price_cache_is_treated_as_missing(project):
+    path = project.root / "state" / "cache" / "prices" / "UNH.json"
+    path.parent.mkdir(parents=True)
+    path.write_text(
+        '{\n  "ticker": "UNH",\n<<<<<<< Updated upstream\n  "covered_end": "2026-08-09"\n',
+        encoding="utf-8",
+    )
+    cache = MarketCache(project)
+    assert cache.prices("UNH") == {"schema": 1, "ticker": "UNH", "bars": []}
+
+
 def test_price_cache_retention_removes_only_old_bars(project):
     cache = MarketCache(project)
     cache.save_prices(
