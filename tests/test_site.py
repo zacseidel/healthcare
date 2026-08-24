@@ -133,6 +133,8 @@ def test_news_and_earnings_index_has_an_empty_state_before_the_first_report(proj
     index = BeautifulSoup((output / "news" / "index.html").read_text(), "html.parser")
     assert "No published reports are available to index" in index.get_text(" ", strip=True)
     assert index.select_one('nav.public-site-nav a[aria-current="page"]') is not None
+    assert index.select_one('.news-index-downloads a[href="News%20and%20Earnings%20Index.html"]') is not None
+    assert (output / "news" / "News and Earnings Index.html").is_file()
 
 
 def test_build_site_lists_both_report_types(project):
@@ -215,6 +217,16 @@ def test_news_and_earnings_index_links_reports_by_week_and_business_topic(projec
     assert index.select_one('nav.public-site-nav a[aria-current="page"]') .get_text(
         " ", strip=True
     ) == "News & Earnings"
+    index_downloads = {
+        link.get_text(strip=True): str(link["href"])
+        for link in index.select(".news-index-downloads a")
+    }
+    assert index_downloads == {"HTML": "News%20and%20Earnings%20Index.html"}
+    downloaded = output / "news" / "News and Earnings Index.html"
+    assert downloaded.is_file()
+    downloaded_page = BeautifulSoup(downloaded.read_text(), "html.parser")
+    assert downloaded_page.select_one("h1").get_text(strip=True) == "News & Earnings Index"
+    assert "August 10, 2026" in downloaded_page.get_text(" ", strip=True)
 
 
 def test_decorating_already_decorated_report_does_not_nest_navigation(tmp_path):

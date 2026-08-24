@@ -108,8 +108,9 @@ exact static site that will be published. Both `run` and `render` rebuild it aut
 
 Each published report has PDF and self-contained HTML downloads. Download buttons appear on the
 latest report, each Past reports row, each weekly report card in News & Earnings, and the report's
-own archive page. The site builder uses the installed Playwright Chromium to create a print-ready
-PDF, then reuses unchanged PDFs through `docs/.download-manifest.json` on later builds.
+own archive page. The News & Earnings page also offers an HTML download of the full index. The
+site builder uses the installed Playwright Chromium to create a print-ready PDF, then reuses
+unchanged PDFs through `docs/.download-manifest.json` on later builds.
 
 The homepage always uses the latest Healthcare report. The Past reports page groups the archive
 under Healthcare Intel Report and Life Sciences Intel Report. The News & Earnings page provides

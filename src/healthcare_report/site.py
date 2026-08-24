@@ -371,6 +371,10 @@ def _download_name(report: SiteReport, extension: str) -> str:
     return f"{report.source.stem}.{extension}"
 
 
+def _news_index_download_name() -> str:
+    return "News and Earnings Index.html"
+
+
 def _report_download_links(
     report: SiteReport,
     href_prefix: str,
@@ -386,6 +390,17 @@ def _report_download_links(
         f'<div class="{classes}" aria-label="Download {report_label}">{label}'
         f'<a class="download-button" href="{html.escape(pdf_href, quote=True)}" download>PDF</a>'
         f'<a class="download-button" href="{html.escape(html_href, quote=True)}" download>HTML</a>'
+        "</div>"
+    )
+
+
+def _news_index_download_links() -> str:
+    href = quote(_news_index_download_name())
+    return (
+        '<div class="report-downloads news-index-downloads" '
+        'aria-label="Download News and Earnings Index">'
+        '<span class="report-download-label">Download index</span>'
+        f'<a class="download-button" href="{html.escape(href, quote=True)}" download>HTML</a>'
         "</div>"
     )
 
@@ -609,6 +624,7 @@ def _news_index_page(reports: list[SiteReport]) -> str:
 
     body = (
         '<p class="site-eyebrow">Intelligence library</p><h1>News &amp; Earnings Index</h1>'
+        f"{_news_index_download_links()}"
         '<p class="site-lede">Browse weekly news headlines and earnings-call coverage, then '
         'review news across the business topics it affects.</p>'
         '<section aria-labelledby="weekly-index-heading"><h2 id="weekly-index-heading">By week</h2>'
@@ -718,8 +734,10 @@ def build_site(config: ProjectConfig, output: Path | None = None) -> dict[str, A
             _archive_page(reports), encoding="utf-8"
         )
         (temporary / "news").mkdir()
-        (temporary / "news" / "index.html").write_text(
-            _news_index_page(reports), encoding="utf-8"
+        news_index = _news_index_page(reports)
+        (temporary / "news" / "index.html").write_text(news_index, encoding="utf-8")
+        (temporary / "news" / _news_index_download_name()).write_text(
+            news_index, encoding="utf-8"
         )
         for name in ("about", "methodology"):
             folder = temporary / name
