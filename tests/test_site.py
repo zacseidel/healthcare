@@ -6,7 +6,7 @@ from pathlib import Path
 
 from bs4 import BeautifulSoup
 
-from healthcare_report.site import _decorate_report, build_site
+from healthcare_report.site import _decorate_report, _optimize_report_pdf, build_site
 
 
 def _fake_report(
@@ -109,7 +109,11 @@ def test_build_site_uses_latest_report_and_builds_public_pages(project):
     }
     assert home.select_one('nav.public-site-nav a[href="reports/"]') is not None
     assert home.select_one('nav.public-site-nav a[href="news/"]') is not None
-    assert (output / "assets" / "chart.webp").is_file()
+    assert home.select_one('img[src="reports/2026-08-03/assets/chart.webp"]') is not None
+    assert not (output / "assets").exists()
+    downloaded = (output / "reports" / "2026-08-03" / "Healthcare Intel-2026-08-03.html").read_text()
+    assert "data:image/webp;base64" in downloaded
+    assert 'src="assets/' not in downloaded
     assert "No published reports are available" not in (
         output / "news" / "index.html"
     ).read_text()
@@ -140,6 +144,7 @@ def test_build_site_uses_latest_report_and_builds_public_pages(project):
         (output / "reports" / "2026-07-27" / "index.html").read_text(), "html.parser"
     )
     assert historical.select_one('nav.public-site-nav a[href="../../about/"]') is not None
+    assert historical.select_one('img[src="assets/chart.webp"]') is not None
     assert len(historical.select(".report-downloads-page .download-button")) == 2
     assert (output / "reports" / "2026-07-27" / "assets" / "chart.webp").is_file()
     assert (output / "reports" / "2026-08-03" / "Healthcare Intel-2026-08-03.html").is_file()
@@ -259,6 +264,22 @@ def test_news_and_earnings_index_links_reports_by_week_and_business_topic(projec
     downloaded_page = BeautifulSoup(downloaded.read_text(), "html.parser")
     assert downloaded_page.select_one("h1").get_text(strip=True) == "News & Earnings Index"
     assert "August 10, 2026" in downloaded_page.get_text(" ", strip=True)
+
+
+def test_optimize_report_pdf_downsamples_charts_to_jpeg(tmp_path):
+    import os
+
+    from PIL import Image
+
+    pdf_path = tmp_path / "chart.pdf"
+    Image.frombytes("RGB", (1600, 800), os.urandom(1600 * 800 * 3)).save(
+        pdf_path, format="PDF", resolution=200
+    )
+    before = pdf_path.stat().st_size
+    _optimize_report_pdf(pdf_path)
+    data = pdf_path.read_bytes()
+    assert pdf_path.stat().st_size < before
+    assert b"/DCTDecode" in data
 
 
 def test_decorating_already_decorated_report_does_not_nest_navigation(tmp_path):

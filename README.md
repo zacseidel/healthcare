@@ -9,11 +9,11 @@ Reports are generated as final versions immediately and stored in Git.
 Healthcare reports are written to `reports/final/YYYY-MM-DD/`; Life Science and Device reports are
 written to `reports/final/life-science-device/YYYY-MM-DD/`:
 
-- `Healthcare Intel-YYYY-MM-DD.html`: self-contained report HTML with embedded charts, so it
-  can be downloaded, previewed, or shared on its own.
+- `Healthcare Intel-YYYY-MM-DD.html`: report HTML that references WebP charts in `assets/`.
+  This keeps the Git copy and public site pages small; charts still render next to the file.
 - `Life Science and Device Intel-YYYY-MM-DD.html`: the same report format for the pharma,
   biotech, and device universe.
-- `report.md` and `assets/`: diffable Markdown and lossless WebP chart images.
+- `report.md` and `assets/`: diffable Markdown and compact WebP chart images.
 - `snapshot.csv`: the published performance values and ranks.
 - `changes.csv`: every comparison with the previous eligible final.
 - `render-data.json.gz`: a compact copy of the report-specific narrative, earnings, and
@@ -23,8 +23,8 @@ written to `reports/final/life-science-device/YYYY-MM-DD/`:
 - `manifest.json`: data dates, configuration hash, source outcomes, recommended updates, stage
   timings, output sizes, and cache-retention results.
 
-The scheduled workflow also publishes the self-contained HTML report as a conveniently named
-GitHub Actions artifact.
+The scheduled workflow also publishes a self-contained HTML report (charts inlined) as a
+conveniently named GitHub Actions artifact.
 
 A rerun for an existing date replaces that folder. The previous version remains available
 through Git history.
@@ -109,12 +109,15 @@ an About page, and a Methodology page. It is tracked in Git so a local report ru
 exact static site that will be published. Both `run` and `render` rebuild it automatically;
 `build-site` remains useful after editing only the About or Methodology copy.
 
-Each published report has PDF and self-contained HTML downloads. Download buttons appear on the
+Each published report has PDF and self-contained HTML downloads. The HTML download inlines
+charts so it can be opened or shared as a single file. The PDF includes a heading bookmark
+outline for section navigation. Download buttons appear on the
 latest report, each Past reports row, each weekly report card in News & Earnings, and the report's
 own archive page. Past reports also links to a Recommended updates page for that week. The News
 & Earnings page also offers an HTML download of the full index. The site builder uses the
-installed Playwright Chromium to create a print-ready PDF, then reuses unchanged PDFs through
-`docs/.download-manifest.json` on later builds.
+installed Playwright Chromium to create a print-ready PDF, downsamples charts to about 150 dpi,
+JPEG-compresses them, then reuses unchanged PDFs through `docs/.download-manifest.json` on later
+builds.
 
 The homepage always uses the latest Healthcare report. The Past reports page groups the archive
 under Healthcare Intel Report and Life Sciences Intel Report. The News & Earnings page provides

@@ -232,8 +232,8 @@ Keep this section.
     ):
         assert (first_folder / name).stat().st_size > 0
     report_html = (first_folder / html_name).read_text()
-    assert "data:image/webp;base64" in report_html
-    assert 'src="assets/' not in report_html
+    assert 'src="assets/' in report_html
+    assert "data:image/webp;base64" not in report_html
     assert 'class="report-nav"' in report_html
     assert "Georgia" in report_html
     assert "Week of August 3, 2026" in report_html
@@ -279,10 +279,7 @@ Keep this section.
     assert strategy_link_labels == ["1. Cloud strategy headline"]
     report_images = soup.find_all("img")
     assert report_images
-    assert all(
-        str(image.get("src", "")).startswith("data:image/webp;base64,")
-        for image in report_images
-    )
+    assert all(str(image.get("src", "")).startswith("assets/") for image in report_images)
     earnings_heading = soup.select_one("h2#recent-earnings-highlights-3m-ret")
     assert earnings_heading is not None
     first_earnings = earnings_heading.find_next_sibling("ul").find("li").get_text(" ", strip=True)

@@ -155,6 +155,22 @@ def _plotting() -> tuple[Any, Any]:
     return mdates, plt
 
 
+# 120 dpi is enough for the report's ~1120px content column and print PDFs;
+# lossy WebP keeps line charts sharp at a fraction of lossless size.
+CHART_DPI = 120
+WEBP_QUALITY = 80
+
+
+def _save_chart(figure: Any, path: Path) -> None:
+    figure.savefig(
+        path,
+        dpi=CHART_DPI,
+        bbox_inches="tight",
+        format="webp",
+        pil_kwargs={"quality": WEBP_QUALITY, "method": 6},
+    )
+
+
 @dataclass(frozen=True)
 class HtmlCell:
     content: str
@@ -494,13 +510,7 @@ def render_charts(
         figure.autofmt_xdate(rotation=0)
         figure.tight_layout()
         path = assets / f"performance-{horizon}m.webp"
-        figure.savefig(
-            path,
-            dpi=150,
-            bbox_inches="tight",
-            format="webp",
-            pil_kwargs={"lossless": True, "method": 6},
-        )
+        _save_chart(figure, path)
         plt.close(figure)
         charts.append((int(horizon), path))
     return charts
@@ -548,13 +558,7 @@ def render_rank_comparison_chart(
     assets = folder / "assets"
     assets.mkdir(parents=True, exist_ok=True)
     path = assets / "rank-comparison.webp"
-    figure.savefig(
-        path,
-        dpi=150,
-        bbox_inches="tight",
-        format="webp",
-        pil_kwargs={"lossless": True, "method": 6},
-    )
+    _save_chart(figure, path)
     plt.close(figure)
     return path
 
@@ -663,13 +667,7 @@ def render_earnings_charts(
         figure.autofmt_xdate(rotation=0)
         figure.tight_layout()
         path = assets / f"earnings-{_slug(featured)}-3m.webp"
-        figure.savefig(
-            path,
-            dpi=150,
-            bbox_inches="tight",
-            format="webp",
-            pil_kwargs={"lossless": True, "method": 6},
-        )
+        _save_chart(figure, path)
         plt.close(figure)
         charts[featured] = path
     return charts
@@ -1278,6 +1276,23 @@ def _navigation(body: str) -> tuple[str, str]:
     return navigation, str(soup)
 
 
+def _inline_asset_images(soup: BeautifulSoup, folder: Path) -> None:
+    for image_node in soup.select('img[src^="assets/"]'):
+        relative = Path(str(image_node.get("src") or ""))
+        image_path = folder / relative
+        if not image_path.is_file():
+            raise RuntimeError(f"Cannot embed missing report image: {relative}")
+        mime_type = "image/webp" if image_path.suffix.casefold() == ".webp" else "image/png"
+        encoded = base64.b64encode(image_path.read_bytes()).decode("ascii")
+        image_node["src"] = f"data:{mime_type};base64,{encoded}"
+
+
+def embed_html_images(html_text: str, folder: Path) -> str:
+    soup = BeautifulSoup(html_text, "html.parser")
+    _inline_asset_images(soup, folder)
+    return str(soup)
+
+
 def _html_document(
     folder: Path,
     markdown_text: str,
@@ -1291,14 +1306,7 @@ def _html_document(
     )
     soup = BeautifulSoup(body, "html.parser")
     if embed_images:
-        for image_node in soup.select('img[src^="assets/"]'):
-            relative = Path(str(image_node.get("src") or ""))
-            image_path = folder / relative
-            if not image_path.is_file():
-                raise RuntimeError(f"Cannot embed missing report image: {relative}")
-            mime_type = "image/webp" if image_path.suffix.casefold() == ".webp" else "image/png"
-            encoded = base64.b64encode(image_path.read_bytes()).decode("ascii")
-            image_node["src"] = f"data:{mime_type};base64,{encoded}"
+        _inline_asset_images(soup, folder)
     for table in soup.find_all("table"):
         parent = table.parent
         raw_classes = parent.get("class") if parent is not None else None
@@ -1330,10 +1338,10 @@ def write_report_files(
 ) -> Path:
     markdown_path = folder / "report.md"
     markdown_path.write_text(markdown_text, encoding="utf-8")
-    # The primary HTML is commonly downloaded, previewed, or shared without its
-    # sibling assets directory. Keep it portable so charts survive those paths;
-    # the WebP files remain alongside report.md for Markdown and chart reuse.
-    document = _html_document(folder, markdown_text, embed_images=True)
+    # Keep the published HTML linked to sibling WebP files so Git and the public
+    # site stay compact. export-standalone and the site HTML download still
+    # inline charts for a portable single-file copy.
+    document = _html_document(folder, markdown_text, embed_images=False)
     html_path = folder / report_html_name(report_date, config)
     html_path.write_text(document, encoding="utf-8")
     return html_path

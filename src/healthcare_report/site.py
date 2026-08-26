@@ -17,7 +17,7 @@ from bs4 import BeautifulSoup
 from .analysis import load_snapshot, recommended_updates
 from .config import ProjectConfig
 from .narrative import narrative_age
-from .render import report_html_name
+from .render import embed_html_images, report_html_name
 from .storage import atomic_replace_directory, read_gzip_json, read_json, write_json
 
 SITE_CSS = """
@@ -431,6 +431,7 @@ def _decorate_report(
     active: str,
     report: SiteReport | None = None,
     download_prefix: str = "",
+    asset_prefix: str = "",
 ) -> None:
     soup = BeautifulSoup(source.read_text(encoding="utf-8"), "html.parser")
     if soup.head is None or soup.body is None:
@@ -445,6 +446,9 @@ def _decorate_report(
     report_navs = soup.select("nav.report-nav")
     for duplicate in report_navs[1:]:
         duplicate.decompose()
+    if asset_prefix:
+        for image in soup.select('img[src^="assets/"]'):
+            image["src"] = asset_prefix + str(image.get("src") or "")
     styles = soup.new_tag("style")
     styles.string = SITE_CSS
     soup.head.append(styles)
@@ -777,6 +781,78 @@ def _copy_assets(report_html: Path, destination_folder: Path) -> None:
         shutil.copytree(source, destination_folder / "assets")
 
 
+# Bump when PDF generation options change so cached downloads regenerate.
+PDF_RENDER_VERSION = 3
+# ~150 dpi on letter content (~7.6in), matching Preview's "Reduce File Size" target.
+PDF_IMAGE_MAX_WIDTH = 1140
+PDF_JPEG_QUALITY = 80
+
+
+def _report_fingerprint(report: SiteReport) -> str:
+    digest = hashlib.sha256()
+    digest.update(f"pdf-render:{PDF_RENDER_VERSION}\n".encode())
+    digest.update(report.source.read_bytes())
+    assets = report.source.parent / "assets"
+    if assets.is_dir():
+        for path in sorted(item for item in assets.rglob("*") if item.is_file()):
+            digest.update(path.relative_to(assets).as_posix().encode("utf-8"))
+            digest.update(b"\0")
+            digest.update(path.read_bytes())
+    return digest.hexdigest()
+
+
+def _optimize_report_pdf(path: Path) -> None:
+    """Downsample raster charts and JPEG-compress them, then deflate page streams."""
+    import logging
+
+    from PIL import Image
+    from pypdf import PdfReader, PdfWriter
+
+    reader = PdfReader(str(path), strict=False)
+    # Chromium tagged PDFs often have a trailer size Chromium itself disagrees
+    # with; pypdf still clones them correctly.
+    pypdf_log = logging.getLogger("pypdf")
+    previous_level = pypdf_log.level
+    pypdf_log.setLevel(logging.ERROR)
+    try:
+        writer = PdfWriter(clone_from=reader)
+    finally:
+        pypdf_log.setLevel(previous_level)
+    seen: set[int] = set()
+    for page in writer.pages:
+        for image in page.images:
+            reference = image.indirect_reference
+            ident = getattr(reference, "idnum", id(image))
+            if ident in seen or image.is_inline:
+                continue
+            seen.add(ident)
+            picture = image.image
+            if picture is None or min(picture.size) < 32:
+                continue
+            if picture.width > PDF_IMAGE_MAX_WIDTH:
+                ratio = PDF_IMAGE_MAX_WIDTH / picture.width
+                picture = picture.resize(
+                    (PDF_IMAGE_MAX_WIDTH, max(1, int(picture.height * ratio))),
+                    Image.Resampling.LANCZOS,
+                )
+            if picture.mode not in {"RGB", "L"}:
+                picture = picture.convert("RGB")
+            image.replace(picture, quality=PDF_JPEG_QUALITY)
+    for page in writer.pages:
+        page.compress_content_streams(level=9)
+    writer.compress_identical_objects(remove_duplicates=True, remove_unreferenced=True)
+    temporary = path.with_name(f"{path.name}.tmp")
+    try:
+        writer.write(temporary)
+        if temporary.stat().st_size < path.stat().st_size:
+            temporary.replace(path)
+        else:
+            temporary.unlink()
+    except Exception:
+        temporary.unlink(missing_ok=True)
+        raise
+
+
 def _publish_report_downloads(
     reports: list[SiteReport],
     destination: Path,
@@ -795,8 +871,12 @@ def _publish_report_downloads(
     for report in reports:
         folder = destination / "reports" / report.archive_path
         folder.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(report.source, folder / _download_name(report, "html"))
-        fingerprint = hashlib.sha256(report.source.read_bytes()).hexdigest()
+        download_html = folder / _download_name(report, "html")
+        download_html.write_text(
+            embed_html_images(report.source.read_text(encoding="utf-8"), report.source.parent),
+            encoding="utf-8",
+        )
+        fingerprint = _report_fingerprint(report)
         current_hashes[report.archive_path] = fingerprint
         old_pdf = (
             previous_site / "reports" / report.archive_path / _download_name(report, "pdf")
@@ -822,12 +902,18 @@ def _publish_report_downloads(
                 page = browser.new_page()
                 page.emulate_media(media="print")
                 for report, folder in pending:
-                    page.set_content(report.source.read_text(encoding="utf-8"), wait_until="load")
+                    # Load from disk so relative `assets/` charts resolve for
+                    # the linked published HTML. Embedded historical copies
+                    # still render because they do not need sibling files.
+                    page.goto(report.source.resolve().as_uri(), wait_until="load")
                     page.evaluate("document.fonts.ready")
+                    pdf_path = folder / _download_name(report, "pdf")
                     page.pdf(
-                        path=str(folder / _download_name(report, "pdf")),
+                        path=str(pdf_path),
                         format="Letter",
                         print_background=True,
+                        outline=True,
+                        tagged=True,
                         margin={
                             "top": "0.45in",
                             "right": "0.45in",
@@ -835,6 +921,7 @@ def _publish_report_downloads(
                             "left": "0.45in",
                         },
                     )
+                    _optimize_report_pdf(pdf_path)
             finally:
                 browser.close()
 
@@ -878,8 +965,8 @@ def build_site(config: ProjectConfig, output: Path | None = None) -> dict[str, A
                 active="latest",
                 report=latest,
                 download_prefix=f"reports/{latest.archive_path}/",
+                asset_prefix=f"reports/{latest.archive_path}/",
             )
-            _copy_assets(latest.source, temporary)
             for report in reports:
                 folder = temporary / "reports" / report.archive_path
                 prefix = "../" * (len(report.archive_path.split("/")) + 1)
