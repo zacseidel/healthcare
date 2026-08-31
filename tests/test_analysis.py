@@ -185,7 +185,7 @@ def test_recommended_updates_group_symbols_and_input_changes(project):
                 "detail": "Google Finance earnings labels were not found",
             },
         ],
-        narrative_age_days=2,
+        narrative_age_days=0,
     )
     symbols = [item["ticker"] for item in recommendations["verify_symbols"]]
     assert symbols == ["TALK", "ASTH"]
@@ -195,3 +195,27 @@ def test_recommended_updates_group_symbols_and_input_changes(project):
     assert any("earnings-page coverage" in title for title in titles)
     assert any("market-cap coverage" in title for title in titles)
     assert recommendations["other"] == []
+
+
+def test_stale_strategy_narrative_is_flagged_at_six_days(project):
+    snapshot = [
+        {
+            "entity_type": "stock",
+            "ticker": "UNH",
+            "report_date": date(2026, 8, 31),
+            "price_date": date(2026, 8, 28),
+            "category": "Payers",
+            "horizon_months": 12,
+            "market_cap_coverage": None,
+        }
+    ]
+    fresh = recommended_updates(project, snapshot, [], narrative_age_days=5)
+    stale = recommended_updates(project, snapshot, [], narrative_age_days=6)
+    assert not any(
+        item["title"] == "Consider regenerating the strategy narrative"
+        for item in fresh["other"]
+    )
+    assert any(
+        item["title"] == "Consider regenerating the strategy narrative"
+        for item in stale["other"]
+    )

@@ -5,17 +5,16 @@
   "report_date": "2026-08-31",
   "market_data_as_of": "2026-08-28",
   "generated_at": "2026-08-31T13:58:06Z",
-  "rendered_at": "2026-08-31T13:58:06Z",
+  "rendered_at": "2026-08-31T16:01:55Z",
   "baseline_report_date": "2026-08-24",
-  "configuration_sha256": "d71e9c1dfde493936a0de3bc88c8891168915380a4027f25816dfdf37a19783e",
+  "configuration_sha256": "cf1009e22f1dc8adfb84d129f8a9bfc55c9ac270140d9b51d99867046228864d",
   "quality": "ok",
   "issues": [
     "Verify these stock symbols: TALK (Latest saved price is 2026-08-14, older than the 7-day limit.), MDRX (Latest saved price is 2026-07-31, older than the 7-day limit.), ASTH (The public earnings page for this ticker was not found.).",
     "Review Talkspace (TALK) in companies.md: Prices were missing or too old to use. Confirm the ticker is still listed, or replace/remove this company in the watchlist.",
     "Review Veradigm (MDRX) in companies.md: Prices were missing or too old to use. Confirm the ticker is still listed, or replace/remove this company in the watchlist.",
     "Confirm the earnings ticker for ASTH: Yahoo or Google Finance did not have this symbol. The listed ticker in companies.md may be outdated.",
-    "Review earnings-page coverage in the company universe: Public earnings pages for PIII, TALK, LFMD, MDRX, AHCO, NEO did not expose the usual report-date or transcript labels. The page layout may have changed, or these companies may no longer fit automated earnings collection.",
-    "Refresh the strategy narrative: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5.6-sol in organization org-CjszQXVKeXnLJNVddojpQwn1 on tokens per min (TPM): Limit 500000, Used 436490, Requested 106805. Please try again in 5.195s. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
+    "Review earnings-page coverage in the company universe: Public earnings pages for PIII, TALK, LFMD, MDRX, AHCO, NEO did not expose the usual report-date or transcript labels. The page layout may have changed, or these companies may no longer fit automated earnings collection."
   ],
   "recommended_updates": {
     "verify_symbols": [
@@ -53,12 +52,7 @@
         "detail": "Public earnings pages for PIII, TALK, LFMD, MDRX, AHCO, NEO did not expose the usual report-date or transcript labels. The page layout may have changed, or these companies may no longer fit automated earnings collection."
       }
     ],
-    "other": [
-      {
-        "title": "Refresh the strategy narrative",
-        "detail": "Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5.6-sol in organization org-CjszQXVKeXnLJNVddojpQwn1 on tokens per min (TPM): Limit 500000, Used 436490, Requested 106805. Please try again in 5.195s. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
-      }
-    ]
+    "other": []
   },
   "sources": [
     {
@@ -1552,43 +1546,35 @@
     {
       "source": "strategy narrative",
       "subject": "OpenAI Responses API",
-      "status": "warning",
-      "detail": "Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5.6-sol in organization org-CjszQXVKeXnLJNVddojpQwn1 on tokens per min (TPM): Limit 500000, Used 436490, Requested 106805. Please try again in 5.195s. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
+      "status": "ok",
+      "detail": "OpenAI Responses API"
     }
   ],
   "metrics": {
-    "mode": "full",
+    "mode": "render-only",
     "durations_seconds": {
-      "market_data": 53.116,
-      "analysis": 0.027,
-      "secondary_sources": 791.817,
-      "rendering": 16.933,
-      "total": 861.939
+      "render_input_load": 0.009,
+      "rendering": 0.451,
+      "total": 0.48
     },
     "counts": {
       "companies": 82,
-      "price_bars_loaded": 41330,
+      "price_bars_loaded": 0,
       "performance_charts": 3,
       "earnings_charts": 2,
       "source_statuses": {
-        "ok": 241,
-        "warning": 8
+        "ok": 242,
+        "warning": 7
       }
     },
     "output_bytes": {
-      "html": 201991,
-      "markdown": 182048,
+      "html": 194796,
+      "markdown": 175300,
       "charts": 3313324,
-      "data": 187980,
-      "total_without_manifest": 3894817
+      "data": 186178,
+      "total_without_manifest": 3878463
     },
-    "price_retention": {
-      "cutoff": "2024-07-17",
-      "files_changed": 5,
-      "bars_removed": 5,
-      "bars_retained": 42205
-    },
-    "directory_bytes": 3937824
+    "directory_bytes": 3920236
   },
   "files": [
     "Healthcare Intel-2026-08-31.html",

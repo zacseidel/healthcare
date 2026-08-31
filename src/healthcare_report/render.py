@@ -803,15 +803,16 @@ def build_markdown(context: dict[str, Any]) -> str:
         "## In the News",
         "",
     ]
-    if narrative:
+    narrative_body = str((narrative or {}).get("body") or "").strip() if narrative else ""
+    if narrative_body:
         lines.append(
             _presentation_narrative(
-                str(narrative.get("body") or ""),
+                narrative_body,
                 strip_status_headers=config.scope == "life-science-device",
             )
         )
     else:
-        lines.append("No strategy narrative is available.")
+        lines.append("No strategy narrative is available for this week.")
 
     lines.extend(["", "## Notable Changes", ""])
     baseline: Baseline | None = context.get("baseline")

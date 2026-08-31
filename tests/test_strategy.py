@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 from datetime import date
 from types import SimpleNamespace
 
@@ -9,8 +10,10 @@ import pytest
 from healthcare_report.strategy import (
     StrategySettings,
     assemble_prompt,
+    compact_prior_report,
     discover_history,
     estimate_cost,
+    format_recent_earnings,
     format_watchlist_movers,
     generate_strategy_report,
     reporting_window,
@@ -162,10 +165,11 @@ def test_prompt_assembly_delimits_history_and_dates():
     assert "Report run date: 2026-08-24" in prompt
     assert "Primary reporting window: 2026-08-17 through 2026-08-24" in prompt
     assert "previous Monday report (2026-08-17)" in prompt
-    assert '<prior_report date="2026-08-17">' in prompt
+    assert '<prior_report date="2026-08-17"' in prompt
     assert "<master_brief>\nMaster instructions\n</master_brief>" in prompt
     assert "<watchlist_movers>\n- MRNA Moderna +129.2%\n</watchlist_movers>" in prompt
     assert "Do not treat intra-week notes as last" in prompt
+    assert "Use supplied recent earnings and watchlist movers" in prompt
 
 
 def test_watchlist_movers_block_is_compact():
@@ -203,13 +207,18 @@ def test_healthcare_profile_uses_10x_master_prompt(project):
     result = generate_strategy_report(project, date(2026, 8, 24), dry_run=True)
 
     assert strategy_prompt_path(project).name == "healthcare-strategy-prompt.md"
-    assert "Scan the named primary-source circuit every week" in result["assembled_prompt"]
-    assert "Optional compact risk-dashboard table" in result["assembled_prompt"]
-    assert "previous Monday briefing" in result["assembled_prompt"]
-    assert "watchlist movers" in result["assembled_prompt"]
-    assert "This is a **proposal**, not the live Healthcare prompt" not in result[
-        "assembled_prompt"
-    ]
+    prompt = result["assembled_prompt"]
+    assert "**Implication**" in prompt
+    assert re.search(r"^\*\*Strategist implication\*\*\s*$", prompt, flags=re.M) is None
+    assert "Write **2-5** numbered interpretive headlines" in prompt
+    assert "Number **4-6** interpretive headlines" not in prompt
+    assert "Veeva" in prompt
+    assert "IQVIA" in prompt
+    assert "In-window watchlist earnings and large movers are a scan list" in prompt
+    assert "previous Monday briefing" in prompt
+    assert "watchlist movers" in prompt
+    assert "Optional compact risk-dashboard table" not in prompt
+    assert "This is a **proposal**, not the live Healthcare prompt" not in prompt
 
 
 def test_life_sciences_profile_uses_separate_prompt_and_research_task(project):
@@ -374,3 +383,137 @@ def test_dry_run_makes_no_api_call_or_report(project):
     assert result["status"] == "dry-run"
     assert "<master_brief>" in result["assembled_prompt"]
     assert not strategy_root(project).exists()
+
+
+def test_compact_prior_report_keeps_headlines_not_story_bodies():
+    body = """# Healthcare Strategy Brief
+## Week of August 10, 2026
+## Executive View
+- Old takeaway one that should remain.
+## 1. Medicaid payment integrity became an operating model
+**What happened**
+A long story body that should not appear in the digest because it is only background.
+## Bottom Line
+Watch state comments.
+"""
+    compact = compact_prior_report(body)
+    assert "Old takeaway one that should remain." in compact
+    assert "Medicaid payment integrity became an operating model" in compact
+    assert "Watch state comments." in compact
+    assert "A long story body" not in compact
+
+
+def test_older_history_is_compacted_in_assembled_prompt():
+    older = """# Healthcare Strategy Brief
+## Week of August 10, 2026
+## Executive View
+- Old takeaway one that should remain.
+## 1. Medicaid payment integrity became an operating model
+**What happened**
+A long story body that should not appear in the digest because it is only background.
+## Bottom Line
+Watch state comments.
+"""
+    previous = """# Healthcare Strategy Brief
+## Week of August 17, 2026
+## Executive View
+- Fresh takeaway.
+## 1. Prior-authorization transparency is now measurable
+**What happened**
+KFF published denial rates that must remain because this is last Monday.
+## Bottom Line
+Carry the transparency thesis.
+"""
+    prompt = assemble_prompt(
+        "Master instructions",
+        date(2026, 8, 24),
+        [(date(2026, 8, 10), older), (date(2026, 8, 17), previous)],
+    )
+    assert "KFF published denial rates that must remain because this is last Monday." in prompt
+    assert "A long story body that should not appear" not in prompt
+    assert "Medicaid payment integrity became an operating model" in prompt
+    assert "older Monday digest" in prompt
+    assert "previous Monday briefing" in prompt
+
+
+def test_format_recent_earnings_is_compact_and_omits_transcripts():
+    text = format_recent_earnings(
+        [
+            {
+                "ticker": "VEEV",
+                "name": "Veeva Systems",
+                "last_report_date": "2026-08-26",
+                "summary": "Veeva beat estimates on its best CRM quarter.",
+                "at_a_glance": [
+                    {"headline": "Veeva Beats EPS and Revenue Estimates"},
+                    {"headline": "Management Raises Full-Year Fiscal Guidance"},
+                    {"headline": "Vault CRM Achieves Record Milestones"},
+                    {"headline": "Accelerating AI Development via Falcon"},
+                    {"headline": "Stock Surges and Analysts Respond"},
+                    {"headline": "Sixth headline still in the cap"},
+                    {"headline": "Seventh headline should be omitted"},
+                ],
+                "key_moments": [
+                    {
+                        "title": "Agentic Labor Transformation via Veeva Falcon",
+                        "blurb": "This transcript blurb must not reach the strategy prompt.",
+                    }
+                ],
+            }
+        ]
+    )
+    assert "VEEV Veeva Systems reported 2026-08-26" in text
+    assert "Veeva beat estimates on its best CRM quarter." in text
+    assert "Veeva Beats EPS and Revenue Estimates" in text
+    assert "Accelerating AI Development via Falcon" in text
+    assert "Stock Surges and Analysts Respond" in text
+    assert "Sixth headline still in the cap" in text
+    assert "Seventh headline should be omitted" not in text
+    assert "transcript blurb" not in text
+    assert "key_moments" not in text
+    assert "Evaluate each name" in text
+
+
+def test_assemble_prompt_includes_earnings_block():
+    prompt = assemble_prompt(
+        "Master instructions",
+        date(2026, 8, 31),
+        [(date(2026, 8, 24), "Prior Monday brief")],
+        movers="- VEEV Veeva Systems +11.6%",
+        earnings="- VEEV Veeva Systems reported 2026-08-26",
+    )
+    assert "<recent_earnings>\n- VEEV Veeva Systems reported 2026-08-26\n</recent_earnings>" in prompt
+    assert "<watchlist_movers>\n- VEEV Veeva Systems +11.6%\n</watchlist_movers>" in prompt
+    assert "Use supplied recent earnings and watchlist movers before searching" in prompt
+
+
+def test_rate_limit_retries_then_succeeds(project, monkeypatch):
+    monkeypatch.setattr(
+        "healthcare_report.strategy.RATE_LIMIT_BACKOFF_SECONDS", (0.0, 0.0, 0.0)
+    )
+    monkeypatch.setattr("healthcare_report.strategy.time.sleep", lambda _seconds: None)
+    report_date = date(2026, 8, 24)
+    calls = {"n": 0}
+
+    def flaky(_settings, _prompt):
+        calls["n"] += 1
+        if calls["n"] < 3:
+            raise RuntimeError("Error code: 429 - Rate limit reached on tokens per min (TPM)")
+        return FakeResponse(_valid_report(report_date))
+
+    result = generate_strategy_report(project, report_date, response_client=flaky)
+    assert result["status"] == "success"
+    assert calls["n"] == 3
+
+
+def test_exhausted_rate_limit_still_raises(project, monkeypatch):
+    monkeypatch.setattr("healthcare_report.strategy.RATE_LIMIT_BACKOFF_SECONDS", (0.0, 0.0))
+    monkeypatch.setattr("healthcare_report.strategy.time.sleep", lambda _seconds: None)
+
+    def always_limited(_settings, _prompt):
+        raise RuntimeError("Error code: 429 - rate_limit_exceeded tokens per min")
+
+    with pytest.raises(RuntimeError, match="429"):
+        generate_strategy_report(
+            project, date(2026, 8, 24), response_client=always_limited
+        )

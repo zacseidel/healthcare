@@ -4,6 +4,7 @@ import hashlib
 import json
 import os
 import re
+import time
 from collections.abc import Callable
 from dataclasses import dataclass
 from datetime import date, timedelta
@@ -184,6 +185,145 @@ def format_watchlist_movers(
     return "\n".join(parts)
 
 
+RATE_LIMIT_BACKOFF_SECONDS = (20.0, 40.0, 80.0)
+OLDER_HISTORY_WORD_CAP = 350
+EARNINGS_HEADLINE_LIMIT = 6
+
+
+def _heading_label(line: str) -> str | None:
+    stripped = line.strip()
+    markdown = re.match(r"^#{1,6}\s+(.+?)\s*$", stripped)
+    if markdown:
+        return re.sub(r"[*_`]+", "", markdown.group(1)).strip()
+    html = re.match(r"^<h[1-6](?:\s[^>]*)?>(.*?)</h[1-6]>\s*$", stripped, flags=re.I)
+    if html:
+        return re.sub(r"<[^>]+>", "", html.group(1)).strip()
+    return None
+
+
+def compact_prior_report(body: str, *, max_words: int = OLDER_HISTORY_WORD_CAP) -> str:
+    """Keep last week's comparison baseline out of older briefs: headlines and thesis only."""
+    text = body.strip()
+    if not text:
+        return ""
+    keep: list[str] = []
+    mode: str | None = None
+    for line in text.splitlines():
+        heading = _heading_label(line)
+        if heading:
+            label = heading.casefold()
+            if "strategy brief" in label or label.startswith("week of"):
+                keep.append(heading)
+                mode = None
+            elif "executive view" in label or label.startswith("executive readout"):
+                keep.append("## Executive View")
+                mode = "exec"
+            elif re.match(r"^\d+\.\s", heading):
+                keep.append(f"## {heading}")
+                mode = "skip"
+            elif "bottom line" in label:
+                keep.append("## Bottom Line")
+                mode = "bottom"
+            else:
+                mode = "skip"
+            continue
+        stripped = line.strip()
+        if mode == "exec" and stripped.startswith("-"):
+            keep.append(stripped)
+        elif mode == "bottom" and stripped:
+            keep.append(stripped)
+    compact = "\n".join(keep).strip()
+    if not compact:
+        compact = text
+    words = compact.split()
+    if len(words) > max_words:
+        compact = " ".join(words[:max_words]).rstrip() + "…"
+    return compact
+
+
+def in_window_earnings(
+    config: ProjectConfig,
+    report_date: date,
+    records: dict[str, dict[str, Any]] | None = None,
+) -> list[dict[str, Any]]:
+    from .earnings import load_earnings_state
+
+    state = records if records is not None else load_earnings_state(config)
+    window = int(config.settings["earnings"].get("window_days", 7))
+    start = report_date - timedelta(days=window)
+    recent: list[dict[str, Any]] = []
+    for ticker, company in config.universe.companies.items():
+        record = state.get(ticker) if isinstance(state, dict) else None
+        if not isinstance(record, dict):
+            continue
+        raw = record.get("last_report_date")
+        try:
+            last = date.fromisoformat(str(raw)) if raw else None
+        except ValueError:
+            last = None
+        if last and start <= last <= report_date:
+            recent.append({"ticker": ticker, "name": company.name, **record})
+    recent.sort(key=lambda row: (str(row.get("last_report_date") or ""), str(row["ticker"])))
+    return recent
+
+
+def format_recent_earnings(
+    recent: list[dict[str, Any]] | None,
+    *,
+    headline_limit: int = EARNINGS_HEADLINE_LIMIT,
+) -> str:
+    """Compact in-window earnings for the strategy prompt. Headlines only, no transcripts."""
+    if not recent:
+        return ""
+    parts = [
+        "In-window watchlist earnings already collected for this report. Evaluate each name. "
+        "Include it when the call changes competitive position, product demand, or a platform "
+        "thesis. Omit a beat-and-raise with no thesis change. Use this block before searching "
+        "these names."
+    ]
+    for row in recent:
+        if not isinstance(row, dict):
+            continue
+        ticker = str(row.get("ticker") or "")
+        name = str(row.get("name") or ticker)
+        reported = str(row.get("last_report_date") or "").strip()
+        header = f"- {ticker} {name}".strip()
+        if reported:
+            header += f" reported {reported}"
+        parts.append(header)
+        summary = re.sub(r"\s+", " ", str(row.get("summary") or "")).strip()
+        if summary:
+            parts.append(f"  {summary}")
+        glances = row.get("at_a_glance")
+        count = 0
+        if isinstance(glances, list):
+            for item in glances:
+                if not isinstance(item, dict):
+                    continue
+                headline = str(item.get("headline") or "").strip()
+                if not headline:
+                    continue
+                parts.append(f"  - {headline}")
+                count += 1
+                if count >= headline_limit:
+                    break
+    return "\n".join(parts)
+
+
+def _is_rate_limit(exc: BaseException) -> bool:
+    name = type(exc).__name__.casefold()
+    text = str(exc).casefold()
+    return (
+        "ratelimit" in name
+        or "rate_limit" in name
+        or "rate_limit" in text
+        or "rate limit" in text
+        or "tokens per min" in text
+        or "tpm" in text
+        or "429" in text
+    )
+
+
 def load_master_prompt(config: ProjectConfig) -> str:
     path = strategy_prompt_path(config)
     try:
@@ -279,17 +419,29 @@ def assemble_prompt(
     *,
     task_subject: str = "material healthcare developments",
     movers: str | None = None,
+    earnings: str | None = None,
 ) -> str:
     start, end = reporting_window(report_date)
-    history_text = "\n\n".join(
-        f'<prior_report date="{prior_date.isoformat()}">\n{body.strip()}\n</prior_report>'
-        for prior_date, body in history
-    )
+    history_parts: list[str] = []
+    last_index = len(history) - 1
+    for index, (prior_date, body) in enumerate(history):
+        if index == last_index:
+            content = body.strip()
+            role = "previous Monday briefing; compare this week against this report"
+        else:
+            content = compact_prior_report(body)
+            role = "older Monday digest for hypothesis tracking only; do not reopen without a new fact"
+        history_parts.append(
+            f'<prior_report date="{prior_date.isoformat()}" role="{role}">\n{content}\n</prior_report>'
+        )
+    history_text = "\n\n".join(history_parts)
     if not history_text:
         history_text = "<prior_reports>None available. Establish the initial baseline.</prior_reports>"
-    movers_block = ""
+    extra_blocks = ""
+    if earnings and earnings.strip():
+        extra_blocks += f"\n<recent_earnings>\n{earnings.strip()}\n</recent_earnings>\n"
     if movers and movers.strip():
-        movers_block = f"\n<watchlist_movers>\n{movers.strip()}\n</watchlist_movers>\n"
+        extra_blocks += f"\n<watchlist_movers>\n{movers.strip()}\n</watchlist_movers>\n"
     previous_monday = next((prior_date.isoformat() for prior_date, _body in reversed(history)), None)
     previous_clause = (
         f"the previous Monday report ({previous_monday})"
@@ -301,6 +453,7 @@ Report run date: {report_date.isoformat()}
 Primary reporting window: {start.isoformat()} through {end.isoformat()}
 Timezone: America/Denver
 Weekly cadence: Monday reports only; compare with {previous_clause}
+Older prior_report entries are compact digests, not full reprints.
 </run_context>
 
 <master_brief>
@@ -310,15 +463,17 @@ Weekly cadence: Monday reports only; compare with {previous_clause}
 <prior_report_history>
 {history_text}
 </prior_report_history>
-{movers_block}
+{extra_blocks}
 <task>
 Research {task_subject} that became available during the reporting window.
 Compare this week's briefing with {previous_clause} only. Do not treat intra-week notes as last
 week's published report. If a development in the window was mentioned in an intra-week note,
 still include it here if it would be new to a reader of the previous Monday report.
+Use supplied recent earnings and watchlist movers before searching those names. Do not search
+every named company. Include a supplied earnings name only when the call changes a thesis.
 If watchlist movers are supplied, investigate material news for large movers; omit a name when
-you find no consequential development. Search multiple sources as needed. Include only meaningful
-deltas, preserve useful source links, and use the report run date in the Week of heading.
+you find no consequential development. Include only meaningful deltas, preserve useful source
+links, and use the report run date in the Week of heading.
 </task>"""
 
 
@@ -439,6 +594,30 @@ def _usage(response: Any) -> dict[str, int]:
     }
 
 
+def _complete_strategy_response(
+    settings: StrategySettings,
+    prompt: str,
+    profile: StrategyProfile,
+    *,
+    response_client: Callable[[StrategySettings, str], Any] | None = None,
+) -> Any:
+    attempts = (0.0, *RATE_LIMIT_BACKOFF_SECONDS)
+    last_error: BaseException | None = None
+    for index, wait in enumerate(attempts):
+        if wait:
+            time.sleep(wait)
+        try:
+            if response_client is not None:
+                return response_client(settings, prompt)
+            return _call_openai(settings, prompt, profile)
+        except Exception as exc:
+            last_error = exc
+            if not _is_rate_limit(exc) or index == len(attempts) - 1:
+                raise
+    assert last_error is not None
+    raise last_error
+
+
 def _call_openai(settings: StrategySettings, prompt: str, profile: StrategyProfile) -> Any:
     if not os.getenv("OPENAI_API_KEY", "").strip():
         raise RuntimeError("OPENAI_API_KEY is not configured")
@@ -506,6 +685,7 @@ def generate_strategy_report(
     force: bool = False,
     dry_run: bool = False,
     movers: str | None = None,
+    earnings: str | None = None,
     response_client: Callable[[StrategySettings, str], Any] | None = None,
 ) -> dict[str, Any]:
     require_monday_report_date(report_date)
@@ -517,12 +697,16 @@ def generate_strategy_report(
 
     master_prompt = load_master_prompt(config)
     history = discover_history(config, report_date, settings.history_count)
+    earnings_brief = earnings
+    if earnings_brief is None:
+        earnings_brief = format_recent_earnings(in_window_earnings(config, report_date))
     prompt = assemble_prompt(
         master_prompt,
         report_date,
         history,
         task_subject=profile.task_subject,
         movers=movers,
+        earnings=earnings_brief,
     )
     prompt_sha256 = hashlib.sha256(prompt.encode("utf-8")).hexdigest()
     if dry_run:
@@ -540,10 +724,11 @@ def generate_strategy_report(
 
     started_at = utc_now()
     try:
-        response = (
-            response_client(settings, prompt)
-            if response_client
-            else _call_openai(settings, prompt, profile)
+        response = _complete_strategy_response(
+            settings,
+            prompt,
+            profile,
+            response_client=response_client,
         )
         raw_body = str(getattr(response, "output_text", "") or "").strip()
         sources = _response_sources(response)

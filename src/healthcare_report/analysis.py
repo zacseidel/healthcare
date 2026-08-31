@@ -742,7 +742,7 @@ def recommended_updates(
             }
         )
 
-    stale_after = int(config.settings["strategy_narrative"].get("stale_after_days", 7))
+    stale_after = int(config.settings["strategy_narrative"].get("stale_after_days", 6))
     if narrative_age_days is None:
         other.append(
             {
@@ -750,7 +750,7 @@ def recommended_updates(
                 "detail": "No strategy narrative retrieval date is available for this report.",
             }
         )
-    elif narrative_age_days > stale_after:
+    elif narrative_age_days >= stale_after:
         other.append(
             {
                 "title": "Consider regenerating the strategy narrative",

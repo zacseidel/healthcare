@@ -58,7 +58,12 @@ from .storage import (
     write_gzip_json,
     write_json,
 )
-from .strategy import format_watchlist_movers, require_monday_report_date, strategy_prompt_path
+from .strategy import (
+    format_recent_earnings,
+    format_watchlist_movers,
+    require_monday_report_date,
+    strategy_prompt_path,
+)
 
 
 def _status(source: str, subject: str, status: str, detail: str = "") -> FetchStatus:
@@ -510,6 +515,10 @@ def run_report(
                 force=force_secondary,
             )
             statuses.extend(earnings_status)
+            recent_for_strategy, _upcoming_for_strategy = _earnings_sections(
+                config, earnings, report_date
+            )
+            earnings_brief = format_recent_earnings(recent_for_strategy)
             narrative_provider = "OpenAI Responses API"
             _progress(f"Refreshing the strategy narrative via {narrative_provider}...")
             narrative, narrative_status, narrative_detail = refresh_narrative_with_fallback(
@@ -519,6 +528,7 @@ def run_report(
                 checked_on=checked_on,
                 force=force_secondary,
                 movers=mover_brief,
+                earnings=earnings_brief,
             )
             statuses.append(
                 _status(

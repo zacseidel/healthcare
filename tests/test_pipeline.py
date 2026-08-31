@@ -178,7 +178,7 @@ def test_end_to_end_report_and_baseline(project, monkeypatch):
     monkeypatch.setattr(pipeline, "MassiveClient", FakeMassive)
     monkeypatch.setattr(pipeline, "BrowserSession", FakeBrowser)
 
-    def generate_fixture_strategy(_config, report_date, *, force=False, movers=None):
+    def generate_fixture_strategy(_config, report_date, *, force=False, movers=None, earnings=None):
         return {
             "report_date": report_date.isoformat(),
             "generated_at": f"{report_date.isoformat()}T12:00:00Z",

@@ -3,11 +3,12 @@ from __future__ import annotations
 from datetime import date
 
 from healthcare_report.narrative import (
+    narrative_path,
     narrative_refresh_needed,
     refresh_narrative,
     refresh_narrative_with_fallback,
 )
-from healthcare_report.storage import read_json
+from healthcare_report.storage import read_json, write_json
 
 
 def test_life_sciences_refresh_uses_openai_archive(project, monkeypatch):
@@ -16,7 +17,7 @@ def test_life_sciences_refresh_uses_openai_archive(project, monkeypatch):
     life = project.for_scope("life-science-device")
     report_date = date(2026, 8, 24)
 
-    def fake_generate(config, generated_for, *, force=False, movers=None):
+    def fake_generate(config, generated_for, *, force=False, movers=None, earnings=None):
         assert config.scope == "life-science-device"
         assert generated_for == report_date
         assert not force
@@ -58,7 +59,7 @@ def test_narrative_same_day_refresh_is_reused():
     )
 
 
-def test_failed_narrative_refresh_is_not_retried_same_day(project, monkeypatch):
+def test_failed_narrative_refresh_remains_needed_the_same_day(project, monkeypatch):
     import healthcare_report.narrative as narrative
 
     def fail_refresh(*_args, **_kwargs):
@@ -76,8 +77,41 @@ def test_failed_narrative_refresh_is_not_retried_same_day(project, monkeypatch):
     assert detail == "fixture outage"
     marker = read_json(project.root / "state" / "narrative.json")
     assert marker["checked_on"] == "2026-08-04"
-    assert not narrative_refresh_needed(
+    assert marker["last_check_error"] == "fixture outage"
+    assert narrative_refresh_needed(
         marker,
         date(2026, 8, 3),
         checked_on=date(2026, 8, 4),
     )
+
+
+def test_failed_refresh_does_not_reprint_another_week_body(project, monkeypatch):
+    import healthcare_report.narrative as narrative
+
+    write_json(
+        narrative_path(project),
+        {
+            "source_report_date": "2026-08-24",
+            "checked_for_date": "2026-08-24",
+            "checked_on": "2026-08-24",
+            "fetched_at": "2026-08-24T16:00:00Z",
+            "body": "Last week's brief about prior authorization.",
+        },
+    )
+
+    def fail_refresh(*_args, **_kwargs):
+        raise RuntimeError("Error code: 429 - rate limit reached")
+
+    monkeypatch.setattr(narrative, "refresh_narrative", fail_refresh)
+    value, status, detail = refresh_narrative_with_fallback(
+        project,
+        None,
+        as_of=date(2026, 8, 31),
+        checked_on=date(2026, 8, 31),
+    )
+    assert status == "warning"
+    assert "429" in detail
+    assert value is not None
+    assert value["body"] == ""
+    assert "prior authorization" not in value["body"]
+    assert narrative_refresh_needed(value, date(2026, 8, 31), checked_on=date(2026, 8, 31))

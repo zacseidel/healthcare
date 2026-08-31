@@ -37,6 +37,7 @@ def load_narrative(config: ProjectConfig) -> dict[str, Any] | None:
                 "checked_at": generated_at,
                 "checked_on": generated_at[:10],
                 "checked_for_date": str(latest.get("report_date") or ""),
+                "source_report_date": str(latest.get("report_date") or ""),
                 "period": _human_date(str(latest.get("report_date") or "")),
                 "body": _embedded_strategy_body(str(latest.get("content_markdown") or "")),
                 "model": latest.get("model"),
@@ -107,9 +108,12 @@ def refresh_narrative(
     as_of: date | None = None,
     force: bool = False,
     movers: str | None = None,
+    earnings: str | None = None,
 ) -> dict[str, Any]:
     report_date = as_of or datetime.now(config.timezone).date()
-    generated = generate_strategy_report(config, report_date, force=force, movers=movers)
+    generated = generate_strategy_report(
+        config, report_date, force=force, movers=movers, earnings=earnings
+    )
     generated_at = str(generated.get("generated_at") or utc_now())
     value = {
         "schema": 3,
@@ -118,6 +122,7 @@ def refresh_narrative(
         "checked_at": utc_now(),
         "checked_on": datetime.now(UTC).date().isoformat(),
         "checked_for_date": report_date.isoformat(),
+        "source_report_date": report_date.isoformat(),
         "period": _human_date(report_date.isoformat()),
         "body": _embedded_strategy_body(str(generated.get("content_markdown") or "")),
         "model": generated.get("model"),
@@ -140,17 +145,19 @@ def refresh_narrative_with_fallback(
     checked_on: date | None = None,
     force: bool = False,
     movers: str | None = None,
+    earnings: str | None = None,
 ) -> tuple[dict[str, Any] | None, str, str]:
     cached = load_narrative(config)
     if not force and not narrative_refresh_needed(cached, as_of, checked_on=checked_on):
         return cached, "skipped", "already refreshed for this report date today"
     try:
         refreshed = refresh_narrative(
-            config, browser, as_of=as_of, force=force, movers=movers
+            config, browser, as_of=as_of, force=force, movers=movers, earnings=earnings
         )
         return refreshed, "ok", "OpenAI Responses API"
     except Exception as exc:
         checked_on = checked_on or datetime.now(UTC).date()
+        source_date = str((cached or {}).get("source_report_date") or "")
         check_record = dict(cached or {})
         check_record.update(
             {
@@ -161,6 +168,8 @@ def refresh_narrative_with_fallback(
                 "last_check_error": str(exc),
             }
         )
+        if source_date != as_of.isoformat():
+            check_record["body"] = ""
         write_json(narrative_path(config), check_record)
         if cached:
             return check_record, "warning", str(exc)
@@ -174,6 +183,8 @@ def narrative_refresh_needed(
     checked_on: date | None = None,
 ) -> bool:
     if not narrative or narrative.get("checked_for_date") != as_of.isoformat():
+        return True
+    if str(narrative.get("last_check_error") or "").strip():
         return True
     checked_on = checked_on or datetime.now(UTC).date()
     if narrative.get("checked_on") == checked_on.isoformat():

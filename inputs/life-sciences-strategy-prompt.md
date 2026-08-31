@@ -89,8 +89,8 @@ whenever practical. Do not treat company promotional language as established sci
 This is a weekly change report, not a recurring industry overview. Treat the supplied previous Monday
 briefing as the reader's baseline and focus primarily on information that became available during the
 last seven days. Do not treat intra-week notes as last week's published report. If the request includes
-watchlist movers, investigate those names for material news this week and include a name only when a
-consequential development is found.
+watchlist movers or in-window earnings, evaluate those names before searching them and include a
+name only when a consequential development is found. A beat-and-raise with no thesis change is omit.
 
 The central question is:
 
@@ -111,8 +111,6 @@ Include a development only when it qualifies as at least one of:
 - **UPDATE:** New evidence materially changes expected efficacy, safety, commercial potential, timing,
   approval probability, addressable population, competitive position, reimbursement, or strategic
   significance.
-- **CONFIRM:** Significant evidence materially strengthens an existing scientific, clinical,
-  commercial, or strategic hypothesis.
 - **REFUTE:** Evidence materially weakens or contradicts an existing hypothesis through disappointing
   efficacy, safety, failure, regulatory setback, reimbursement change, or superior competing data.
 - **RESOLVE:** New information answers a meaningful open question or catalyst, such as a trial readout,
@@ -123,7 +121,8 @@ Before including an item, ask:
 > If I removed this item, would the reader lose consequential information that became known,
 > materially changed, or became meaningfully more certain during the last seven days?
 
-If not, omit it. Mere consistency with a standing thesis is insufficient.
+If not, omit it. Mere consistency with a standing thesis is insufficient. Do not write a standalone
+section whose only job is to confirm a prior thesis; one Executive View bullet is enough.
 
 ## Continuing stories and hypothesis tracking
 
@@ -146,7 +145,10 @@ from a single event.
 
 For every consequential development, analyze:
 
-**What changed -> Why it matters -> What it tells us -> What to watch next**
+**What changed -> What it tells us -> What to watch next**
+
+Put facts in What changed and the scientific, clinical, competitive, and commercial takeaway in
+What it tells us. Do not restate the same paragraph under a Why it matters heading.
 
 Synthesize across clinical evidence, biological mechanism, competing therapies, standards of care,
 regulatory decisions, reimbursement, commercialization, manufacturing, company strategy,
@@ -154,24 +156,22 @@ partnerships, licensing, M&A, and capital allocation as relevant.
 
 ## Desired output
 
-Target approximately 1,000-1,500 words, with shorter output allowed in quiet weeks. Produce polished
-Markdown using this structure when it improves clarity:
+Usual length is 800-1,200 words. Quiet weeks should be 500-800 words. Never pad to fill space.
+Write 2-5 interpretive headlines; three strong items beat six. Produce polished Markdown using this
+structure when it improves clarity:
 
 ```markdown
 # Life Sciences Strategy Brief
 ## Week of [DATE]
 
 ## Executive View
-- 5-8 highest-value findings
+- 3-5 highest-value findings of what actually changed this week
 
 ## Strategy Narrative
 
 ### [Interpretive headline]
 
 **What changed**
-...
-
-**Why it matters**
 ...
 
 **What it tells us**
@@ -197,14 +197,15 @@ Markdown using this structure when it improves clarity:
 
 Do not force content into every section. Omit or combine sections when there is insufficient
 consequential new information. Do not emit NEW / UPDATE / CONFIRM / REFUTE / RESOLVE status
-headers such as `**Status:** NEW`. Fold that judgment into the prose of What changed / Why it
-matters instead.
+headers such as `**Status:** NEW`. Fold that judgment into the prose of What changed / What it
+tells us instead. Do not name omitted stories in the opener.
 
 ## Citations and evidence
 
-Source substantial current factual claims. Use web search as many times as necessary to cover the
-reporting window, verify material claims, and resolve contradictions. Preserve useful citations and
-links in the final Markdown and avoid search-results-page citations.
+Source substantial current factual claims. Cover the reporting window. Use supplied earnings and
+movers before searching those names. Do not search every named company. Verify material claims
+and resolve contradictions. Preserve useful citations and links in the final Markdown and avoid
+search-results-page citations.
 
 Clearly distinguish established facts, trial findings, company interpretations, management opinions,
 reported information, inferences, and strategic hypotheses. Never manufacture a citation or URL, and
