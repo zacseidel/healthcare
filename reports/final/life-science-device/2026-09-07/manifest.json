@@ -1,0 +1,1144 @@
+{
+  "schema": 2,
+  "report_type": "life-science-device",
+  "report_name": "Life Science and Device Intel",
+  "report_date": "2026-09-07",
+  "market_data_as_of": "2026-09-04",
+  "generated_at": "2026-09-07T16:35:42Z",
+  "rendered_at": "2026-09-07T16:35:42Z",
+  "baseline_report_date": "2026-08-31",
+  "configuration_sha256": "7c44c5d73aa2bf6361ecdfa866640f20ad143f2a9975fa796447549714ae93c3",
+  "quality": "ok",
+  "issues": [
+    "Verify these stock symbols: MASI (Latest saved price is 2026-06-09, older than the 7-day limit. The market-data provider did not recognize this ticker.), BD (The public earnings page for this ticker was not found.).",
+    "Review Masimo (MASI) in companies.md: Prices were missing or too old to use. Confirm the ticker is still listed, or replace/remove this company in the watchlist.",
+    "Update or remove MASI in companies.md: The company profile lookup failed. The symbol may have changed after a merger, listing change, or delisting.",
+    "Confirm the earnings ticker for BD: Yahoo or Google Finance did not have this symbol. The listed ticker in companies.md may be outdated.",
+    "Review earnings-page coverage in the company universe: Public earnings pages for TMDX, MASI, ADMA, OCUL, CORT did not expose the usual report-date or transcript labels. The page layout may have changed, or these companies may no longer fit automated earnings collection."
+  ],
+  "recommended_updates": {
+    "verify_symbols": [
+      {
+        "ticker": "MASI",
+        "name": "Masimo",
+        "reason": "Latest saved price is 2026-06-09, older than the 7-day limit. The market-data provider did not recognize this ticker."
+      },
+      {
+        "ticker": "BD",
+        "name": "Becton Dickinson",
+        "reason": "The public earnings page for this ticker was not found."
+      }
+    ],
+    "input_updates": [
+      {
+        "title": "Review Masimo (MASI) in companies.md",
+        "detail": "Prices were missing or too old to use. Confirm the ticker is still listed, or replace/remove this company in the watchlist."
+      },
+      {
+        "title": "Update or remove MASI in companies.md",
+        "detail": "The company profile lookup failed. The symbol may have changed after a merger, listing change, or delisting."
+      },
+      {
+        "title": "Confirm the earnings ticker for BD",
+        "detail": "Yahoo or Google Finance did not have this symbol. The listed ticker in companies.md may be outdated."
+      },
+      {
+        "title": "Review earnings-page coverage in the company universe",
+        "detail": "Public earnings pages for TMDX, MASI, ADMA, OCUL, CORT did not expose the usual report-date or transcript labels. The page layout may have changed, or these companies may no longer fit automated earnings collection."
+      }
+    ],
+    "other": []
+  },
+  "sources": [
+    {
+      "source": "Massive company",
+      "subject": "MDT",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "MDT",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "BSX",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "BSX",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "SYK",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "SYK",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "ZBH",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "ZBH",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "ABT",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "ABT",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "BD",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "BD",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "EW",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "EW",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "DXCM",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "DXCM",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "RMD",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "RMD",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "PODD",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "PODD",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "GMED",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "GMED",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "ISRG",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "ISRG",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "GEHC",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "GEHC",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "TMDX",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "TMDX",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "STE",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "STE",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "MASI",
+      "status": "warning",
+      "detail": "Client error '404 Not Found' for url 'https://api.massive.com/v3/reference/tickers/MASI?apiKey=<redacted>\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "MASI",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "INSP",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "INSP",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "LLY",
+      "status": "ok",
+      "detail": "reused company cache (53 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "LLY",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "NVO",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "NVO",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "ABBV",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "ABBV",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "JNJ",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "JNJ",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "PFE",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "PFE",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "MRK",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "MRK",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "BMY",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "BMY",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "VTRS",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "VTRS",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "AZN",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "AZN",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "NVS",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "NVS",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "SNY",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "SNY",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "GSK",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "GSK",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "VRTX",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "VRTX",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "REGN",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "REGN",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "AMGN",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "AMGN",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "GILD",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "GILD",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "BIIB",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "BIIB",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "ALNY",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "ALNY",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "SRPT",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "SRPT",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "MRNA",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "MRNA",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "EXEL",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "EXEL",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "ARGX",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "ARGX",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "NBIX",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "NBIX",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "UTHR",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "UTHR",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "INCY",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "INCY",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "BMRN",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "BMRN",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "IONS",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "IONS",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "ADMA",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "ADMA",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "OCUL",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "OCUL",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "NVCR",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "NVCR",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "CORT",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "CORT",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "ACAD",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "ACAD",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "KRYS",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "KRYS",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "RNA",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "RNA",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "RXRX",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "RXRX",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "CGON",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "CGON",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive company",
+      "subject": "BBIO",
+      "status": "ok",
+      "detail": "reused company cache (33 days old)"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "BBIO",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "Massive prices",
+      "subject": "SPY",
+      "status": "ok",
+      "detail": "reused prices through 2026-09-06"
+    },
+    {
+      "source": "browser",
+      "subject": "Chromium",
+      "status": "ok",
+      "detail": ""
+    },
+    {
+      "source": "earnings",
+      "subject": "MDT",
+      "status": "ok",
+      "detail": ""
+    },
+    {
+      "source": "earnings",
+      "subject": "BSX",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "SYK",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "ZBH",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "ABT",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "BD",
+      "status": "warning",
+      "detail": "Google Finance earnings labels were not found; Client error '404 Not Found' for url 'https://finance.yahoo.com/quote/BD/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    {
+      "source": "earnings",
+      "subject": "EW",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "DXCM",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "RMD",
+      "status": "ok",
+      "detail": ""
+    },
+    {
+      "source": "earnings",
+      "subject": "PODD",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "GMED",
+      "status": "ok",
+      "detail": ""
+    },
+    {
+      "source": "earnings",
+      "subject": "ISRG",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "GEHC",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "TMDX",
+      "status": "warning",
+      "detail": "Google Finance earnings labels were not found"
+    },
+    {
+      "source": "earnings",
+      "subject": "STE",
+      "status": "ok",
+      "detail": ""
+    },
+    {
+      "source": "earnings",
+      "subject": "MASI",
+      "status": "warning",
+      "detail": "Google Finance earnings labels were not found"
+    },
+    {
+      "source": "earnings",
+      "subject": "INSP",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "LLY",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "NVO",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "ABBV",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "JNJ",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "PFE",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "MRK",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "BMY",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "VTRS",
+      "status": "ok",
+      "detail": ""
+    },
+    {
+      "source": "earnings",
+      "subject": "AZN",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "NVS",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "SNY",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "GSK",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "VRTX",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "REGN",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "AMGN",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "GILD",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "BIIB",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "ALNY",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "SRPT",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "MRNA",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "EXEL",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "ARGX",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "NBIX",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "UTHR",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "INCY",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "BMRN",
+      "status": "ok",
+      "detail": ""
+    },
+    {
+      "source": "earnings",
+      "subject": "IONS",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "ADMA",
+      "status": "warning",
+      "detail": "Google Finance earnings labels were not found"
+    },
+    {
+      "source": "earnings",
+      "subject": "OCUL",
+      "status": "warning",
+      "detail": "Google Finance earnings labels were not found"
+    },
+    {
+      "source": "earnings",
+      "subject": "NVCR",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "CORT",
+      "status": "warning",
+      "detail": "Google Finance earnings labels were not found"
+    },
+    {
+      "source": "earnings",
+      "subject": "ACAD",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "KRYS",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "RNA",
+      "status": "ok",
+      "detail": ""
+    },
+    {
+      "source": "earnings",
+      "subject": "RXRX",
+      "status": "skipped",
+      "detail": "not due for recheck"
+    },
+    {
+      "source": "earnings",
+      "subject": "CGON",
+      "status": "ok",
+      "detail": ""
+    },
+    {
+      "source": "earnings",
+      "subject": "BBIO",
+      "status": "ok",
+      "detail": ""
+    },
+    {
+      "source": "strategy narrative",
+      "subject": "OpenAI Responses API",
+      "status": "ok",
+      "detail": "OpenAI Responses API"
+    }
+  ],
+  "metrics": {
+    "mode": "full",
+    "durations_seconds": {
+      "market_data": 65.129,
+      "analysis": 0.027,
+      "secondary_sources": 270.665,
+      "rendering": 16.727,
+      "total": 352.589
+    },
+    "counts": {
+      "companies": 54,
+      "price_bars_loaded": 27476,
+      "performance_charts": 3,
+      "earnings_charts": 1,
+      "source_statuses": {
+        "ok": 119,
+        "warning": 7,
+        "skipped": 39
+      }
+    },
+    "output_bytes": {
+      "html": 133795,
+      "markdown": 118362,
+      "charts": 2481470,
+      "data": 118791,
+      "total_without_manifest": 2861204
+    },
+    "price_retention": {
+      "cutoff": "2024-07-24",
+      "files_changed": 1,
+      "bars_removed": 5,
+      "bars_retained": 28302
+    },
+    "directory_bytes": 2890341
+  },
+  "files": [
+    "Life Science and Device Intel-2026-09-07.html",
+    "recommended-updates.html",
+    "report.md",
+    "snapshot.csv",
+    "changes.csv",
+    "render-data.json.gz",
+    "assets/performance-6m.webp",
+    "assets/performance-12m.webp",
+    "assets/performance-24m.webp",
+    "assets/earnings-mdt-3m.webp",
+    "assets/earnings-bsx-3m.webp",
+    "assets/earnings-syk-3m.webp",
+    "assets/earnings-zbh-3m.webp",
+    "assets/earnings-abt-3m.webp",
+    "assets/earnings-bd-3m.webp",
+    "assets/earnings-ew-3m.webp",
+    "assets/earnings-dxcm-3m.webp",
+    "assets/earnings-rmd-3m.webp",
+    "assets/earnings-podd-3m.webp",
+    "assets/earnings-gmed-3m.webp",
+    "assets/earnings-isrg-3m.webp",
+    "assets/earnings-gehc-3m.webp",
+    "assets/earnings-tmdx-3m.webp",
+    "assets/earnings-ste-3m.webp",
+    "assets/earnings-masi-3m.webp",
+    "assets/earnings-insp-3m.webp",
+    "assets/earnings-lly-3m.webp",
+    "assets/earnings-nvo-3m.webp",
+    "assets/earnings-abbv-3m.webp",
+    "assets/earnings-jnj-3m.webp",
+    "assets/earnings-pfe-3m.webp",
+    "assets/earnings-mrk-3m.webp",
+    "assets/earnings-bmy-3m.webp",
+    "assets/earnings-vtrs-3m.webp",
+    "assets/earnings-azn-3m.webp",
+    "assets/earnings-nvs-3m.webp",
+    "assets/earnings-sny-3m.webp",
+    "assets/earnings-gsk-3m.webp",
+    "assets/earnings-vrtx-3m.webp",
+    "assets/earnings-regn-3m.webp",
+    "assets/earnings-amgn-3m.webp",
+    "assets/earnings-gild-3m.webp",
+    "assets/earnings-biib-3m.webp",
+    "assets/earnings-alny-3m.webp",
+    "assets/earnings-srpt-3m.webp",
+    "assets/earnings-mrna-3m.webp",
+    "assets/earnings-exel-3m.webp",
+    "assets/earnings-argx-3m.webp",
+    "assets/earnings-nbix-3m.webp",
+    "assets/earnings-uthr-3m.webp",
+    "assets/earnings-incy-3m.webp",
+    "assets/earnings-bmrn-3m.webp",
+    "assets/earnings-ions-3m.webp",
+    "assets/earnings-adma-3m.webp",
+    "assets/earnings-ocul-3m.webp",
+    "assets/earnings-nvcr-3m.webp",
+    "assets/earnings-cort-3m.webp",
+    "assets/earnings-acad-3m.webp",
+    "assets/earnings-krys-3m.webp",
+    "assets/earnings-rna-3m.webp",
+    "assets/earnings-rxrx-3m.webp",
+    "assets/earnings-cgon-3m.webp",
+    "assets/earnings-bbio-3m.webp"
+  ]
+}
