@@ -1,0 +1,96 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Recommended updates · September 14, 2026</title><style>
+:root { --site-navy:#183e5a; --site-blue:#35647f; --site-gold:#d4a43c;
+  --site-ink:#1d2935; --site-muted:#657482; --site-line:#d8e1e8; --site-paper:#fff;
+  --site-panel:#f3f7f9; --site-header:#f7fafb; }
+.public-site-header { position:relative; z-index:20; color:var(--site-ink); background:var(--site-header);
+  border-bottom:1px solid var(--site-line); box-shadow:0 1px 8px #1832480d; }
+.public-site-header-inner { width:min(1500px,100%); min-height:60px; margin:0 auto;
+  padding:.55rem 1.5rem; display:flex; align-items:center; justify-content:space-between; gap:1.5rem; }
+.public-site-brand { color:#294f69 !important;
+  font:500 1rem/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  text-decoration:none; letter-spacing:.015em; }
+.public-site-nav { display:flex; align-items:center; gap:.25rem; flex-wrap:wrap; }
+.public-site-nav a { color:#526879 !important; padding:.45rem .68rem; border-radius:4px;
+  font:500 .86rem/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; text-decoration:none; }
+.public-site-nav a:hover,.public-site-nav a[aria-current="page"] { color:#214b68 !important;
+  background:#e7eff4; }
+.public-page-body { margin:0; color:var(--site-ink); background:#edf2f5;
+  font:16px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+.public-page { width:min(1040px,calc(100% - 2rem)); min-height:calc(100vh - 60px); margin:0 auto;
+  padding:3rem clamp(1.25rem,4vw,4rem) 5rem; background:var(--site-paper);
+  box-shadow:0 8px 30px #18324814; }
+.public-page h1,.public-page h2,.public-page h3 { color:var(--site-navy);
+  font-family:Georgia,"Times New Roman",serif; line-height:1.2; }
+.public-page h1 { margin:.15rem 0 1rem; font-size:clamp(2.05rem,5vw,3.25rem);
+  font-weight:500; letter-spacing:-.025em; }
+.public-page h2 { margin-top:2.2rem; padding-bottom:.35rem; border-bottom:2px solid var(--site-line); }
+.public-page a { color:#1269a0; text-underline-offset:2px; }
+.public-site-header + .page-shell { padding-top:1.25rem; }
+.public-site-header + .page-shell main { border-top:1px solid var(--site-line); }
+.public-site-header + .page-shell main > h1 { color:#244b65;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:clamp(2rem,4vw,2.75rem); font-weight:500; letter-spacing:-.035em; }
+.public-site-header + .page-shell .report-nav { border-top:2px solid #9fb7c7; }
+.site-eyebrow { margin:0; color:var(--site-blue); font-size:.77rem; font-weight:800;
+  letter-spacing:.13em; text-transform:uppercase; }
+.site-lede { max-width:740px; color:#40505e; font-size:1.13rem; }
+.report-list { list-style:none; margin:2rem 0 0; padding:0; border-top:1px solid var(--site-line); }
+.report-group { margin-top:2.5rem; }
+.report-group h2 { margin:0; padding-bottom:.45rem; color:var(--site-navy);
+  border-bottom:2px solid var(--site-line); font:700 1.45rem/1.2 Georgia,"Times New Roman",serif; }
+.report-group .report-list { margin-top:0; }
+.report-list li { display:flex; align-items:center; gap:.75rem; border-bottom:1px solid var(--site-line); }
+.report-list .report-list-link { min-width:0; flex:1; display:grid;
+  grid-template-columns:minmax(190px,1fr) minmax(150px,.8fr) auto;
+  gap:1rem; align-items:center; padding:1rem .2rem; color:inherit; text-decoration:none; }
+.report-list li:hover { background:var(--site-panel); }
+.report-list strong { color:var(--site-navy); font:700 1.06rem/1.3 Georgia,"Times New Roman",serif; }
+.report-list span { color:var(--site-muted); font-size:.9rem; }
+.site-badge { display:inline-block; justify-self:end; padding:.18rem .5rem; border-radius:999px;
+  color:#31536b !important; background:#e7f0f5; font-size:.72rem !important; font-weight:800; text-transform:uppercase; }
+.site-badge-warning { color:#754b05 !important; background:#fff0c9; }
+.index-week { margin-top:2.5rem; }
+.index-week > h2 { margin-bottom:.3rem; }
+.index-report { margin:1.25rem 0 2rem; padding:1.1rem 1.25rem; border:1px solid var(--site-line);
+  border-radius:5px; background:#fbfcfd; }
+.index-report-heading { display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; }
+.index-report h3 { margin:0 0 .8rem; font-size:1.22rem; }
+.index-report h4 { margin:1rem 0 .35rem; color:var(--site-blue); font-size:.82rem;
+  letter-spacing:.09em; text-transform:uppercase; }
+.index-links { margin:.35rem 0 .6rem; padding-left:1.3rem; }
+.index-links li { margin:.35rem 0; }
+.topic-directory { margin-top:3.5rem; padding-top:.5rem; border-top:4px solid var(--site-gold); }
+.topic-group { margin-top:2.5rem; }
+.topic-section { margin:1.35rem 0; }
+.topic-section h3 { margin-bottom:.4rem; }
+.topic-links { list-style:none; margin:.35rem 0 0; padding:0; }
+.topic-links li { padding:.65rem 0; border-bottom:1px solid var(--site-line); }
+.topic-links span { display:block; margin-top:.15rem; color:var(--site-muted); font-size:.82rem; }
+.index-empty { color:var(--site-muted); font-style:italic; }
+.report-downloads { display:flex; align-items:center; gap:.42rem; flex-wrap:wrap; margin:.8rem 0 1.35rem; }
+.report-downloads-compact { flex:0 0 auto; margin:0; }
+.report-download-label { margin-right:.15rem; color:var(--site-muted); font-size:.78rem; font-weight:600; }
+.download-button { display:inline-flex; align-items:center; justify-content:center; min-width:3.25rem;
+  padding:.36rem .62rem; border:1px solid #b7c8d3; border-radius:4px; color:#315b75 !important;
+  background:#fff; font:600 .76rem/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  letter-spacing:.025em; text-decoration:none !important; }
+.download-button:hover { border-color:#7193a8; background:#edf4f7; }
+.report-list-actions { padding-right:.2rem; }
+.recommended-list { list-style:none; margin:.35rem 0 0; padding:0; }
+.recommended-list li { padding:.85rem 0; border-bottom:1px solid var(--site-line); }
+.recommended-list strong { display:block; color:var(--site-navy); }
+.recommended-list span { display:block; margin-top:.2rem; color:var(--site-muted); font-size:.92rem; }
+.public-site-footer { margin-top:3rem; padding-top:1rem; border-top:1px solid var(--site-line);
+  color:var(--site-muted); font-size:.84rem; }
+@media (max-width:700px) {
+  .public-site-header-inner { align-items:flex-start; flex-direction:column; gap:.45rem; }
+  .public-site-nav { margin-left:-.7rem; }
+  .public-page { width:100%; }
+  .report-list li { display:block; padding-bottom:.8rem; }
+  .report-list .report-list-link { grid-template-columns:1fr; gap:.2rem; padding-bottom:.45rem; }
+  .report-list-actions { padding:0 .2rem; }
+  .index-report-heading { display:block; }
+  .report-downloads-compact { margin:.2rem 0 .8rem; }
+  .site-badge { justify-self:start; margin-top:.25rem; }
+}
+</style></head><body class="public-page-body"><main class="public-page"><p class="site-eyebrow">Follow-up</p><h1>Recommended updates</h1><p class="site-lede">Life Science and Device Intel for September 14, 2026. These notes are a maintenance checklist. They do not change the published report.</p><section class="recommended-section"><h2>Verify these stock symbols</h2><p>These tickers did not resolve cleanly in market data or public company pages. Confirm each symbol is still the right listing.</p><ul class="recommended-list"><li><strong>MASI · Masimo</strong><span>Latest saved price is 2026-06-09, older than the 7-day limit. The market-data provider did not recognize this ticker.</span></li><li><strong>BD · Becton Dickinson</strong><span>The public earnings page for this ticker was not found.</span></li></ul></section><section class="recommended-section"><h2>Consider these updates to the input data</h2><p>The company universe or related source configuration may need an edit before the next report.</p><ul class="recommended-list"><li><strong>Review Masimo (MASI) in companies.md</strong><span>Prices were missing or too old to use. Confirm the ticker is still listed, or replace/remove this company in the watchlist.</span></li><li><strong>Update or remove MASI in companies.md</strong><span>The company profile lookup failed. The symbol may have changed after a merger, listing change, or delisting.</span></li><li><strong>Confirm the earnings ticker for BD</strong><span>Yahoo or Google Finance did not have this symbol. The listed ticker in companies.md may be outdated.</span></li><li><strong>Review earnings-page coverage in the company universe</strong><span>Public earnings pages for TMDX, MASI, ADMA, OCUL, CORT did not expose the usual report-date or transcript labels. The page layout may have changed, or these companies may no longer fit automated earnings collection.</span></li></ul></section></main></body></html>
