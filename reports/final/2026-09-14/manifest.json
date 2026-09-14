@@ -4,17 +4,15 @@
   "report_name": "Healthcare Intel Digest",
   "report_date": "2026-09-14",
   "market_data_as_of": "2026-09-11",
-  "generated_at": "2026-09-14T13:36:35Z",
-  "rendered_at": "2026-09-14T13:36:35Z",
+  "generated_at": "2026-09-14T16:50:19Z",
+  "rendered_at": "2026-09-14T16:50:19Z",
   "baseline_report_date": "2026-09-07",
   "configuration_sha256": "c969f21724aee890f6f7bc00192b6b9cd246e79762bb45ef31df03bc8fb7c599",
   "quality": "ok",
   "issues": [
-    "Verify these stock symbols: TALK (Latest saved price is 2026-08-14, older than the 7-day limit.), MDRX (Latest saved price is 2026-07-31, older than the 7-day limit.), ASTH (The public earnings page for this ticker was not found.).",
+    "Verify these stock symbols: TALK (Latest saved price is 2026-08-14, older than the 7-day limit.), MDRX (Latest saved price is 2026-07-31, older than the 7-day limit.).",
     "Review Talkspace (TALK) in companies.md: Prices were missing or too old to use. Confirm the ticker is still listed, or replace/remove this company in the watchlist.",
-    "Review Veradigm (MDRX) in companies.md: Prices were missing or too old to use. Confirm the ticker is still listed, or replace/remove this company in the watchlist.",
-    "Confirm the earnings ticker for ASTH: Yahoo or Google Finance did not have this symbol. The listed ticker in companies.md may be outdated.",
-    "Review earnings-page coverage in the company universe: Public earnings pages for PIII, TALK, LFMD, MDRX, AHCO, NEO did not expose the usual report-date or transcript labels. The page layout may have changed, or these companies may no longer fit automated earnings collection."
+    "Review Veradigm (MDRX) in companies.md: Prices were missing or too old to use. Confirm the ticker is still listed, or replace/remove this company in the watchlist."
   ],
   "recommended_updates": {
     "verify_symbols": [
@@ -27,11 +25,6 @@
         "ticker": "MDRX",
         "name": "Veradigm",
         "reason": "Latest saved price is 2026-07-31, older than the 7-day limit."
-      },
-      {
-        "ticker": "ASTH",
-        "name": "Astrana Health",
-        "reason": "The public earnings page for this ticker was not found."
       }
     ],
     "input_updates": [
@@ -42,14 +35,6 @@
       {
         "title": "Review Veradigm (MDRX) in companies.md",
         "detail": "Prices were missing or too old to use. Confirm the ticker is still listed, or replace/remove this company in the watchlist."
-      },
-      {
-        "title": "Confirm the earnings ticker for ASTH",
-        "detail": "Yahoo or Google Finance did not have this symbol. The listed ticker in companies.md may be outdated."
-      },
-      {
-        "title": "Review earnings-page coverage in the company universe",
-        "detail": "Public earnings pages for PIII, TALK, LFMD, MDRX, AHCO, NEO did not expose the usual report-date or transcript labels. The page layout may have changed, or these companies may no longer fit automated earnings collection."
       }
     ],
     "other": []
@@ -1048,516 +1033,516 @@
     {
       "source": "browser",
       "subject": "Chromium",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "no refresh was due"
     },
     {
       "source": "earnings",
       "subject": "UNH",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "CVS",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "HUM",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "OSCR",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "MOH",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "CI",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "ELV",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "CLOV",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "CNC",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "ALHC",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "HCA",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "THC",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "UHS",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "CYH",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "ARDT",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "ENSG",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "ACHC",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "EHC",
-      "status": "ok",
-      "detail": "Client error '404 Not Found' for url 'https://finance.yahoo.com/quote/EHC/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "PACS",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "DOC",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "VTR",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "MPT",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "NHI",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "OHI",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "WELL",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "CTRE",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "SBRA",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "PRVA",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "ASTH",
-      "status": "warning",
-      "detail": "Google Finance earnings labels were not found; Client error '404 Not Found' for url 'https://finance.yahoo.com/quote/ASTH/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "AGL",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "EVH",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "PIII",
-      "status": "warning",
-      "detail": "Google Finance earnings labels were not found"
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "DVA",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "FMS",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "SGRY",
-      "status": "ok",
-      "detail": "Client error '404 Not Found' for url 'https://finance.yahoo.com/quote/SGRY/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "OPCH",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "LFST",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "CHE",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "ADUS",
-      "status": "ok",
-      "detail": "Client error '404 Not Found' for url 'https://finance.yahoo.com/quote/ADUS/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "PNTG",
-      "status": "ok",
-      "detail": "Client error '404 Not Found' for url 'https://finance.yahoo.com/quote/PNTG/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "USPH",
-      "status": "ok",
-      "detail": "Client error '404 Not Found' for url 'https://finance.yahoo.com/quote/USPH/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "BTSG",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "AVAH",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "TDOC",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "AMWL",
-      "status": "ok",
-      "detail": "Client error '404 Not Found' for url 'https://finance.yahoo.com/quote/AMWL/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "TALK",
-      "status": "warning",
-      "detail": "Google Finance earnings labels were not found"
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "HIMS",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "LFMD",
-      "status": "warning",
-      "detail": "Google Finance earnings labels were not found"
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "OMDA",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "GDRX",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "PGNY",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "CON",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "HQY",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "ORCL",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "MDRX",
-      "status": "warning",
-      "detail": "Google Finance earnings labels were not found"
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "WAY",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "SOLV",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "PHR",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "CCSI",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "DH",
-      "status": "ok",
-      "detail": "Client error '404 Not Found' for url 'https://finance.yahoo.com/quote/DH/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "IQV",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "HCAT",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "DOCS",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "VEEV",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "OMCL",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "MCK",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "CAH",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "COR",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "AHCO",
-      "status": "warning",
-      "detail": "Google Finance earnings labels were not found"
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "HSIC",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "NTRA",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "NEO",
-      "status": "warning",
-      "detail": "Google Finance earnings labels were not found"
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "BLLN",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "GH",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "TEM",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "ILMN",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "TXG",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "PACB",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "QDEL",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "DGX",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "LH",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "CERT",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "strategy narrative",
       "subject": "OpenAI Responses API",
-      "status": "ok",
-      "detail": "OpenAI Responses API"
+      "status": "skipped",
+      "detail": "already refreshed for this report date today"
     }
   ],
   "metrics": {
     "mode": "full",
     "durations_seconds": {
-      "market_data": 53.171,
-      "analysis": 0.031,
-      "secondary_sources": 577.21,
-      "rendering": 17.889,
-      "total": 648.348
+      "market_data": 0.212,
+      "analysis": 0.04,
+      "secondary_sources": 0.005,
+      "rendering": 23.108,
+      "total": 23.418
     },
     "counts": {
       "companies": 82,
@@ -1565,8 +1550,8 @@
       "performance_charts": 3,
       "earnings_charts": 1,
       "source_statuses": {
-        "ok": 242,
-        "warning": 7
+        "ok": 165,
+        "skipped": 84
       }
     },
     "output_bytes": {
@@ -1574,15 +1559,15 @@
       "markdown": 173022,
       "charts": 3335610,
       "data": 185782,
-      "total_without_manifest": 3895404
+      "total_without_manifest": 3894801
     },
     "price_retention": {
       "cutoff": "2024-07-31",
-      "files_changed": 6,
-      "bars_removed": 30,
+      "files_changed": 0,
+      "bars_removed": 0,
       "bars_retained": 42877
     },
-    "directory_bytes": 3936898
+    "directory_bytes": 3935463
   },
   "files": [
     "Healthcare Intel-2026-09-14.html",
