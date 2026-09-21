@@ -1,0 +1,844 @@
+# Life Science and Device Intel
+
+<div class="report-meta"><span><strong>Week of September 21, 2026</strong></span><span>Market data through: September 18, 2026</span><span>Narrative created: September 21, 2026</span></div>
+
+Weekly review of pharmaceutical, biotech, biologics, and medical-device company performance, changes, earnings activity, and strategy narrative.
+
+## In the News
+
+<h3 id="executive-view">Executive View</h3>
+
+- **A single supervised dose of lysergide now has reproducible pivotal efficacy in generalized anxiety disorder.** Definium’s second positive Phase 3 GAD trial substantially shifts DT120’s risk from clinical efficacy toward FDA review, functional unblinding and a commercially workable six-to-eight-hour treatment pathway. ([ir.definiumtx.com](https://ir.definiumtx.com/sec-filings/all-sec-filings/content/0001104659-26-107275/tm2625365d1_ex99-1.htm?utm_source=openai))
+- **Ivonescimab’s U.S. filing gained support—but not a clean statistical rescue.** Longer follow-up turned HARMONi’s overall-survival estimate nominally significant and showed consistency in Western patients, although the prespecified primary analysis remains formally negative. ([smmttx.com](https://smmttx.com/news/press-releases/news-details/2026/Updated-HARMONi-Data-Presented-at-WCLC-2026-Demonstrate-Consistent-Overall-Survival-Results-with-Ivonescimab-Plus-Chemotherapy-in-Western-and-Asian-Patients/default.aspx))
+- **Peripheral CB1 inhibition generated credible human weight loss without recreating the severe psychiatric profile that derailed earlier agents.** CRB-913’s 5% mean reduction at 12 weeks validates the mechanism, but Phase 1b duration and company-selected cross-trial comparisons do not yet establish competitive tolerability. ([ir.corbuspharma.com](https://ir.corbuspharma.com/sec-filings/all-sec-filings/content/0001193125-26-389829/crbp-20260914.htm))
+- **Fayuvi reopened a path for CNS-directed systemic gene therapy in pediatric neurodegeneration.** FDA accepted a small, historically controlled dataset showing preservation and acquisition of cognitive skills, while limiting treatment to children with preserved neurodevelopmental function. ([fda.gov](https://www.fda.gov/news-events/press-announcements/fda-approves-first-gene-therapy-pediatric-patients-sanfilippo-syndrome-type?utm_source=openai))
+- **Telix’s $1.65 billion combination with ITM treats isotope supply as a strategic asset rather than a procurement function.** The transaction joins diagnostics, manufacturing infrastructure and a Phase 3-completed radioligand therapy, intensifying competition with vertically integrated radiopharmaceutical leaders. ([itm-radiopharma.com](https://www.itm-radiopharma.com/news/press-releases/press-releases-detail/breaking-news-767/?utm_source=openai))
+
+<h3 id="strategy-narrative">Strategy Narrative</h3>
+
+<h4 id="strategy-strategy-narrative-dt120-crosses-from-psychedelic-promise-into-a-filing-grade-reproducibility-test">DT120 crosses from psychedelic promise into a filing-grade reproducibility test</h4>
+
+**What changed**
+
+On September 14, Definium reported that the 245-patient Phase 3 Panorama trial met its primary endpoint. One 100-µg dose of DT120 reduced the Hamilton Anxiety Rating Scale by 5.1 points versus placebo at week 12, with a Cohen’s d of 0.64. The effect appeared by week one; response rates were 32% versus 14%. This closely replicated August’s positive Voyage trial and represents DT120’s third positive pivotal readout across anxiety and depression. ([ir.definiumtx.com](https://ir.definiumtx.com/sec-filings/all-sec-filings/content/0001104659-26-107275/tm2625365d1_ex99-1.htm?utm_source=openai))
+
+**What it tells us**
+
+Reproducibility is now the central advance. A dose-response relationship remained visible despite most treated participants correctly identifying that they had received active drug, making functional unblinding an incomplete explanation for efficacy. No treatment-related serious adverse event or discontinuation occurred, but 95% experienced a treatment-emergent event and psychedelic effects were common on dosing day. ([ir.definiumtx.com](https://ir.definiumtx.com/sec-filings/all-sec-filings/content/0001104659-26-107275/tm2625365d1_ex99-2.htm?utm_source=openai))
+
+The commercial constraint is implementation. Participants required monitored sessions averaging 6.2 hours, with 94% cleared by hour eight. DT120 could reduce the burden of daily medication, but providers and payers must accommodate facility time, supervision and patient transportation. The clinical thesis is substantially de-risked; the care-delivery model is not. ([ir.definiumtx.com](https://ir.definiumtx.com/sec-filings/all-sec-filings/content/0001104659-26-107275/tm2625365d1_ex99-1.htm))
+
+**What to watch next**
+
+FDA’s position on functional unblinding, durability and retreatment data from the extension study, and whether the agency requires psychotherapy or a formal restricted-distribution program.
+
+<h4 id="strategy-strategy-narrative-next-generation-checkpoint-therapies-are-producing-survival-signals-of-very-different-evidentiary-strength">Next-generation checkpoint therapies are producing survival signals of very different evidentiary strength</h4>
+
+**What changed**
+
+Updated global Phase 3 HARMONi data showed overall survival of 16.8 months with ivonescimab plus chemotherapy versus 14.0 months with chemotherapy alone, with an updated hazard ratio of 0.76 and nominal p-value of 0.0151. Western patients reached 17.5 versus 14.0 months, also with a 0.76 hazard ratio, although the confidence interval crossed one. FDA’s action date is November 14. ([smmttx.com](https://smmttx.com/news/press-releases/news-details/2026/Updated-HARMONi-Data-Presented-at-WCLC-2026-Demonstrate-Consistent-Overall-Survival-Results-with-Ivonescimab-Plus-Chemotherapy-in-Western-and-Asian-Patients/default.aspx))
+
+Separately, BioNTech and OncoC4 reported median survival of 18.5 months with the CTLA-4-directed gotistobart versus 10.0 months with docetaxel in 87 previously treated squamous-NSCLC patients. The hazard ratio was 0.56, but this was the non-pivotal first stage of PRESERVE-003; the registrational stage remains ongoing. ([biontech.com](https://www.biontech.com/int/en/home/mediaroom/news/press-releases/2026/09/BioNTech-and-OncoC4-Present-Updated-Data-Showing-Gotistobart-Nearly-Doubled-Median-Overall-Survival-versus-Standard-of-Care-Chemotherapy-in-Previously-Treated-Squamous-Non-Small-Cell-Lung-Cancer-Patients.html?utm_source=openai))
+
+**What it tells us**
+
+Ivonescimab’s regional-generalizability concern has weakened, but longer follow-up cannot convert its failed prespecified OS analysis into formal statistical success. FDA must decide how much weight to assign the positive PFS endpoint, updated survival and China-only head-to-head evidence.
+
+Gotistobart offers a potentially large effect in a market where docetaxel remains entrenched, but small-sample survival tails can exaggerate treatment effects. Together, the findings strengthen the broader hypothesis that more selective manipulation of VEGF or intratumoral regulatory T cells can extend checkpoint efficacy after conventional immunotherapy—without yet establishing both approaches as validated standards.
+
+**What to watch next**
+
+The ivonescimab review outcome and label; pivotal PRESERVE-003 enrollment and survival; and whether either therapy’s adverse-event and administration profile preserves its efficacy advantage in routine practice.
+
+<h4 id="strategy-strategy-narrative-crb-913-validates-a-non-incretin-obesity-mechanism-not-yet-a-competitive-product">CRB-913 validates a non-incretin obesity mechanism, not yet a competitive product</h4>
+
+**What changed**
+
+In the 254-person Phase 1b CANYON-1 trial, once-daily oral CRB-913 produced placebo-adjusted mean weight reductions of 2.8%, 3.3% and 5.0% at 20, 40 and 60 mg after 12 weeks. At 60 mg, 44.4% lost at least 5% of body weight. There were no severe psychiatric events or suicidality, although irritability reached 9.7% and diarrhea 22.6% at the highest dose. ([ir.corbuspharma.com](https://ir.corbuspharma.com/sec-filings/all-sec-filings/content/0001193125-26-389829/crbp-20260914.htm))
+
+**What it tells us**
+
+The result provides the strongest human evidence yet that restricting a CB1 inverse agonist largely to the periphery may retain weight-loss activity while reducing the CNS liability associated with earlier agents. Scientific significance exceeds current commercial significance: 5% at 12 weeks is promising, but below the ultimate efficacy bar established by injectable incretins, and comparisons against oral GLP-1 tolerability come from longer, unrelated trials.
+
+CRB-913’s strategic opportunity may be as an oral alternative for incretin-intolerant patients, a maintenance therapy or a combination mechanism rather than as a direct efficacy leader.
+
+**What to watch next**
+
+Full ObesityWeek data in November, body-composition and metabolic effects, longer psychiatric surveillance and Phase 2 testing of monotherapy and GLP-1 combinations.
+
+<h4 id="strategy-strategy-narrative-fayuvi-shows-where-fda-will-still-accept-rare-disease-gene-therapy-uncertainty">Fayuvi shows where FDA will still accept rare-disease gene-therapy uncertainty</h4>
+
+**What changed**
+
+FDA approved Ultragenyx’s one-time intravenous AAV9 therapy Fayuvi on September 17 for pediatric Sanfilippo syndrome type A with preserved neurodevelopmental function. Seventeen treated children gained or maintained cognitive skills, producing a 23.5-point advantage on the Bayley cognitive raw score versus 27 natural-history controls between ages 24 and 60 months. ([fda.gov](https://www.fda.gov/vaccines-blood-biologics/fayuvi?utm_source=openai))
+
+**What it tells us**
+
+For rapidly progressive, ultra-rare pediatric neurodegeneration, FDA remains prepared to accept small, nonrandomized studies when the treated trajectory clearly diverges from robust natural history. The narrow label appropriately reflects the likelihood that intervention must precede substantial neuronal loss.
+
+The trade-off is significant monitoring: 85% experienced liver-enzyme elevations, corticosteroids are required for at least eight weeks and the label warns about thrombotic microangiopathy and potential insertional malignancy. ([fda.gov](https://www.fda.gov/news-events/press-announcements/fda-approves-first-gene-therapy-pediatric-patients-sanfilippo-syndrome-type?utm_source=openai))
+
+<h3 id="fda-policy-company-signals">FDA, Policy &amp; Company Signals</h3>
+
+- **FDA’s Expedited IND Pilot targets development latency rather than evidentiary standards.** Eight to ten sponsor–research-institution pairs will be selected for rolling IND-component review and potentially parallel IRB and site activation. The pilot could disproportionately help smaller developers of complex modalities, but its initial scale is too limited to change industry-wide timelines. ([fda.gov](https://www.fda.gov/news-events/press-announcements/fda-launches-expedited-ind-pilot-begins-accepting-applications?utm_source=openai))
+- **Recursion and Tempus made their relationship more reciprocal.** Recursion reduced potentially discretionary data-license payments of $84 million over two years to committed payments of $42 million over three years, while Tempus licensed Recursion’s RNA foundation model. This is external validation and potential platform monetization, but undisclosed model-license economics and the absence of a resulting drug candidate limit the thesis change. ([tempus.com](https://www.tempus.com/news/pr/tempus-and-recursion-extend-existing-data-license-agreement-and-enter-new-license-agreement-for-recursions-rna-foundation-model/?utm_source=openai))
+
+<h3 id="transactions-capital">Transactions &amp; Capital</h3>
+
+Telix agreed on September 21 to acquire ITM for $1.65 billion, adding isotope-production infrastructure and ITM-11, a Phase 3-completed lutetium-177 therapy for gastroenteropancreatic neuroendocrine tumors. The strategic logic is vertical integration: reliable isotope access, manufacturing and late-stage therapeutics are becoming inseparable sources of competitive advantage in radiopharmaceuticals. Execution now depends on shareholder approval, integration and whether ITM-11 can differentiate against established treatment and emerging competitors. ([itm-radiopharma.com](https://www.itm-radiopharma.com/news/press-releases/press-releases-detail/breaking-news-767/?utm_source=openai))
+
+<h3 id="what-i-m-watching-next">What I’m Watching Next</h3>
+
+- FDA’s November 14 ivonescimab decision and treatment of the statistical hierarchy.
+- DT120’s pre-NDA discussions, retreatment rules and supervised-care requirements.
+- Full CRB-913 safety, discontinuation and body-composition results.
+- Fayuvi launch criteria, newborn or early-childhood diagnosis and real-world durability.
+- Telix–ITM financing, regulatory timing for ITM-11 and isotope-capacity integration.
+
+<h3 id="bottom-line">Bottom Line</h3>
+
+This week shifted three programs from mechanistic promise toward practical validation: DT120 reproduced a large and durable anxiety effect, CRB-913 showed peripheral CB1 inhibition can produce weight loss without obvious severe psychiatric toxicity, and Fayuvi demonstrated that systemic AAV9 delivery can alter cognitive trajectory in an otherwise relentlessly regressive disease.
+
+The remaining risks are increasingly operational and evidentiary rather than biological: supervised treatment capacity for DT120, longer safety exposure for CRB-913, historical-control uncertainty for Fayuvi and statistical hierarchy for ivonescimab. Meanwhile, Telix’s acquisition of ITM reinforces that in radiopharmaceuticals, control of manufacturing and isotope supply may be as strategically important as control of the molecule.
+
+## Notable Changes
+
+Comparison with the final report dated September 14, 2026 (market data through September 11, 2026).
+
+### Sectors
+
+#### Top-three comparison
+
+<div class="table-wrap"><table class="sortable"><thead><tr><th class="sortable-heading" data-column="0" data-type="text">Entity</th><th class="sortable-heading" data-column="1" data-type="number">Previous</th><th class="sortable-heading" data-column="2" data-type="number">Current</th><th class="sortable-heading" data-column="3" data-type="number">Change</th><th class="sortable-heading" data-column="4" data-type="number">Current return</th></tr></thead><tbody><tr><td class="text" data-sort="emerging biotech" style=""><a href="#category-emerging-biotech">Emerging Biotech</a></td><td class="" data-sort="1" style="">#1</td><td class="" data-sort="1" style="">#1</td><td class="" data-sort="0" style="">— 0</td><td class="" data-sort="0.4397733543736191" style="background:#1a7a3c;color:#ffffff;">+44.0%</td></tr><tr><td class="text" data-sort="established biotech" style=""><a href="#category-established-biotech">Established Biotech</a></td><td class="" data-sort="2" style="">#2</td><td class="" data-sort="2" style="">#2</td><td class="" data-sort="0" style="">— 0</td><td class="" data-sort="0.42978705722550475" style="background:#1a7a3c;color:#ffffff;">+43.0%</td></tr><tr><td class="text" data-sort="big pharma" style=""><a href="#category-big-pharma">Big Pharma</a></td><td class="" data-sort="3" style="">#3</td><td class="" data-sort="3" style="">#3</td><td class="" data-sort="0" style="">— 0</td><td class="" data-sort="0.3636023736913282" style="background:#1a7a3c;color:#ffffff;">+36.4%</td></tr></tbody></table></div>
+
+
+### Stocks
+
+#### Top-three comparison
+
+<div class="table-wrap"><table class="sortable"><thead><tr><th class="sortable-heading" data-column="0" data-type="text">Entity</th><th class="sortable-heading" data-column="1" data-type="number">Previous</th><th class="sortable-heading" data-column="2" data-type="number">Current</th><th class="sortable-heading" data-column="3" data-type="number">Change</th><th class="sortable-heading" data-column="4" data-type="number">Current return</th></tr></thead><tbody><tr><td class="text" data-sort="moderna" style="">Moderna (<a href="#company-mrna">MRNA</a>)</td><td class="" data-sort="1" style="">#1</td><td class="" data-sort="1" style="">#1</td><td class="" data-sort="0" style="">— 0</td><td class="" data-sort="5.103011093502377" style="background:#1a7a3c;color:#ffffff;">+510.3%</td></tr><tr><td class="text" data-sort="krystal biotech" style="">Krystal Biotech (<a href="#company-krys">KRYS</a>)</td><td class="" data-sort="2" style="">#2</td><td class="" data-sort="2" style="">#2</td><td class="" data-sort="0" style="">— 0</td><td class="" data-sort="1.0582625175765727" style="background:#a9d9a4;color:#111820;">+105.8%</td></tr><tr><td class="text" data-sort="cg oncology" style="">CG Oncology (<a href="#company-cgon">CGON</a>)</td><td class="" data-sort="3" style="">#3</td><td class="" data-sort="3" style="">#3</td><td class="" data-sort="0" style="">— 0</td><td class="" data-sort="1.0222222222222226" style="background:#a9d9a4;color:#111820;">+102.2%</td></tr></tbody></table></div>
+
+
+#### Largest rank changes
+
+<div class="table-wrap"><table class="sortable"><thead><tr><th class="sortable-heading" data-column="0" data-type="text">Entity</th><th class="sortable-heading" data-column="1" data-type="number">Previous</th><th class="sortable-heading" data-column="2" data-type="number">Current</th><th class="sortable-heading" data-column="3" data-type="number">Change</th><th class="sortable-heading" data-column="4" data-type="number">Current return</th></tr></thead><tbody><tr><td class="text" data-sort="dexcom" style="">Dexcom (<a href="#company-dxcm">DXCM</a>)</td><td class="" data-sort="31" style="">#31</td><td class="" data-sort="18" style="">#18</td><td class="rank-change-up" data-sort="-13" style="">↑ 13</td><td class="" data-sort="0.3246849518161601" style="background:#1a7a3c;color:#ffffff;">+32.5%</td></tr><tr><td class="text" data-sort="bridgebio pharma" style="">BridgeBio Pharma (<a href="#company-bbio">BBIO</a>)</td><td class="" data-sort="12" style="">#12</td><td class="" data-sort="22" style="">#22</td><td class="rank-change-down" data-sort="10" style="">↓ 10</td><td class="" data-sort="0.27191139965629185" style="background:#1a7a3c;color:#ffffff;">+27.2%</td></tr><tr><td class="text" data-sort="ionis pharmaceuticals" style="">Ionis Pharmaceuticals (<a href="#company-ions">IONS</a>)</td><td class="" data-sort="38" style="">#38</td><td class="" data-sort="46" style="">#46</td><td class="rank-change-down" data-sort="8" style="">↓ 8</td><td class="" data-sort="-0.2715948205212261" style="background:#c0302f;color:#ffffff;">-27.2%</td></tr></tbody></table></div>
+
+
+### Subcategory movement since the previous report
+
+<div class="table-wrap"><table class="sortable"><thead><tr><th class="sortable-heading" data-column="0" data-type="text">Subcategory</th><th class="sortable-heading" data-column="1" data-type="number">Move</th><th class="sortable-heading" data-column="2" data-type="number">Last Report, 12m Ret</th><th class="sortable-heading" data-column="3" data-type="number">Current Report, 12m Ret</th></tr></thead><tbody><tr><td class="text" data-sort="big pharma" style=""><a href="#category-big-pharma">Big Pharma</a></td><td class="" data-sort="0.02255259023899295" style="background:#1a7a3c;color:#ffffff;">+2.3%</td><td class="" data-sort="0.328189216542" style="background:#7cc077;color:#111820;">+32.8%</td><td class="" data-sort="0.3636023736913282" style="background:#1a7a3c;color:#ffffff;">+36.4%</td></tr><tr><td class="text" data-sort="devices &amp; diagnostic" style=""><a href="#category-devices-diagnostic">Devices &amp; Diagnostic</a></td><td class="" data-sort="0.021691474722217736" style="background:#1a7a3c;color:#ffffff;">+2.2%</td><td class="" data-sort="-0.193158209405" style="background:#f5aead;color:#111820;">-19.3%</td><td class="" data-sort="-0.16068256817213075" style="background:#f5aead;color:#111820;">-16.1%</td></tr><tr><td class="text" data-sort="established biotech" style=""><a href="#category-established-biotech">Established Biotech</a></td><td class="" data-sort="0.011699149538571702" style="background:#7cc077;color:#111820;">+1.2%</td><td class="" data-sort="0.427206433628" style="background:#2f9e44;color:#111820;">+42.7%</td><td class="" data-sort="0.42978705722550475" style="background:#1a7a3c;color:#ffffff;">+43.0%</td></tr><tr><td class="text" data-sort="emerging biotech" style=""><a href="#category-emerging-biotech">Emerging Biotech</a></td><td class="" data-sort="-0.024672664154230632" style="background:#c0302f;color:#ffffff;">-2.5%</td><td class="" data-sort="0.595425936099" style="background:#1a7a3c;color:#ffffff;">+59.5%</td><td class="" data-sort="0.4397733543736191" style="background:#1a7a3c;color:#ffffff;">+44.0%</td></tr></tbody></table></div>
+
+
+### Largest company moves
+
+<div class="table-wrap"><table class="sortable"><thead><tr><th class="sortable-heading" data-column="0" data-type="text">Direction</th><th class="sortable-heading" data-column="1" data-type="text">Company</th><th class="sortable-heading" data-column="2" data-type="text">Ticker</th><th class="sortable-heading" data-column="3" data-type="number">Move</th></tr></thead><tbody><tr><td class="text" data-sort="0" style="">Gain</td><td class="text" data-sort="recursion pharmaceuticals" style="">Recursion Pharmaceuticals</td><td class="text text" data-sort="rxrx" style=""><a href="#company-rxrx">RXRX</a></td><td class="" data-sort="0.1968749999999999" style="background:#1a7a3c;color:#ffffff;">+19.7%</td></tr><tr><td class="text" data-sort="0" style="">Gain</td><td class="text" data-sort="dexcom" style="">Dexcom</td><td class="text text" data-sort="dxcm" style=""><a href="#company-dxcm">DXCM</a></td><td class="" data-sort="0.07611706612067914" style="background:#a9d9a4;color:#111820;">+7.6%</td></tr><tr><td class="text" data-sort="0" style="">Gain</td><td class="text" data-sort="novocure" style="">Novocure</td><td class="text text" data-sort="nvcr" style=""><a href="#company-nvcr">NVCR</a></td><td class="" data-sort="0.07607994842037402" style="background:#a9d9a4;color:#111820;">+7.6%</td></tr><tr><td class="text" data-sort="1" style="">Decline</td><td class="text" data-sort="ionis pharmaceuticals" style="">Ionis Pharmaceuticals</td><td class="text text" data-sort="ions" style=""><a href="#company-ions">IONS</a></td><td class="" data-sort="-0.18022505072864792" style="background:#c0302f;color:#ffffff;">-18.0%</td></tr><tr><td class="text" data-sort="1" style="">Decline</td><td class="text" data-sort="avidity biosciences" style="">Avidity Biosciences</td><td class="text text" data-sort="rna" style=""><a href="#company-rna">RNA</a></td><td class="" data-sort="-0.1361003861003861" style="background:#e34948;color:#111820;">-13.6%</td></tr><tr><td class="text" data-sort="1" style="">Decline</td><td class="text" data-sort="bridgebio pharma" style="">BridgeBio Pharma</td><td class="text text" data-sort="bbio" style=""><a href="#company-bbio">BBIO</a></td><td class="" data-sort="-0.08048039757040304" style="background:#ee8483;color:#111820;">-8.0%</td></tr></tbody></table></div>
+
+
+## Subcategory Performance
+
+<div class="table-wrap"><table class="sortable"><thead><tr><th class="sortable-heading" data-column="0" data-type="text">Subcategory</th><th class="sortable-heading" data-column="1" data-type="number">Companies</th><th class="sortable-heading" data-column="2" data-type="number">Market cap</th><th class="sortable-heading" data-column="3" data-type="number">3m Return</th><th class="sortable-heading" data-column="4" data-type="number">12m Return</th><th class="sortable-heading" data-column="5" data-type="number">24m Return</th></tr></thead><tbody><tr><td class="text" data-sort="devices &amp; diagnostic" style=""><a href="#category-devices-diagnostic">Devices &amp; Diagnostic</a></td><td class="" data-sort="17" style="">17</td><td class="" data-sort="839929758490.22" style="">$839.9B</td><td class="" data-sort="0.052659297884657584" style="background:#a9d9a4;color:#111820;">+5.3%</td><td class="" data-sort="-0.16068256817213075" style="background:#f5aead;color:#111820;">-16.1%</td><td class="" data-sort="-0.12311455754907094" style="background:#fbd5d4;color:#111820;">-12.3%</td></tr><tr><td class="text" data-sort="big pharma" style=""><a href="#category-big-pharma">Big Pharma</a></td><td class="" data-sort="12" style="">12</td><td class="" data-sort="3628029143074.69" style="">$3.6T</td><td class="" data-sort="0.09973823641911315" style="background:#7cc077;color:#111820;">+10.0%</td><td class="" data-sort="0.3636023736913282" style="background:#1a7a3c;color:#ffffff;">+36.4%</td><td class="" data-sort="0.24083074585471914" style="background:#a9d9a4;color:#111820;">+24.1%</td></tr><tr><td class="text" data-sort="established biotech" style=""><a href="#category-established-biotech">Established Biotech</a></td><td class="" data-sort="15" style="">15</td><td class="" data-sort="813713557035.15" style="">$813.7B</td><td class="" data-sort="0.17841713120098027" style="background:#1a7a3c;color:#ffffff;">+17.8%</td><td class="" data-sort="0.42978705722550475" style="background:#1a7a3c;color:#ffffff;">+43.0%</td><td class="" data-sort="0.3363505455720315" style="background:#a9d9a4;color:#111820;">+33.6%</td></tr><tr><td class="text" data-sort="emerging biotech" style=""><a href="#category-emerging-biotech">Emerging Biotech</a></td><td class="" data-sort="10" style="">10</td><td class="" data-sort="56303451541.13" style="">$56.3B</td><td class="" data-sort="0.13844035265056215" style="background:#2f9e44;color:#111820;">+13.8%</td><td class="" data-sort="0.4397733543736191" style="background:#1a7a3c;color:#ffffff;">+44.0%</td><td class="" data-sort="1.0283670871123591" style="background:#1a7a3c;color:#ffffff;">+102.8%</td></tr></tbody></table></div>
+
+Subcategory returns use the most recently saved market capitalizations as weights.
+
+## Stock Performance vs. SPY
+
+The same selected stocks appear in every chart. Each line is labeled at the right with its ticker and return for the displayed window.
+### Last 6 months
+
+![6-month indexed performance](assets/performance-6m.webp)
+
+### Last 12 months
+
+![12-month indexed performance](assets/performance-12m.webp)
+
+### Last 24 months
+
+![24-month indexed performance](assets/performance-24m.webp)
+
+
+## Current Top Stocks
+
+### Last 3 months
+
+<div class="table-wrap"><table class="sortable"><thead><tr><th class="sortable-heading" data-column="0" data-type="number">Rank</th><th class="sortable-heading" data-column="1" data-type="text">Company</th><th class="sortable-heading" data-column="2" data-type="text">Ticker</th><th class="sortable-heading" data-column="3" data-type="number">Market cap</th><th class="sortable-heading" data-column="4" data-type="number">Return</th></tr></thead><tbody><tr><td class="" data-sort="1" style="">1</td><td class="text" data-sort="moderna" style="">Moderna</td><td class="text text" data-sort="mrna" style=""><a href="#company-mrna">MRNA</a></td><td class="" data-sort="22752453314.11" style="">$22.8B</td><td class="" data-sort="1.4083802376485304" style="background:#1a7a3c;color:#ffffff;">+140.8%</td></tr><tr><td class="" data-sort="2" style="">2</td><td class="text" data-sort="inspire medical systems" style="">Inspire Medical Systems</td><td class="text text" data-sort="insp" style=""><a href="#company-insp">INSP</a></td><td class="" data-sort="1854311452.5" style="">$1.9B</td><td class="" data-sort="0.8019244308847688" style="background:#7cc077;color:#111820;">+80.2%</td></tr><tr><td class="" data-sort="3" style="">3</td><td class="text" data-sort="corcept therapeutics" style="">Corcept Therapeutics</td><td class="text text" data-sort="cort" style=""><a href="#company-cort">CORT</a></td><td class="" data-sort="11869203990.6" style="">$11.9B</td><td class="" data-sort="0.3801776999124016" style="background:#a9d9a4;color:#111820;">+38.0%</td></tr><tr><td class="" data-sort="4" style="">4</td><td class="text" data-sort="merck" style="">Merck</td><td class="text text" data-sort="mrk" style=""><a href="#company-mrk">MRK</a></td><td class="" data-sort="316137525120.0" style="">$316.1B</td><td class="" data-sort="0.2898041626416088" style="background:#a9d9a4;color:#111820;">+29.0%</td></tr><tr><td class="" data-sort="5" style="">5</td><td class="text" data-sort="regeneron" style="">Regeneron</td><td class="text text" data-sort="regn" style=""><a href="#company-regn">REGN</a></td><td class="" data-sort="78313741172.08" style="">$78.3B</td><td class="" data-sort="0.2867659114011214" style="background:#a9d9a4;color:#111820;">+28.7%</td></tr></tbody></table></div>
+
+### Last 12 months
+
+<div class="table-wrap"><table class="sortable"><thead><tr><th class="sortable-heading" data-column="0" data-type="number">Rank</th><th class="sortable-heading" data-column="1" data-type="text">Company</th><th class="sortable-heading" data-column="2" data-type="text">Ticker</th><th class="sortable-heading" data-column="3" data-type="number">Market cap</th><th class="sortable-heading" data-column="4" data-type="number">Return</th></tr></thead><tbody><tr><td class="" data-sort="1" style="">1</td><td class="text" data-sort="moderna" style="">Moderna</td><td class="text text" data-sort="mrna" style=""><a href="#company-mrna">MRNA</a></td><td class="" data-sort="22752453314.11" style="">$22.8B</td><td class="" data-sort="5.103011093502377" style="background:#1a7a3c;color:#ffffff;">+510.3%</td></tr><tr><td class="" data-sort="2" style="">2</td><td class="text" data-sort="krystal biotech" style="">Krystal Biotech</td><td class="text text" data-sort="krys" style=""><a href="#company-krys">KRYS</a></td><td class="" data-sort="9612813967.72" style="">$9.6B</td><td class="" data-sort="1.0582625175765727" style="background:#a9d9a4;color:#111820;">+105.8%</td></tr><tr><td class="" data-sort="3" style="">3</td><td class="text" data-sort="cg oncology" style="">CG Oncology</td><td class="text text" data-sort="cgon" style=""><a href="#company-cgon">CGON</a></td><td class="" data-sort="6297656572.200001" style="">$6.3B</td><td class="" data-sort="1.0222222222222226" style="background:#a9d9a4;color:#111820;">+102.2%</td></tr><tr><td class="" data-sort="4" style="">4</td><td class="text" data-sort="merck" style="">Merck</td><td class="text text" data-sort="mrk" style=""><a href="#company-mrk">MRK</a></td><td class="" data-sort="316137525120.0" style="">$316.1B</td><td class="" data-sort="0.8018648018648018" style="background:#d6ecd4;color:#111820;">+80.2%</td></tr><tr><td class="" data-sort="5" style="">5</td><td class="text" data-sort="viatris" style="">Viatris</td><td class="text text" data-sort="vtrs" style=""><a href="#company-vtrs">VTRS</a></td><td class="" data-sort="20612581975.8" style="">$20.6B</td><td class="" data-sort="0.7121212121212119" style="background:#d6ecd4;color:#111820;">+71.2%</td></tr></tbody></table></div>
+
+### Last 24 months
+
+<div class="table-wrap"><table class="sortable"><thead><tr><th class="sortable-heading" data-column="0" data-type="number">Rank</th><th class="sortable-heading" data-column="1" data-type="text">Company</th><th class="sortable-heading" data-column="2" data-type="text">Ticker</th><th class="sortable-heading" data-column="3" data-type="number">Market cap</th><th class="sortable-heading" data-column="4" data-type="number">Return</th></tr></thead><tbody><tr><td class="" data-sort="1" style="">1</td><td class="text" data-sort="corcept therapeutics" style="">Corcept Therapeutics</td><td class="text text" data-sort="cort" style=""><a href="#company-cort">CORT</a></td><td class="" data-sort="11869203990.6" style="">$11.9B</td><td class="" data-sort="1.6104142011834321" style="background:#1a7a3c;color:#ffffff;">+161.0%</td></tr><tr><td class="" data-sort="2" style="">2</td><td class="text" data-sort="bridgebio pharma" style="">BridgeBio Pharma</td><td class="text text" data-sort="bbio" style=""><a href="#company-bbio">BBIO</a></td><td class="" data-sort="16074332130.939999" style="">$16.1B</td><td class="" data-sort="1.4910246821241588" style="background:#1a7a3c;color:#ffffff;">+149.1%</td></tr><tr><td class="" data-sort="3" style="">3</td><td class="text" data-sort="moderna" style="">Moderna</td><td class="text text" data-sort="mrna" style=""><a href="#company-mrna">MRNA</a></td><td class="" data-sort="22752453314.11" style="">$22.8B</td><td class="" data-sort="1.3449535697975339" style="background:#1a7a3c;color:#ffffff;">+134.5%</td></tr><tr><td class="" data-sort="4" style="">4</td><td class="text" data-sort="exelixis" style="">Exelixis</td><td class="text text" data-sort="exel" style=""><a href="#company-exel">EXEL</a></td><td class="" data-sort="14075884648.0" style="">$14.1B</td><td class="" data-sort="1.2089326267978802" style="background:#2f9e44;color:#111820;">+120.9%</td></tr><tr><td class="" data-sort="5" style="">5</td><td class="text" data-sort="cg oncology" style="">CG Oncology</td><td class="text text" data-sort="cgon" style=""><a href="#company-cgon">CGON</a></td><td class="" data-sort="6297656572.200001" style="">$6.3B</td><td class="" data-sort="0.9133333333333336" style="background:#7cc077;color:#111820;">+91.3%</td></tr></tbody></table></div>
+
+
+## Companies by Subcategory
+
+<h3 id="category-devices-diagnostic"><a href="#subcategory-performance">Devices &amp; Diagnostic</a><span class="return-badge category-return" style="background:#a9d9a4;color:#111820;">Last 3m: +5.3%</span></h3>
+
+<div class="table-wrap"><table class="sortable"><thead><tr><th class="sortable-heading" data-column="0" data-type="text">Company</th><th class="sortable-heading" data-column="1" data-type="text">Ticker</th><th class="sortable-heading" data-column="2" data-type="number">Market cap</th><th class="sortable-heading" data-column="3" data-type="number">3m Return</th><th class="sortable-heading" data-column="4" data-type="number">12m Return</th><th class="sortable-heading" data-column="5" data-type="number">24m Return</th></tr></thead><tbody><tr><td class="text" data-sort="medtronic" style="">Medtronic</td><td class="text text" data-sort="mdt" style=""><a href="#company-mdt">MDT</a></td><td class="" data-sort="110339895378.0" style="">$110.3B</td><td class="" data-sort="0.16120494076128056" style="background:#a9d9a4;color:#111820;">+16.1%</td><td class="" data-sort="-0.031026503996634425" style="background:#fbd5d4;color:#111820;">-3.1%</td><td class="" data-sort="0.031229012760241703" style="background:#d6ecd4;color:#111820;">+3.1%</td></tr><tr><td class="text" data-sort="boston scientific" style="">Boston Scientific</td><td class="text text" data-sort="bsx" style=""><a href="#company-bsx">BSX</a></td><td class="" data-sort="71142677431.34001" style="">$71.1B</td><td class="" data-sort="-0.043055862221240804" style="background:#fbd5d4;color:#111820;">-4.3%</td><td class="" data-sort="-0.556986609424512" style="background:#c0302f;color:#ffffff;">-55.7%</td><td class="" data-sort="-0.4835557673975214" style="background:#e34948;color:#111820;">-48.4%</td></tr><tr><td class="text" data-sort="stryker" style="">Stryker</td><td class="text text" data-sort="syk" style=""><a href="#company-syk">SYK</a></td><td class="" data-sort="128865200534.15999" style="">$128.9B</td><td class="" data-sort="-0.10617283950617284" style="background:#fbd5d4;color:#111820;">-10.6%</td><td class="" data-sort="-0.269909508266327" style="background:#ee8483;color:#111820;">-27.0%</td><td class="" data-sort="-0.24585400619500564" style="background:#f5aead;color:#111820;">-24.6%</td></tr><tr><td class="text" data-sort="zimmer biomet" style="">Zimmer Biomet</td><td class="text text" data-sort="zbh" style=""><a href="#company-zbh">ZBH</a></td><td class="" data-sort="18535640400.420002" style="">$18.5B</td><td class="" data-sort="0.08400591110605893" style="background:#d6ecd4;color:#111820;">+8.4%</td><td class="" data-sort="-0.047257468278549375" style="background:#fbd5d4;color:#111820;">-4.7%</td><td class="" data-sort="-0.10392783311407627" style="background:#fbd5d4;color:#111820;">-10.4%</td></tr><tr><td class="text" data-sort="abbott" style="">Abbott</td><td class="text text" data-sort="abt" style=""><a href="#company-abt">ABT</a></td><td class="" data-sort="182486222396.16" style="">$182.5B</td><td class="" data-sort="0.16061531500961435" style="background:#a9d9a4;color:#111820;">+16.1%</td><td class="" data-sort="-0.24573654807409584" style="background:#ee8483;color:#111820;">-24.6%</td><td class="" data-sort="-0.09753737906772209" style="background:#fbd5d4;color:#111820;">-9.8%</td></tr><tr><td class="text" data-sort="becton dickinson" style="">Becton Dickinson</td><td class="text text" data-sort="bd" style=""><a href="#company-bd">BD</a></td><td class="" data-sort="n/a" style="">n/a</td><td class="" data-sort="-0.03310069790628112" style="background:#fbd5d4;color:#111820;">-3.3%</td><td class="missing" data-sort="—" style="background:#f0efec;color:#111820;">—</td><td class="missing" data-sort="—" style="background:#f0efec;color:#111820;">—</td></tr><tr><td class="text" data-sort="edwards lifesciences" style="">Edwards LifeSciences</td><td class="text text" data-sort="ew" style=""><a href="#company-ew">EW</a></td><td class="" data-sort="51591680000.0" style="">$51.6B</td><td class="" data-sort="0.010302197802197766" style="background:#d6ecd4;color:#111820;">+1.0%</td><td class="" data-sort="0.18613089638489466" style="background:#a9d9a4;color:#111820;">+18.6%</td><td class="" data-sort="0.3206643722878948" style="background:#7cc077;color:#111820;">+32.1%</td></tr><tr><td class="text" data-sort="dexcom" style="">Dexcom</td><td class="text text" data-sort="dxcm" style=""><a href="#company-dxcm">DXCM</a></td><td class="" data-sort="32807744909.1" style="">$32.8B</td><td class="" data-sort="0.23292396853870567" style="background:#a9d9a4;color:#111820;">+23.3%</td><td class="" data-sort="0.3246849518161601" style="background:#7cc077;color:#111820;">+32.5%</td><td class="" data-sort="0.26863552463438856" style="background:#7cc077;color:#111820;">+26.9%</td></tr><tr><td class="text" data-sort="resmed" style="">ResMed</td><td class="text text" data-sort="rmd" style=""><a href="#company-rmd">RMD</a></td><td class="" data-sort="32367881525.76" style="">$32.4B</td><td class="" data-sort="0.19275830991888898" style="background:#a9d9a4;color:#111820;">+19.3%</td><td class="" data-sort="-0.1764339836743658" style="background:#f5aead;color:#111820;">-17.6%</td><td class="" data-sort="-0.08144851800440922" style="background:#fbd5d4;color:#111820;">-8.1%</td></tr><tr><td class="text" data-sort="insulet" style="">Insulet</td><td class="text text" data-sort="podd" style=""><a href="#company-podd">PODD</a></td><td class="" data-sort="11554732916.68" style="">$11.6B</td><td class="" data-sort="-0.035400658616904446" style="background:#fbd5d4;color:#111820;">-3.5%</td><td class="" data-sort="-0.5750211582638133" style="background:#c0302f;color:#ffffff;">-57.5%</td><td class="" data-sort="-0.4056978611886043" style="background:#e34948;color:#111820;">-40.6%</td></tr><tr><td class="text" data-sort="globus medical" style="">Globus Medical</td><td class="text text" data-sort="gmed" style=""><a href="#company-gmed">GMED</a></td><td class="" data-sort="11064544465.26" style="">$11.1B</td><td class="" data-sort="-0.06500063107408816" style="background:#fbd5d4;color:#111820;">-6.5%</td><td class="" data-sort="0.3249865855839742" style="background:#7cc077;color:#111820;">+32.5%</td><td class="" data-sort="0.04869762174405423" style="background:#d6ecd4;color:#111820;">+4.9%</td></tr><tr><td class="text" data-sort="intuitive surgical" style="">Intuitive Surgical</td><td class="text text" data-sort="isrg" style=""><a href="#company-isrg">ISRG</a></td><td class="" data-sort="130099936664.06999" style="">$130.1B</td><td class="" data-sort="-0.03306455577953682" style="background:#fbd5d4;color:#111820;">-3.3%</td><td class="" data-sort="-0.10346006564551435" style="background:#fbd5d4;color:#111820;">-10.3%</td><td class="" data-sort="-0.19101192924722343" style="background:#f5aead;color:#111820;">-19.1%</td></tr><tr><td class="text" data-sort="ge healthcare" style="">GE Healthcare</td><td class="text text" data-sort="gehc" style=""><a href="#company-gehc">GEHC</a></td><td class="" data-sort="31735476065.52" style="">$31.7B</td><td class="" data-sort="0.04124046111381707" style="background:#d6ecd4;color:#111820;">+4.1%</td><td class="" data-sort="-0.14390602055800295" style="background:#f5aead;color:#111820;">-14.4%</td><td class="" data-sort="-0.28965440850686763" style="background:#ee8483;color:#111820;">-29.0%</td></tr><tr><td class="text" data-sort="transmedics" style="">Transmedics</td><td class="text text" data-sort="tmdx" style=""><a href="#company-tmdx">TMDX</a></td><td class="" data-sort="2790793563.25" style="">$2.8B</td><td class="" data-sort="0.09683970046960266" style="background:#d6ecd4;color:#111820;">+9.7%</td><td class="" data-sort="-0.29331915937525554" style="background:#ee8483;color:#111820;">-29.3%</td><td class="" data-sort="-0.47624242424242424" style="background:#e34948;color:#111820;">-47.6%</td></tr><tr><td class="text" data-sort="steris" style="">STERIS</td><td class="text text" data-sort="ste" style=""><a href="#company-ste">STE</a></td><td class="" data-sort="22693020788.0" style="">$22.7B</td><td class="" data-sort="0.011993485020482586" style="background:#d6ecd4;color:#111820;">+1.2%</td><td class="" data-sort="-0.17581799179998392" style="background:#f5aead;color:#111820;">-17.6%</td><td class="" data-sort="-0.13477930627057133" style="background:#f5aead;color:#111820;">-13.5%</td></tr><tr><td class="text" data-sort="masimo" style="">Masimo</td><td class="text text" data-sort="masi" style=""><a href="#company-masi">MASI</a></td><td class="" data-sort="n/a" style="">n/a</td><td class="" data-sort="0.0" style="background:#f0efec;color:#111820;">+0.0%</td><td class="" data-sort="0.28142134871466196" style="background:#7cc077;color:#111820;">+28.1%</td><td class="" data-sort="0.4820457914676328" style="background:#2f9e44;color:#111820;">+48.2%</td></tr><tr><td class="text" data-sort="inspire medical systems" style="">Inspire Medical Systems</td><td class="text text" data-sort="insp" style=""><a href="#company-insp">INSP</a></td><td class="" data-sort="1854311452.5" style="">$1.9B</td><td class="" data-sort="0.8019244308847688" style="background:#1a7a3c;color:#ffffff;">+80.2%</td><td class="" data-sort="-0.03880821231847764" style="background:#fbd5d4;color:#111820;">-3.9%</td><td class="" data-sort="-0.6392764857881137" style="background:#c0302f;color:#ffffff;">-63.9%</td></tr></tbody></table></div>
+
+<h3 id="category-big-pharma"><a href="#subcategory-performance">Big Pharma</a><span class="return-badge category-return" style="background:#7cc077;color:#111820;">Last 3m: +10.0%</span></h3>
+
+<div class="table-wrap"><table class="sortable"><thead><tr><th class="sortable-heading" data-column="0" data-type="text">Company</th><th class="sortable-heading" data-column="1" data-type="text">Ticker</th><th class="sortable-heading" data-column="2" data-type="number">Market cap</th><th class="sortable-heading" data-column="3" data-type="number">3m Return</th><th class="sortable-heading" data-column="4" data-type="number">12m Return</th><th class="sortable-heading" data-column="5" data-type="number">24m Return</th></tr></thead><tbody><tr><td class="text" data-sort="eli lilly" style="">Eli Lilly</td><td class="text text" data-sort="lly" style=""><a href="#company-lly">LLY</a></td><td class="" data-sort="1031414900000.0" style="">$1.0T</td><td class="" data-sort="0.04948250907998597" style="background:#d6ecd4;color:#111820;">+4.9%</td><td class="" data-sort="0.5331719836699957" style="background:#2f9e44;color:#111820;">+53.3%</td><td class="" data-sort="0.2511584499017896" style="background:#a9d9a4;color:#111820;">+25.1%</td></tr><tr><td class="text" data-sort="novo nordisk" style="">Novo Nordisk</td><td class="text text" data-sort="nvo" style=""><a href="#company-nvo">NVO</a></td><td class="" data-sort="195750833025.6" style="">$195.8B</td><td class="" data-sort="0.0011576753878212998" style="background:#d6ecd4;color:#111820;">+0.1%</td><td class="" data-sort="-0.29576547231270356" style="background:#f5aead;color:#111820;">-29.6%</td><td class="" data-sort="-0.6608893420123911" style="background:#c0302f;color:#ffffff;">-66.1%</td></tr><tr><td class="text" data-sort="abbvie" style="">AbbVie</td><td class="text text" data-sort="abbv" style=""><a href="#company-abbv">ABBV</a></td><td class="" data-sort="430823194083.0" style="">$430.8B</td><td class="" data-sort="0.21927109797219257" style="background:#2f9e44;color:#111820;">+21.9%</td><td class="" data-sort="0.18649705578280207" style="background:#a9d9a4;color:#111820;">+18.6%</td><td class="" data-sort="0.36434589342016843" style="background:#7cc077;color:#111820;">+36.4%</td></tr><tr><td class="text" data-sort="johnson &amp; johnson" style="">Johnson &amp; Johnson</td><td class="text text" data-sort="jnj" style=""><a href="#company-jnj">JNJ</a></td><td class="" data-sort="614355449333.21" style="">$614.4B</td><td class="" data-sort="0.18214457725819888" style="background:#2f9e44;color:#111820;">+18.2%</td><td class="" data-sort="0.5323798172427494" style="background:#2f9e44;color:#111820;">+53.2%</td><td class="" data-sort="0.644675925925926" style="background:#1a7a3c;color:#ffffff;">+64.5%</td></tr><tr><td class="text" data-sort="pfizer" style="">Pfizer</td><td class="text text" data-sort="pfe" style=""><a href="#company-pfe">PFE</a></td><td class="" data-sort="144828705896.49" style="">$144.8B</td><td class="" data-sort="0.09718365727885758" style="background:#a9d9a4;color:#111820;">+9.7%</td><td class="" data-sort="0.15106117353308357" style="background:#d6ecd4;color:#111820;">+15.1%</td><td class="" data-sort="-0.05982324949014284" style="background:#fbd5d4;color:#111820;">-6.0%</td></tr><tr><td class="text" data-sort="merck" style="">Merck</td><td class="text text" data-sort="mrk" style=""><a href="#company-mrk">MRK</a></td><td class="" data-sort="316137525120.0" style="">$316.1B</td><td class="" data-sort="0.2898041626416088" style="background:#1a7a3c;color:#ffffff;">+29.0%</td><td class="" data-sort="0.8018648018648018" style="background:#1a7a3c;color:#ffffff;">+80.2%</td><td class="" data-sort="0.25347785269266887" style="background:#a9d9a4;color:#111820;">+25.3%</td></tr><tr><td class="text" data-sort="bristol myers squibb" style="">Bristol Myers Squibb</td><td class="text text" data-sort="bmy" style=""><a href="#company-bmy">BMY</a></td><td class="" data-sort="134594468683.84" style="">$134.6B</td><td class="" data-sort="0.1677777777777778" style="background:#7cc077;color:#111820;">+16.8%</td><td class="" data-sort="0.40071079520213226" style="background:#7cc077;color:#111820;">+40.1%</td><td class="" data-sort="0.27625986642380096" style="background:#7cc077;color:#111820;">+27.6%</td></tr><tr><td class="text" data-sort="viatris" style="">Viatris</td><td class="text text" data-sort="vtrs" style=""><a href="#company-vtrs">VTRS</a></td><td class="" data-sort="20612581975.8" style="">$20.6B</td><td class="" data-sort="0.10279765777488614" style="background:#a9d9a4;color:#111820;">+10.3%</td><td class="" data-sort="0.7121212121212119" style="background:#1a7a3c;color:#ffffff;">+71.2%</td><td class="" data-sort="0.48814749780509215" style="background:#2f9e44;color:#111820;">+48.8%</td></tr><tr><td class="text" data-sort="astrazeneca" style="">AstraZeneca</td><td class="text text" data-sort="azn" style=""><a href="#company-azn">AZN</a></td><td class="" data-sort="241348854732.04" style="">$241.3B</td><td class="" data-sort="-0.050591665237523564" style="background:#fbd5d4;color:#111820;">-5.1%</td><td class="" data-sort="0.08862087047718936" style="background:#d6ecd4;color:#111820;">+8.9%</td><td class="" data-sort="0.05945394233222778" style="background:#d6ecd4;color:#111820;">+5.9%</td></tr><tr><td class="text" data-sort="novartis" style="">Novartis</td><td class="text text" data-sort="nvs" style=""><a href="#company-nvs">NVS</a></td><td class="" data-sort="291322563526.80005" style="">$291.3B</td><td class="" data-sort="-0.04562143051400602" style="background:#fbd5d4;color:#111820;">-4.6%</td><td class="" data-sort="0.14186935654437471" style="background:#d6ecd4;color:#111820;">+14.2%</td><td class="" data-sort="0.21071243746765567" style="background:#a9d9a4;color:#111820;">+21.1%</td></tr><tr><td class="text" data-sort="sanofi" style="">Sanofi</td><td class="text text" data-sort="sny" style=""><a href="#company-sny">SNY</a></td><td class="" data-sort="103635492944.72" style="">$103.6B</td><td class="" data-sort="0.0023596035865973697" style="background:#d6ecd4;color:#111820;">+0.2%</td><td class="" data-sort="-0.10831234256926958" style="background:#fbd5d4;color:#111820;">-10.8%</td><td class="" data-sort="-0.26288391462779814" style="background:#f5aead;color:#111820;">-26.3%</td></tr><tr><td class="text" data-sort="gsk" style="">GSK</td><td class="text text" data-sort="gsk" style=""><a href="#company-gsk">GSK</a></td><td class="" data-sort="103204573753.19" style="">$103.2B</td><td class="" data-sort="-0.008880994671403242" style="background:#fbd5d4;color:#111820;">-0.9%</td><td class="" data-sort="0.23481681829358236" style="background:#a9d9a4;color:#111820;">+23.5%</td><td class="" data-sort="0.23088235294117654" style="background:#a9d9a4;color:#111820;">+23.1%</td></tr></tbody></table></div>
+
+<h3 id="category-established-biotech"><a href="#subcategory-performance">Established Biotech</a><span class="return-badge category-return" style="background:#1a7a3c;color:#ffffff;">Last 3m: +17.8%</span></h3>
+
+<div class="table-wrap"><table class="sortable"><thead><tr><th class="sortable-heading" data-column="0" data-type="text">Company</th><th class="sortable-heading" data-column="1" data-type="text">Ticker</th><th class="sortable-heading" data-column="2" data-type="number">Market cap</th><th class="sortable-heading" data-column="3" data-type="number">3m Return</th><th class="sortable-heading" data-column="4" data-type="number">12m Return</th><th class="sortable-heading" data-column="5" data-type="number">24m Return</th></tr></thead><tbody><tr><td class="text" data-sort="vertex" style="">Vertex</td><td class="text text" data-sort="vrtx" style=""><a href="#company-vrtx">VRTX</a></td><td class="" data-sort="121255976500.0" style="">$121.3B</td><td class="" data-sort="0.12556738923455035" style="background:#d6ecd4;color:#111820;">+12.6%</td><td class="" data-sort="0.32684276466903306" style="background:#d6ecd4;color:#111820;">+32.7%</td><td class="" data-sort="0.09339241159769407" style="background:#d6ecd4;color:#111820;">+9.3%</td></tr><tr><td class="text" data-sort="regeneron" style="">Regeneron</td><td class="text text" data-sort="regn" style=""><a href="#company-regn">REGN</a></td><td class="" data-sort="78313741172.08" style="">$78.3B</td><td class="" data-sort="0.2867659114011214" style="background:#a9d9a4;color:#111820;">+28.7%</td><td class="" data-sort="0.3257825301103059" style="background:#d6ecd4;color:#111820;">+32.6%</td><td class="" data-sort="-0.3145594438573661" style="background:#f5aead;color:#111820;">-31.5%</td></tr><tr><td class="text" data-sort="amgen" style="">Amgen</td><td class="text text" data-sort="amgn" style=""><a href="#company-amgn">AMGN</a></td><td class="" data-sort="210497021025.47998" style="">$210.5B</td><td class="" data-sort="0.14232819905213256" style="background:#d6ecd4;color:#111820;">+14.2%</td><td class="" data-sort="0.35121404295574776" style="background:#d6ecd4;color:#111820;">+35.1%</td><td class="" data-sort="0.1430730926551662" style="background:#d6ecd4;color:#111820;">+14.3%</td></tr><tr><td class="text" data-sort="gilead" style="">Gilead</td><td class="text text" data-sort="gild" style=""><a href="#company-gild">GILD</a></td><td class="" data-sort="167922325458.5" style="">$167.9B</td><td class="" data-sort="0.21291208791208804" style="background:#d6ecd4;color:#111820;">+21.3%</td><td class="" data-sort="0.3157156630730127" style="background:#d6ecd4;color:#111820;">+31.6%</td><td class="" data-sort="0.788301167500596" style="background:#7cc077;color:#111820;">+78.8%</td></tr><tr><td class="text" data-sort="biogen" style="">Biogen</td><td class="text text" data-sort="biib" style=""><a href="#company-biib">BIIB</a></td><td class="" data-sort="30799320883.1" style="">$30.8B</td><td class="" data-sort="0.09624580323532395" style="background:#d6ecd4;color:#111820;">+9.6%</td><td class="" data-sort="0.512280701754386" style="background:#d6ecd4;color:#111820;">+51.2%</td><td class="" data-sort="0.0809590690208668" style="background:#d6ecd4;color:#111820;">+8.1%</td></tr><tr><td class="text" data-sort="alnylam" style="">Alnylam</td><td class="text text" data-sort="alny" style=""><a href="#company-alny">ALNY</a></td><td class="" data-sort="29304196842.0" style="">$29.3B</td><td class="" data-sort="-0.13855226725160907" style="background:#fbd5d4;color:#111820;">-13.9%</td><td class="" data-sort="-0.4718229120733751" style="background:#fbd5d4;color:#111820;">-47.2%</td><td class="" data-sort="-0.12531035489995612" style="background:#fbd5d4;color:#111820;">-12.5%</td></tr><tr><td class="text" data-sort="sarepta" style="">Sarepta</td><td class="text text" data-sort="srpt" style=""><a href="#company-srpt">SRPT</a></td><td class="" data-sort="1730394278.5800002" style="">$1.7B</td><td class="" data-sort="0.14717626925270944" style="background:#d6ecd4;color:#111820;">+14.7%</td><td class="" data-sort="0.15375788869764762" style="background:#d6ecd4;color:#111820;">+15.4%</td><td class="" data-sort="-0.8419149437937269" style="background:#e34948;color:#111820;">-84.2%</td></tr><tr><td class="text" data-sort="moderna" style="">Moderna</td><td class="text text" data-sort="mrna" style=""><a href="#company-mrna">MRNA</a></td><td class="" data-sort="22752453314.11" style="">$22.8B</td><td class="" data-sort="1.4083802376485304" style="background:#1a7a3c;color:#ffffff;">+140.8%</td><td class="" data-sort="5.103011093502377" style="background:#1a7a3c;color:#ffffff;">+510.3%</td><td class="" data-sort="1.3449535697975339" style="background:#1a7a3c;color:#ffffff;">+134.5%</td></tr><tr><td class="text" data-sort="exelixis" style="">Exelixis</td><td class="text text" data-sort="exel" style=""><a href="#company-exel">EXEL</a></td><td class="" data-sort="14075884648.0" style="">$14.1B</td><td class="" data-sort="0.12425351570025045" style="background:#d6ecd4;color:#111820;">+12.4%</td><td class="" data-sort="0.45536159600997506" style="background:#d6ecd4;color:#111820;">+45.5%</td><td class="" data-sort="1.2089326267978802" style="background:#1a7a3c;color:#ffffff;">+120.9%</td></tr><tr><td class="text" data-sort="argenx" style="">Argenx</td><td class="text text" data-sort="argx" style=""><a href="#company-argx">ARGX</a></td><td class="" data-sort="52832758588.5" style="">$52.8B</td><td class="" data-sort="0.1282869252153307" style="background:#d6ecd4;color:#111820;">+12.8%</td><td class="" data-sort="0.3441554916119225" style="background:#d6ecd4;color:#111820;">+34.4%</td><td class="" data-sort="0.8580112570356473" style="background:#2f9e44;color:#111820;">+85.8%</td></tr><tr><td class="text" data-sort="neurocrine biosciences" style="">Neurocrine Biosciences</td><td class="text text" data-sort="nbix" style=""><a href="#company-nbix">NBIX</a></td><td class="" data-sort="16879862996.86" style="">$16.9B</td><td class="" data-sort="-0.07618927285362309" style="background:#fbd5d4;color:#111820;">-7.6%</td><td class="" data-sort="0.006885629690835282" style="background:#d6ecd4;color:#111820;">+0.7%</td><td class="" data-sort="0.23557245458386133" style="background:#d6ecd4;color:#111820;">+23.6%</td></tr><tr><td class="text" data-sort="united therapeutics" style="">United Therapeutics</td><td class="text text" data-sort="uthr" style=""><a href="#company-uthr">UTHR</a></td><td class="" data-sort="22016271472.44" style="">$22.0B</td><td class="" data-sort="-0.07819750647608048" style="background:#fbd5d4;color:#111820;">-7.8%</td><td class="" data-sort="0.18454390880570926" style="background:#d6ecd4;color:#111820;">+18.5%</td><td class="" data-sort="0.4012181303116147" style="background:#a9d9a4;color:#111820;">+40.1%</td></tr><tr><td class="text" data-sort="incyte" style="">Incyte</td><td class="text text" data-sort="incy" style=""><a href="#company-incy">INCY</a></td><td class="" data-sort="24445348167.6" style="">$24.4B</td><td class="" data-sort="0.27580940745265736" style="background:#d6ecd4;color:#111820;">+27.6%</td><td class="" data-sort="0.4481682653415" style="background:#d6ecd4;color:#111820;">+44.8%</td><td class="" data-sort="0.9061454213568605" style="background:#2f9e44;color:#111820;">+90.6%</td></tr><tr><td class="text" data-sort="biomarin pharmaceutical" style="">BioMarin Pharmaceutical</td><td class="text text" data-sort="bmrn" style=""><a href="#company-bmrn">BMRN</a></td><td class="" data-sort="11736231075.36" style="">$11.7B</td><td class="" data-sort="0.16913512525141705" style="background:#d6ecd4;color:#111820;">+16.9%</td><td class="" data-sort="0.17623252391464317" style="background:#d6ecd4;color:#111820;">+17.6%</td><td class="" data-sort="-0.09548733908615081" style="background:#fbd5d4;color:#111820;">-9.5%</td></tr><tr><td class="text" data-sort="ionis pharmaceuticals" style="">Ionis Pharmaceuticals</td><td class="text text" data-sort="ions" style=""><a href="#company-ions">IONS</a></td><td class="" data-sort="9151770612.54" style="">$9.2B</td><td class="" data-sort="-0.40043173232595797" style="background:#f5aead;color:#111820;">-40.0%</td><td class="" data-sort="-0.2715948205212261" style="background:#fbd5d4;color:#111820;">-27.2%</td><td class="" data-sort="0.03928905519176795" style="background:#d6ecd4;color:#111820;">+3.9%</td></tr></tbody></table></div>
+
+<h3 id="category-emerging-biotech"><a href="#subcategory-performance">Emerging Biotech</a><span class="return-badge category-return" style="background:#2f9e44;color:#111820;">Last 3m: +13.8%</span></h3>
+
+<div class="table-wrap"><table class="sortable"><thead><tr><th class="sortable-heading" data-column="0" data-type="text">Company</th><th class="sortable-heading" data-column="1" data-type="text">Ticker</th><th class="sortable-heading" data-column="2" data-type="number">Market cap</th><th class="sortable-heading" data-column="3" data-type="number">3m Return</th><th class="sortable-heading" data-column="4" data-type="number">12m Return</th><th class="sortable-heading" data-column="5" data-type="number">24m Return</th></tr></thead><tbody><tr><td class="text" data-sort="adma biologics" style="">ADMA Biologics</td><td class="text text" data-sort="adma" style=""><a href="#company-adma">ADMA</a></td><td class="" data-sort="2065094890.65" style="">$2.1B</td><td class="" data-sort="0.09626955475330923" style="background:#a9d9a4;color:#111820;">+9.6%</td><td class="" data-sort="-0.4274041483343809" style="background:#ee8483;color:#111820;">-42.7%</td><td class="" data-sort="-0.5440440440440442" style="background:#f5aead;color:#111820;">-54.4%</td></tr><tr><td class="text" data-sort="ocular therapeutix" style="">Ocular therapeutix</td><td class="text text" data-sort="ocul" style=""><a href="#company-ocul">OCUL</a></td><td class="" data-sort="1886500306.12" style="">$1.9B</td><td class="" data-sort="0.05938494167550368" style="background:#d6ecd4;color:#111820;">+5.9%</td><td class="" data-sort="-0.17438016528925615" style="background:#fbd5d4;color:#111820;">-17.4%</td><td class="" data-sort="0.11247216035634744" style="background:#d6ecd4;color:#111820;">+11.2%</td></tr><tr><td class="text" data-sort="novocure" style="">Novocure</td><td class="text text" data-sort="nvcr" style=""><a href="#company-nvcr">NVCR</a></td><td class="" data-sort="1894573816.8" style="">$1.9B</td><td class="" data-sort="0.1687675070028012" style="background:#7cc077;color:#111820;">+16.9%</td><td class="" data-sort="0.31520882584712395" style="background:#a9d9a4;color:#111820;">+31.5%</td><td class="" data-sort="-0.04355300859598843" style="background:#fbd5d4;color:#111820;">-4.4%</td></tr><tr><td class="text" data-sort="corcept therapeutics" style="">Corcept Therapeutics</td><td class="text text" data-sort="cort" style=""><a href="#company-cort">CORT</a></td><td class="" data-sort="11869203990.6" style="">$11.9B</td><td class="" data-sort="0.3801776999124016" style="background:#1a7a3c;color:#ffffff;">+38.0%</td><td class="" data-sort="0.36972180824639866" style="background:#a9d9a4;color:#111820;">+37.0%</td><td class="" data-sort="1.6104142011834321" style="background:#1a7a3c;color:#ffffff;">+161.0%</td></tr><tr><td class="text" data-sort="acadia pharmaceuticals" style="">Acadia Pharmaceuticals</td><td class="text text" data-sort="acad" style=""><a href="#company-acad">ACAD</a></td><td class="" data-sort="4649053870.5" style="">$4.6B</td><td class="" data-sort="0.2622571692876965" style="background:#2f9e44;color:#111820;">+26.2%</td><td class="" data-sort="0.11752661752661742" style="background:#d6ecd4;color:#111820;">+11.8%</td><td class="" data-sort="0.6509376890502117" style="background:#7cc077;color:#111820;">+65.1%</td></tr><tr><td class="text" data-sort="krystal biotech" style="">Krystal Biotech</td><td class="text text" data-sort="krys" style=""><a href="#company-krys">KRYS</a></td><td class="" data-sort="9612813967.72" style="">$9.6B</td><td class="" data-sort="-0.032724242946618354" style="background:#fbd5d4;color:#111820;">-3.3%</td><td class="" data-sort="1.0582625175765727" style="background:#1a7a3c;color:#ffffff;">+105.8%</td><td class="" data-sort="0.8280393115056743" style="background:#7cc077;color:#111820;">+82.8%</td></tr><tr><td class="text" data-sort="avidity biosciences" style="">Avidity Biosciences</td><td class="text text" data-sort="rna" style=""><a href="#company-rna">RNA</a></td><td class="" data-sort="197399120.22" style="">$197.4M</td><td class="" data-sort="-0.2930489731437599" style="background:#e34948;color:#111820;">-29.3%</td><td class="" data-sort="-0.7820263029712616" style="background:#e34948;color:#111820;">-78.2%</td><td class="" data-sort="-0.7987859712230216" style="background:#ee8483;color:#111820;">-79.9%</td></tr><tr><td class="text" data-sort="recursion pharmaceuticals" style="">Recursion Pharmaceuticals</td><td class="text text" data-sort="rxrx" style=""><a href="#company-rxrx">RXRX</a></td><td class="" data-sort="1756822875.38" style="">$1.8B</td><td class="" data-sort="0.18575851393188847" style="background:#7cc077;color:#111820;">+18.6%</td><td class="" data-sort="-0.21995926680244404" style="background:#f5aead;color:#111820;">-22.0%</td><td class="" data-sort="-0.43676470588235294" style="background:#f5aead;color:#111820;">-43.7%</td></tr><tr><td class="text" data-sort="cg oncology" style="">CG Oncology</td><td class="text text" data-sort="cgon" style=""><a href="#company-cgon">CGON</a></td><td class="" data-sort="6297656572.200001" style="">$6.3B</td><td class="" data-sort="0.22167648984937793" style="background:#7cc077;color:#111820;">+22.2%</td><td class="" data-sort="1.0222222222222226" style="background:#1a7a3c;color:#ffffff;">+102.2%</td><td class="" data-sort="0.9133333333333336" style="background:#7cc077;color:#111820;">+91.3%</td></tr><tr><td class="text" data-sort="bridgebio pharma" style="">BridgeBio Pharma</td><td class="text text" data-sort="bbio" style=""><a href="#company-bbio">BBIO</a></td><td class="" data-sort="16074332130.939999" style="">$16.1B</td><td class="" data-sort="0.005130526633469135" style="background:#d6ecd4;color:#111820;">+0.5%</td><td class="" data-sort="0.27191139965629185" style="background:#a9d9a4;color:#111820;">+27.2%</td><td class="" data-sort="1.4910246821241588" style="background:#1a7a3c;color:#ffffff;">+149.1%</td></tr></tbody></table></div>
+
+
+## Upcoming Earnings
+
+No saved earnings dates fall within the next seven days.
+
+## Recent Earnings Highlights — 3m Ret
+
+No earnings highlights fall within this report's window.
+
+## Company Overviews
+
+<h3 id="company-mdt">Medtronic (MDT)</h3>
+
+*Devices & Diagnostic · $110.3B · 3m +16.1% · 12m -3.1% · 24m +3.1%*
+
+[Google Finance](https://www.google.com/finance/quote/MDT:NYSE?tab=earnings&hl=en)
+
+Large medical device company with broad portfolio across cardiovascular, neuroscience, surgical, and diabetes care.
+
+![Medtronic versus category peers and the S&P 500](assets/earnings-mdt-3m.webp)
+
+One of the largest medical-device companies, Medtronic develops and manufactures therapeutic medical devices for chronic diseases. Its portfolio includes pacemakers, defibrillators, transcatheter heart valves, stents, spinal fixation devices, neurovascular products, advanced energy, ablation laser therapy, and surgical tools. The company primarily markets its products to healthcare institutions and physicians in the United States, Western Europe, and Japan. Foreign sales account for roughly 50% of the company's total sales.
+
+<h3 id="company-bsx">Boston Scientific (BSX)</h3>
+
+*Devices & Diagnostic · $71.1B · 3m -4.3% · 12m -55.7% · 24m -48.4%*
+
+[Google Finance](https://www.google.com/finance/quote/BSX:NYSE?tab=earnings&hl=en)
+
+Growth-focused medtech leader specializing in minimally invasive cardiovascular, electrophysiology, endoscopy, and neuromodulation devices.
+
+![Boston Scientific versus category peers and the S&P 500](assets/earnings-bsx-3m.webp)
+
+Boston Scientific focuses on less invasive medical devices that are inserted into the human body through small openings or cuts. It manufactures products for use in angioplasty, blood clot filtration, kidney stone management, cardiac rhythm management, catheter-directed ultrasound imaging, upper gastrointestinal tract diagnostics, interventional oncology, neuromodulation for chronic pain, and treatment of incontinence. The firm markets its devices to healthcare professionals and institutions globally. Foreign sales account for roughly 36% of the firm's total sales.
+
+<h3 id="company-syk">Stryker (SYK)</h3>
+
+*Devices & Diagnostic · $128.9B · 3m -10.6% · 12m -27.0% · 24m -24.6%*
+
+[Google Finance](https://www.google.com/finance/quote/SYK:NYSE?tab=earnings&hl=en)
+
+Premier orthopedic and surgical technology company best known for joint replacements, MedSurg equipment, and Mako robotic assisted surgery systems.
+
+![Stryker versus category peers and the S&P 500](assets/earnings-syk-3m.webp)
+
+Stryker designs, manufactures, and markets an array of medical equipment, instruments, consumable supplies, and implantable devices. The product portfolio includes hip and knee replacements, extremities, endoscopy systems, operating room equipment, embolic coils, mechanical thrombectomy systems, hospital beds and gurneys, and orthopedic robotics. Stryker remains one of the three largest competitors in reconstructive orthopedic implants and holds the leadership position in operating room equipment. Roughly one-fourth of Stryker's total revenue currently comes from outside the United States.
+
+<h3 id="company-zbh">Zimmer Biomet (ZBH)</h3>
+
+*Devices & Diagnostic · $18.5B · 3m +8.4% · 12m -4.7% · 24m -10.4%*
+
+[Google Finance](https://www.google.com/finance/quote/ZBH:NYSE?tab=earnings&hl=en)
+
+Orthopedic specialist centered on knee, hip, and extremity implants, with robotic surgery offerings for joint reconstruction.
+
+![Zimmer Biomet versus category peers and the S&P 500](assets/earnings-zbh-3m.webp)
+
+Zimmer Biomet designs, manufactures, and markets orthopedic reconstructive implants as well as supplies and surgical equipment for orthopedic surgery. With the acquisitions of Centerpulse in 2003 and Biomet in 2015, Zimmer holds the leading share of the reconstructive market in the United States, Europe, and Japan. Roughly two-thirds of total revenue is derived from sales of large joints; another fourth comes from extremities, trauma, sports medicine, and related surgical products. The firm spun out its dental and spine businesses in 2022.
+
+<h3 id="company-abt">Abbott (ABT)</h3>
+
+*Devices & Diagnostic · $182.5B · 3m +16.1% · 12m -24.6% · 24m -9.8%*
+
+[Google Finance](https://www.google.com/finance/quote/ABT:NYSE?tab=earnings&hl=en)
+
+Diversified healthcare company spanning diagnostics, medical devices, nutrition products, and established pharmaceuticals.
+
+![Abbott versus category peers and the S&P 500](assets/earnings-abt-3m.webp)
+
+Abbott manufactures and markets cardiovascular and diabetes devices, adult and pediatric nutritional products, diagnostic equipment and testing kits, and branded generic drugs. Products include pacemakers, implantable cardioverter defibrillators, neuromodulation devices, coronary stents, catheters, infant formula, nutritional liquids for adults, continuous glucose monitors, and immunoassays and point-of-care diagnostic equipment. Abbott derives roughly 60% of sales outside the United States.
+
+<h3 id="company-bd">Becton Dickinson (BD)</h3>
+
+*Devices & Diagnostic · n/a · 3m -3.3% · 12m n/a · 24m n/a*
+
+[Google Finance](https://www.google.com/finance/quote/BD:NYSEARCA?tab=earnings&hl=en)
+
+leading medical product and component company.
+
+![Becton Dickinson versus category peers and the S&P 500](assets/earnings-bd-3m.webp)
+
+<h3 id="company-ew">Edwards LifeSciences (EW)</h3>
+
+*Devices & Diagnostic · $51.6B · 3m +1.0% · 12m +18.6% · 24m +32.1%*
+
+[Google Finance](https://www.google.com/finance/quote/EW:NYSE?tab=earnings&hl=en)
+
+Cardiovascular company focused on structural heart therapies, particularly transcatheter and surgical heart valve tech.
+
+![Edwards LifeSciences versus category peers and the S&P 500](assets/earnings-ew-3m.webp)
+
+Spun off from Baxter International in 2000, Edwards Lifesciences designs, manufactures, and markets a range of medical devices and equipment for advanced stages of structural heart disease. It has established itself as a leader across key products, including surgical tissue heart valves, transcatheter aortic valves, and transcatheter mitral and tricuspid valve technologies. The firm derives about 60% of its total sales from outside the US.
+
+<h3 id="company-dxcm">Dexcom (DXCM)</h3>
+
+*Devices & Diagnostic · $32.8B · 3m +23.3% · 12m +32.5% · 24m +26.9%*
+
+[Google Finance](https://www.google.com/finance/quote/DXCM:NASDAQ?tab=earnings&hl=en)
+
+Leading independent continuous glucose monitoring company.
+
+![Dexcom versus category peers and the S&P 500](assets/earnings-dxcm-3m.webp)
+
+DexCom designs and commercializes continuous glucose monitoring systems for diabetic patients. CGM systems serve as an alternative to the traditional blood glucose meter process, and the company is evolving its CGM systems to provide integration with insulin pumps from Insulet and Tandem for automatic insulin delivery. DexCom's CGMs are available through medical equipment distributors as well as retail pharmacies.
+
+<h3 id="company-rmd">ResMed (RMD)</h3>
+
+*Devices & Diagnostic · $32.4B · 3m +19.3% · 12m -17.6% · 24m -8.1%*
+
+[Google Finance](https://www.google.com/finance/quote/RMD:NYSE?tab=earnings&hl=en)
+
+Sleep and respiratory care known for CPAP devices, masks, and connected software for sleep apnea and respiratory disorders.
+
+![ResMed versus category peers and the S&P 500](assets/earnings-rmd-3m.webp)
+
+ResMed is one of the largest respiratory care device companies globally, primarily developing and supplying flow generators, masks, and accessories for the treatment of sleep apnea. Increasing diagnosis of sleep apnea combined with aging populations and increasing prevalence of obesity is resulting in a structurally growing market. The company earns roughly two-thirds of its revenue in the Americas and the balance across other regions dominated by Europe, Japan, and Australia. Recent developments and acquisitions have focused on digital health as ResMed is aiming to differentiate itself through the provision of clinical data for use by the patient, medical care advisor, and payer in the out-of-hospital setting.
+
+<h3 id="company-podd">Insulet (PODD)</h3>
+
+*Devices & Diagnostic · $11.6B · 3m -3.5% · 12m -57.5% · 24m -40.6%*
+
+[Google Finance](https://www.google.com/finance/quote/PODD:NASDAQ?tab=earnings&hl=en)
+
+Diabetes technology company whose Omnipod platform pioneered the tubeless wearable insulin pump market.
+
+![Insulet versus category peers and the S&P 500](assets/earnings-podd-3m.webp)
+
+Insulet was founded in 2000 with the goal of making continuous subcutaneous insulin infusion therapy for diabetes easier to use. The result was the Omnipod system, which consists of a small disposable insulin infusion device that can be operated through a smartphone to control dosage. Since the Omnipod was approved by the US Food and Drug Administration in 2005, more than 600,000 insulin-dependent diabetic patients are using it worldwide.
+
+<h3 id="company-gmed">Globus Medical (GMED)</h3>
+
+*Devices & Diagnostic · $11.1B · 3m -6.5% · 12m +32.5% · 24m +4.9%*
+
+[Google Finance](https://www.google.com/finance/quote/GMED:NYSE?tab=earnings&hl=en)
+
+Musculoskeletal device company focused on spine surgery, orthopedic trauma, and robotic navigation techniques.
+
+![Globus Medical versus category peers and the S&P 500](assets/earnings-gmed-3m.webp)
+
+Globus Medical Inc is a medical device company that develops and provides healthcare products and solutions to hospitals, physicians, and surgical centers. The firm's products are organized into two categories: musculoskeletal solutions, which include medical devices and instruments used mostly for spinal and orthopedic procedures, and enabling technologies, which include computer systems developed for enhancing surgical capabilities. The vast majority of the company's revenue is generated from musculoskeletal solutions products, and more than half of the revenue is earned in the United States. It also has its presence internationally.
+
+<h3 id="company-isrg">Intuitive Surgical (ISRG)</h3>
+
+*Devices & Diagnostic · $130.1B · 3m -3.3% · 12m -10.3% · 24m -19.1%*
+
+[Google Finance](https://www.google.com/finance/quote/ISRG:NASDAQ?tab=earnings&hl=en)
+
+Dominant robotic surgery company whose da Vinci systems have come the standard platform for many minimally invasive surgeries.
+
+![Intuitive Surgical versus category peers and the S&P 500](assets/earnings-isrg-3m.webp)
+
+Intuitive develops, produces, and markets a robotic system for assisting minimally invasive surgery. It also provides the instrumentation, disposable accessories, and warranty services for the system. The company has placed more than 10,000 da Vinci systems in hospitals worldwide, with more than 6,000 installations in the US and a growing number in emerging markets.
+
+<h3 id="company-gehc">GE Healthcare (GEHC)</h3>
+
+*Devices & Diagnostic · $31.7B · 3m +4.1% · 12m -14.4% · 24m -29.0%*
+
+[Google Finance](https://www.google.com/finance/quote/GEHC:NASDAQ?tab=earnings&hl=en)
+
+Medical technology & diagnostic company focused on imaging equipment, patient monitoring, ultrasound, and healthcare IT infrastructure.
+
+![GE Healthcare versus category peers and the S&P 500](assets/earnings-gehc-3m.webp)
+
+GE HealthCare Technologies is a leading medical technology firm with leading market share in imaging and ultrasound equipment. The company reports four major segments: imaging (45% of revenue), advanced visualization solutions (26%), patient care solutions (15%), and pharmaceutical diagnostics (14%). The company's sales are geographically diverse, with the United States, EMEA, China, and the rest of the world accounting for 46%, 26%, 11%, and 17%, respectively. We estimate approximately half of its revenue is recurring, which consists of servicing (about one-third of revenue), pharmaceutical diagnostics (about 10%-15%), and digital solutions (just over 5%).
+
+<h3 id="company-tmdx">Transmedics (TMDX)</h3>
+
+*Devices & Diagnostic · $2.8B · 3m +9.7% · 12m -29.3% · 24m -47.6%*
+
+[Google Finance](https://www.google.com/finance/quote/TMDX:NASDAQ?tab=earnings&hl=en)
+
+Transplant technology and transportation company whose Organ Care System keeps donor organs functioning outside the body, expanding organ supply.
+
+![Transmedics versus category peers and the S&P 500](assets/earnings-tmdx-3m.webp)
+
+TransMedics Group Inc is a commercial-stage medical technology company transforming organ transplant therapy for end-stage organ failure patients across multiple disease states. It has developed the Organ Care System (OCS) to comprehensively address the limitations of cold storage. The OCS is a portable organ perfusion, optimization, and monitoring system that utilizes technology to replicate near-physiologic conditions for donor organs outside of the human body. The company has developed and is commercializing a proprietary system to preserve and deliver human organs for transplant in a near-physiologic condition to address the limitations of cold storage organ preservation.
+
+<h3 id="company-ste">STERIS (STE)</h3>
+
+*Devices & Diagnostic · $22.7B · 3m +1.2% · 12m -17.6% · 24m -13.5%*
+
+[Google Finance](https://www.google.com/finance/quote/STE:NYSE?tab=earnings&hl=en)
+
+provider of infection prevention, sterilization, and surgical support products and services.
+
+![STERIS versus category peers and the S&P 500](assets/earnings-ste-3m.webp)
+
+Steris is an Ireland-domiciled medical technology company focused on sterilization services and infection prevention. The company is the global leader in contract sterilization services, ensuring the safe delivery of single-use and implantable medical equipment to hospitals around the world. Steris also sells sterilizers, washer-disinfectors, and other decontamination equipment and supplies for use by care provider facilities and in biopharma manufacturing sites. Domiciled in the United States before its inversion to Ireland, the firm derives approximately 70% of its revenue from Healthcare Services, 20% from Applied Sterilization Technologies, or AST, and 10% from life sciences services after the divestment of its dental products business.
+
+<h3 id="company-masi">Masimo (MASI)</h3>
+
+*Devices & Diagnostic · n/a · 3m +0.0% · 12m +28.1% · 24m +48.2%*
+
+[Google Finance](https://www.google.com/finance/quote/MASI:NYSE?tab=earnings&hl=en)
+
+provider of patient-monitoring and pulse-oximetry technologies.
+
+<h3 id="company-insp">Inspire Medical Systems (INSP)</h3>
+
+*Devices & Diagnostic · $1.9B · 3m +80.2% · 12m -3.9% · 24m -63.9%*
+
+[Google Finance](https://www.google.com/finance/quote/INSP:NYSE?tab=earnings&hl=en)
+
+developer of implantable neurostimulation devices for obstructive sleep apnea.
+
+![Inspire Medical Systems versus category peers and the S&P 500](assets/earnings-insp-3m.webp)
+
+Inspire Medical Systems Inc operates as a medical technology company. It focuses on the development and commercialization of minimally invasive solutions for patients with obstructive sleep apnea (OSA). It offers Inspire system, a neurostimulation technology that provides a safe and effective treatment for moderate to severe obstructive sleep apnea. The firm has operating footprints in the United States and All other countries wherein, it generates a majority of its revenue from the United States. Its segment revenues are derived from the sales of its product, the Inspire system, to hospitals and ambulatory surgery centers in the U.S. and in selected countries in Europe and the Asia Pacific region.
+
+<h3 id="company-lly">Eli Lilly (LLY)</h3>
+
+*Big Pharma · $1.0T · 3m +4.9% · 12m +53.3% · 24m +25.1%*
+
+[Google Finance](https://www.google.com/finance/quote/LLY:NYSE?tab=earnings&hl=en)
+
+Obesity and diabetes powerhouse with GLP-1 franchise (Zepbound/Mounjaro) fueling growth.
+
+![Eli Lilly versus category peers and the S&P 500](assets/earnings-lly-3m.webp)
+
+Eli Lilly is a drug firm with a focus on neuroscience, cardiometabolic, cancer, and immunology. Lilly's key products include Verzenio and Jaypirca for cancer; Mounjaro, Zepbound, Foundayo, Jardiance, Trulicity, Humalog, and Humulin for cardiometabolic; and Taltz and Olumiant for immunology.
+
+<h3 id="company-nvo">Novo Nordisk (NVO)</h3>
+
+*Big Pharma · $195.8B · 3m +0.1% · 12m -29.6% · 24m -66.1%*
+
+[Google Finance](https://www.google.com/finance/quote/NVO:NYSE?tab=earnings&hl=en)
+
+Primary GLP-1 competitor to Lilly.
+
+![Novo Nordisk versus category peers and the S&P 500](assets/earnings-nvo-3m.webp)
+
+With roughly one-third of the global branded diabetes treatment market, Novo Nordisk is the leading provider of diabetes care products in the world. Based in Denmark, the company manufactures and markets a variety of human and modern insulins, injectable diabetes treatments such as GLP-1 therapy, oral antidiabetic agents, and obesity treatments. Novo also has a biopharmaceutical segment (contributing less than 10% of revenue) that specializes in protein therapies for hemophilia and other disorders.
+
+<h3 id="company-abbv">AbbVie (ABBV)</h3>
+
+*Big Pharma · $430.8B · 3m +21.9% · 12m +18.6% · 24m +36.4%*
+
+[Google Finance](https://www.google.com/finance/quote/ABBV:NYSE?tab=earnings&hl=en)
+
+Immunology and aesthetics leader built around drugs like Skyrizi, Rinvoq, and Botox.
+
+![AbbVie versus category peers and the S&P 500](assets/earnings-abbv-3m.webp)
+
+AbbVie is a pharmaceutical firm with a strong exposure to immunology (with Humira, Skyrizi, and Rinvoq) and oncology (with Imbruvica and Venclexta). The company was spun off from Abbott in early 2013. The 2020 acquisition of Allergan added several new products and drugs in aesthetics, including Botox. The 2024 acquisitions of Cerevel (neuroscience) and ImmunoGen (oncology) help supplement AbbVie's portfolio.
+
+<h3 id="company-jnj">Johnson &amp; Johnson (JNJ)</h3>
+
+*Big Pharma · $614.4B · 3m +18.2% · 12m +53.2% · 24m +64.5%*
+
+[Google Finance](https://www.google.com/finance/quote/JNJ:NYSE?tab=earnings&hl=en)
+
+Diversified healthcare giant, combining pharmaceuticals with medical devices.
+
+![Johnson &amp; Johnson versus category peers and the S&P 500](assets/earnings-jnj-3m.webp)
+
+Johnson & Johnson is the world's largest and most diverse healthcare firm. It has two divisions: innovative medicine and medtech. These now represent all of the company's sales following the divestment of the consumer business, Kenvue, in 2023. After restructurings in 2023-24, the drug division focuses on three main therapeutic areas: immunology, oncology, and neurology. Geographically, just over half of total revenue is generated in the United States.
+
+<h3 id="company-pfe">Pfizer (PFE)</h3>
+
+*Big Pharma · $144.8B · 3m +9.7% · 12m +15.1% · 24m -6.0%*
+
+[Google Finance](https://www.google.com/finance/quote/PFE:NYSE?tab=earnings&hl=en)
+
+Global pharma company known for vaccines and oncology.
+
+![Pfizer versus category peers and the S&P 500](assets/earnings-pfe-3m.webp)
+
+Pfizer is one of the world's largest pharmaceutical firms, with annual sales of roughly $60 billion. While it historically sold many types of healthcare products and chemicals, now prescription drugs and vaccines account for the majority of sales. Top sellers include pneumococcal vaccine Prevnar 13 and cardiology drugs Vyndaqel and Eliquis. Pfizer sells these products globally, with international sales representing 40% of total sales. Within international sales, emerging markets are a major contributor.
+
+<h3 id="company-mrk">Merck (MRK)</h3>
+
+*Big Pharma · $316.1B · 3m +29.0% · 12m +80.2% · 24m +25.3%*
+
+[Google Finance](https://www.google.com/finance/quote/MRK:NYSE?tab=earnings&hl=en)
+
+Pharma leader driven by Keytruda, one of the world's most important cancer drugs.
+
+![Merck versus category peers and the S&P 500](assets/earnings-mrk-3m.webp)
+
+Merck makes pharmaceutical products to treat several conditions in a number of therapeutic areas, including cardiometabolic disease, cancer, and infections. Within cancer, the firm's immuno-oncology platform, led by Keytruda, is a major contributor to overall sales. The company also has a substantial vaccine business aimed at preventing pediatric diseases, as well as Gardasil for human papillomavirus. Additionally, Merck sells animal health-related drugs. From a geographical perspective, 47% of the company's sales are generated from US human health (pharmaceuticals and vaccines).
+
+<h3 id="company-bmy">Bristol Myers Squibb (BMY)</h3>
+
+*Big Pharma · $134.6B · 3m +16.8% · 12m +40.1% · 24m +27.6%*
+
+[Google Finance](https://www.google.com/finance/quote/BMY:NYSE?tab=earnings&hl=en)
+
+Oncology and immunology specialist with a porfolio centered on cancer and cardiovascular medicines.
+
+![Bristol Myers Squibb versus category peers and the S&P 500](assets/earnings-bmy-3m.webp)
+
+Bristol Myers Squibb discovers, develops, and markets drugs for various therapeutic areas, such as cardiovascular, cancer, and immune disorders. A key focus for Bristol is immuno-oncology, where the firm is a leader in drug development. Bristol derives close to 70% of total sales from the US, showing a higher dependence on the US market than most of its peer group.
+
+<h3 id="company-vtrs">Viatris (VTRS)</h3>
+
+*Big Pharma · $20.6B · 3m +10.3% · 12m +71.2% · 24m +48.8%*
+
+[Google Finance](https://www.google.com/finance/quote/VTRS:NASDAQ?tab=earnings&hl=en)
+
+Global generic and off-patent medicine company focused on scale manufacturing and cash generation, rather than breakthrough innovation.
+
+![Viatris versus category peers and the S&P 500](assets/earnings-vtrs-3m.webp)
+
+Viatris was formed in November 2020 through the combination of Upjohn, a wholly owned subsidiary of Pfizer that specialized in off-patent drugs, and Mylan, a global pharmaceutical manufacturer that focused on generic and specialty drugs. By joining forces, Viatris became one of the largest generic drug manufacturers in the world, servicing over 165 countries. Generics (commoditized and complex) and biosimilars make up roughly 40% of Viatris' total sales. The remaining 60% of sales are derived from its portfolio of legacy products, which includes Lipitor, Norvasc, Lyrica, and Viagra. While it covers more than 10 major therapeutic areas, Viatris has identified dermatology, ophthalmology, and gastroenterology as its three key areas of focus for future innovations.
+
+<h3 id="company-azn">AstraZeneca (AZN)</h3>
+
+*Big Pharma · $241.3B · 3m -5.1% · 12m +8.9% · 24m +5.9%*
+
+[Google Finance](https://www.google.com/finance/quote/AZN:NYSE?tab=earnings&hl=en)
+
+global pharmaceutical company with leading oncology, cardiovascular, and rare disease franchises.
+
+![AstraZeneca versus category peers and the S&P 500](assets/earnings-azn-3m.webp)
+
+A merger between Astra of Sweden and Zeneca of the United Kingdom formed AstraZeneca in 1999. The firm sells branded drugs across a number of major therapeutic areas, including oncology (over 40% of total revenue), cardiovascular, renal, and metabolic (over 20%), rare disease (16%), and respiratory and immunology (15%). The majority of sales comes from international markets, with the United States representing close to one-third of its sales.
+
+<h3 id="company-nvs">Novartis (NVS)</h3>
+
+*Big Pharma · $291.3B · 3m -4.6% · 12m +14.2% · 24m +21.1%*
+
+[Google Finance](https://www.google.com/finance/quote/NVS:NYSE?tab=earnings&hl=en)
+
+innovative pharmaceutical company focused on cardiovascular, immunology, neuroscience, and oncology therapies.
+
+![Novartis versus category peers and the S&P 500](assets/earnings-nvs-3m.webp)
+
+Novartis develops and manufactures innovative drugs. Key areas of drug development are oncology, immunology, neuroscience, respiratory, and cardiovascular, renal, and metabolic. It also has an established medicines business, which includes off-patent franchises. The company sells its products globally, with the United States constituting close to one-third of total revenue.
+
+<h3 id="company-sny">Sanofi (SNY)</h3>
+
+*Big Pharma · $103.6B · 3m +0.2% · 12m -10.8% · 24m -26.3%*
+
+[Google Finance](https://www.google.com/finance/quote/SNY:NASDAQ?tab=earnings&hl=en)
+
+diversified pharmaceutical company with strengths in vaccines, immunology, and rare diseases.
+
+![Sanofi versus category peers and the S&P 500](assets/earnings-sny-3m.webp)
+
+Sanofi develops and markets drugs with a concentration in immunology, vaccines, and rare diseases. Although the company offers a diverse array of drugs, its highest-revenue product, Dupixent, accounts for over 30% of total sales. Profits for this immunology blockbuster drug are shared with Regeneron. About 45% of total revenue comes from the United States, 20% from Europe, and 6% from China.
+
+<h3 id="company-gsk">GSK (GSK)</h3>
+
+*Big Pharma · $103.2B · 3m -0.9% · 12m +23.5% · 24m +23.1%*
+
+[Google Finance](https://www.google.com/finance/quote/GSK:NYSE?tab=earnings&hl=en)
+
+pharmaceutical and vaccine company focused on infectious disease, respiratory, oncology, and specialty medicines.
+
+![GSK versus category peers and the S&P 500](assets/earnings-gsk-3m.webp)
+
+In the pharmaceutical industry, GSK ranks as one of the largest firms by total sales. The company wields its might across several therapeutic classes, including respiratory, antiviral, and vaccines, and has been growing its presence in oncology and immunology, as well. GSK uses joint ventures to gain additional scale in certain markets like HIV.
+
+<h3 id="company-vrtx">Vertex (VRTX)</h3>
+
+*Established Biotech · $121.3B · 3m +12.6% · 12m +32.7% · 24m +9.3%*
+
+[Google Finance](https://www.google.com/finance/quote/VRTX:NASDAQ?tab=earnings&hl=en)
+
+Dominant cystic fibrosis company expanding into gene editing, pain, and other specialty diseases.
+
+![Vertex versus category peers and the S&P 500](assets/earnings-vrtx-3m.webp)
+
+Vertex Pharmaceuticals is a global biotechnology company that discovers and develops small-molecule drugs for the treatment of serious diseases. Its key drugs are Kalydeco, Orkambi, Symdeko, and Trikafta/Kaftrio, and Alyftrek for cystic fibrosis, where Vertex therapies remain the standard of care globally. Vertex has diversified its portfolio through Casgevy, a gene-editing therapy for beta thalassemia and sickle-cell disease, and Journavx, a non-opioid pain medication approved for the treatment of moderate-to-severe acute pain in adults. Additionally, Vertex is evaluating small-molecule inhibitors of APOL1-mediated kidney diseases. Vertex is also investigating cell therapies to deliver a potential functional cure for type 1 diabetes.
+
+<h3 id="company-regn">Regeneron (REGN)</h3>
+
+*Established Biotech · $78.3B · 3m +28.7% · 12m +32.6% · 24m -31.5%*
+
+[Google Finance](https://www.google.com/finance/quote/REGN:NASDAQ?tab=earnings&hl=en)
+
+Antibody-engineering company known for Eylea and a deep immunology and oncology pipeline.
+
+![Regeneron versus category peers and the S&P 500](assets/earnings-regn-3m.webp)
+
+Regeneron Pharmaceuticals discovers, develops, and commercializes products that fight eye disease, cardiovascular disease, cancer, and inflammation. The company has several marketed products, including low-dose Eylea and Eylea HD, approved for wet age-related macular degeneration and other eye diseases; Dupixent in immunology; Praluent for LDL cholesterol lowering; Libtayo in oncology; Kevzara in rheumatoid arthritis; and Lynozyfic for multiple myeloma. Regeneron has multiple partnerships and collaboration agreements, with Sanofi (Dupixent, others) and Bayer (Eylea) as its largest partners.
+
+<h3 id="company-amgn">Amgen (AMGN)</h3>
+
+*Established Biotech · $210.5B · 3m +14.2% · 12m +35.1% · 24m +14.3%*
+
+[Google Finance](https://www.google.com/finance/quote/AMGN:NASDAQ?tab=earnings&hl=en)
+
+Biotech giant with major franchises in inflammation, bone health, oncology, and cardiovascular disease.
+
+![Amgen versus category peers and the S&P 500](assets/earnings-amgn-3m.webp)
+
+Amgen is a leader in biotechnology-based human therapeutics. Flagship drugs include red blood cell boosters Epogen and Aranesp, immune system boosters Neupogen and Neulasta, and Enbrel and Otezla for inflammatory diseases. Amgen introduced its first cancer therapeutic, Vectibix, in 2006 and markets bone-strengthening drugs Prolia/Xgeva (approved 2010) and Evenity (2019). The acquisition of Onyx Pharmaceuticals bolstered the firm's therapeutic oncology portfolio with Kyprolis. Recent launches include Repatha (cholesterol-lowering), Aimovig (migraine), Lumakras (lung cancer), and Tezspire (asthma). The 2023 Horizon acquisition brought several rare-disease drugs, including thyroid eye disease drug Tepezza. Amgen also has a growing biosimilar portfolio.
+
+<h3 id="company-gild">Gilead (GILD)</h3>
+
+*Established Biotech · $167.9B · 3m +21.3% · 12m +31.6% · 24m +78.8%*
+
+[Google Finance](https://www.google.com/finance/quote/GILD:NASDAQ?tab=earnings&hl=en)
+
+Lead in HIV therapies that has expanded into oncology and liver disease.
+
+![Gilead versus category peers and the S&P 500](assets/earnings-gild-3m.webp)
+
+Gilead Sciences develops and markets therapies to treat and prevent life-threatening infectious diseases, with the core of its portfolio focused on HIV and hepatitis B and C. Gilead's acquisition of Pharmasset brought rights to hepatitis C drug Sovaldi, which is also part of newer combination regimens that remain standards of care. Gilead is also growing its presence in the oncology market via acquisitions, led by CAR-T cell therapy Yescarta/Tecartus (from Kite) and breast and bladder cancer therapy Trodelvy (from Immunomedics).
+
+<h3 id="company-biib">Biogen (BIIB)</h3>
+
+*Established Biotech · $30.8B · 3m +9.6% · 12m +51.2% · 24m +8.1%*
+
+[Google Finance](https://www.google.com/finance/quote/BIIB:NASDAQ?tab=earnings&hl=en)
+
+Neurology-focused biotech best known for multiple sclerosis and Alzheimer's disease therapies.
+
+![Biogen versus category peers and the S&P 500](assets/earnings-biib-3m.webp)
+
+Biogen is an established biopharmaceutical company focused on treatments for neurodegenerative and rare diseases. Its declining multiple sclerosis franchise is its largest revenue generator and contributed 40% of total revenue in 2025. Biogen also generates significant revenue from its CD20 collaboration agreements with Roche (19% of total in 2025), which includes oncology drugs Rituxan and Gazyva and multiple sclerosis drug Ocrevus. Biogen's newer franchises include Spinraza (spinal muscular atrophy, with partner Ionis), Leqembi (Alzheimer's disease, collabroation revenue from its partner Eisai), Skyclarys (Friedreich's ataxia, Reata), Zurzuvae (postpartum depression, Sage), and Qalsody (amyotrophic lateral sclerosis, Ionis).
+
+<h3 id="company-alny">Alnylam (ALNY)</h3>
+
+*Established Biotech · $29.3B · 3m -13.9% · 12m -47.2% · 24m -12.5%*
+
+[Google Finance](https://www.google.com/finance/quote/ALNY:NASDAQ?tab=earnings&hl=en)
+
+Leader in RNA interference therapeutics, commercializing gene-silencing medicines for rare diseases.
+
+![Alnylam versus category peers and the S&P 500](assets/earnings-alny-3m.webp)
+
+Alnylam Pharmaceuticals is a leader in the study of RNA interference (RNAi) therapeutics. RNAi is a naturally occurring biological pathway within cells for sequence-specific silencing and regulation of gene expression. Alnylam's commercial RNAi therapeutic products include Onpattro and Amvuttra (for hATTR amyloidosis), Givlaari (for acute hepatic porphyria), and Oxlumo (for primary hyperoxaluria type 1), all developed and commercialized by Alnylam. Plus, Leqvio (for hypercholesterolemia) and Qfitlia (for hemophilia A or B), which are being commercialized by Alnylam's partners, Novartis and Sanofi, respectively. It also has several clinical programs across various therapeutic areas, including cardio-metabolic diseases, neuroscience, and hematology.
+
+<h3 id="company-srpt">Sarepta (SRPT)</h3>
+
+*Established Biotech · $1.7B · 3m +14.7% · 12m +15.4% · 24m -84.2%*
+
+[Google Finance](https://www.google.com/finance/quote/SRPT:NASDAQ?tab=earnings&hl=en)
+
+Rare disease biotech centered on Duchenne muscular dystrophy and gene therapies.
+
+![Sarepta versus category peers and the S&P 500](assets/earnings-srpt-3m.webp)
+
+Sarepta Therapeutics Inc is a commercial-stage biopharmaceutical company focused on the discovery and development of RNA-targeted therapies, gene therapies, and other genetic medicines for rare diseases, particularly neuromuscular disorders. The company has developed approved treatments for Duchenne muscular dystrophy, including EXONDYS 51, VYONDYS 53, AMONDYS 45, and ELEVIDYS, and is advancing additional therapeutic candidates for neuromuscular and other rare diseases. The company operates in one segment: discovering, developing, manufacturing, and delivering therapies to patients with rare diseases.
+
+<h3 id="company-mrna">Moderna (MRNA)</h3>
+
+*Established Biotech · $22.8B · 3m +140.8% · 12m +510.3% · 24m +134.5%*
+
+[Google Finance](https://www.google.com/finance/quote/MRNA:NASDAQ?tab=earnings&hl=en)
+
+Leading MRNA platform company seeking to expand beyond COVID vaccines into cancer, respiratory, and rare-disease therapies.
+
+![Moderna versus category peers and the S&P 500](assets/earnings-mrna-3m.webp)
+
+Moderna is a commercial-stage biotech that was founded in 2010 and had its initial public offering in 2018. The firm's mRNA technology was rapidly validated with its covid vaccine, which was authorized in the United States in December 2020. Moderna had 25 mRNA development candidates in clinical studies as of March 2026. Programs span a wide range of therapeutic areas, including infectious disease, oncology, cardiovascular disease, and rare genetic diseases.
+
+<h3 id="company-exel">Exelixis (EXEL)</h3>
+
+*Established Biotech · $14.1B · 3m +12.4% · 12m +45.5% · 24m +120.9%*
+
+[Google Finance](https://www.google.com/finance/quote/EXEL:NASDAQ?tab=earnings&hl=en)
+
+Oncology-focused biotech generating substantial cashflow from cabometyx while advancing a next-generation cancer pipeline.
+
+![Exelixis versus category peers and the S&P 500](assets/earnings-exel-3m.webp)
+
+Exelixis Inc is a biopharmaceutical firm that discovers, develops, and commercializes treatments for cancer. Its molecule, cabozantinib, is indicated for the treatment of patients with metastatic medullary thyroid cancer under the name Cometriq and for the treatment of kidney and liver cancer under the name Cabometyx. Exelixis and its partner Roche have also brought Cotellic to market for the treatment of melanoma.
+
+<h3 id="company-argx">Argenx (ARGX)</h3>
+
+*Established Biotech · $52.8B · 3m +12.8% · 12m +34.4% · 24m +85.8%*
+
+[Google Finance](https://www.google.com/finance/quote/ARGX:NASDAQ?tab=earnings&hl=en)
+
+Immunology-focused biotech with flagship drug Vyvgart for rare autoimmune diseases, expanding into additional indications.
+
+![Argenx versus category peers and the S&P 500](assets/earnings-argx-3m.webp)
+
+Argenx is a Dutch biopharmaceutical company focused on developing antibody-based therapies for rare autoimmune diseases. The company's lead product, Vyvgart (efgartigimod), was approved by the FDA in December 2021 for the treatment of generalized myasthenia gravis (gMG). In 2022, Argenx also received FDA approval for Vyvgart Hytrulo, a subcutaneous formulation of Vyvgart, offering a more convenient option compared with Vyvgart's intravenous administration. In 2024, the FDA approved Vyvgart Hytrulo for Chronic Inflammatory Demyelinating Polyneuropathy, a rare immune-mediated neuromuscular disorder of the peripheral nervous system. Argenx is focused on innovation and developing its pipeline for treatments such as primary immune thrombocytopenia, thyroid eye disease, and Sjogren's Disease.
+
+<h3 id="company-nbix">Neurocrine Biosciences (NBIX)</h3>
+
+*Established Biotech · $16.9B · 3m -7.6% · 12m +0.7% · 24m +23.6%*
+
+[Google Finance](https://www.google.com/finance/quote/NBIX:NASDAQ?tab=earnings&hl=en)
+
+Commercial stage neuroscience company best known for Ingrezza, and a growing pipeline in neurology and psychiatry.
+
+![Neurocrine Biosciences versus category peers and the S&P 500](assets/earnings-nbix-3m.webp)
+
+Neurocrine Biosciences Inc is a biopharmaceutical firm focused on the research, development, and commercialization of treatments for neurological, psychiatric, endocrine, and immunological disorders. Its portfolio includes therapies for conditions such as tardive dyskinesia, chorea associated with Huntington's disease, classic congenital adrenal hyperplasia due to 21-hydroxylase deficiency, and treatments for endometriosis and uterine fibroids. The company also maintains a pipeline of drug candidates in various stages of clinical and preclinical development across its therapeutic areas, including small molecules, peptides, proteins, antibodies, conjugates, and gene therapies. It derives revenue from the sale of its pharmaceutical products.
+
+<h3 id="company-uthr">United Therapeutics (UTHR)</h3>
+
+*Established Biotech · $22.0B · 3m -7.8% · 12m +18.5% · 24m +40.1%*
+
+[Google Finance](https://www.google.com/finance/quote/UTHR:NASDAQ?tab=earnings&hl=en)
+
+A rare-disease biotech focused on pulmonary arterial hypertension while investing heavily in organ transplantation and xenotransplantation tech.
+
+![United Therapeutics versus category peers and the S&P 500](assets/earnings-uthr-3m.webp)
+
+United Therapeutics Corp specializes in drug development for pulmonary arterial hypertension (PAH), a rare and progressive disease marked by abnormally high blood pressure in the arteries of the lungs. The company's therapies for PAH largely focus on the prostacyclin pathway, and many of its treatments are based on the same molecule, treprostinil. The company markets and sells the following commercial therapies in the United States to treat PAH: Tyvaso DPI (treprostinil) Inhalation Powder, Remodulin Injection, Orenitram (treprostinil) Extended-Release Tablets, Adcirca (tadalafil) Tablets, and Unituxin. It derives maximum revenue from the sale of Tyvaso DPI. Geographically, the company operates in United States and Rest of the World, of which United States generates majority of the revenue.
+
+<h3 id="company-incy">Incyte (INCY)</h3>
+
+*Established Biotech · $24.4B · 3m +27.6% · 12m +44.8% · 24m +90.6%*
+
+[Google Finance](https://www.google.com/finance/quote/INCY:NASDAQ?tab=earnings&hl=en)
+
+oncology and immunology biotechnology company led by Jakafi.
+
+![Incyte versus category peers and the S&P 500](assets/earnings-incy-3m.webp)
+
+Incyte focuses on the discovery and development of small-molecule drugs. The firm's leading drug, Jakafi, treats two types of rare blood cancer and graft versus host disease and is partnered with Novartis. Incyte's other marketed drugs include rheumatoid arthritis treatment Olumiant (licensed to Lilly), and oncology drugs Iclusig (chronic myeloid leukemia), Pemazyre (cholangiocarcinoma), Tabrecta (lung cancer), and Monjuvi (diffuse large B-cell lymphoma). The firm's first dermatology product, Opzelura, was approved in 2021 for atopic dermatitis and 2022 for vitiligo. Incyte's pipeline includes an array of oncology and dermatology programs.
+
+<h3 id="company-bmrn">BioMarin Pharmaceutical (BMRN)</h3>
+
+*Established Biotech · $11.7B · 3m +16.9% · 12m +17.6% · 24m -9.5%*
+
+[Google Finance](https://www.google.com/finance/quote/BMRN:NASDAQ?tab=earnings&hl=en)
+
+rare-disease biotechnology company specializing in genetic disorders.
+
+![BioMarin Pharmaceutical versus category peers and the S&P 500](assets/earnings-bmrn-3m.webp)
+
+BioMarin is a global biotechnology company focused on developing and commercializing therapies for rare genetic diseases. BioMarin specializes in enzyme replacement therapies, gene therapies, and other advanced treatments designed to address complex genetic disorders. The company has eight approved therapies for conditions including achondroplasia, phenylketonuria, hemophilia, and mucopolysaccharidosis. BioMarin has an expanding, yet relatively early-stage, pipeline of treatments in development across skeletal conditions and enzyme therapies.
+
+<h3 id="company-ions">Ionis Pharmaceuticals (IONS)</h3>
+
+*Established Biotech · $9.2B · 3m -40.0% · 12m -27.2% · 24m +3.9%*
+
+[Google Finance](https://www.google.com/finance/quote/IONS:NASDAQ?tab=earnings&hl=en)
+
+antisense therapeutics pioneer focused on neurological and rare diseases.
+
+![Ionis Pharmaceuticals versus category peers and the S&P 500](assets/earnings-ions-3m.webp)
+
+Ionis Pharmaceuticals is the leading developer of antisense technology to discover and develop novel drugs. Its broad clinical and preclinical pipeline targets a wide variety of diseases, with an emphasis on cardiovascular, metabolic, neurological, and rare diseases. Ionis and Biogen brought Spinraza to market in 2016 as a treatment for spinal muscular atrophy, and Biogen launched ALS drug Qalsody in 2023. Ionis brought two additional drugs to market via its cardiovascular-focused subsidiary Akcea, including ATTR amyloidosis drug Tegsedi (2018) and cardiology drug Waylivra (Europe, 2019). Ionis and AstraZeneca launched polyneuropathy drug Wainua in 2024. Ionis marked its first two independent launches in 2025 for Tryngolza (for FCS) and Dawnzera (for HAE).
+
+<h3 id="company-adma">ADMA Biologics (ADMA)</h3>
+
+*Emerging Biotech · $2.1B · 3m +9.6% · 12m -42.7% · 24m -54.4%*
+
+[Google Finance](https://www.google.com/finance/quote/ADMA:NASDAQ?tab=earnings&hl=en)
+
+Plasma-derived immunology company that develops and manufactures specialty immune globulin products.
+
+![ADMA Biologics versus category peers and the S&P 500](assets/earnings-adma-3m.webp)
+
+ADMA Biologics Inc is an end-to-end commercial biopharmaceutical company dedicated to manufacturing, marketing, and developing specialty plasma-derived biologics for the treatment of immunodeficient patients at risk for infection and others at risk for certain infectious diseases. The segments of the company are ADMA BioManufacturing, which generates maximum revenue, Plasma Collection Centres, and the corporate segment. The company sells plasma-derived intermediate fractions to certain customers, which are generated as part of its FDA-approved manufacturing process for IG and IVIG products. It also provides laboratory contracting services to certain customers and anticipates providing contract filling, labeling & packing services. The company derives maximum revenue from the United States.
+
+<h3 id="company-ocul">Ocular therapeutix (OCUL)</h3>
+
+*Emerging Biotech · $1.9B · 3m +5.9% · 12m -17.4% · 24m +11.2%*
+
+[Google Finance](https://www.google.com/finance/quote/OCUL:NASDAQ?tab=earnings&hl=en)
+
+Ophthalmology biotech developing long-acting eye therapies, particularly for retinal diseases.
+
+![Ocular therapeutix versus category peers and the S&P 500](assets/earnings-ocul-3m.webp)
+
+Ocular Therapeutix Inc is a biotechnology company that specializes in therapies for diseases and conditions of the eye. The company uses its proprietary hydrogel platform technology to deliver therapeutic agents to the eye. Its pipeline consists of eye medication that aims to overcome the limitations of current eye-drop-based therapies for ophthalmic diseases and conditions. Its pipeline product includes Dextenza, OTX-TIC, OTX-TKI, and OTX-IVT.
+
+<h3 id="company-nvcr">Novocure (NVCR)</h3>
+
+*Emerging Biotech · $1.9B · 3m +16.9% · 12m +31.5% · 24m -4.4%*
+
+[Google Finance](https://www.google.com/finance/quote/NVCR:NASDAQ?tab=earnings&hl=en)
+
+Medical technolgoy company using tumor-treating electric fields rather than drugs to treat cancer.
+
+![Novocure versus category peers and the S&P 500](assets/earnings-nvcr-3m.webp)
+
+NovoCure Ltd is an oncology company with a proprietary platform technology in the United States. Its business involves the development, manufacture, and commercialization of Tumor Treating Fields (TTFields) devices, including Optune Gio and Optune Lua, for the treatment of solid tumor cancers. Its pipeline consists of Trident, Lunar-2, Panova-3, Metis, and other products and technologies for the treatment of Glioblastoma, Non-small cell lung cancer, and Pancreatic cancer. Geographically, the company derives the majority of its revenue from the United States and the rest from Germany, Japan, and other markets.
+
+<h3 id="company-cort">Corcept Therapeutics (CORT)</h3>
+
+*Emerging Biotech · $11.9B · 3m +38.0% · 12m +37.0% · 24m +161.0%*
+
+[Google Finance](https://www.google.com/finance/quote/CORT:NASDAQ?tab=earnings&hl=en)
+
+Specialty biotech targeting cortisol biology, primarily for endocrine and oncology indications.
+
+![Corcept Therapeutics versus category peers and the S&P 500](assets/earnings-cort-3m.webp)
+
+Corcept Therapeutics Inc is a commercial-stage pharmaceutical company engaged in the discovery and development of medications that treat severe metabolic, oncologic, and neuropsychiatric disorders by modulating the effect of the cortisol hormone. The company markets Korlym (mifepristone) tablets and its authorized generic version, which is an oral medication for the treatment of hypercortisolism (also known as Cushing's syndrome). Additionally, its pipeline contains several key compounds, such as Relacorilant, Dazucorilant, Miricorilant, etc., that are being evaluated in clinical trials as potential treatments for a variety of serious disorders like hypercortisolism, solid tumors (including ovarian, endometrial, cervical, pancreatic, and prostate cancers), ALS, and MASH.
+
+<h3 id="company-acad">Acadia Pharmaceuticals (ACAD)</h3>
+
+*Emerging Biotech · $4.6B · 3m +26.2% · 12m +11.8% · 24m +65.1%*
+
+[Google Finance](https://www.google.com/finance/quote/ACAD:NASDAQ?tab=earnings&hl=en)
+
+neuroscience-focused biotech with commercial products for neurological and rare diseases.
+
+![Acadia Pharmaceuticals versus category peers and the S&P 500](assets/earnings-acad-3m.webp)
+
+Acadia Pharmaceuticals Inc is a biopharmaceutical company focused on turning scientific promise to makes a difference for underserved neurological and rare disease communities around the world. It has two core franchises in neurological and rare diseases. Its neurological disease is anchored by the commercial product NUPLAZID (pimavanserin), which is the first and only drug approved by the U.S. (FDA) for the treatment of hallucinations and delusions associated with Parkinson's disease psychosis (PDP). Its rare disease is anchored by the commercial product DAYBUE, which is the first and only drug approved for the treatment of Rett syndrome. Its clinical-stage development efforts are focused on Alzheimer's disease psychosis, Lewy Body Dementia psychosis, and multiple other programs.
+
+<h3 id="company-krys">Krystal Biotech (KRYS)</h3>
+
+*Emerging Biotech · $9.6B · 3m -3.3% · 12m +105.8% · 24m +82.8%*
+
+[Google Finance](https://www.google.com/finance/quote/KRYS:NASDAQ?tab=earnings&hl=en)
+
+commercial-stage gene therapy company focused on dermatological and rare diseases.
+
+![Krystal Biotech versus category peers and the S&P 500](assets/earnings-krys-3m.webp)
+
+Krystal Biotech Inc is an integrated, commercial-stage biotechnology company focused on the discovery, development, manufacturing, and commercialization of genetic medicines to treat diseases with high unmet medical needs. The company uses its patented HSV-1-based gene therapy platform to create vectors that deliver therapeutic transgenes to target cells. It possesses exclusive rights to develop, manufacture, and commercialize VYJUVEK internationally. The company operates as one operating segment focused on pharmaceutical products and manufactures, markets, and sells VYJUVEK in the United States and markets and sells VYJUVEK in the European Union, and Japan.
+
+<h3 id="company-rna">Avidity Biosciences (RNA)</h3>
+
+*Emerging Biotech · $197.4M · 3m -29.3% · 12m -78.2% · 24m -79.9%*
+
+[Google Finance](https://www.google.com/finance/quote/RNA:NASDAQ?tab=earnings&hl=en)
+
+developer of RNA-targeted therapeutics for rare neuromuscular diseases.
+
+![Avidity Biosciences versus category peers and the S&P 500](assets/earnings-rna-3m.webp)
+
+Atrium Therapeutics Inc is a biopharmaceutical firm focused on developing RNA-based therapeutics for cardiac conditions, including cardiomyopathies. Its platform technology is designed to enable targeted delivery of RNA therapeutics to heart tissue by combining ligand-based targeting approaches with oligonucleotide-based therapies. The company's development pipeline includes programs targeting genetically associated forms of cardiomyopathy, specifically involving the PRKAG2 and PLN genes.
+
+<h3 id="company-rxrx">Recursion Pharmaceuticals (RXRX)</h3>
+
+*Emerging Biotech · $1.8B · 3m +18.6% · 12m -22.0% · 24m -43.7%*
+
+[Google Finance](https://www.google.com/finance/quote/RXRX:NASDAQ?tab=earnings&hl=en)
+
+AI-enabled drug discovery company combining machine learning and large-scale biological data.
+
+![Recursion Pharmaceuticals versus category peers and the S&P 500](assets/earnings-rxrx-3m.webp)
+
+Recursion Pharmaceuticals Inc is a clinical-stage biotechnology company. The company is decoding biology by integrating technological innovations across biology, chemistry, automation, data science, and engineering, with the goal of radically improving the lives of patients and industrializing drug discovery. Geographically, the company operates in United States, United Kingdom, and Others. It derives maximum revenue from United States.
+
+<h3 id="company-cgon">CG Oncology (CGON)</h3>
+
+*Emerging Biotech · $6.3B · 3m +22.2% · 12m +102.2% · 24m +91.3%*
+
+[Google Finance](https://www.google.com/finance/quote/CGON:NASDAQ?tab=earnings&hl=en)
+
+bladder cancer-focused oncology biotech developing immunotherapies.
+
+![CG Oncology versus category peers and the S&P 500](assets/earnings-cgon-3m.webp)
+
+CG Oncology Inc is a late-stage clinical biopharmaceutical company focused on developing and commercializing its product candidate, cretostimogene grenadenorepvec, for patients with bladder cancer. The company's candidate, cretostimogene grenadenorepvec, is a targeted oncolytic intravesically delivered immunotherapy agent that is in two phase three trials (one high-risk BCG unresponsive NMIBC trial and one intermediate-risk NMIBC trial) and a phase two clinical study with a checkpoint inhibitor for high-risk BCG unresponsive NMIBC disease.
+
+<h3 id="company-bbio">BridgeBio Pharma (BBIO)</h3>
+
+*Emerging Biotech · $16.1B · 3m +0.5% · 12m +27.2% · 24m +149.1%*
+
+[Google Finance](https://www.google.com/finance/quote/BBIO:NASDAQ?tab=earnings&hl=en)
+
+commercial-stage rare disease biotechnology company focused on genetically defined diseases.
+
+![BridgeBio Pharma versus category peers and the S&P 500](assets/earnings-bbio-3m.webp)
+
+BridgeBio Pharma is a biotechnology company focused on discovering, developing, testing, and delivering transformative treatments for patients with genetic diseases. The company has four programs in its late-stage pipeline focusing on Mendelian disorders, oncology, and gene therapy. One of its key programs, Attruby (acoramidis), is an orally administered small molecule designed to stabilize tetrameric transthyretin for the treatment of transthyretin amyloid cardiomyopathy.
+

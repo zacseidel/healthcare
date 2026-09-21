@@ -3,14 +3,6 @@
   "ticker": "MDRX",
   "bars": [
     {
-      "date": "2024-08-05",
-      "close": 9.37
-    },
-    {
-      "date": "2024-08-06",
-      "close": 9.2
-    },
-    {
       "date": "2024-08-07",
       "close": 9.32
     },
@@ -1935,7 +1927,7 @@
       "close": 4.8
     }
   ],
-  "covered_start": "2024-07-20",
-  "covered_end": "2026-09-13",
-  "updated_at": "2026-09-14T13:26:39Z"
+  "covered_start": "2024-08-07",
+  "covered_end": "2026-09-20",
+  "updated_at": "2026-09-21T16:57:52Z"
 }
