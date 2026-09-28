@@ -114,6 +114,9 @@ def parse_google_earnings(html: str, ticker: str, as_of: date) -> dict[str, Any]
     text = " ".join(soup.get_text(" ", strip=True).split())
     latest = _date_after_label(text, ("Last report", "Previous report"), as_of)
     upcoming = _date_after_label(text, ("Next call", "Next earnings"), as_of)
+    if upcoming and not _is_future_event(upcoming, latest, as_of):
+        # After a call, Google can keep showing it under "Next call".
+        upcoming = None
 
     summary = ""
     label = soup.find(
@@ -155,7 +158,29 @@ def parse_google_earnings(html: str, ticker: str, as_of: date) -> dict[str, Any]
     }
 
 
-def fetch_yahoo_date(ticker: str, as_of: date) -> date | None:
+def parse_yahoo_earnings_date(html: str, as_of: date) -> tuple[date, bool] | None:
+    """Return Yahoo's next earnings date and whether Yahoo marks it as an estimate."""
+    soup = BeautifulSoup(html, "html.parser")
+    label = soup.find(
+        string=lambda item: isinstance(item, str) and item.strip().startswith("Earnings Date")
+    )
+    if not label:
+        return None
+    estimated = "(est" in label.lower()
+    # The label is nested a varying depth below the row that also holds the value;
+    # read only that row so a "--" value cannot pick up a neighbouring date.
+    label_text = label.strip()
+    for row in label.parents:
+        if row.name in ("body", "html"):
+            break
+        text = row.get_text(" ", strip=True)
+        if text != label_text:
+            value = parse_display_date(text, as_of)
+            return (value, estimated) if value else None
+    return None
+
+
+def fetch_yahoo_date(ticker: str, as_of: date) -> tuple[date, bool] | None:
     response = httpx.get(
         f"https://finance.yahoo.com/quote/{ticker}/",
         headers={"User-Agent": "Mozilla/5.0"},
@@ -163,11 +188,7 @@ def fetch_yahoo_date(ticker: str, as_of: date) -> date | None:
         follow_redirects=True,
     )
     response.raise_for_status()
-    soup = BeautifulSoup(response.text, "html.parser")
-    label = soup.find(string=lambda item: isinstance(item, str) and item.strip() == "Earnings Date")
-    if not label or not label.parent or not label.parent.parent:
-        return None
-    return parse_display_date(label.parent.parent.get_text(" ", strip=True), as_of)
+    return parse_yahoo_earnings_date(response.text, as_of)
 
 
 def google_url(ticker: str, exchange: str | None) -> str:
@@ -222,6 +243,18 @@ def refresh_needed(
     return True
 
 
+def _is_future_event(event: date, last: date | None, as_of: date) -> bool:
+    return event >= as_of and (last is None or event > last)
+
+
+def clear_stale_next_event(record: dict[str, Any], as_of: date) -> dict[str, Any]:
+    event = _as_date(record.get("next_event_date"))
+    if event and not _is_future_event(event, _as_date(record.get("last_report_date")), as_of):
+        for key in ("next_event_date", "next_check_date", "next_date_status", "next_date_source"):
+            record.pop(key, None)
+    return record
+
+
 def apply_tentative(record: dict[str, Any], config: ProjectConfig) -> dict[str, Any]:
     last = _as_date(record.get("last_report_date"))
     if not last or record.get("next_event_date"):
@@ -258,7 +291,7 @@ def refresh_earnings(
         if not force and not refresh_needed(old, as_of, config, checked_on=checked_on):
             if progress:
                 progress(f"Earnings {index}/{total}: {ticker} recheck is not due; using cache.")
-            output[ticker] = apply_tentative(old, config)
+            output[ticker] = apply_tentative(clear_stale_next_event(old, as_of), config)
             statuses.append(FetchStatus("earnings", ticker, "skipped", "not due for recheck"))
             continue
         parsed: dict[str, Any] | None = None
@@ -290,17 +323,26 @@ def refresh_earnings(
                 record["next_date_status"] = "confirmed"
                 record["next_date_source"] = "Google Finance"
                 record["next_check_date"] = None
+        clear_stale_next_event(record, as_of)
         if not parsed or not parsed.get("next_event_date"):
             try:
                 yahoo = fetch_yahoo_date(ticker, as_of)
             except Exception as exc:
                 yahoo = None
                 error = "; ".join(item for item in (error, str(exc)) if item)
-            if yahoo:
-                record["next_event_date"] = yahoo.isoformat()
-                record["next_date_status"] = "confirmed"
+            if yahoo and _is_future_event(
+                yahoo[0], _as_date(record.get("last_report_date")), as_of
+            ):
+                event, estimated = yahoo
+                record["next_event_date"] = event.isoformat()
                 record["next_date_source"] = "Yahoo Finance"
-                record["next_check_date"] = None
+                if estimated:
+                    lead = int(config.settings["earnings"].get("tentative_check_lead_days", 21))
+                    record["next_date_status"] = "tentative"
+                    record["next_check_date"] = (event - timedelta(days=lead)).isoformat()
+                else:
+                    record["next_date_status"] = "confirmed"
+                    record["next_check_date"] = None
         record["checked_at"] = utc_now()
         record["checked_for_date"] = as_of.isoformat()
         output[ticker] = apply_tentative(record, config)

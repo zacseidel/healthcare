@@ -57,7 +57,6 @@ Outpatient and Home Providers:
 Digital Health, Specialty, Benefits:
   TDOC: Teladoc; Largest pure-play virtual care platform, offering telemedicine, chronic-care management, and specialty virtual health services.
   AMWL: Amwell; Telehealth infrastructure company providing virtual-care technology.
-  TALK: Talkspace; Digital behavioral-health company providing online therapy and mental-health services through employers and health-plans.
   HIMS: Hims & Hers; Direct-to-Consumer telehealth platform for primary care, weight management, mental health, sexual health, and wellness.
   LFMD: LifeMD; Virtual primary-care and telehealth company known for chronic condition management.
   OMDA: Omada Health; Virtual chronic-care platform focused on diabetes, hypertension, obesity, and musculoskeletal conditions through employers and health plans.
@@ -68,7 +67,6 @@ Digital Health, Specialty, Benefits:
 
 Health IT and Data:
   ORCL: Oracle-Cerner; Largest healthcare IT platform vendor, providing EHRs, clinical workflow software, and healthcare data infrastructure.
-  MDRX: Veradigm; Healthcare data, EHR (AllScripts) and interoperability.
   WAY: Waystar; Healthcare payments and revenue cycle platform.
   SOLV: Solventum; Revenue-cycle, clinical documentation, coding, and healthcare workflow solutions.
   PHR: Phreesia; Patient-intake and engagement platform that digitizes registration, scheduling, intake forms, payments, and communications.
@@ -93,7 +91,7 @@ Devices & Diagnostic:
   SYK: Stryker; Premier orthopedic and surgical technology company best known for joint replacements, MedSurg equipment, and Mako robotic assisted surgery systems.
   ZBH: Zimmer Biomet; Orthopedic specialist centered on knee, hip, and extremity implants, with robotic surgery offerings for joint reconstruction.
   ABT: Abbott; Diversified healthcare company spanning diagnostics, medical devices, nutrition products, and established pharmaceuticals.
-  BD: Becton Dickinson; leading medical product and component company.
+  BDX: Becton Dickinson; leading medical product and component company.
   EW: Edwards LifeSciences; Cardiovascular company focused on structural heart therapies, particularly transcatheter and surgical heart valve tech.
   DXCM: Dexcom; Leading independent continuous glucose monitoring company.
   RMD: ResMed; Sleep and respiratory care known for CPAP devices, masks, and connected software for sleep apnea and respiratory disorders.
@@ -103,7 +101,6 @@ Devices & Diagnostic:
   GEHC: GE Healthcare; Medical technology & diagnostic company focused on imaging equipment, patient monitoring, ultrasound, and healthcare IT infrastructure.
   TMDX: Transmedics; Transplant technology and transportation company whose Organ Care System keeps donor organs functioning outside the body, expanding organ supply.
   STE: STERIS; provider of infection prevention, sterilization, and surgical support products and services.
-  MASI: Masimo; provider of patient-monitoring and pulse-oximetry technologies.
   INSP: Inspire Medical Systems; developer of implantable neurostimulation devices for obstructive sleep apnea.
 
 Big Pharma:
