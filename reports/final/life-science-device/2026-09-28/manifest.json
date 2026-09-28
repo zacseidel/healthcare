@@ -4,17 +4,15 @@
   "report_name": "Life Science and Device Intel",
   "report_date": "2026-09-28",
   "market_data_as_of": "2026-09-25",
-  "generated_at": "2026-09-28T16:32:55Z",
-  "rendered_at": "2026-09-28T16:32:55Z",
+  "generated_at": "2026-09-28T18:33:07Z",
+  "rendered_at": "2026-09-28T18:33:07Z",
   "baseline_report_date": "2026-09-21",
   "configuration_sha256": "7c44c5d73aa2bf6361ecdfa866640f20ad143f2a9975fa796447549714ae93c3",
   "quality": "ok",
   "issues": [
-    "Verify these stock symbols: MASI (Latest saved price is 2026-06-09, older than the 7-day limit. The market-data provider did not recognize this ticker.), BD (The public earnings page for this ticker was not found.).",
+    "Verify these stock symbols: MASI (Latest saved price is 2026-06-09, older than the 7-day limit. The market-data provider did not recognize this ticker.).",
     "Review Masimo (MASI) in companies.md: Prices were missing or too old to use. Confirm the ticker is still listed, or replace/remove this company in the watchlist.",
-    "Update or remove MASI in companies.md: The company profile lookup failed. The symbol may have changed after a merger, listing change, or delisting.",
-    "Confirm the earnings ticker for BD: Yahoo or Google Finance did not have this symbol. The listed ticker in companies.md may be outdated.",
-    "Review earnings-page coverage in the company universe: Public earnings pages for TMDX, MASI, ADMA, OCUL, CORT did not expose the usual report-date or transcript labels. The page layout may have changed, or these companies may no longer fit automated earnings collection."
+    "Update or remove MASI in companies.md: The company profile lookup failed. The symbol may have changed after a merger, listing change, or delisting."
   ],
   "recommended_updates": {
     "verify_symbols": [
@@ -22,11 +20,6 @@
         "ticker": "MASI",
         "name": "Masimo",
         "reason": "Latest saved price is 2026-06-09, older than the 7-day limit. The market-data provider did not recognize this ticker."
-      },
-      {
-        "ticker": "BD",
-        "name": "Becton Dickinson",
-        "reason": "The public earnings page for this ticker was not found."
       }
     ],
     "input_updates": [
@@ -37,14 +30,6 @@
       {
         "title": "Update or remove MASI in companies.md",
         "detail": "The company profile lookup failed. The symbol may have changed after a merger, listing change, or delisting."
-      },
-      {
-        "title": "Confirm the earnings ticker for BD",
-        "detail": "Yahoo or Google Finance did not have this symbol. The listed ticker in companies.md may be outdated."
-      },
-      {
-        "title": "Review earnings-page coverage in the company universe",
-        "detail": "Public earnings pages for TMDX, MASI, ADMA, OCUL, CORT did not expose the usual report-date or transcript labels. The page layout may have changed, or these companies may no longer fit automated earnings collection."
       }
     ],
     "other": []
@@ -707,348 +692,348 @@
     {
       "source": "browser",
       "subject": "Chromium",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "no refresh was due"
     },
     {
       "source": "earnings",
       "subject": "MDT",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "BSX",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "SYK",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "ZBH",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "ABT",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "BD",
-      "status": "warning",
-      "detail": "Google Finance earnings labels were not found; Client error '404 Not Found' for url 'https://finance.yahoo.com/quote/BD/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "EW",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "DXCM",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "RMD",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "PODD",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "GMED",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "ISRG",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "GEHC",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "TMDX",
-      "status": "warning",
-      "detail": "Google Finance earnings labels were not found"
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "STE",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "MASI",
-      "status": "warning",
-      "detail": "Google Finance earnings labels were not found"
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "INSP",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "LLY",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "NVO",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "ABBV",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "JNJ",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "PFE",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "MRK",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "BMY",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "VTRS",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "AZN",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "NVS",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "SNY",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "GSK",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "VRTX",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "REGN",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "AMGN",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "GILD",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "BIIB",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "ALNY",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "SRPT",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "MRNA",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "EXEL",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "ARGX",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "NBIX",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "UTHR",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "INCY",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "BMRN",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "IONS",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "ADMA",
-      "status": "warning",
-      "detail": "Google Finance earnings labels were not found"
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "OCUL",
-      "status": "warning",
-      "detail": "Google Finance earnings labels were not found"
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "NVCR",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "CORT",
-      "status": "warning",
-      "detail": "Google Finance earnings labels were not found"
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "ACAD",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "KRYS",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "RNA",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "RXRX",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "CGON",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "earnings",
       "subject": "BBIO",
-      "status": "ok",
-      "detail": ""
+      "status": "skipped",
+      "detail": "not due for recheck"
     },
     {
       "source": "strategy narrative",
       "subject": "OpenAI Responses API",
-      "status": "ok",
-      "detail": "OpenAI Responses API"
+      "status": "skipped",
+      "detail": "already refreshed for this report date today"
     }
   ],
   "metrics": {
     "mode": "full",
     "durations_seconds": {
-      "market_data": 65.334,
-      "analysis": 0.029,
-      "secondary_sources": 385.838,
-      "rendering": 16.238,
-      "total": 467.603
+      "market_data": 0.351,
+      "analysis": 0.027,
+      "secondary_sources": 0.004,
+      "rendering": 16.368,
+      "total": 16.794
     },
     "counts": {
       "companies": 54,
@@ -1056,8 +1041,9 @@
       "performance_charts": 3,
       "earnings_charts": 0,
       "source_statuses": {
-        "ok": 158,
-        "warning": 7
+        "ok": 108,
+        "warning": 1,
+        "skipped": 56
       }
     },
     "output_bytes": {
@@ -1065,15 +1051,15 @@
       "markdown": 114924,
       "charts": 2370916,
       "data": 117675,
-      "total_without_manifest": 2742227
+      "total_without_manifest": 2741631
     },
     "price_retention": {
       "cutoff": "2024-08-14",
-      "files_changed": 53,
-      "bars_removed": 265,
+      "files_changed": 0,
+      "bars_removed": 0,
       "bars_retained": 28664
     },
-    "directory_bytes": 2770369
+    "directory_bytes": 2769518
   },
   "files": [
     "Life Science and Device Intel-2026-09-28.html",
