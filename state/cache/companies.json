@@ -1755,6 +1755,19 @@
         "description": "Certara Inc accelerates medicines to patients using biosimulation software and technology to transform traditional drug discovery and development. It provides modeling and simulation, regulatory science, and assessment software and services to help clients reduce clinical trials, accelerate regulatory approval, and increase patient access to medicines. The company has its business presence in the Americas, which is also its key revenue-generating market, EMEA, and the Asia Pacific region.",
         "website": "https://www.certara.com"
       }
+    },
+    "BDX": {
+      "fetched_at": "2026-10-05T19:14:36Z",
+      "value": {
+        "ticker": "BDX",
+        "provider_name": "Becton, Dickinson and Co.",
+        "market_cap": 48157986240.0,
+        "market_cap_date": "2026-10-05",
+        "exchange": "XNYS",
+        "list_date": "1963-09-25",
+        "description": "Following the separation of the life science segment, Becton Dickinson operates in four business units. Medical essentials (35% of total sales) includes the legacy medical surgical unit, which sells catheters, syringes, and infection prevention products. Connected care (24%) core products include the Alaris infusion pump, Pyxis dispensing system, and pharmacy automation platforms. Biopharma systems (13%) produces prefillable syringes and autoinjectors. Interventional (29%) is composed of the surgery, peripheral vascular, and urology segments. More than 60% of revenue comes from the United States.",
+        "website": "https://www.bd.com"
+      }
     }
   }
 }
