@@ -249,7 +249,19 @@ def _is_future_event(event: date, last: date | None, as_of: date) -> bool:
 
 def clear_stale_next_event(record: dict[str, Any], as_of: date) -> dict[str, Any]:
     event = _as_date(record.get("next_event_date"))
-    if event and not _is_future_event(event, _as_date(record.get("last_report_date")), as_of):
+    last = _as_date(record.get("last_report_date"))
+    if (
+        event
+        and event < as_of
+        and (last is None or event > last)
+        and record.get("next_date_status") == "confirmed"
+    ):
+        # Google leaves "Report date" blank for some tickers; a confirmed date that has
+        # passed is the best evidence of the report, so keep it as the last report.
+        record["last_report_date"] = event.isoformat()
+        record["last_report_source"] = record.get("next_date_source")
+        last = event
+    if event and not _is_future_event(event, last, as_of):
         for key in ("next_event_date", "next_check_date", "next_date_status", "next_date_source"):
             record.pop(key, None)
     return record

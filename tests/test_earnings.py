@@ -191,3 +191,31 @@ def test_yahoo_parser_ignores_missing_value():
     <li><span>Listed</span><span>Oct 7, 2008</span></li></ul>
     """
     assert parse_yahoo_earnings_date(html, date(2026, 9, 28)) is None
+
+
+def test_passed_confirmed_date_becomes_last_report_when_google_has_none(project, monkeypatch):
+    ticker = next(iter(project.universe.companies))
+    record = _refresh_one(
+        project,
+        monkeypatch,
+        ticker,
+        {
+            "next_event_date": "2026-09-24",
+            "next_date_status": "confirmed",
+            "next_date_source": "Yahoo Finance",
+        },
+        "<div>Previous reports</div>",
+        yahoo=(date(2026, 12, 21), True),
+    )
+    assert record["last_report_date"] == "2026-09-24"
+    assert record["last_report_source"] == "Yahoo Finance"
+    assert record["next_event_date"] == "2026-12-21"
+
+
+def test_passed_tentative_date_is_not_treated_as_a_report():
+    record = earnings.clear_stale_next_event(
+        {"next_event_date": "2026-09-24", "next_date_status": "tentative"},
+        date(2026, 9, 28),
+    )
+    assert "last_report_date" not in record
+    assert "next_event_date" not in record
