@@ -1,108 +1,84 @@
 # Healthcare Strategy Brief
-## Week of October 5, 2026
+## Week of October 12, 2026
 
 ## Executive View
 
-- **The final 2027 Medicare Advantage landscape resolves the benefit-retrenchment question but reveals a two-speed market.** National plan availability and average premiums appear stable, while major carriers are pruning underperforming products and shifting toward HMOs and special-needs plans.
-- **Federal price-transparency policy moved from data volume toward data usability and accountability.** New requirements reduce redundant files but add utilization context, provider-taxonomy logic and senior-official attestations, changing the opportunity for transparency-data vendors.
-- **CMS finalized international reference pricing for Part B drugs, but at a fraction of the proposed economic scale.** GLOBE remains operationally complex for selected providers while targeting less than 1% of relevant Original Medicare Part B drug spending.
-- **OIG identified a broader Medicare managed-care screening failure.** Plans paid $72 million for services associated with revoked or otherwise problematic providers, extending the integrity gap from individual suppliers into ownership, pharmacy and list-management controls.
-- **Overall environment: modestly deteriorated for MA plan continuity and payment integrity; improved for transparency-data quality; broadly unchanged for near-term provider drug economics.**
+- **The 2027 Star Ratings created a concentrated rather than industrywide improvement.** Enrollment in four-star-or-better MA-PD contracts increased, even as the number of qualifying contracts and the enrollment-weighted average rating declined.
+- **Humana resolved its largest visible 2028 revenue uncertainty favorably.** Ninety-five percent of its MA members are now in four-star-or-better contracts, but management indicated that performance above its targeted level is partly nonrecurring and will not automatically fund permanent benefits or expenses.
+- **McKesson’s investment in Option Care converts home infusion from a customer channel into a potential ownership position.** The structure preserves Option Care’s independence initially but gives McKesson a framework to acquire full control later.
+- **Risk-adjustment enforcement moved deeper into deletion workflow.** A new False Claims Act settlement treats unresolved suspect diagnoses and aging “delete” queues as compliance exposure, even where coders originally identified the problem.
+- **Overall environment: improved for Humana’s 2028 MA economics and alternate-site infusion capital; deteriorated for plans with weaker Stars performance or poorly governed risk-adjustment corrections; broadly unchanged in aggregate near-term.**
 
-## 1. Aggregate MA stability conceals targeted carrier retrenchment
+## 1. Humana’s Stars recovery creates a two-speed 2028 quality market
 
 **Status:** RESOLVE
 
 **What happened**
 
-The September 28 Medicare Advantage landscape resolves the preliminary plan-design signals discussed earlier in September. CMS projects that the weighted average monthly MA premium will decline 16.5%, from $14.37 in 2026 to $12.00 in 2027. The number of available plans is expected to remain nearly flat—5,532 versus 5,553—while more than 99% of beneficiaries retain access to at least one MA plan and 97% have at least 10 choices. CMS projects 34 million enrollees, or 47.4% of Medicare beneficiaries. ([CMS, “Medicare Advantage and Medicare Prescription Drug Programs Expected to Remain Stable in 2027,” September 28, 2026](https://www.cms.gov/newsroom/press-releases/medicare-advantage-medicare-prescription-drug-programs-expected-remain-stable-2027)). ([cms.gov](https://www.cms.gov/newsroom/press-releases/medicare-advantage-medicare-prescription-drug-programs-expected-remain-stable-2027?utm_source=openai))
+CMS’s October 8 release shows approximately 71% of current MA-PD enrollment in contracts rated four stars or higher for 2027, up from roughly 67% for 2026. That apparent improvement is unusually concentrated: qualifying contracts fell from 229 to 188, or from about 44% to 37% of rated contracts, while the enrollment-weighted average slipped from 4.01 to 3.99 stars. The ratings affect 2028 quality-bonus payments. ([CMS, “2027 Medicare Advantage and Part D Star Ratings,” October 8, 2026](https://www.cms.gov/newsroom/fact-sheets/2027-medicare-advantage-part-d-star-ratings)) ([cms.gov](https://www.cms.gov/newsroom/fact-sheets/2027-medicare-advantage-part-d-star-ratings))
 
-The national totals obscure substantial portfolio rotation. Analysis of the CMS files found heavy product reductions by UnitedHealthcare and Humana offset partly by continued growth in special-needs plans. UnitedHealthcare separately confirmed that it is discontinuing plans and changing service areas effective January 1, with nonrenewal notices dated October 2. ([Healthcare Dive, “Here’s how much insurers are cutting Medicare Advantage plans for 2027,” September 29, 2026](https://www.healthcaredive.com/news/medicare-advantage-cuts-2027-cms-landscape/831563/); [UnitedHealthcare, “2027 Medicare Advantage service area changes,” October 1, 2026](https://ams-gateway.uhcprovider.com/en/resource-library/news/2026/medadv-2027-service-area-changes.html)). ([healthcaredive.com](https://www.healthcaredive.com/news/medicare-advantage-cuts-2027-cms-landscape/831563/?trk=article-ssr-frontend-pulse_little-text-block&utm_source=openai))
+Humana drove much of the enrollment shift. It reported that 95% of its MA members are in four-star-or-better plans and 42% are in 4.5-star plans, versus the 20% it disclosed for the prior rating cycle using then-current membership. Humana added 11 four-star-or-better contracts and said its normalized Stars revenue per member exceeded its target of at least 10% above the median of Centene, CVS, Elevance, HCSC and UnitedHealth. ([Humana, “Humana Announces Improved CMS Star Ratings,” October 9, 2026](https://policy.humana.com/news-and-resources/news-press/2026/humana-announces-improved-cms-star-ratings-with-95-percent-of); [Humana Form 8-K, October 9, 2026](https://www.sec.gov/Archives/edgar/data/49071/000004907126000057/hum-20261009.htm)) ([policy.humana.com](https://policy.humana.com/news-and-resources/news-press/2026/humana-announces-improved-cms-star-ratings-with-95-percent-of?utm_source=openai))
 
 **Implication**
 
-The prior thesis is now more precise: MA margin repair is being pursued through local product selection, network structure and benefit design rather than broad premium increases or a nationwide withdrawal. Average premiums therefore overstate stability because they do not capture changes in cost sharing, supplemental allowances, provider access or forced member switching.
+The new information resolves a major component of Humana’s 2028 recovery thesis: quality revenue is now likely to become a tailwind rather than another margin-repair requirement. Humana nevertheless said the outperformance above its targeted “top quartile” level is partly one-time and expects to direct that excess toward temporary investments and shareholder returns. The upside therefore should not be assumed to flow fully into recurring supplemental benefits or operating expense.
 
-The directional benefit for carriers is improved 2027 risk selection and reduced exposure to structurally unprofitable markets. Providers face greater referral and contracting concentration as enrollment shifts toward narrower HMO and SNP products. Distribution, member-comparison and provider-directory platforms should expect elevated demand during open enrollment, particularly where nonrenewals require beneficiaries to choose replacement coverage.
+Industrywide, the divergence raises the value of contract-level—not parent-level—Stars analytics. Plans below four stars must compete against carriers with more rebate funding while simultaneously managing the benefit reductions and portfolio pruning identified last week. Demand should remain strong for care-gap closure, member engagement, medication adherence and provider-performance infrastructure, but spending capacity will increasingly differ by contract.
 
 **Watch next**
 
-Enrollment migration during the October 15–December 7 open-enrollment period, especially whether product exits move members toward competitors or into carriers’ narrower successor plans.
+Whether the ratings advantage translates into Humana retention and competitive switching during open enrollment, and whether lower-rated carriers consolidate membership into stronger contracts ahead of 2028.
 
 ---
 
-## 2. Transparency in Coverage shifts from file production to governed data infrastructure
+## 2. McKesson gains a path from specialty distribution into home-infusion ownership
 
 **Status:** NEW
 
 **What happened**
 
-On October 5, the Departments of HHS, Labor and Treasury finalized revisions to the Transparency in Coverage rules. Plans and issuers will report one in-network-rate file per provider network rather than per plan, move in-network and out-of-network files from monthly to quarterly publication, and exclude clinically implausible provider-service combinations using the same taxonomy logic employed in claims adjudication.
+CD&R and McKesson agreed on October 5 to acquire Option Care Health for $32.05 per share, representing approximately $5.8 billion of enterprise value. CD&R would own roughly 51%; McKesson would invest about $1.4 billion for approximately 49%. Option Care will remain separately managed, but the agreement establishes a framework under which McKesson could later acquire CD&R’s interest, subject to conditions and regulatory approvals. Closing is expected in the first half of 2027. ([Option Care Health Form 8-K, filed October 6, 2026](https://www.sec.gov/Archives/edgar/data/1014739/000110465926113904/tm2627097d1_8k.htm); [CD&R, McKesson and Option Care Health, joint announcement, October 6, 2026](https://www.sec.gov/Archives/edgar/data/1014739/000110465926113904/tm2627097d1_ex99-1.htm)) ([sec.gov](https://www.sec.gov/Archives/edgar/data/1014739/000110465926113904/tm2627097d1_8k.htm?trk=public_post_comment-text))
 
-The rules also add provider-taxonomy and utilization files, lower the out-of-network reporting threshold from 20 claims to 11, require standardized file-location information and mandate attestations that the disclosures are complete and accurate. Each file must identify the CEO, president or designated senior official responsible for oversight. The departments estimate approximately $174.5 million of annual net savings for plans and issuers beginning in the second implementation year. ([CMS, “Transparency in Coverage Final Rules,” October 5, 2026](https://www.cms.gov/newsroom/fact-sheets/transparency-coverage-final-rules-cms-9882-f)). ([cms.gov](https://www.cms.gov/newsroom/fact-sheets/transparency-coverage-final-rules-cms-9882-f))
-
-The in-network and out-of-network amendments apply five months after Federal Register publication; the new taxonomy, utilization and location files apply after 11 months. Telephone access to personalized cost-sharing information applies for plan years beginning January 1, 2027. Prescription-drug file development begins in November 2026, with publication expected to start in December 2027. ([CMS, “New Regulations Make It Easier to Find, Compare, and Report Healthcare Pricing and Coverage Information,” October 5, 2026](https://www.cms.gov/newsroom/press-releases/new-regulations-make-it-easier-find-compare-report-healthcare-pricing-coverage-information)). ([cms.gov](https://www.cms.gov/newsroom/press-releases/new-regulations-make-it-easier-find-compare-report-healthcare-pricing-coverage-information))
+Option Care describes itself as the largest independent U.S. provider of home and alternate-site infusion services, with operations in all 50 states and more than 5,000 clinicians. The company withdrew its prior 2026 guidance following the transaction announcement. ([sec.gov](https://www.sec.gov/Archives/edgar/data/1014739/000110465926113904/tm2627097d1_ex99-1.htm))
 
 **Implication**
 
-The opportunity is moving away from brute-force hosting and ingestion of enormous duplicate files. Competitive advantage will increasingly come from provider identity resolution, taxonomy mapping, contractual-rate normalization, utilization context and defensible data-quality controls.
+The transaction creates a potentially important vertical control point between specialty-drug supply and lower-cost administration. For payers, a scaled platform connecting drug access, benefit verification, prior authorization, dispensing and home or ambulatory infusion could accelerate site-of-care programs that redirect eligible therapy from hospital outpatient departments.
 
-For plans, quarterly reporting and network-level files reduce infrastructure expense, but senior-official attestation turns data accuracy into an enterprise compliance issue. For employers and providers, more usable out-of-network and utilization data should improve benchmarking and contract analysis. Vendors dependent primarily on storage volume face pressure; platforms that connect transparency data to claims, network design and contracting gain relevance.
+For McKesson, the initial minority structure limits immediate integration, but the path to full ownership is strategically more significant than a passive financial investment. It provides potential access to Option Care’s national clinical footprint and relationships with payers, health systems and manufacturers. Hospital infusion businesses face a better-capitalized competitor; workflow vendors should see demand around referral intake, inventory, scheduling, claims and patient-responsibility coordination.
+
+The principal uncertainty is whether regulators or commercial partners view the combination as improving distribution efficiency or concentrating too much influence over specialty-drug sourcing and administration.
 
 **Watch next**
 
-Technical guidance specifying the single machine-readable format and how regulators evaluate taxonomy exclusions, utilization completeness and executive attestations.
+The proxy materials, healthcare-regulatory filings and any conditions placed on data sharing, manufacturer relationships or McKesson’s future acquisition rights.
 
 ---
 
-## 3. GLOBE survives as a mandatory model but loses most of its proposed economic reach
+## 3. DOJ turns an unresolved diagnosis-deletion queue into False Claims Act exposure
 
 **Status:** UPDATE
 
 **What happened**
 
-CMS finalized the Global Benchmark for Efficient Drug Pricing Model, effective November 30. The mandatory manufacturer model begins January 1, 2027; international-benchmark rebates and reduced beneficiary coinsurance start April 1 and continue through March 31, 2032, with reconciliation extending into 2034. Selected geographic areas will represent approximately 25% of Original Medicare Part B beneficiaries. ([CMS Innovation Center, “GLOBE Model,” updated October 2, 2026](https://www.cms.gov/priorities/innovation/innovation-models/globe)). ([cms.gov](https://www.cms.gov/priorities/innovation/innovation-models/globe?utm_source=openai))
-
-The final model is materially narrower than proposed. CMS estimates that covered utilization will represent less than 1% of non-dual, non-340B Original Medicare Part B drug spending. Estimated annualized Part B savings fell from $2.3 billion in the proposal to $80 million in the final rule; cumulative estimates include $298 million for Original Medicare, $288 million from subsequent MA benchmark effects and $39 million for Medicaid. CMS estimates $177 million of beneficiary premium and coinsurance savings. The standard provider add-on remains 6% of average sales price for most drugs. ([Federal Register, “Global Benchmark for Efficient Drug Pricing Model,” October 2, 2026](https://www.govinfo.gov/content/pkg/FR-2026-10-02/html/2026-20281.htm)). ([govinfo.gov](https://www.govinfo.gov/content/pkg/FR-2026-10-02/html/2026-20281.htm))
+AIDS Healthcare Foundation agreed to pay $1.44 million to resolve allegations concerning its Medicare Advantage special-needs plans. DOJ alleged that risk-adjustment coders maintained “Delete Research” spreadsheets listing diagnoses that potentially lacked medical-record support, but that AHF failed to investigate and delete many codes within the required 60-day period. Most corrections were not submitted until 2024 or 2025, after the organization learned of the federal investigation. The settlement covers payment years 2017 through 2023 and includes no determination of liability. ([Department of Justice, “AIDS Healthcare Foundation Agrees to Pay $1.44M to Settle False Claims Act Allegations,” October 6, 2026](https://www.justice.gov/opa/pr/aids-healthcare-foundation-agrees-pay-144m-settle-false-claims-act-allegations)) ([justice.gov](https://www.justice.gov/opa/pr/aids-healthcare-foundation-agrees-pay-144m-settle-false-claims-act-allegations?utm_source=openai))
 
 **Implication**
 
-GLOBE is not a broad reset of oncology or specialty-infusion economics. Its immediate burden is operational: selected providers must identify eligible beneficiaries and drugs, collect the correct reduced coinsurance and reconcile geographically variable claim treatment. Because Medicare adjusts its payment when beneficiary coinsurance falls, the model does not directly reduce the allowed provider payment.
+The dollar amount is small, but the operating-control theory is consequential. Risk-adjustment liability does not end when coding staff identify a questionable diagnosis; the identification can start an auditable remediation clock. A spreadsheet or analytics queue that flags suspect codes without documented investigation, escalation and deletion may become evidence that an organization retained known overpayments.
 
-The longer-term payer effect is small but directionally negative for MA rebates: lower Original Medicare spending flows into benchmarks beginning with 2028 rate setting. Technology demand should concentrate in eligibility, charge-capture and patient-responsibility workflows rather than widespread drug-cost management.
-
-**Watch next**
-
-CMS’s selected geographic areas and initial drug list, which will determine which oncology practices, hospital outpatient departments and billing platforms must implement the model.
-
----
-
-## 4. OIG expands the Medicare preclusion gap into ownership and pharmacy controls
-
-**Status:** UPDATE
-
-**What happened**
-
-Prior audits showed that suppliers removed from Original Medicare could continue billing MA plans. OIG now reports that MA organizations and Part D plans paid $72 million during 2022–2024 for services associated with 249 of 1,017 revoked provider identifiers reviewed.
-
-OIG attributed the payments to delays and errors in CMS’s Preclusion List, failure to list some organizations whose owners were excluded or convicted of felonies, and regulations that do not subject dispensing-only pharmacies to preclusion. OIG issued no formal recommendations but said the findings could support future regulation or guidance. ([HHS-OIG, “Medicare Advantage Organizations and Prescription Drug Plans Paid $72 Million During a 3-Year Period for Services Associated With Excluded Providers or Individuals Convicted of Certain Felonies,” October 1, 2026](https://oig.hhs.gov/reports/all/2026/medicare-advantage-organizations-and-prescription-drug-plans-paid-72-million-during-a-3-year-period-for-services-associated-with-excluded-providers-or-individuals-convicted-of-certain-felonies/)). ([oig.hhs.gov](https://oig.hhs.gov/reports/all/2026/medicare-advantage-organizations-and-prescription-drug-plans-paid-72-million-during-a-3-year-period-for-services-associated-with-excluded-providers-or-individuals-convicted-of-certain-felonies/))
-
-**Implication**
-
-NPI-level screening is insufficient when exclusion risk can sit with an owner, affiliated organization or dispensing pharmacy. Plans need entity-resolution controls that connect enrollment status, ownership, felony and exclusion data across Parts A, B, C and D.
-
-The direct $72 million finding is modest relative to total managed-care spending, but the control failure creates recovery, audit and reputational exposure. It strengthens demand for continuously refreshed provider-master data and prepayment screening rather than periodic list checks.
+Plans and vendors need bidirectional workflows that treat deletes with the same rigor as additions: evidence capture, ownership, aging, escalation, submission confirmation and reconciliation to CMS payment. Contracts with chart-review, coding and in-home-assessment vendors should also specify who investigates conflicts and who is responsible for timely correction.
 
 **Watch next**
 
-Whether CMS expands the Preclusion List’s ownership and pharmacy scope or places explicit screening obligations on MA and Part D sponsors.
+Whether subsequent DOJ or OIG actions apply the same reasoning to larger carriers or downstream coding vendors, particularly where unsupported diagnoses were internally flagged but left unresolved.
 
 ## What I'm Watching Next
 
-- **October 6, 2026:** Scheduled Federal Register publication of the Transparency in Coverage final rules. ([Federal Register, public-inspection notice, October 5, 2026](https://www.federalregister.gov/public-inspection/2026-20447/transparency-in-coverage)). ([federalregister.gov](https://www.federalregister.gov/public-inspection/2026-20447/transparency-in-coverage))
-- **October 15, 2026:** Medicare open enrollment begins, providing the first market test of 2027 MA nonrenewals and product redesign.
-- **October 21, 2026:** Comment period closes on preliminary 2027 Clinical Laboratory Fee Schedule rates. ([CMS, September 21, 2026](https://www.cms.gov/newsroom/fact-sheets/preliminary-calendar-year-cy-2027-medicare-clinical-laboratory-fee-schedule-payment-rates)). ([cms.gov](https://www.cms.gov/newsroom/press-releases/cms-announces-new-preliminary-medicare-payment-rates-laboratory-services-saving-taxpayers-estimated?utm_source=openai))
+- **October 15, 2026:** Medicare annual open enrollment begins, testing whether Humana’s Stars recovery and competitors’ localized plan exits change member flows. ([cms.gov](https://www.cms.gov/newsroom/fact-sheets/2027-medicare-advantage-part-d-star-ratings))
+- **November 4, 2026:** Option Care Health plans to report third-quarter results without a conference call; prior guidance has been withdrawn. ([sec.gov](https://www.sec.gov/Archives/edgar/data/1014739/000110465926113904/tm2627097d1_ex99-1.htm))
+- **December 10, 2026:** Humana’s investor update is scheduled to mark progress against its 2028 framework, although detailed use of the excess Stars benefit may not be available until its fourth-quarter 2027 call. ([Humana Investor Relations, event calendar](https://humana.gcs-web.com/)) ([sec.gov](https://www.sec.gov/Archives/edgar/data/49071/000004907126000057/hum-20261009.htm?utm_source=openai))
 
 ## Bottom Line
 
-The week’s most important change is the resolution of the 2027 MA landscape: national access remains broad, but carrier-level product pruning confirms that margin repair is occurring through localized exits, narrower designs and member migration. MA plan continuity requires the closest attention. Open enrollment beginning October 15 is the next event most likely to reveal whether retrenchment improves payer mix without materially weakening competitive position.
+The week’s most important change is Humana’s 2027 Stars recovery, which materially improves its 2028 quality-revenue position while revealing that aggregate industry improvement is concentrated in a shrinking group of contracts. Contract-level Stars exposure requires the closest attention. Open enrollment beginning October 15 is the next event most likely to show whether quality differentiation translates into enrollment advantage rather than merely future bonus revenue.
