@@ -1,84 +1,103 @@
 # Healthcare Strategy Brief
-## Week of October 12, 2026
+## Week of October 19, 2026
 
 ## Executive View
 
-- **The 2027 Star Ratings created a concentrated rather than industrywide improvement.** Enrollment in four-star-or-better MA-PD contracts increased, even as the number of qualifying contracts and the enrollment-weighted average rating declined.
-- **Humana resolved its largest visible 2028 revenue uncertainty favorably.** Ninety-five percent of its MA members are now in four-star-or-better contracts, but management indicated that performance above its targeted level is partly nonrecurring and will not automatically fund permanent benefits or expenses.
-- **McKesson’s investment in Option Care converts home infusion from a customer channel into a potential ownership position.** The structure preserves Option Care’s independence initially but gives McKesson a framework to acquire full control later.
-- **Risk-adjustment enforcement moved deeper into deletion workflow.** A new False Claims Act settlement treats unresolved suspect diagnoses and aging “delete” queues as compliance exposure, even where coders originally identified the problem.
-- **Overall environment: improved for Humana’s 2028 MA economics and alternate-site infusion capital; deteriorated for plans with weaker Stars performance or poorly governed risk-adjustment corrections; broadly unchanged in aggregate near-term.**
+- **CMS converted two historically weak controls into measurable 2028 obligations.** Medicare Advantage plans would face recurring provider-directory verification and public accuracy grades, while Part D PBMs would face cost-based compensation, affiliate reporting, audit and disgorgement requirements. The immediate effect is implementation demand; the larger economic effect is potential redistribution of vertically integrated pharmacy revenue. ([cms.gov](https://www.cms.gov/newsroom/fact-sheets/medicare-program-implementation-sections-6219-6220-6224-consolidated-appropriations-act-2026-cms))
+- **UnitedHealth’s recovery is now visibly volume-for-margin rather than volume-led.** UnitedHealthcare improved profitability while shedding 935,000 Medicare Advantage members since year-end; Optum Health similarly restored margin while exiting value-based-care markets lacking sufficient density. ([sec.gov](https://www.sec.gov/Archives/edgar/data/731766/000073176626000255/earningsrelease3q26unh.htm))
+- **Humana found a less balance-sheet-intensive structure for retaining operational control of CenterWell clinics.** BlackRock will majority-own nearly 150 clinics, but CenterWell will continue managing them; removal of the legacy put obligation materially changes Humana’s capital exposure. ([humana.gcs-web.com](https://humana.gcs-web.com/news-releases/news-release-details/humana-announces-new-strategic-joint-venture-blackrock-manage))
+- **Alignment’s litigation makes part of the newly disclosed Stars divergence legally contingent.** The suit does not restore 2028 quality-bonus revenue, but it creates a plausible recalculation path and complicates benefit and capital planning.
+- **Overall environment:** improved for near-term payer margins and provider-asset capital flexibility; deteriorated for PBM and provider-directory compliance burden; broadly unchanged in aggregate.
 
-## 1. Humana’s Stars recovery creates a two-speed 2028 quality market
-
-**Status:** RESOLVE
-
-**What happened**
-
-CMS’s October 8 release shows approximately 71% of current MA-PD enrollment in contracts rated four stars or higher for 2027, up from roughly 67% for 2026. That apparent improvement is unusually concentrated: qualifying contracts fell from 229 to 188, or from about 44% to 37% of rated contracts, while the enrollment-weighted average slipped from 4.01 to 3.99 stars. The ratings affect 2028 quality-bonus payments. ([CMS, “2027 Medicare Advantage and Part D Star Ratings,” October 8, 2026](https://www.cms.gov/newsroom/fact-sheets/2027-medicare-advantage-part-d-star-ratings)) ([cms.gov](https://www.cms.gov/newsroom/fact-sheets/2027-medicare-advantage-part-d-star-ratings))
-
-Humana drove much of the enrollment shift. It reported that 95% of its MA members are in four-star-or-better plans and 42% are in 4.5-star plans, versus the 20% it disclosed for the prior rating cycle using then-current membership. Humana added 11 four-star-or-better contracts and said its normalized Stars revenue per member exceeded its target of at least 10% above the median of Centene, CVS, Elevance, HCSC and UnitedHealth. ([Humana, “Humana Announces Improved CMS Star Ratings,” October 9, 2026](https://policy.humana.com/news-and-resources/news-press/2026/humana-announces-improved-cms-star-ratings-with-95-percent-of); [Humana Form 8-K, October 9, 2026](https://www.sec.gov/Archives/edgar/data/49071/000004907126000057/hum-20261009.htm)) ([policy.humana.com](https://policy.humana.com/news-and-resources/news-press/2026/humana-announces-improved-cms-star-ratings-with-95-percent-of?utm_source=openai))
-
-**Implication**
-
-The new information resolves a major component of Humana’s 2028 recovery thesis: quality revenue is now likely to become a tailwind rather than another margin-repair requirement. Humana nevertheless said the outperformance above its targeted “top quartile” level is partly one-time and expects to direct that excess toward temporary investments and shareholder returns. The upside therefore should not be assumed to flow fully into recurring supplemental benefits or operating expense.
-
-Industrywide, the divergence raises the value of contract-level—not parent-level—Stars analytics. Plans below four stars must compete against carriers with more rebate funding while simultaneously managing the benefit reductions and portfolio pruning identified last week. Demand should remain strong for care-gap closure, member engagement, medication adherence and provider-performance infrastructure, but spending capacity will increasingly differ by contract.
-
-**Watch next**
-
-Whether the ratings advantage translates into Humana retention and competitive switching during open enrollment, and whether lower-rated carriers consolidate membership into stronger contracts ahead of 2028.
-
----
-
-## 2. McKesson gains a path from specialty distribution into home-infusion ownership
+## 1. CMS makes provider data and PBM affiliate economics auditable
 
 **Status:** NEW
 
 **What happened**
 
-CD&R and McKesson agreed on October 5 to acquire Option Care Health for $32.05 per share, representing approximately $5.8 billion of enterprise value. CD&R would own roughly 51%; McKesson would invest about $1.4 billion for approximately 49%. Option Care will remain separately managed, but the agreement establishes a framework under which McKesson could later acquire CD&R’s interest, subject to conditions and regulatory approvals. Closing is expected in the first half of 2027. ([Option Care Health Form 8-K, filed October 6, 2026](https://www.sec.gov/Archives/edgar/data/1014739/000110465926113904/tm2627097d1_8k.htm); [CD&R, McKesson and Option Care Health, joint announcement, October 6, 2026](https://www.sec.gov/Archives/edgar/data/1014739/000110465926113904/tm2627097d1_ex99-1.htm)) ([sec.gov](https://www.sec.gov/Archives/edgar/data/1014739/000110465926113904/tm2627097d1_8k.htm?trk=public_post_comment-text))
+On October 16, CMS proposed implementing provisions of the Consolidated Appropriations Act of 2026 for contract year 2028. Medicare Advantage organizations would have to verify most provider-directory listings at least every 90 days, conduct annual accuracy analyses using random samples and publish plan-level letter grades. Hospitals and specified facilities would generally receive annual verification. Enrollees misled by inaccurate listings would pay no more than in-network cost sharing. Public, machine-readable accuracy scores would follow in 2029. (CMS, *Medicare Program; Implementation of Sections 6219, 6220, and 6224 of the Consolidated Appropriations Act, 2026*, October 16, 2026.) ([cms.gov](https://www.cms.gov/newsroom/fact-sheets/medicare-program-implementation-sections-6219-6220-6224-consolidated-appropriations-act-2026-cms))
 
-Option Care describes itself as the largest independent U.S. provider of home and alternate-site infusion services, with operations in all 50 states and more than 5,000 clinicians. The company withdrew its prior 2026 guidance following the transaction announcement. ([sec.gov](https://www.sec.gov/Archives/edgar/data/1014739/000110465926113904/tm2627097d1_ex99-1.htm))
+The Part D provisions are more economically significant. PBMs and affiliates generally could retain only bona fide service fees, with CMS proposing fair-market-value compensation based on the cost of an itemized service plus a reasonable markup—not drug price. PBMs would report compensation, guarantees, acquisition costs, pharmacy activity and affiliate arrangements; plan sponsors would gain audit rights, and prohibited remuneration could be disgorged through the sponsor to CMS. Annual reporting would begin no later than July 1, 2028. (Federal Register, *CMS-4214-P*, public inspection October 16, 2026; scheduled publication October 20, 2026.) ([public-inspection.federalregister.gov](https://public-inspection.federalregister.gov/2026-21420.pdf))
 
 **Implication**
 
-The transaction creates a potentially important vertical control point between specialty-drug supply and lower-cost administration. For payers, a scaled platform connecting drug access, benefit verification, prior authorization, dispensing and home or ambulatory infusion could accelerate site-of-care programs that redirect eligible therapy from hospital outpatient departments.
+Provider directories are moving from lightly governed consumer content to an audited master-data function. Plans will need identity resolution, roster reconciliation, provider outreach, sampling, evidence retention and defensible scoring across credentialing, contracting and FHIR-based directory infrastructure. That favors shared provider-data utilities, but switching costs will remain high because the liability sits with the plan.
 
-For McKesson, the initial minority structure limits immediate integration, but the path to full ownership is strategically more significant than a passive financial investment. It provides potential access to Option Care’s national clinical footprint and relationships with payers, health systems and manufacturers. Hospital infusion businesses face a better-capitalized competitor; workflow vendors should see demand around referral intake, inventory, scheduling, claims and patient-responsibility coordination.
-
-The principal uncertainty is whether regulators or commercial partners view the combination as improving distribution efficiency or concentrating too much influence over specialty-drug sourcing and administration.
+For vertically integrated PBMs, the rule attacks ambiguity across rebate aggregation, specialty-pharmacy acquisition economics, administrative fees and affiliate transfers. The direction is toward explicit service pricing and sponsor-level visibility. The P&L magnitude remains uncertain until CMS finalizes definitions of cost and “reasonable markup,” but contract remediation must begin well before 2028.
 
 **Watch next**
 
-The proxy materials, healthcare-regulatory filings and any conditions placed on data sharing, manufacturer relationships or McKesson’s future acquisition rights.
+Whether CMS modifies the proposed cost-plus definition of fair market value and how it treats services performed across PBM, specialty-pharmacy, group-purchasing and plan affiliates.
 
 ---
 
-## 3. DOJ turns an unresolved diagnosis-deletion queue into False Claims Act exposure
+## 2. UnitedHealth demonstrates that selective contraction can repair margins
+
+**Status:** RESOLVE
+
+**What happened**
+
+UnitedHealth reported an 88.4% third-quarter medical-care ratio, versus 89.9% one year earlier, including $610 million of favorable reserve development. UnitedHealthcare’s operating margin rose to 3.3% from 2.1%, reflecting benefit changes, pricing and medical-cost management. Medicare Advantage enrollment, however, contracted by 935,000 members from year-end 2025. (UnitedHealth Group, *Third Quarter 2026 Results*, October 13, 2026.) ([sec.gov](https://www.sec.gov/Archives/edgar/data/731766/000073176626000255/earningsrelease3q26unh.htm))
+
+Optum Health revenue declined 10% year over year because it reduced value-based-care membership in markets where it lacked sufficient scale, while operating margin improved to 3.2% from 0.2%. Optum Insight revenue grew 3%, and operating earnings increased to $1.28 billion from $920 million, which management attributed to product enhancements and operating efficiencies. ([sec.gov](https://www.sec.gov/Archives/edgar/data/731766/000073176626000255/earningsrelease3q26unh.htm))
+
+**Implication**
+
+The results resolve an important operating question: UnitedHealth’s retrenchment is producing margin recovery, but through narrower participation and greater local density—not broad membership growth. Competitors should expect continued discipline in MA benefit design and provider contracting during the current enrollment cycle.
+
+For provider groups, the Optum Health result reinforces that value-based-care capital will concentrate in markets where an operator can align sufficient attributed lives, clinical capacity and pharmacy or specialty services. For health-technology vendors, the evidence is stronger for demand tied to cost takeout, payment accuracy and clinician productivity than for indiscriminate expansion of risk-bearing care platforms.
+
+**Watch next**
+
+Whether 2027 enrollment stabilizes without reversing the margin gains, and whether Optum resumes value-based-care growth only in markets where UnitedHealthcare or external payer volume provides adequate density.
+
+---
+
+## 3. Humana retains clinic control while transferring more capital risk
+
+**Status:** NEW
+
+**What happened**
+
+Humana announced on October 13 that BlackRock’s HPS Investment Partners will acquire Welsh Carson’s approximately $2.8 billion interest in joint ventures holding nearly 150 CenterWell Senior Primary Care clinics. BlackRock will own a majority interest; CenterWell will retain a minority stake and continue managing all clinics. The venture expects to fund existing operations, new clinics and acquisitions over the next two years. ([humana.gcs-web.com](https://humana.gcs-web.com/news-releases/news-release-details/humana-announces-new-strategic-joint-venture-blackrock-manage))
+
+Unlike the legacy structure, the new venture has no put option requiring Humana to repurchase the investor’s position. CenterWell may elect to purchase clinics beginning in 2028; if clinics remain in 2033, BlackRock may initiate a sale process subject to CenterWell’s first-offer right.
+
+**Implication**
+
+Humana is separating operational control from asset ownership. It preserves the clinical platform supporting MA care management and risk economics while lowering balance-sheet liabilities and the cost of expansion capital. That makes continued clinic growth more feasible following Humana’s Stars recovery without committing future quality-bonus revenue to real-estate and clinic-development obligations.
+
+The trade-off is longer-term ownership uncertainty. Humana retains management and optionality, but eventual purchase or sale decisions could affect where care-delivery economics ultimately accrue.
+
+**Watch next**
+
+The amount and deployment of BlackRock’s additional capital, particularly whether growth favors de novo clinics or acquisitions in markets aligned with Humana’s strongest MA contracts.
+
+---
+
+## 4. Alignment turns its Stars loss into a regulatory-methodology challenge
 
 **Status:** UPDATE
 
 **What happened**
 
-AIDS Healthcare Foundation agreed to pay $1.44 million to resolve allegations concerning its Medicare Advantage special-needs plans. DOJ alleged that risk-adjustment coders maintained “Delete Research” spreadsheets listing diagnoses that potentially lacked medical-record support, but that AHF failed to investigate and delete many codes within the required 60-day period. Most corrections were not submitted until 2024 or 2025, after the organization learned of the federal investigation. The settlement covers payment years 2017 through 2023 and includes no determination of liability. ([Department of Justice, “AIDS Healthcare Foundation Agrees to Pay $1.44M to Settle False Claims Act Allegations,” October 6, 2026](https://www.justice.gov/opa/pr/aids-healthcare-foundation-agrees-pay-144m-settle-false-claims-act-allegations)) ([justice.gov](https://www.justice.gov/opa/pr/aids-healthcare-foundation-agrees-pay-144m-settle-false-claims-act-allegations?utm_source=openai))
+Alignment filed suit on October 9 challenging its 2027 Star Ratings, after its California HMO contract—serving approximately 75% of company membership—fell from four stars to 3.5 stars. The complaint argues that CMS continued using measures not properly adopted through notice-and-comment regulation, drawing on the earlier Clover decision. (Alignment Healthcare, Form 8-K, October 8, 2026; Healthcare Dive, *Alignment sues CMS over 2027 Medicare Advantage star ratings crash*, October 13, 2026.) ([sec.gov](https://www.sec.gov/Archives/edgar/data/1832466/000162828026065470/alhc-20261008.htm?utm_source=openai))
 
 **Implication**
 
-The dollar amount is small, but the operating-control theory is consequential. Risk-adjustment liability does not end when coding staff identify a questionable diagnosis; the identification can start an auditable remediation clock. A spreadsheet or analytics queue that flags suspect codes without documented investigation, escalation and deletion may become evidence that an organization retained known overpayments.
+Last week’s Stars divergence is no longer solely a quality-execution issue; for affected contracts, it now includes legal option value. A successful expedited challenge could restore bonus economics, but no recalculation has occurred and Alignment must still address the underlying HOS and Part D performance weaknesses it identified.
 
-Plans and vendors need bidirectional workflows that treat deletes with the same rigor as additions: evidence capture, ownership, aging, escalation, submission confirmation and reconciliation to CMS payment. Contracts with chart-review, coding and in-home-assessment vendors should also specify who investigates conflicts and who is responsible for timely correction.
+Plans facing disputed methodology need parallel 2028 scenarios rather than assuming displayed ratings are either fully final or likely to be overturned. Reliable public timing for a merits decision was unavailable as of October 19.
 
 **Watch next**
 
-Whether subsequent DOJ or OIG actions apply the same reasoning to larger carriers or downstream coding vendors, particularly where unsupported diagnoses were internally flagged but left unresolved.
+Whether the court accelerates review before 2028 bid development and whether additional carriers challenge the same measures.
 
 ## What I'm Watching Next
 
-- **October 15, 2026:** Medicare annual open enrollment begins, testing whether Humana’s Stars recovery and competitors’ localized plan exits change member flows. ([cms.gov](https://www.cms.gov/newsroom/fact-sheets/2027-medicare-advantage-part-d-star-ratings))
-- **November 4, 2026:** Option Care Health plans to report third-quarter results without a conference call; prior guidance has been withdrawn. ([sec.gov](https://www.sec.gov/Archives/edgar/data/1014739/000110465926113904/tm2627097d1_ex99-1.htm))
-- **December 10, 2026:** Humana’s investor update is scheduled to mark progress against its 2028 framework, although detailed use of the excess Stars benefit may not be available until its fourth-quarter 2027 call. ([Humana Investor Relations, event calendar](https://humana.gcs-web.com/)) ([sec.gov](https://www.sec.gov/Archives/edgar/data/49071/000004907126000057/hum-20261009.htm?utm_source=openai))
+- **October 20, 2026:** CMS-4214-P is scheduled for publication in the *Federal Register*. ([public-inspection.federalregister.gov](https://public-inspection.federalregister.gov/2026-21420.pdf?utm_source=openai))
+- **December 15, 2026, at 5 p.m. EST:** Comments on CMS-4214-P are due. ([public-inspection.federalregister.gov](https://public-inspection.federalregister.gov/2026-21420.pdf?utm_source=openai))
 
 ## Bottom Line
 
-The week’s most important change is Humana’s 2027 Stars recovery, which materially improves its 2028 quality-revenue position while revealing that aggregate industry improvement is concentrated in a shrinking group of contracts. Contract-level Stars exposure requires the closest attention. Open enrollment beginning October 15 is the next event most likely to show whether quality differentiation translates into enrollment advantage rather than merely future bonus revenue.
+The week’s most important change is CMS’s conversion of MA provider-directory accuracy and Part D PBM economics into auditable, enforceable operating controls. Vertically integrated PBM affiliate compensation requires the closest strategic attention, while provider-data governance is the clearest near-term technology implementation opportunity. The December 15 comment deadline is the next confirmed event most likely to alter the rule’s economic impact.

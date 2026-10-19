@@ -2,28 +2,28 @@
   "schema": 1,
   "companies": {
     "UNH": {
-      "fetched_at": "2026-07-16T14:54:21Z",
+      "fetched_at": "2026-10-19T14:58:36Z",
       "value": {
         "ticker": "UNH",
         "provider_name": "UNITEDHEALTH GROUP INCORPORATED (Delaware)",
-        "market_cap": 380076600000.0,
-        "market_cap_date": "2026-07-16",
+        "market_cap": 360321499431.21,
+        "market_cap_date": "2026-10-19",
         "exchange": "XNYS",
-        "list_date": null,
+        "list_date": "1984-10-17",
         "description": "UnitedHealth Group is one of the largest private health insurers and provides medical benefits to about 51 million members globally, including 1 million outside the US as of December 2025. As a leader in employer-sponsored, self-directed, and government-backed insurance plans, UnitedHealth has obtained massive scale in medical insurance. Along with its insurance assets, UnitedHealth's Optum franchises help create a healthcare services colossus that spans everything from pharmaceutical benefits to providing outpatient care and analytics to affiliates and third parties.",
         "website": "https://www.unitedhealthgroup.com"
       }
     },
     "CVS": {
-      "fetched_at": "2026-07-16T14:59:27Z",
+      "fetched_at": "2026-10-19T14:58:49Z",
       "value": {
         "ticker": "CVS",
         "provider_name": "CVS HEALTH CORPORATION",
-        "market_cap": 135133460000.0,
-        "market_cap_date": "2026-07-16",
+        "market_cap": 118125703280.84,
+        "market_cap_date": "2026-10-19",
         "exchange": "XNYS",
-        "list_date": null,
-        "description": "CVS Health offers a diverse set of healthcare services. Its roots are in its retail pharmacy operations, where it operates around 9,000 stores primarily in the US. CVS is also a large pharmacy benefit manager (acquired through Caremark), processing about 2 billion adjusted claims annually. It operates a top-tier health insurer (acquired through Aetna) through which it serves about 27 million medical members. The acquisition of Oak Street Health added primary care services to the mix, which could have significant synergies with all existing business lines.",
+        "list_date": "1952-10-01",
+        "description": "CVS Health offers a diverse set of healthcare services. Its roots are in its retail pharmacy operations, where it operates around 9,000 stores primarily in the US. CVS is also a large pharmacy benefit manager (acquired through Caremark), processing about 2 billion adjusted claims annually. It operates a top-tier health insurer (acquired through Aetna) through which it serves about 26 million medical members. The acquisition of Oak Street Health added primary care services to the mix, which could have significant synergies with all existing business lines.",
         "website": "https://www.cvshealth.com"
       }
     },
@@ -314,14 +314,14 @@
       }
     },
     "AGL": {
-      "fetched_at": "2026-07-16T15:00:00Z",
+      "fetched_at": "2026-10-19T14:59:02Z",
       "value": {
         "ticker": "AGL",
         "provider_name": "agilon health, inc.",
-        "market_cap": 2073627800.0,
-        "market_cap_date": "2026-07-16",
+        "market_cap": 1429267795.2,
+        "market_cap_date": "2026-10-19",
         "exchange": "XNYS",
-        "list_date": null,
+        "list_date": "2021-04-15",
         "description": "Agilon Health Inc is a healthcare services company that partners with primary care physicians to support value-based care for senior patients. The company provides a platform that enables physician groups to manage healthcare outcomes and costs through a Medicare-centric, capitated care model and long-term partnerships with community-based physicians.",
         "website": "https://www.agilonhealth.com"
       }
@@ -548,15 +548,15 @@
       }
     },
     "SOLV": {
-      "fetched_at": "2026-07-16T15:00:03Z",
+      "fetched_at": "2026-10-19T14:59:15Z",
       "value": {
         "ticker": "SOLV",
         "provider_name": "Solventum Corporation",
-        "market_cap": 13571702000.0,
-        "market_cap_date": "2026-07-16",
+        "market_cap": 14606898185.49,
+        "market_cap_date": "2026-10-19",
         "exchange": "XNYS",
-        "list_date": null,
-        "description": "Solventum Corp is a healthcare company developing, manufacturing, and commercializing solutions leveraging material science, data science, and digital capabilities to address customer and patient needs. Its segments include MedSurg, which earns maximum revenue and provides wound therapy, I.V. site management, surgical supplies, medical tapes and wraps, stethoscopes, medical electrodes, and OEM medical technologies; Dental Solutions, offering dental and orthodontic products such as brackets, restorative cements, and bonding agents; and Health Information Systems, providing software solutions including physician documentation, coding automation, speech recognition, and data visualization platforms. It operates in the United States, which earns the majority of revenue, and internationally.",
+        "list_date": "2024-03-26",
+        "description": "In spring 2024, 3M spun out its legacy healthcare segment as a stand-alone firm, Solventum. At that time, the firm comprised four segments. The smallest one—purification and filtration—has since been sold. Now, medsurg is the largest business, contributing roughly 64% of consolidated revenue, and includes advanced wound care and wound prevention. Dental solutions (restorative composites and orthodontia) and health information systems (mainly revenue cycle management) each contribute 18% of total revenue.",
         "website": "https://www.solventum.com"
       }
     },
@@ -587,14 +587,14 @@
       }
     },
     "DH": {
-      "fetched_at": "2026-07-16T15:01:10Z",
+      "fetched_at": "2026-10-19T14:59:28Z",
       "value": {
         "ticker": "DH",
         "provider_name": "Definitive Healthcare Corp. Class A Common Stock",
-        "market_cap": 85548500.0,
-        "market_cap_date": "2026-07-16",
+        "market_cap": 106744713.0,
+        "market_cap_date": "2026-10-19",
         "exchange": "XNAS",
-        "list_date": null,
+        "list_date": "2021-09-15",
         "description": "Definitive Healthcare Corp is a provider of healthcare commercial intelligence. Its SaaS-based healthcare commercial intelligence platform is designed to provide comprehensive and accurate information on the healthcare ecosystem in the U.S. The platform uses deep analytics and data science to help customers develop data-driven strategic decisions, such as finding new markets to enter, building comprehensive go-to-market strategies, accessing tactical information to help target the right decision makers, and improving win rates with detailed contextual information. The company derives substantially all of its revenue from the sale of subscription fees for access to its platform and stand-ready support. Geographically, it derives a majority of its revenue from the United States.",
         "website": "https://www.definitivehc.com"
       }
@@ -1120,14 +1120,14 @@
       }
     },
     "LLY": {
-      "fetched_at": "2026-07-16T14:59:30Z",
+      "fetched_at": "2026-10-19T15:08:59Z",
       "value": {
         "ticker": "LLY",
         "provider_name": "Eli Lilly & Co.",
-        "market_cap": 1031414900000.0,
-        "market_cap_date": "2026-07-16",
+        "market_cap": 1120462571416.95,
+        "market_cap_date": "2026-10-19",
         "exchange": "XNYS",
-        "list_date": null,
+        "list_date": "1970-07-09",
         "description": "Eli Lilly is a drug firm with a focus on neuroscience, cardiometabolic, cancer, and immunology. Lilly's key products include Verzenio and Jaypirca for cancer; Mounjaro, Zepbound, Foundayo, Jardiance, Trulicity, Humalog, and Humulin for cardiometabolic; and Taltz and Olumiant for immunology.",
         "website": "https://www.lilly.com"
       }
