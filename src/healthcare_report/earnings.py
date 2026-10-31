@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Any
 
 import httpx
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Tag
 
 from .config import ProjectConfig
 from .providers import BrowserSession, FetchStatus
@@ -109,6 +109,117 @@ def _parse_at_a_glance(soup: BeautifulSoup) -> tuple[list[dict[str, str]], str |
     return [], None
 
 
+RESULT_VALUE = re.compile(r"^(-?[\d.,]+[KMBT]?)\s*/\s*\((-?[\d.,]+[KMBT]?) est\.\)")
+SURPRISE_VALUE = re.compile(r"[+-]?[\d.,]+%")
+# A quarter is reported within ~90 days of its end, and the next one is not reported
+# until roughly 105 days after it, so this window rejects a stale row.
+RESULTS_LOOKBACK_DAYS = 100
+
+
+def _table_rows(table: Tag) -> list[list[str]]:
+    return [
+        [strip_icon_ligatures(cell.get_text(" ", strip=True)) for cell in row.find_all(["td", "th"])]
+        for row in table.find_all("tr")
+    ]
+
+
+def _parse_results_history(soup: BeautifulSoup, as_of: date) -> dict[str, Any] | None:
+    """Return the newest row of Google's quarterly results table.
+
+    Smaller companies often have this table without a call summary, and its report date
+    is usually blank ("-"), so the quarter end comes from the matching financials column.
+    """
+    rows: list[list[str]] = []
+    financials: list[list[str]] = []
+    for table in soup.find_all("table"):
+        parsed = _table_rows(table)
+        if not parsed or not parsed[0]:
+            continue
+        if parsed[0][0] == "Fiscal period":
+            rows = parsed[1:]
+        elif parsed[0][0].startswith("All values in"):
+            financials = parsed
+    if not rows or len(rows[0]) < 6:
+        return None
+    period, reported, eps, eps_surprise, revenue, revenue_surprise = rows[0][:6]
+    eps_match = RESULT_VALUE.match(eps)
+    revenue_match = RESULT_VALUE.match(revenue)
+    if not period or not (eps_match or revenue_match):
+        return None
+    report_date = parse_display_date(reported, as_of)
+    period_end: date | None = None
+    revenue_row = next((row for row in financials if row and row[0] == "Revenue"), None)
+    if financials and revenue_row and revenue_match and revenue_row[-1] == revenue_match.group(1):
+        try:
+            month = datetime.strptime(financials[0][-1], "%b %Y").date()
+        except ValueError:
+            month = None
+        if month:
+            next_month = (month.replace(day=28) + timedelta(days=4)).replace(day=1)
+            period_end = next_month - timedelta(days=1)
+
+    def surprise(value: str) -> str | None:
+        match = SURPRISE_VALUE.search(value)
+        return match.group(0) if match else None
+
+    return {
+        "fiscal_period": period,
+        "report_date": report_date.isoformat() if report_date else None,
+        "period_end": period_end.isoformat() if period_end else None,
+        "eps": eps_match.group(1) if eps_match else None,
+        "eps_estimate": eps_match.group(2) if eps_match else None,
+        "eps_surprise": surprise(eps_surprise) if eps_match else None,
+        "revenue": revenue_match.group(1) if revenue_match else None,
+        "revenue_estimate": revenue_match.group(2) if revenue_match else None,
+        "revenue_surprise": surprise(revenue_surprise) if revenue_match else None,
+    }
+
+
+def report_results(record: dict[str, Any]) -> dict[str, Any] | None:
+    """Return the stored quarterly results only when they belong to the last report."""
+    results = record.get("latest_results")
+    last = _as_date(record.get("last_report_date"))
+    if not isinstance(results, dict) or not last:
+        return None
+    reported = _as_date(results.get("report_date"))
+    if reported:
+        return results if reported == last else None
+    period_end = _as_date(results.get("period_end"))
+    if period_end:
+        within = period_end < last <= period_end + timedelta(days=RESULTS_LOOKBACK_DAYS)
+        return results if within else None
+    # Without dates, trust the row only if it first appeared after the report.
+    first_seen = _as_date(results.get("first_seen"))
+    return results if first_seen and first_seen >= last else None
+
+
+def _money(value: str) -> str:
+    return f"-${value[1:]}" if value.startswith("-") else f"${value}"
+
+
+def format_results(results: dict[str, Any]) -> str:
+    parts = []
+    for label, value, estimate, surprise in (
+        ("EPS", "eps", "eps_estimate", "eps_surprise"),
+        ("revenue", "revenue", "revenue_estimate", "revenue_surprise"),
+    ):
+        if not results.get(value):
+            continue
+        text = f"{label} {_money(results[value])}"
+        if results.get(estimate):
+            text += f" vs. {_money(results[estimate])} est."
+        if results.get(surprise):
+            text += f" ({results[surprise]})"
+        parts.append(text)
+    return f"{results.get('fiscal_period') or 'Latest quarter'}: {'; '.join(parts)}"
+
+
+def no_summary_note(has_results: bool) -> str:
+    if has_results:
+        return "Google Finance has not published a call summary for this report yet."
+    return "Google Finance has not published a call summary or results for this report yet."
+
+
 def parse_google_earnings(html: str, ticker: str, as_of: date) -> dict[str, Any]:
     soup = BeautifulSoup(html, "html.parser")
     text = " ".join(soup.get_text(" ", strip=True).split())
@@ -145,7 +256,10 @@ def parse_google_earnings(html: str, ticker: str, as_of: date) -> dict[str, Any]
                 }
             )
     at_a_glance, glance_scope = _parse_at_a_glance(soup)
-    if not any((latest, upcoming, summary, moments, at_a_glance)):
+    results = _parse_results_history(soup, as_of)
+    if not latest and results and results.get("report_date"):
+        latest = date.fromisoformat(results["report_date"])
+    if not any((latest, upcoming, summary, moments, at_a_glance, results)):
         raise RuntimeError("Google Finance earnings labels were not found")
     return {
         "ticker": ticker,
@@ -155,6 +269,7 @@ def parse_google_earnings(html: str, ticker: str, as_of: date) -> dict[str, Any]
         "key_moments": moments,
         "at_a_glance": at_a_glance,
         "at_a_glance_scope": glance_scope,
+        "latest_results": results,
     }
 
 
@@ -236,6 +351,9 @@ def refresh_needed(
         and (record.get("summary") or record.get("key_moments"))
         and not record.get("at_a_glance_checked_at")
     ):
+        return True
+    if last and last >= as_of - timedelta(days=window) and not record.get("summary"):
+        # Google often adds the call summary days after a report; keep checking in-window.
         return True
     status = record.get("next_date_status")
     event = _as_date(record.get("next_event_date"))
@@ -335,6 +453,17 @@ def refresh_earnings(
             if parsed.get("at_a_glance_scope") == "reported":
                 record["at_a_glance"] = parsed.get("at_a_glance") or []
                 record["at_a_glance_report_date"] = parsed.get("last_report_date")
+            results = parsed.get("latest_results")
+            if results:
+                previous = old.get("latest_results")
+                if isinstance(previous, dict) and previous.get("fiscal_period") == results.get(
+                    "fiscal_period"
+                ):
+                    first_seen = previous.get("first_seen")
+                else:
+                    # A first sighting with no history may be a stale row, so leave it undated.
+                    first_seen = checked_on.isoformat() if isinstance(previous, dict) else None
+                record["latest_results"] = {**results, "first_seen": first_seen}
             if parsed.get("next_event_date"):
                 record["next_event_date"] = parsed["next_event_date"]
                 record["next_date_status"] = "confirmed"

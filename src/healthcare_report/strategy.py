@@ -313,6 +313,8 @@ def format_recent_earnings(
     headline_limit: int = EARNINGS_HEADLINE_LIMIT,
 ) -> str:
     """Compact in-window earnings for the strategy prompt. Headlines only, no transcripts."""
+    from .earnings import format_results, report_results
+
     if not recent:
         return ""
     parts = ["In-window watchlist earnings already collected for this report:"]
@@ -326,6 +328,9 @@ def format_recent_earnings(
         if reported:
             header += f" reported {reported}"
         parts.append(header)
+        results = report_results(row)
+        if results:
+            parts.append(f"  {format_results(results)}")
         summary = re.sub(r"\s+", " ", str(row.get("summary") or "")).strip()
         if summary:
             parts.append(f"  {summary}")

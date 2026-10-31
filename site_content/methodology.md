@@ -27,8 +27,11 @@ project's company configuration.
 ## Earnings coverage
 
 Public earnings pages are checked for report dates, transcript summaries, at-a-glance items,
-and key moments. A company appears in Recent Earnings Highlights when its saved report date
-falls within the configured weekly window and usable call material is available. Upcoming
+key moments, and the quarterly results table (EPS and revenue against estimates). A company
+appears in Recent Earnings Highlights when its saved report date falls within the configured
+weekly window. When no call summary has been published, which is common for smaller companies,
+the highlight shows the reported quarter's results and notes that the summary is unavailable;
+those companies are rechecked while the report stays in the window. Upcoming
 dates may be marked tentative when a public source has not yet confirmed them.
 
 Earnings charts compare the featured company with other tracked companies in its subcategory

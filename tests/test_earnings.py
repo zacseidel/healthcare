@@ -6,11 +6,13 @@ from pathlib import Path
 import healthcare_report.earnings as earnings
 from healthcare_report.earnings import (
     apply_tentative,
+    format_results,
     load_earnings_state,
     parse_google_earnings,
     parse_yahoo_earnings_date,
     refresh_earnings,
     refresh_needed,
+    report_results,
 )
 
 
@@ -219,3 +221,85 @@ def test_passed_tentative_date_is_not_treated_as_a_report():
     )
     assert "last_report_date" not in record
     assert "next_event_date" not in record
+
+
+RESULTS_TABLE = (Path(__file__).parent / "fixtures" / "google_finance" / "results-table.html").read_text()
+
+
+def test_google_parser_reads_results_table_without_summary():
+    parsed = parse_google_earnings(RESULTS_TABLE, "NEO", date(2026, 11, 2))
+
+    assert parsed["last_report_date"] is None
+    assert parsed["summary"] == ""
+    results = parsed["latest_results"]
+    assert results["fiscal_period"] == "Q3 2026"
+    assert results["report_date"] is None
+    # The quarter end comes from the financials column whose revenue matches.
+    assert results["period_end"] == "2026-09-30"
+    assert format_results(results) == (
+        "Q3 2026: EPS -$0.15 vs. -$0.05 est. (-229.56%); "
+        "revenue $209.25M vs. $207.33M est. (+0.93%)"
+    )
+
+
+def test_results_attach_only_to_the_report_they_belong_to():
+    results = {"fiscal_period": "Q3 2026", "report_date": None, "period_end": "2026-09-30"}
+
+    assert report_results({"last_report_date": "2026-10-28", "latest_results": results})
+    # A stale Q2 row must not be shown for a later report.
+    stale = {**results, "fiscal_period": "Q2 2026", "period_end": "2026-06-30"}
+    assert report_results({"last_report_date": "2026-10-28", "latest_results": stale}) is None
+    dated = {**results, "report_date": "2026-10-21"}
+    assert report_results({"last_report_date": "2026-10-21", "latest_results": dated})
+    assert report_results({"last_report_date": "2026-10-28", "latest_results": dated}) is None
+    undated = {"fiscal_period": "Q3 2026", "first_seen": "2026-11-09"}
+    assert report_results({"last_report_date": "2026-11-05", "latest_results": undated})
+    assert report_results({"last_report_date": "2026-11-05", "latest_results": {
+        "fiscal_period": "Q3 2026", "first_seen": None}}) is None
+
+
+def test_confirmed_report_without_summary_keeps_its_results(project, monkeypatch):
+    ticker = next(iter(project.universe.companies))
+    record = _refresh_one(
+        project,
+        monkeypatch,
+        ticker,
+        {
+            "next_event_date": "2026-09-24",
+            "next_date_status": "confirmed",
+            "next_date_source": "Yahoo Finance",
+        },
+        RESULTS_TABLE,
+    )
+
+    assert record["last_report_date"] == "2026-09-24"
+    assert record["latest_results"]["fiscal_period"] == "Q3 2026"
+    # No earlier sighting, so the row stays undated until the period changes.
+    assert record["latest_results"]["first_seen"] is None
+
+
+def test_new_results_period_is_dated_when_first_seen(project, monkeypatch):
+    ticker = next(iter(project.universe.companies))
+    record = _refresh_one(
+        project,
+        monkeypatch,
+        ticker,
+        {"latest_results": {"fiscal_period": "Q2 2026", "first_seen": None}},
+        RESULTS_TABLE,
+    )
+
+    assert record["latest_results"]["first_seen"] == "2026-09-28"
+
+
+def test_in_window_report_without_summary_is_rechecked(project):
+    record = {
+        "last_report_date": "2026-09-24",
+        "summary": "",
+        "checked_at": "2026-09-27T12:00:00Z",
+        "checked_for_date": "2026-09-27",
+        "next_event_date": "2026-12-21",
+        "next_date_status": "tentative",
+        "next_check_date": "2026-11-30",
+    }
+
+    assert refresh_needed(record, date(2026, 9, 28), project, checked_on=date(2026, 9, 28))

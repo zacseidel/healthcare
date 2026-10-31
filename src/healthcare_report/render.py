@@ -17,7 +17,13 @@ from bs4 import BeautifulSoup
 
 from .analysis import Baseline, format_percent, months_before
 from .config import ProjectConfig
-from .earnings import google_quote_url, google_url
+from .earnings import (
+    format_results,
+    google_quote_url,
+    google_url,
+    no_summary_note,
+    report_results,
+)
 
 CSS = """
 :root { color-scheme:light; --navy:#12395b; --navy-2:#1d527e; --ink:#1d2935;
@@ -883,6 +889,9 @@ def _earnings_highlights(
                     "",
                 ]
             )
+        results = report_results(item)
+        if results:
+            lines.extend(["#### Reported Results", "", html.escape(format_results(results)), ""])
         summary = _summary_text(item.get("summary"))
         if summary:
             lines.extend(["#### Earnings Call Summary", "", summary, ""])
@@ -904,9 +913,7 @@ def _earnings_highlights(
                 )
             lines.append("")
         if not summary and not glance and not moments:
-            lines.append(
-                "No transcript summary, at-a-glance insights, or key moments were available."
-            )
+            lines.extend([no_summary_note(bool(results)), ""])
     return lines
 
 

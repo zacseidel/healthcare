@@ -7,7 +7,7 @@ from PIL import Image
 
 from healthcare_report.analysis import SNAPSHOT_FIELDS
 from healthcare_report.email_draft import build_email_draft, email_draft_name, email_subject
-from healthcare_report.storage import write_csv, write_gzip_json, write_json
+from healthcare_report.storage import read_gzip_json, write_csv, write_gzip_json, write_json
 
 
 def _report_folder(tmp_path, report_date: date, *, upcoming: bool):
@@ -120,3 +120,32 @@ def test_draft_names():
     assert email_subject("Life Science and Device Intel", date(2026, 11, 2)) == (
         "Life Science and Device Intel – November 2, 2026"
     )
+
+
+def test_report_without_call_summary_shows_results_and_a_note(tmp_path):
+    folder = _report_folder(tmp_path, date(2026, 11, 9), upcoming=False)
+    data = read_gzip_json(folder / "render-data.json.gz")
+    data["recent_earnings"] = [
+        {
+            "ticker": "ELV",
+            "name": "Elevance",
+            "last_report_date": "2026-10-28",
+            "summary": "",
+            "latest_results": {
+                "fiscal_period": "Q3 2026",
+                "period_end": "2026-09-30",
+                "eps": "0.07",
+                "eps_estimate": "0.06",
+                "eps_surprise": "+26.24%",
+            },
+        }
+    ]
+    write_gzip_json(folder / "render-data.json.gz", data)
+
+    body = message_from_bytes(
+        build_email_draft(folder, "x.html") or b"", policy=policy.default
+    ).get_body(("html",)).get_content()
+
+    assert 'href="#earnings-elv"' in body
+    assert "Q3 2026: EPS $0.07 vs. $0.06 est. (+26.24%)" in body
+    assert "has not published a call summary for this report yet" in body

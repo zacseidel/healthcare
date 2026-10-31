@@ -22,7 +22,13 @@ import markdown
 from bs4 import BeautifulSoup, Tag
 
 from .analysis import format_percent, is_monthly_report, load_snapshot
-from .earnings import google_quote_url, google_url
+from .earnings import (
+    format_results,
+    google_quote_url,
+    google_url,
+    no_summary_note,
+    report_results,
+)
 from .render import (
     _long_date,
     _return_background,
@@ -246,12 +252,7 @@ def build_email_draft(folder: Path, html_name: str) -> bytes | None:
         sections.append(f'<p style="{STYLES["p"]}">No strategy narrative is available for this week.</p>')
     entries.append(("news", "In the News", stories))
 
-    recent = [
-        item
-        for item in render_data.get("recent_earnings") or []
-        if isinstance(item, dict)
-        and (item.get("summary") or item.get("at_a_glance") or item.get("key_moments"))
-    ]
+    recent = [item for item in render_data.get("recent_earnings") or [] if isinstance(item, dict)]
     recent.sort(
         key=lambda item: (-(facts.get(item["ticker"], {}).get("market_cap") or 0), item["ticker"])
     )
@@ -296,6 +297,10 @@ def build_email_draft(folder: Path, html_name: str) -> bytes | None:
                     f'alt="{html.escape(name)} versus category peers and the S&amp;P 500, last 3 months" '
                     f'style="display:block;width:100%;max-width:{IMAGE_WIDTH}px;height:auto;border:0;"></p>'
                 )
+            results = report_results(item)
+            if results:
+                sections.append(f'<h4 style="{STYLES["h4"]}">Reported Results</h4>')
+                sections.append(f'<p style="{STYLES["p"]}">{html.escape(format_results(results))}</p>')
             summary = _summary_text(item.get("summary"))
             if summary:
                 sections.append(f'<h4 style="{STYLES["h4"]}">Earnings Call Summary</h4>')
@@ -310,6 +315,9 @@ def build_email_draft(folder: Path, html_name: str) -> bytes | None:
                     prefix = f"<strong>{html.escape(headline)}:</strong> " if headline else ""
                     bullets.append(f'<li style="{STYLES["li"]}">{prefix}{html.escape(detail)}</li>')
                 sections.append(f'<ul style="{STYLES["ul"]}">{"".join(bullets)}</ul>')
+            if not summary and not glance:
+                note = html.escape(no_summary_note(bool(results)))
+                sections.append(f'<p style="{STYLES["p"]}"><em>{note}</em></p>')
         entries.append(("earnings", "Recent Earnings Highlights", earnings_children))
 
     upcoming = [row for row in render_data.get("upcoming_earnings") or [] if isinstance(row, dict)]
