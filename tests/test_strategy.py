@@ -10,12 +10,15 @@ import pytest
 from healthcare_report.strategy import (
     StrategySettings,
     assemble_prompt,
+    clean_citations,
     compact_prior_report,
     discover_history,
     estimate_cost,
     format_recent_earnings,
+    format_watchlist,
     format_watchlist_movers,
     generate_strategy_report,
+    prose_word_count,
     reporting_window,
     require_monday_report_date,
     strategy_prompt_path,
@@ -168,8 +171,11 @@ def test_prompt_assembly_delimits_history_and_dates():
     assert '<prior_report date="2026-08-17"' in prompt
     assert "<master_brief>\nMaster instructions\n</master_brief>" in prompt
     assert "<watchlist_movers>\n- MRNA Moderna +129.2%\n</watchlist_movers>" in prompt
-    assert "Do not treat intra-week notes as last" in prompt
-    assert "Use supplied recent earnings and watchlist movers" in prompt
+    assert prompt.index("<master_brief>") < prompt.index("<run_context>")
+    assert "Write the Healthcare Strategy Brief for the week of August 24, 2026" in prompt
+    # Behavioral rules live in the master brief only, not in the per-run task block.
+    task = prompt[prompt.index("<task>") :]
+    assert "search" not in task.casefold()
 
 
 def test_watchlist_movers_block_is_compact():
@@ -192,7 +198,7 @@ def test_watchlist_movers_block_is_compact():
     assert "MRK Merck -11.0%" in text
     assert "BMY" not in text
     assert "LLY" not in text
-    assert "do not write filler" in text.casefold()
+    assert "filler" not in text.casefold()
     assert len(text) < 900
 
 
@@ -210,15 +216,18 @@ def test_healthcare_profile_uses_10x_master_prompt(project):
     prompt = result["assembled_prompt"]
     assert "**Implication**" in prompt
     assert re.search(r"^\*\*Strategist implication\*\*\s*$", prompt, flags=re.M) is None
-    assert "Write **2-5** numbered interpretive headlines" in prompt
-    assert "Number **4-6** interpretive headlines" not in prompt
-    assert "Veeva" in prompt
-    assert "IQVIA" in prompt
-    assert "In-window watchlist earnings and large movers are a scan list" in prompt
+    assert "Write 2-5 numbered stories, about 150-200 words each" in prompt
+    assert "must not exceed 1,500 words" in prompt
+    assert "## Writing style" in prompt
+    assert "Treat them as a scan list" in prompt
+    assert prompt.count("Treat them as a scan list") == 1
     assert "previous Monday briefing" in prompt
-    assert "watchlist movers" in prompt
-    assert "Optional compact risk-dashboard table" not in prompt
-    assert "This is a **proposal**, not the live Healthcare prompt" not in prompt
+    # The watchlist comes from companies.md rather than a hand-maintained list.
+    watchlist = prompt[prompt.index("<watchlist>") : prompt.index("</watchlist>")]
+    assert "- Payers: UNH UnitedHealth" in watchlist
+    assert "VEEV" in watchlist
+    assert "Health Care Real Estate" not in prompt
+    assert "Veradigm" not in prompt
 
 
 def test_life_sciences_profile_uses_separate_prompt_and_research_task(project):
@@ -233,14 +242,14 @@ def test_life_sciences_profile_uses_separate_prompt_and_research_task(project):
     assert "distinguish scientific significance from commercial significance" in result[
         "assembled_prompt"
     ]
-    assert "previous Monday" in result["assembled_prompt"]
-    assert "Therapeutic & Clinical Signals" in result["assembled_prompt"]
-    assert "**Status:** NEW / UPDATE / CONFIRM / REFUTE / RESOLVE" not in result[
-        "assembled_prompt"
-    ]
-    assert "Do not emit NEW / UPDATE / CONFIRM / REFUTE / RESOLVE status" in result[
-        "assembled_prompt"
-    ]
+    prompt = result["assembled_prompt"]
+    assert "previous Monday" in prompt
+    assert "Therapeutic & Clinical Signals" not in prompt
+    assert "## Strategy Narrative" not in prompt
+    assert "## 1. Interpretive headline" in prompt
+    assert "**Status:**" not in prompt
+    assert "Write the Life Sciences Strategy Brief" in prompt
+    assert "- Big Pharma:" in prompt
 
 
 def test_cost_estimate_uses_central_model_pricing():
@@ -471,7 +480,7 @@ def test_format_recent_earnings_is_compact_and_omits_transcripts():
     assert "Seventh headline should be omitted" not in text
     assert "transcript blurb" not in text
     assert "key_moments" not in text
-    assert "Evaluate each name" in text
+    assert text.startswith("In-window watchlist earnings already collected")
 
 
 def test_assemble_prompt_includes_earnings_block():
@@ -484,7 +493,6 @@ def test_assemble_prompt_includes_earnings_block():
     )
     assert "<recent_earnings>\n- VEEV Veeva Systems reported 2026-08-26\n</recent_earnings>" in prompt
     assert "<watchlist_movers>\n- VEEV Veeva Systems +11.6%\n</watchlist_movers>" in prompt
-    assert "Use supplied recent earnings and watchlist movers before searching" in prompt
 
 
 def test_rate_limit_retries_then_succeeds(project, monkeypatch):
@@ -517,3 +525,87 @@ def test_exhausted_rate_limit_still_raises(project, monkeypatch):
         generate_strategy_report(
             project, date(2026, 8, 24), response_client=always_limited
         )
+
+
+def test_clean_citations_drops_domain_duplicates_and_tracking():
+    body = (
+        "CMS proposed a rule. ([CMS, *Rule*, Oct 23, 2026](https://www.cms.gov/rule)) "
+        "([cms.gov](https://www.cms.gov/rule))\n"
+        "Molina reported. ([Molina, *Q3*, Oct 21, 2026](https://ir.molina.com/q3)) "
+        "([ir.molina.com](https://ir.molina.com/q3?utm_source=openai))\n"
+        "Only a domain link here ([sec.gov](https://www.sec.gov/only?utm_source=openai&a=1))."
+    )
+    cleaned = clean_citations(body)
+    assert "([cms.gov]" not in cleaned
+    assert "([ir.molina.com]" not in cleaned
+    assert "utm_source" not in cleaned
+    assert "[CMS, *Rule*, Oct 23, 2026](https://www.cms.gov/rule)" in cleaned
+    # A domain-only link that is the sole citation for its claim is kept.
+    assert "([sec.gov](https://www.sec.gov/only?a=1))" in cleaned
+
+
+def test_word_limit_ignores_urls():
+    long_url = "https://www.example.com/" + "/".join(["segment"] * 200)
+    assert prose_word_count(f"Three short words [link]({long_url}) {long_url}") == 4
+
+
+def _long_report(report_date: date) -> str:
+    padding = " ".join(["Additional consequential analysis sentence."] * 400)
+    return _valid_report(report_date) + "\n" + padding
+
+
+def test_too_long_report_is_condensed_and_draft_kept(project):
+    report_date = date(2026, 8, 24)
+    prompts: list[str] = []
+
+    def client(_settings, prompt):
+        prompts.append(prompt)
+        if len(prompts) == 1:
+            return FakeResponse(_long_report(report_date))
+        return FakeResponse(_valid_report(report_date))
+
+    result = generate_strategy_report(project, report_date, response_client=client)
+
+    assert result["status"] == "success"
+    assert result["condensed"] is True
+    assert "<draft>" in prompts[1] and "exceeds the 1500-word limit" in prompts[1]
+    assert result["word_count"] <= 1_500
+    assert result["usage"]["input_tokens"] == 20_000
+    [draft] = result["rejected_drafts"]
+    assert "Additional consequential analysis" in (project.root / draft).read_text()
+
+
+def test_invalid_report_is_kept_for_review(project):
+    report_date = date(2026, 8, 24)
+    body = _valid_report(report_date).replace("# Healthcare Strategy Brief", "# Weekly Notes")
+
+    with pytest.raises(RuntimeError, match="expected title"):
+        generate_strategy_report(
+            project, report_date, response_client=lambda _s, _p: FakeResponse(body)
+        )
+    rejected = list((strategy_root(project) / "rejected").glob("2026-08-24-*.md"))
+    assert len(rejected) == 1
+    assert not (strategy_root(project) / "latest.md").exists()
+
+
+def test_watchlist_excludes_reassigned_and_stale_tickers(project):
+    from healthcare_report.analysis import watchlist_flags
+
+    report_date = date(2026, 8, 24)
+    tickers = list(project.universe.companies)
+    reassigned, stale, healthy = tickers[0], tickers[1], tickers[2]
+    reference = {
+        reassigned: {"provider_name": "Unrelated Therapeutics Inc.", "list_date": "2026-02-27"},
+        healthy: {"provider_name": project.universe.companies[healthy].name, "active": True},
+    }
+    latest = {ticker: date(2026, 8, 21) for ticker in tickers}
+    latest[stale] = date(2026, 7, 1)
+
+    flags = watchlist_flags(project, reference, latest, report_date)
+
+    assert "may have been reassigned" in flags[reassigned]
+    assert flags[stale] == "No current price is available."
+    assert healthy not in flags
+    text = format_watchlist(project, [t for t in tickers if t not in flags])
+    assert f"{healthy} " in text
+    assert f"{reassigned} " not in text

@@ -150,6 +150,7 @@ class MassiveClient:
             "list_date": result.get("list_date"),
             "description": result.get("description") or "",
             "website": result.get("homepage_url") or "",
+            "active": result.get("active") if isinstance(result.get("active"), bool) else None,
         }
 
     def prices(self, ticker: str, start: date, end: date) -> list[dict[str, Any]]:

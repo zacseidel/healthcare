@@ -178,7 +178,9 @@ def test_end_to_end_report_and_baseline(project, monkeypatch):
     monkeypatch.setattr(pipeline, "MassiveClient", FakeMassive)
     monkeypatch.setattr(pipeline, "BrowserSession", FakeBrowser)
 
-    def generate_fixture_strategy(_config, report_date, *, force=False, movers=None, earnings=None):
+    def generate_fixture_strategy(
+        _config, report_date, *, force=False, movers=None, earnings=None, watchlist=None
+    ):
         return {
             "report_date": report_date.isoformat(),
             "generated_at": f"{report_date.isoformat()}T12:00:00Z",
@@ -246,7 +248,9 @@ Keep this section.
     assert "3m rank" not in report_html
     assert "12m rank" not in report_html
     assert "24m rank" not in report_html
-    assert 'href="#company-' in report_html
+    assert 'href="#company-' not in report_html
+    assert "Company Overviews" not in report_html
+    assert 'href="https://www.google.com/finance/quote/' in report_html
     assert 'href="#earnings-' in report_html
     assert 'href="#news-' not in report_html
     assert 'class="section-jump-list"' in report_html
@@ -256,7 +260,8 @@ Keep this section.
     assert report_html.index("At a Glance") < report_html.index("Key Moments from the Call")
     assert 'class="insight-card"' not in report_html
     assert "Google Finance earnings page" in report_html
-    assert "Recent Earnings Highlights — 3m Ret" in report_html
+    assert "Recent Earnings Highlights" in report_html
+    assert "Largest rank changes" not in report_html  # first report has no baseline
     assert "Selected News" not in report_html
     assert "Data Quality and Collection Status" not in report_html
     assert "Methodology" not in report_html
@@ -280,18 +285,27 @@ Keep this section.
     report_images = soup.find_all("img")
     assert report_images
     assert all(str(image.get("src", "")).startswith("assets/") for image in report_images)
-    earnings_heading = soup.select_one("h2#recent-earnings-highlights-3m-ret")
+    section_order = [heading.get_text(" ", strip=True) for heading in soup.select("main h2")]
+    assert section_order[:2] == ["In the News", "Recent Earnings Highlights"]
+    # August 3 is the first Monday of the month, so the market sections follow earnings.
+    assert section_order.index("Recent Earnings Highlights") < section_order.index(
+        "Notable Changes"
+    )
+    assert "Companies by Subcategory" in section_order
+    assert soup.select('img[src^="assets/category-"]')
+    earnings_heading = soup.select_one("h2#recent-earnings-highlights")
     assert earnings_heading is not None
     first_earnings = earnings_heading.find_next_sibling("ul").find("li").get_text(" ", strip=True)
     assert first_earnings.startswith("Certara (CERT)")
-    company_nav_links = soup.select('nav.report-nav li ul a[href^="#company-"]')
-    assert len(company_nav_links) == len(project.universe.companies)
     company_headings = soup.select('h3[id^="earnings-"]')
     assert company_headings
-    assert all("3m" not in heading.get_text(" ", strip=True) for heading in company_headings)
-    assert all(
-        heading.select_one('a[href^="#company-"]') is not None for heading in company_headings
-    )
+    assert all("Last 3m" in heading.get_text(" ", strip=True) for heading in company_headings)
+    earnings_nav_links = soup.select('nav.report-nav li ul a[href^="#earnings-"]')
+    assert earnings_nav_links
+    assert all("Last 3m" not in link.get_text() for link in earnings_nav_links)
+    # The company overview paragraph now opens each earnings highlight.
+    first_highlight = company_headings[0].find_next_sibling("p")
+    assert first_highlight.get_text(strip=True).startswith("Provider description for")
     assert soup.select('img[alt*="S&P 500"]')
     anchors = {str(item.get("id")) for item in soup.select("[id]")}
     fragment_links = [str(item["href"])[1:] for item in soup.select('a[href^="#"]')]
@@ -330,11 +344,26 @@ Keep this section.
     assert 'src="assets/' not in standalone_html
 
     second = run_report(project, date(2026, 8, 10))
-    assert second["baseline"] == "2026-08-03"
-    changes = (project.root / "reports" / "final" / "2026-08-10" / "changes.csv").read_text()
+    # Mid-month: the brief compares weekly, the report has no monthly baseline yet.
+    assert second["weekly_baseline"] == "2026-08-03"
+    assert second["baseline"] is None
+    second_html = (
+        project.root / "reports" / "final" / "2026-08-10" / "Healthcare Intel-2026-08-10.html"
+    ).read_text()
+    assert "Notable Changes" not in second_html
+    assert "Companies by Subcategory" not in second_html
+
+    september = run_report(project, date(2026, 9, 7))
+    assert september["baseline"] == "2026-08-03"
+    changes = (project.root / "reports" / "final" / "2026-09-07" / "changes.csv").read_text()
     assert "category_performance" in changes
     assert "overall_stock" in changes
     assert "within_category" in changes
+    september_html = (
+        project.root / "reports" / "final" / "2026-09-07" / "Healthcare Intel-2026-09-07.html"
+    ).read_text()
+    assert "Largest rank changes: change in 12m return rank since August 3, 2026" in september_html
+    assert "Current 12m Return" in september_html
 
     # A same-date rerun replaces the same folder rather than creating a revision.
     rerun = run_report(project, date(2026, 8, 10))

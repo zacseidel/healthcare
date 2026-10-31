@@ -312,3 +312,27 @@ def test_homepage_remains_healthcare_when_life_science_is_newer(project):
     archive = BeautifulSoup((output / "reports" / "index.html").read_text(), "html.parser")
     headings = [heading.get_text(" ", strip=True) for heading in archive.select(".report-group h2")]
     assert headings == ["Healthcare Intel Report", "Life Sciences Intel Report"]
+
+
+def test_reports_with_saved_render_data_offer_an_email_draft(project, tmp_path):
+    from healthcare_report.storage import write_gzip_json
+
+    _fake_report(project.root, date(2026, 8, 3))
+    _fake_report(project.root, date(2026, 7, 27))
+    write_gzip_json(
+        project.root / "reports" / "final" / "2026-08-03" / "render-data.json.gz",
+        {"schema": 1, "narrative": {"body": "### Executive View\n- A change."}},
+    )
+    output = tmp_path / "site"
+
+    build_site(project, output)
+
+    home = BeautifulSoup((output / "index.html").read_text(), "html.parser")
+    links = {link.get_text(strip=True): str(link["href"]) for link in home.select(".report-downloads-page a")}
+    assert links["Email"] == "reports/2026-08-03/Healthcare%20Intel-2026-08-03.eml"
+    draft = (output / "reports" / "2026-08-03" / "Healthcare Intel-2026-08-03.eml").read_bytes()
+    assert b"X-Unsent: 1" in draft
+    older = BeautifulSoup(
+        (output / "reports" / "2026-07-27" / "index.html").read_text(), "html.parser"
+    )
+    assert "Email" not in older.select_one(".report-downloads-page").get_text()

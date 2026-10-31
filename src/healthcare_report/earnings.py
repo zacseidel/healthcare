@@ -196,6 +196,11 @@ def google_url(ticker: str, exchange: str | None) -> str:
     return f"https://www.google.com/finance/quote/{ticker}:{google_exchange}?tab=earnings&hl=en"
 
 
+def google_quote_url(ticker: str, exchange: str | None) -> str:
+    google_exchange = EXCHANGE_NAMES.get(str(exchange), "NYSE")
+    return f"https://www.google.com/finance/quote/{ticker}:{google_exchange}?hl=en"
+
+
 def next_check_date(record: dict[str, Any], config: ProjectConfig) -> date | None:
     last = _as_date(record.get("last_report_date"))
     if not last:

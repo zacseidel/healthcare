@@ -20,8 +20,9 @@ project's company configuration.
 - SPY is used as the broad-market benchmark.
 - Subcategory returns are weighted using the most recently available company market
   capitalizations. Missing observations are excluded rather than imputed.
-- Rankings are calculated across the full watchlist and within each subcategory. Changes are
-  compared with the most recent eligible prior final report.
+- Rankings are calculated across the full watchlist and within each subcategory. Market-data
+  sections appear in the first report of each month, and their rank and price changes compare
+  with the previous month's first report.
 
 ## Earnings coverage
 

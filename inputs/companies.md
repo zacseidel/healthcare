@@ -24,15 +24,6 @@ Inpatient Non-Acute Providers:
   EHC: Encompass Health; In-patient post-acute rehabilitation services.
   PACS: PACS Group; Post-acute care and skilled nursing company.
 
-Health Care Real Estate:
-  DOC: Healthpeak properties; Healthcare industry real estate investment trust focused on outpatient medical offices, life science properties, an senior housing.
-  VTR: Ventas, Inc; Real estate investment trust focused  on ownership and management of senior housing, research, medicine office buildings, and healthcare facilities.
-  MPT: Medical Properties Trust; Real estate investment trust for healthcare facilities in the US and Europe.
-  NHI: National Health Investors; Healthcare REIT focused on senior housing, skilled nursing, and long-term care properties.
-  OHI: Omega Healthcare Investors; Healthcare REIT healthcare REIT focused on skilled nursing and assisted living facilities.
-  WELL: Welltower; Largest healthcare REIT, focused on senior housing, outpatient medical, and wellness-oriented healthcare properties.
-  CTRE: CareTrust REIT; Healthcare REIT focused on skilled nursing, senior housing, and other post-acute care facilities.
-  SBRA: Sabra Health Care REIT; healthcare REIT focused on skilled nursing, senior housing, and behavioral health properties.
 
 Value-Based Care:
   PRVA: Privia Health Group; Value-based care company focusing on physician enablement for independent practices.
@@ -141,7 +132,6 @@ Emerging Biotech:
   CORT: Corcept Therapeutics; Specialty biotech targeting cortisol biology, primarily for endocrine and oncology indications.
   ACAD: Acadia Pharmaceuticals; neuroscience-focused biotech with commercial products for neurological and rare diseases.
   KRYS: Krystal Biotech; commercial-stage gene therapy company focused on dermatological and rare diseases.
-  RNA: Avidity Biosciences; developer of RNA-targeted therapeutics for rare neuromuscular diseases.
   RXRX: Recursion Pharmaceuticals; AI-enabled drug discovery company combining machine learning and large-scale biological data.
   CGON: CG Oncology; bladder cancer-focused oncology biotech developing immunotherapies.
   BBIO: BridgeBio Pharma; commercial-stage rare disease biotechnology company focused on genetically defined diseases.

@@ -109,7 +109,11 @@ an About page, and a Methodology page. It is tracked in Git so a local report ru
 exact static site that will be published. Both `run` and `render` rebuild it automatically;
 `build-site` remains useful after editing only the About or Methodology copy.
 
-Each published report has PDF and self-contained HTML downloads. The HTML download inlines
+Each published report has PDF and self-contained HTML downloads, plus an Email button that
+downloads an Outlook draft (`.eml`, opened as an unsent message). The draft is a digest built from
+the report's saved data: a contents list with in-message links, the strategy brief, earnings
+highlights with charts, upcoming earnings, and on first-of-month reports a short market snapshot.
+It links only to Google Finance, never to the published site. The HTML download inlines
 charts so it can be opened or shared as a single file. The PDF includes a heading bookmark
 outline for section navigation. Download buttons appear on the
 latest report, each Past reports row, each weekly report card in News & Earnings, and the report's
@@ -193,7 +197,7 @@ mypy src
 - `config/settings.yaml` defines horizons, thresholds, source behavior, report presentation,
   report-profile category membership, and narrative freshness rules.
 
-The Healthcare profile includes services, providers, real estate, value-based care, outpatient
+The Healthcare profile includes services, providers, value-based care, outpatient
 and home care, digital health, health IT/data, pharma distribution, and precision diagnostics.
 The Life Science and Device profile includes Devices & Diagnostic, Big Pharma, Established Biotech,
 and Emerging Biotech.
@@ -229,8 +233,13 @@ bin/run-report --validate
 
 ## Performance comparisons
 
-The latest earlier final at least five days old is the comparison baseline. For every 3-,
-12-, and 24-month horizon, the snapshot records:
+Each weekly report opens with In the News, Recent Earnings Highlights, and Upcoming Earnings
+(omitted when no earnings fall in the next seven days). The market-data sections (Notable Changes,
+Subcategory Performance, Stock Performance vs. SPY, Current Top Stocks, and Companies by
+Subcategory) appear only in the first report of each month, after Upcoming Earnings, and compare
+with the previous first-of-month report (or, if that one is missing, the newest report at least
+three weeks old). The strategy prompt's watchlist movers still compare with the previous Monday.
+Every report saves a snapshot; for every 3-, 12-, and 24-month horizon it records:
 
 - each subcategory's rank across subcategories;
 - each stock's rank across the complete watchlist;
@@ -303,6 +312,13 @@ The narratives are also written to `state/narrative.json` and
 fails, the last good narrative remains in place and the follow-up is recorded in that date's
 recommended-updates page.
 
+The prompt's `<watchlist>` block is generated from `inputs/companies.md` each run. Symbols with no
+current price, symbols Massive marks inactive, and symbols recently relisted under a different
+company name (a common sign of an acquisition followed by ticker reuse) are left out and listed on
+that week's recommended-updates page. Briefs are capped at 1,500 words, not counting link URLs. An
+over-length draft gets one condensing follow-up call without web search. Any draft that fails
+validation is kept under `reports/strategy/<profile>/rejected/` for review.
+
 Generate or inspect an individual strategy brief with:
 
 ```sh
@@ -352,7 +368,9 @@ repository permissions. A manual run forces fresh earnings and strategy-narrativ
 those sources were already checked that day.
 
 The workflow runs at 5:00 AM Monday in `America/Denver`; GitHub's timezone-aware schedule handles
-Mountain Time daylight-saving changes. The strategy prompt also receives a compact list of the
+Mountain Time daylight-saving changes. A scheduled run skips any report profile whose report for
+today was already committed earlier the same day (for example by a manual run), and does nothing
+when both were. Manual runs never skip. The strategy prompt also receives a compact list of the
 week's largest watchlist movers so material names are not dropped as "already covered." A
 successful run commits both dated strategy archives, stable latest files, final market reports,
 state, and the rebuilt site.

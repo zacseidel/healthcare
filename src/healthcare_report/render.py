@@ -17,7 +17,7 @@ from bs4 import BeautifulSoup
 
 from .analysis import Baseline, format_percent, months_before
 from .config import ProjectConfig
-from .earnings import google_url
+from .earnings import google_quote_url, google_url
 
 CSS = """
 :root { color-scheme:light; --navy:#12395b; --navy-2:#1d527e; --ink:#1d2935;
@@ -411,6 +411,108 @@ def select_chart_tickers(snapshot: list[dict[str, Any]], config: ProjectConfig) 
     return selected
 
 
+STOCK_COLORS = (
+    "#1f77b4",
+    "#d55e00",
+    "#009e73",
+    "#cc79a7",
+    "#56b4e9",
+    "#e69f00",
+    "#0072b2",
+    "#7a5195",
+)
+LINE_STYLES = ("-", "--", "-.", ":")
+
+
+def _line_styles(tickers: list[str]) -> dict[str, tuple[str, str]]:
+    return {
+        ticker: (
+            STOCK_COLORS[index % len(STOCK_COLORS)],
+            LINE_STYLES[index // len(STOCK_COLORS) % len(LINE_STYLES)],
+        )
+        for index, ticker in enumerate(tickers)
+    }
+
+
+def _indexed_series(
+    bars: dict[str, list[dict[str, Any]]], tickers: list[str], start: date, end: date
+) -> dict[str, tuple[list[date], list[float]]]:
+    series: dict[str, tuple[list[date], list[float]]] = {}
+    for ticker in tickers:
+        eligible = [bar for bar in bars.get(ticker, []) if start <= bar["date"] <= end]
+        if not eligible:
+            continue
+        eligible.sort(key=lambda item: item["date"])
+        base = float(eligible[0]["close"])
+        series[ticker] = (
+            [bar["date"] for bar in eligible],
+            [float(bar["close"]) / base * 100 for bar in eligible],
+        )
+    return series
+
+
+def _save_indexed_chart(
+    series: dict[str, tuple[list[date], list[float]]],
+    styles: dict[str, tuple[str, str]],
+    benchmark: str,
+    title: str,
+    path: Path,
+) -> None:
+    """Indexed line chart with each series labeled at the right by ticker and return."""
+    mdates, plt = _plotting()
+    figure, axis = plt.subplots(figsize=(11.5, 5.5))
+    plotted: list[tuple[str, list[date], list[float], str]] = []
+    for ticker, (dates, values) in series.items():
+        color, linestyle = (
+            ("#59636c", "--") if ticker == benchmark else styles.get(ticker, ("#1f77b4", "-"))
+        )
+        axis.plot(
+            mdates.date2num(dates),
+            values,
+            linewidth=2.3 if ticker == benchmark else 1.9,
+            linestyle=linestyle,
+            color=color,
+        )
+        plotted.append((ticker, dates, values, color))
+    axis.axhline(100, color="#aeb7bf", linewidth=1, linestyle=":")
+    axis.set_title(title)
+    axis.set_ylabel("Indexed price")
+    axis.grid(axis="y", alpha=0.18)
+    axis.xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
+    xmin, xmax = axis.get_xlim()
+    label_x = xmax + (xmax - xmin) * 0.025
+    axis.set_xlim(xmin, xmax + (xmax - xmin) * 0.19)
+    ymin, ymax = axis.get_ylim()
+    spacing = max((ymax - ymin) * 0.045, 2.0)
+    label_positions: dict[str, float] = {}
+    previous = -math.inf
+    for ticker, _dates, values, _color in sorted(plotted, key=lambda item: item[2][-1]):
+        position = max(values[-1], previous + spacing)
+        label_positions[ticker] = position
+        previous = position
+    if label_positions and max(label_positions.values()) > ymax:
+        axis.set_ylim(ymin, max(label_positions.values()) + spacing)
+    for ticker, dates, values, color in plotted:
+        end_x = mdates.date2num(dates[-1])
+        label_y = label_positions[ticker]
+        axis.plot([end_x, label_x], [values[-1], label_y], color=color, linewidth=0.75, alpha=0.7)
+        stock_return = values[-1] / 100 - 1
+        axis.text(
+            label_x,
+            label_y,
+            f"{ticker} {stock_return:+.1%}",
+            color=color,
+            fontsize=8 if len(plotted) > 7 else 9,
+            fontweight="bold",
+            va="center",
+            ha="left",
+        )
+    figure.autofmt_xdate(rotation=0)
+    figure.tight_layout()
+    _save_chart(figure, path)
+    plt.close(figure)
+
+
 def render_charts(
     folder: Path,
     config: ProjectConfig,
@@ -418,101 +520,60 @@ def render_charts(
     bars: dict[str, list[dict[str, Any]]],
     tickers: list[str],
 ) -> list[tuple[int, Path]]:
-    mdates, plt = _plotting()
     assets = folder / "assets"
     assets.mkdir(parents=True, exist_ok=True)
     benchmark = str(config.settings["report"].get("benchmark", "SPY"))
+    styles = _line_styles(tickers)
     charts: list[tuple[int, Path]] = []
-    stock_colors = (
-        "#1f77b4",
-        "#d55e00",
-        "#009e73",
-        "#cc79a7",
-        "#56b4e9",
-        "#e69f00",
-        "#0072b2",
-        "#7a5195",
-    )
-    line_styles = ("-", "--", "-.", ":")
-    stock_style = {
-        ticker: (
-            stock_colors[index % len(stock_colors)],
-            line_styles[index // len(stock_colors) % len(line_styles)],
-        )
-        for index, ticker in enumerate(tickers)
-    }
     for horizon in config.settings["report"]["chart_horizons_months"]:
         start = months_before(report_date, int(horizon))
-        series: dict[str, tuple[list[date], list[float]]] = {}
-        for ticker in [benchmark, *tickers]:
-            eligible = [bar for bar in bars.get(ticker, []) if start <= bar["date"] <= report_date]
-            if not eligible:
-                continue
-            eligible.sort(key=lambda item: item["date"])
-            base = float(eligible[0]["close"])
-            series[ticker] = (
-                [bar["date"] for bar in eligible],
-                [float(bar["close"]) / base * 100 for bar in eligible],
-            )
+        series = _indexed_series(bars, [benchmark, *tickers], start, report_date)
         if not series:
             continue
-        figure, axis = plt.subplots(figsize=(11.5, 5.5))
-        plotted: list[tuple[str, list[date], list[float], str]] = []
-        for ticker, (dates, values) in series.items():
-            color, linestyle = (
-                ("#59636c", "--")
-                if ticker == benchmark
-                else stock_style.get(ticker, ("#1f77b4", "-"))
-            )
-            axis.plot(
-                mdates.date2num(dates),
-                values,
-                linewidth=2.3 if ticker == benchmark else 1.9,
-                linestyle=linestyle,
-                color=color,
-            )
-            plotted.append((ticker, dates, values, color))
-        axis.axhline(100, color="#aeb7bf", linewidth=1, linestyle=":")
-        axis.set_title(f"Last {horizon} months — indexed to 100")
-        axis.set_ylabel("Indexed price")
-        axis.grid(axis="y", alpha=0.18)
-        axis.xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
-        xmin, xmax = axis.get_xlim()
-        label_x = xmax + (xmax - xmin) * 0.025
-        axis.set_xlim(xmin, xmax + (xmax - xmin) * 0.19)
-        ymin, ymax = axis.get_ylim()
-        spacing = max((ymax - ymin) * 0.045, 2.0)
-        label_positions: dict[str, float] = {}
-        previous = -math.inf
-        for ticker, _dates, values, _color in sorted(plotted, key=lambda item: item[2][-1]):
-            position = max(values[-1], previous + spacing)
-            label_positions[ticker] = position
-            previous = position
-        if label_positions and max(label_positions.values()) > ymax:
-            axis.set_ylim(ymin, max(label_positions.values()) + spacing)
-        for ticker, dates, values, color in plotted:
-            end_x = mdates.date2num(dates[-1])
-            label_y = label_positions[ticker]
-            axis.plot(
-                [end_x, label_x], [values[-1], label_y], color=color, linewidth=0.75, alpha=0.7
-            )
-            stock_return = values[-1] / 100 - 1
-            axis.text(
-                label_x,
-                label_y,
-                f"{ticker} {stock_return:+.1%}",
-                color=color,
-                fontsize=8 if len(plotted) > 7 else 9,
-                fontweight="bold",
-                va="center",
-                ha="left",
-            )
-        figure.autofmt_xdate(rotation=0)
-        figure.tight_layout()
         path = assets / f"performance-{horizon}m.webp"
-        _save_chart(figure, path)
-        plt.close(figure)
+        _save_indexed_chart(
+            series, styles, benchmark, f"Last {horizon} months — indexed to 100", path
+        )
         charts.append((int(horizon), path))
+    return charts
+
+
+CATEGORY_CHART_MONTHS = 12
+
+
+def category_chart_name(category: str) -> str:
+    return f"category-{_slug(category)}-{CATEGORY_CHART_MONTHS}m.webp"
+
+
+def render_category_charts(
+    folder: Path,
+    config: ProjectConfig,
+    report_date: date,
+    bars: dict[str, list[dict[str, Any]]],
+    categories: list[str] | None = None,
+) -> dict[str, Path]:
+    """One 12-month indexed chart per subcategory: every member plus the benchmark."""
+    assets = folder / "assets"
+    assets.mkdir(parents=True, exist_ok=True)
+    benchmark = str(config.settings["report"].get("benchmark", "SPY"))
+    start = months_before(report_date, CATEGORY_CHART_MONTHS)
+    charts: dict[str, Path] = {}
+    for category, members in config.universe.categories.items():
+        if categories is not None and category not in categories:
+            continue
+        tickers = [company.ticker for company in members]
+        series = _indexed_series(bars, [benchmark, *tickers], start, report_date)
+        if not any(ticker in series for ticker in tickers):
+            continue
+        path = assets / category_chart_name(category)
+        _save_indexed_chart(
+            series,
+            _line_styles(tickers),
+            benchmark,
+            f"{category} vs. {benchmark} — last {CATEGORY_CHART_MONTHS} months, indexed to 100",
+            path,
+        )
+        charts[category] = path
     return charts
 
 
@@ -703,21 +764,25 @@ def _company_cell(name: str, ticker: str, earnings_tickers: set[str]) -> HtmlCel
     return HtmlCell(content, name.casefold())
 
 
-def _ticker_cell(ticker: str, overview_tickers: set[str]) -> HtmlCell:
-    content = (
-        _internal_link(ticker, f"company-{_slug(ticker)}")
-        if ticker in overview_tickers
-        else html.escape(ticker)
+def _google_finance_link(ticker: str, reference: dict[str, dict[str, Any]]) -> str:
+    url = google_quote_url(ticker, (reference.get(ticker) or {}).get("exchange"))
+    return (
+        f'<a href="{html.escape(url, quote=True)}" target="_blank" rel="noopener">'
+        f"{html.escape(ticker)}</a>"
     )
-    return HtmlCell(content, ticker.casefold(), "text")
+
+
+def _ticker_cell(ticker: str, reference: dict[str, dict[str, Any]]) -> HtmlCell:
+    return HtmlCell(_google_finance_link(ticker, reference), ticker.casefold(), "text")
 
 
 def _rank_change_table(
     rows: list[dict[str, Any]],
     *,
     stocks: bool,
+    horizon: int,
     earnings_tickers: set[str],
-    overview_tickers: set[str],
+    reference: dict[str, dict[str, Any]],
 ) -> str:
     table_rows: list[list[HtmlCell]] = []
     rows = sorted(rows, key=lambda row: (int(row["current_rank"]), row["name"]))
@@ -725,7 +790,7 @@ def _rank_change_table(
     for index, row in enumerate(rows):
         if stocks:
             name = _company_cell(row["name"], row["ticker"], earnings_tickers)
-            ticker = _ticker_cell(row["ticker"], overview_tickers)
+            ticker = _ticker_cell(row["ticker"], reference)
             entity = HtmlCell(f"{name.content} ({ticker.content})", row["name"].casefold())
         else:
             entity = HtmlCell(
@@ -745,7 +810,13 @@ def _rank_change_table(
             ]
         )
     return sortable_table(
-        ["Entity", "Previous", "Current", "Change", "Current return"],
+        [
+            "Entity",
+            f"Last Month's {horizon}m Rank",
+            f"Current {horizon}m Rank",
+            "Change",
+            f"Current {horizon}m Return",
+        ],
         table_rows,
         numeric_columns={1, 2, 3, 4},
         text_columns={0},
@@ -760,104 +831,207 @@ def _summary_text(value: Any) -> str:
     ).strip()
 
 
-def build_markdown(context: dict[str, Any]) -> str:
+def _earnings_highlights(
+    context: dict[str, Any],
+    summaries: list[dict[str, Any]],
+    facts: dict[str, dict[str, Any]],
+) -> list[str]:
     config: ProjectConfig = context["config"]
-    report_date: date = context["report_date"]
+    reference: dict[str, dict[str, Any]] = context["reference"]
+    lines = ["", "## Recent Earnings Highlights", ""]
+    if not summaries:
+        lines.append("No earnings highlights fall within this report's window.")
+        return lines
+    lines.append("Companies covered in this section:")
+    lines.append('<ul class="section-jump-list">')
+    for item in summaries:
+        lines.append(
+            f'<li><a href="#earnings-{_slug(item["ticker"])}">{html.escape(item["name"])} ({html.escape(item["ticker"])})</a></li>'
+        )
+    lines.append("</ul>")
+    recent_returns = [facts.get(item["ticker"], {}).get("returns", {}).get(3) for item in summaries]
+    recent_badges = _return_cells(recent_returns, badge=True)
+    for index, item in enumerate(summaries):
+        badge = recent_badges[index]
+        ticker = str(item["ticker"])
+        badge_text = f"{badge.content} Last 3m" if recent_returns[index] is not None else "—"
+        lines.extend(
+            [
+                f'<h3 id="earnings-{_slug(ticker)}">{html.escape(item["name"])} ({html.escape(ticker)}) '
+                f'<span class="{badge.css_class}" style="{badge.style}">{html.escape(badge_text)}</span></h3>',
+                "",
+            ]
+        )
+        company = config.universe.companies.get(ticker)
+        overview = str((reference.get(ticker) or {}).get("description") or "").strip() or (
+            company.description if company else ""
+        )
+        if overview:
+            lines.extend([html.escape(overview), ""])
+        lines.extend(
+            [
+                f"**Reported:** {_long_date(date.fromisoformat(item['last_report_date']))} · "
+                f"[Google Finance earnings page]({google_url(ticker, (reference.get(ticker) or {}).get('exchange'))})",
+                "",
+            ]
+        )
+        chart_path = context.get("earnings_charts", {}).get(ticker)
+        if chart_path:
+            lines.extend(
+                [
+                    f"![{html.escape(item['name'])} versus category peers and the S&P 500](assets/{chart_path.name})",
+                    "",
+                ]
+            )
+        summary = _summary_text(item.get("summary"))
+        if summary:
+            lines.extend(["#### Earnings Call Summary", "", summary, ""])
+        glance = item.get("at_a_glance") or []
+        if glance:
+            lines.extend(["#### At a Glance", ""])
+            for insight in glance:
+                headline = _summary_text(insight.get("headline"))
+                detail = _summary_text(insight.get("detail"))
+                prefix = f"**{html.escape(headline)}:** " if headline else ""
+                lines.append(f"- {prefix}{html.escape(detail)}")
+            lines.append("")
+        moments = item.get("key_moments", [])
+        if moments:
+            lines.extend(["#### Key Moments from the Call", ""])
+            for moment in moments:
+                lines.append(
+                    f"- **{moment['timestamp']} — {_summary_text(moment['title'])}:** {_summary_text(moment['blurb'])}"
+                )
+            lines.append("")
+        if not summary and not glance and not moments:
+            lines.append(
+                "No transcript summary, at-a-glance insights, or key moments were available."
+            )
+    return lines
+
+
+def _upcoming_earnings(
+    context: dict[str, Any],
+    facts: dict[str, dict[str, Any]],
+    earnings_tickers: set[str],
+) -> list[str]:
+    config: ProjectConfig = context["config"]
+    reference: dict[str, dict[str, Any]] = context["reference"]
+    upcoming = context["upcoming_earnings"]
+    if not upcoming:
+        return []
+    lines = ["", "## Upcoming Earnings", ""]
+    grouped: dict[str, list[dict[str, Any]]] = {}
+    for row in upcoming:
+        categories = facts.get(row["ticker"], {}).get("categories", ["Uncategorized"])
+        grouped.setdefault(categories[0], []).append(row)
+    for category in config.universe.categories:
+        category_rows_upcoming = grouped.get(category, [])
+        if not category_rows_upcoming:
+            continue
+        category_rows_upcoming.sort(
+            key=lambda row: -(facts[row["ticker"]].get("market_cap") or 0)
+        )
+        three_month = [facts[row["ticker"]]["returns"].get(3) for row in category_rows_upcoming]
+        twelve_month = [
+            facts[row["ticker"]]["returns"].get(12) for row in category_rows_upcoming
+        ]
+        three_cells = _return_cells(three_month)
+        twelve_cells = _return_cells(twelve_month)
+        lines.extend([f"### {category}", ""])
+        lines.append(
+            sortable_table(
+                ["Company", "Ticker", "Date", "Market cap", "3m Return", "12m Return"],
+                [
+                    [
+                        _company_cell(row["name"], row["ticker"], earnings_tickers),
+                        _ticker_cell(row["ticker"], reference),
+                        HtmlCell(_long_date(date.fromisoformat(row["date"])), row["date"]),
+                        HtmlCell(
+                            format_cap(facts[row["ticker"]]["market_cap"]),
+                            facts[row["ticker"]]["market_cap"],
+                        ),
+                        three_cells[index],
+                        twelve_cells[index],
+                    ]
+                    for index, row in enumerate(category_rows_upcoming)
+                ],
+                numeric_columns={3, 4, 5},
+                text_columns={0, 1, 2},
+            )
+        )
+    return lines
+
+
+def _notable_changes(
+    context: dict[str, Any],
+    earnings_tickers: set[str],
+) -> list[str]:
+    config: ProjectConfig = context["config"]
+    reference: dict[str, dict[str, Any]] = context["reference"]
     snapshot: list[dict[str, Any]] = context["snapshot"]
     notable: list[dict[str, Any]] = context["notable"]
     notable_summary: dict[str, Any] = context.get("notable_summary", {})
-    horizons = [int(item) for item in config.settings["report"]["return_horizons_months"]]
-    facts = _stock_facts(snapshot)
-    recent = context["recent_earnings"]
-    summaries = sorted(
-        (
-            item
-            for item in recent
-            if item.get("summary") or item.get("at_a_glance") or item.get("key_moments")
-        ),
-        key=lambda item: (
-            -(facts.get(item["ticker"], {}).get("market_cap") or 0),
-            item["ticker"],
-        ),
-    )
-    earnings_tickers = {item["ticker"] for item in summaries}
-    overview_tickers = set(config.universe.companies)
-    narrative = context.get("narrative")
-    narrative_created = _narrative_created(narrative)
-
-    metadata = [
-        f"<strong>Week of {_long_date(report_date)}</strong>",
-        f"Market data through: {_long_date(context['market_data_as_of'])}",
-    ]
-    if narrative_created:
-        metadata.append(f"Narrative created: {html.escape(narrative_created)}")
-    lines = [
-        f"# {config.settings['report']['name']}",
-        "",
-        '<div class="report-meta">'
-        + "".join(f"<span>{item}</span>" for item in metadata)
-        + "</div>",
-        "",
-        str(config.settings["report"].get("description", "")),
-        "",
-        "## In the News",
-        "",
-    ]
-    narrative_body = str((narrative or {}).get("body") or "").strip() if narrative else ""
-    if narrative_body:
-        lines.append(
-            _presentation_narrative(
-                narrative_body,
-                strip_status_headers=config.scope == "life-science-device",
-            )
-        )
-    else:
-        lines.append("No strategy narrative is available for this week.")
-
-    lines.extend(["", "## Notable Changes", ""])
+    horizon = int(notable_summary.get("horizon_months") or 12)
+    top_n = int(notable_summary.get("top_n") or 3)
     baseline: Baseline | None = context.get("baseline")
+    since = f"since {_long_date(baseline.report_date)}" if baseline else "since last month"
+    lines = ["", "## Notable Changes", ""]
     if baseline:
         lines.append(
-            f"Comparison with the final report dated {_long_date(baseline.report_date)} "
-            f"(market data through {_long_date(baseline.market_data_as_of)})."
+            f"Comparison with the previous monthly report, dated {_long_date(baseline.report_date)} "
+            f"(market data through {_long_date(baseline.market_data_as_of)}). Ranks order the "
+            f"tracked companies or subcategories by trailing {horizon}-month return (1 = best)."
         )
     if baseline and notable_summary:
-        lines.extend(["", "### Sectors", "", "#### Top-three comparison", ""])
+        lines.extend(
+            ["", "### Sectors", "", f"#### Top {top_n} by {horizon}m return: last month vs. now", ""]
+        )
         lines.append(
             _rank_change_table(
                 notable_summary.get("categories", {}).get("top", []),
                 stocks=False,
+                horizon=horizon,
                 earnings_tickers=earnings_tickers,
-                overview_tickers=overview_tickers,
+                reference=reference,
             )
         )
         category_largest = notable_summary.get("categories", {}).get("largest", [])
         if category_largest:
-            lines.extend(["", "#### Largest rank changes", ""])
+            lines.extend(
+                ["", f"#### Largest rank changes: change in {horizon}m return rank {since}", ""]
+            )
             lines.append(
                 _rank_change_table(
                     category_largest,
                     stocks=False,
+                    horizon=horizon,
                     earnings_tickers=earnings_tickers,
-                    overview_tickers=overview_tickers,
+                    reference=reference,
                 )
             )
-        lines.extend(["", "### Stocks", "", "#### Top-three comparison", ""])
+        lines.extend(
+            ["", "### Stocks", "", f"#### Top {top_n} by {horizon}m return: last month vs. now", ""]
+        )
         lines.append(
             _rank_change_table(
                 notable_summary.get("stocks", {}).get("top", []),
                 stocks=True,
+                horizon=horizon,
                 earnings_tickers=earnings_tickers,
-                overview_tickers=overview_tickers,
+                reference=reference,
             )
         )
-        lines.extend(["", "#### Largest rank changes", ""])
+        lines.extend(
+            ["", f"#### Largest rank changes: change in {horizon}m return rank {since}", ""]
+        )
         lines.append(
             _rank_change_table(
                 notable_summary.get("stocks", {}).get("largest", []),
                 stocks=True,
+                horizon=horizon,
                 earnings_tickers=earnings_tickers,
-                overview_tickers=overview_tickers,
+                reference=reference,
             )
         )
     elif notable:
@@ -873,12 +1047,12 @@ def build_markdown(context: dict[str, Any]) -> str:
         current_category_returns = {
             row["category"]: row.get("price_return")
             for row in snapshot
-            if row["entity_type"] == "category" and row["horizon_months"] == 12
+            if row["entity_type"] == "category" and row["horizon_months"] == horizon
         }
         previous_category_returns = {
             row["category"]: row.get("price_return")
             for row in (baseline.snapshot if baseline else [])
-            if row["entity_type"] == "category" and row["horizon_months"] == 12
+            if row["entity_type"] == "category" and row["horizon_months"] == horizon
         }
         return_cells = _return_cells([row["price_move"] for row in rows])
         previous_cells = _return_cells(
@@ -887,14 +1061,14 @@ def build_markdown(context: dict[str, Any]) -> str:
         current_cells = _return_cells(
             [current_category_returns.get(row["category"]) for row in rows]
         )
-        lines.extend(["", "### Subcategory movement since the previous report", ""])
+        lines.extend(["", f"### Subcategory price moves {since}", ""])
         lines.append(
             sortable_table(
                 [
                     "Subcategory",
-                    "Move",
-                    "Last Report, 12m Ret",
-                    "Current Report, 12m Ret",
+                    "Price Move Since Last Month",
+                    f"Last Month's {horizon}m Return",
+                    f"Current {horizon}m Return",
                 ],
                 [
                     [
@@ -924,10 +1098,10 @@ def build_markdown(context: dict[str, Any]) -> str:
         )[:shown]
         rows = gainers + decliners
         return_cells = _return_cells([row["price_move"] for row in rows])
-        lines.extend(["", "### Largest company moves", ""])
+        lines.extend(["", f"### Largest company moves: price change {since}", ""])
         lines.append(
             sortable_table(
-                ["Direction", "Company", "Ticker", "Move"],
+                ["Direction", "Company", "Ticker", "Price Move Since Last Month"],
                 [
                     [
                         HtmlCell(
@@ -935,7 +1109,7 @@ def build_markdown(context: dict[str, Any]) -> str:
                             "0" if row["price_move"] > 0 else "1",
                         ),
                         _company_cell(row["name"], row["ticker"], earnings_tickers),
-                        _ticker_cell(row["ticker"], overview_tickers),
+                        _ticker_cell(row["ticker"], reference),
                         return_cells[index],
                     ]
                     for index, row in enumerate(rows)
@@ -944,6 +1118,20 @@ def build_markdown(context: dict[str, Any]) -> str:
                 text_columns={0, 1, 2},
             )
         )
+    return lines
+
+
+def _market_sections(
+    context: dict[str, Any],
+    facts: dict[str, dict[str, Any]],
+    earnings_tickers: set[str],
+) -> list[str]:
+    config: ProjectConfig = context["config"]
+    reference: dict[str, dict[str, Any]] = context["reference"]
+    snapshot: list[dict[str, Any]] = context["snapshot"]
+    horizons = [int(item) for item in config.settings["report"]["return_horizons_months"]]
+    benchmark = str(config.settings["report"].get("benchmark", "SPY"))
+    lines = _notable_changes(context, earnings_tickers)
 
     lines.extend(["", "## Subcategory Performance", ""])
     category_rows: list[list[HtmlCell]] = []
@@ -1003,27 +1191,28 @@ def build_markdown(context: dict[str, Any]) -> str:
         "Subcategory returns use the most recently saved market capitalizations as weights."
     )
 
-    lines.extend(["", "## Stock Performance vs. SPY", ""])
-    lines.append(
-        "The same selected stocks appear in every chart. Each line is labeled at the right with its ticker and return for the displayed window."
-    )
-    for horizon, path in context["charts"]:
-        lines.extend(
-            [
-                f"### Last {horizon} months",
-                "",
-                f"![{horizon}-month indexed performance](assets/{path.name})",
-                "",
-            ]
+    if context["charts"]:
+        lines.extend(["", f"## Stock Performance vs. {benchmark}", ""])
+        lines.append(
+            "The same selected stocks appear in every chart. Each line is labeled at the right with its ticker and return for the displayed window."
         )
+        for horizon, path in context["charts"]:
+            lines.extend(
+                [
+                    f"### Last {horizon} months",
+                    "",
+                    f"![{horizon}-month indexed performance](assets/{path.name})",
+                    "",
+                ]
+            )
 
     lines.extend(["", "## Current Top Stocks", ""])
     top_count = int(config.settings["report"].get("top_stocks_shown", 5))
     for horizon in horizons:
         unique: dict[str, dict[str, Any]] = {}
-        for item in snapshot:
-            if item["entity_type"] == "stock" and item["horizon_months"] == horizon:
-                unique.setdefault(item["ticker"], item)
+        for row in snapshot:
+            if row["entity_type"] == "stock" and row["horizon_months"] == horizon:
+                unique.setdefault(row["ticker"], row)
         ranked = sorted(
             (row for row in unique.values() if row["overall_rank"] is not None),
             key=lambda row: (row["overall_rank"], row["ticker"]),
@@ -1032,12 +1221,12 @@ def build_markdown(context: dict[str, Any]) -> str:
         lines.extend([f"### Last {horizon} months", ""])
         lines.append(
             sortable_table(
-                ["Rank", "Company", "Ticker", "Market cap", "Return"],
+                ["Rank", "Company", "Ticker", "Market cap", f"{horizon}m Return"],
                 [
                     [
                         HtmlCell(str(row["overall_rank"]), row["overall_rank"]),
                         _company_cell(row["name"], row["ticker"], earnings_tickers),
-                        _ticker_cell(row["ticker"], overview_tickers),
+                        _ticker_cell(row["ticker"], reference),
                         HtmlCell(format_cap(row["market_cap"]), row["market_cap"]),
                         return_cells[index],
                     ]
@@ -1049,6 +1238,7 @@ def build_markdown(context: dict[str, Any]) -> str:
         )
 
     lines.extend(["", "## Companies by Subcategory", ""])
+    category_charts: dict[str, Path] = context.get("category_charts", {})
     category_3m = [item["returns"].get(3) for item in category_data]
     category_badges = _return_cells(category_3m, badge=True)
     for category_index, (category, members) in enumerate(config.universe.categories.items()):
@@ -1060,6 +1250,15 @@ def build_markdown(context: dict[str, Any]) -> str:
             "</h3>"
         )
         lines.extend([heading, ""])
+        chart_path = category_charts.get(category)
+        if chart_path:
+            lines.extend(
+                [
+                    f"![{html.escape(category)} companies versus {benchmark}, last "
+                    f"{CATEGORY_CHART_MONTHS} months](assets/{chart_path.name})",
+                    "",
+                ]
+            )
         rows_by_horizon: dict[int, list[float | None]] = {
             horizon: [facts[company.ticker]["returns"].get(horizon) for company in members]
             for horizon in horizons
@@ -1073,7 +1272,7 @@ def build_markdown(context: dict[str, Any]) -> str:
             company_rows.append(
                 [
                     _company_cell(company.name, company.ticker, earnings_tickers),
-                    _ticker_cell(company.ticker, overview_tickers),
+                    _ticker_cell(company.ticker, reference),
                     HtmlCell(format_cap(fact["market_cap"]), fact["market_cap"]),
                     *[category_member_return_cells[horizon][member_index] for horizon in horizons],
                 ]
@@ -1091,144 +1290,64 @@ def build_markdown(context: dict[str, Any]) -> str:
                 text_columns={0, 1},
             )
         )
+    return lines
 
-    lines.extend(["", "## Upcoming Earnings", ""])
-    upcoming = context["upcoming_earnings"]
-    if not upcoming:
-        lines.append("No saved earnings dates fall within the next seven days.")
+
+def build_markdown(context: dict[str, Any]) -> str:
+    config: ProjectConfig = context["config"]
+    report_date: date = context["report_date"]
+    snapshot: list[dict[str, Any]] = context["snapshot"]
+    facts = _stock_facts(snapshot)
+    recent = context["recent_earnings"]
+    summaries = sorted(
+        (
+            item
+            for item in recent
+            if item.get("summary") or item.get("at_a_glance") or item.get("key_moments")
+        ),
+        key=lambda item: (
+            -(facts.get(item["ticker"], {}).get("market_cap") or 0),
+            item["ticker"],
+        ),
+    )
+    earnings_tickers = {item["ticker"] for item in summaries}
+    narrative = context.get("narrative")
+    narrative_created = _narrative_created(narrative)
+
+    metadata = [
+        f"<strong>Week of {_long_date(report_date)}</strong>",
+        f"Market data through: {_long_date(context['market_data_as_of'])}",
+    ]
+    if narrative_created:
+        metadata.append(f"Narrative created: {html.escape(narrative_created)}")
+    lines = [
+        f"# {config.settings['report']['name']}",
+        "",
+        '<div class="report-meta">'
+        + "".join(f"<span>{item}</span>" for item in metadata)
+        + "</div>",
+        "",
+        str(config.settings["report"].get("description", "")),
+        "",
+        "## In the News",
+        "",
+    ]
+    narrative_body = str((narrative or {}).get("body") or "").strip() if narrative else ""
+    if narrative_body:
+        lines.append(
+            _presentation_narrative(
+                narrative_body,
+                strip_status_headers=config.scope == "life-science-device",
+            )
+        )
     else:
-        grouped: dict[str, list[dict[str, Any]]] = {}
-        for row in upcoming:
-            categories = facts.get(row["ticker"], {}).get("categories", ["Uncategorized"])
-            grouped.setdefault(categories[0], []).append(row)
-        for category in config.universe.categories:
-            category_rows_upcoming = grouped.get(category, [])
-            if not category_rows_upcoming:
-                continue
-            category_rows_upcoming.sort(
-                key=lambda row: -(facts[row["ticker"]].get("market_cap") or 0)
-            )
-            three_month = [facts[row["ticker"]]["returns"].get(3) for row in category_rows_upcoming]
-            twelve_month = [
-                facts[row["ticker"]]["returns"].get(12) for row in category_rows_upcoming
-            ]
-            three_cells = _return_cells(three_month)
-            twelve_cells = _return_cells(twelve_month)
-            lines.extend([f"### {category}", ""])
-            lines.append(
-                sortable_table(
-                    ["Company", "Ticker", "Date", "Market cap", "3m Return", "12m Return"],
-                    [
-                        [
-                            _company_cell(row["name"], row["ticker"], earnings_tickers),
-                            _ticker_cell(row["ticker"], overview_tickers),
-                            HtmlCell(_long_date(date.fromisoformat(row["date"])), row["date"]),
-                            HtmlCell(
-                                format_cap(facts[row["ticker"]]["market_cap"]),
-                                facts[row["ticker"]]["market_cap"],
-                            ),
-                            three_cells[index],
-                            twelve_cells[index],
-                        ]
-                        for index, row in enumerate(category_rows_upcoming)
-                    ],
-                    numeric_columns={3, 4, 5},
-                    text_columns={0, 1, 2},
-                )
-            )
+        lines.append("No strategy narrative is available for this week.")
 
-    lines.extend(["", "## Recent Earnings Highlights — 3m Ret", ""])
-    if not summaries:
-        lines.append("No earnings highlights fall within this report's window.")
-    else:
-        lines.append("Companies covered in this section:")
-        lines.append('<ul class="section-jump-list">')
-        for item in summaries:
-            lines.append(
-                f'<li><a href="#earnings-{_slug(item["ticker"])}">{html.escape(item["name"])} ({html.escape(item["ticker"])})</a></li>'
-            )
-        lines.append("</ul>")
-    recent_returns = [facts.get(item["ticker"], {}).get("returns", {}).get(3) for item in summaries]
-    recent_badges = _return_cells(recent_returns, badge=True)
-    for index, item in enumerate(summaries):
-        badge = recent_badges[index]
-        ticker = str(item["ticker"])
-        ticker_label = (
-            _internal_link(ticker, f"company-{_slug(ticker)}")
-            if ticker in overview_tickers
-            else html.escape(ticker)
-        )
-        lines.extend(
-            [
-                f'<h3 id="earnings-{_slug(ticker)}">{html.escape(item["name"])} ({ticker_label}) '
-                f'<span class="{badge.css_class}" style="{badge.style}">{html.escape(badge.content)}</span></h3>',
-                "",
-                f"**Reported:** {_long_date(date.fromisoformat(item['last_report_date']))} · "
-                f"[Google Finance earnings page]({google_url(item['ticker'], context['reference'].get(item['ticker'], {}).get('exchange'))})",
-                "",
-            ]
-        )
-        chart_path = context.get("earnings_charts", {}).get(item["ticker"])
-        if chart_path:
-            lines.extend(
-                [
-                    f"![{html.escape(item['name'])} versus category peers and the S&P 500](assets/{chart_path.name})",
-                    "",
-                ]
-            )
-        summary = _summary_text(item.get("summary"))
-        if summary:
-            lines.extend(["#### Earnings Call Summary", "", summary, ""])
-        glance = item.get("at_a_glance") or []
-        if glance:
-            lines.extend(["#### At a Glance", ""])
-            for insight in glance:
-                headline = _summary_text(insight.get("headline"))
-                detail = _summary_text(insight.get("detail"))
-                prefix = f"**{html.escape(headline)}:** " if headline else ""
-                lines.append(f"- {prefix}{html.escape(detail)}")
-            lines.append("")
-        moments = item.get("key_moments", [])
-        if moments:
-            lines.extend(["#### Key Moments from the Call", ""])
-            for moment in moments:
-                lines.append(
-                    f"- **{moment['timestamp']} — {_summary_text(moment['title'])}:** {_summary_text(moment['blurb'])}"
-                )
-        if not summary and not glance and not moments:
-            lines.append(
-                "No transcript summary, at-a-glance insights, or key moments were available."
-            )
-
-    lines.extend(["", "## Company Overviews", ""])
-    overview_charts: dict[str, Path] = context.get("overview_charts", {})
-    for ticker, company in config.universe.companies.items():
-        reference = context["reference"].get(ticker, {})
-        fact = facts.get(ticker, {})
-        returns = fact.get("returns", {})
-        lines.extend(
-            [
-                f'<h3 id="company-{_slug(ticker)}">{html.escape(company.name)} ({html.escape(ticker)})</h3>',
-                "",
-                f"*{', '.join(fact.get('categories', [])) or 'Uncategorized'} · {format_cap(fact.get('market_cap'))} · "
-                f"3m {format_percent(returns.get(3))} · 12m {format_percent(returns.get(12))} · 24m {format_percent(returns.get(24))}*",
-                "",
-                f"[Google Finance]({google_url(ticker, reference.get('exchange'))})",
-                "",
-                company.description,
-                "",
-            ]
-        )
-        chart_path = overview_charts.get(ticker)
-        if chart_path:
-            lines.extend(
-                [
-                    f"![{html.escape(company.name)} versus category peers and the S&P 500](assets/{chart_path.name})",
-                    "",
-                ]
-            )
-        if reference.get("description") and reference["description"] != company.description:
-            lines.extend([str(reference["description"]), ""])
+    lines.extend(_earnings_highlights(context, summaries, facts))
+    lines.extend(_upcoming_earnings(context, facts, earnings_tickers))
+    # Market-data sections run monthly so each edition compares with the previous month.
+    if context.get("market_sections", True):
+        lines.extend(_market_sections(context, facts, earnings_tickers))
 
     lines.append("")
     return "\n".join(lines)
@@ -1253,7 +1372,7 @@ def _navigation(body: str) -> tuple[str, str]:
         heading["id"] = anchor
         label = heading.get_text(" ", strip=True)
         nested: list[str] = []
-        if label.startswith("Recent Earnings Highlights") or label == "Company Overviews":
+        if label.startswith("Recent Earnings Highlights"):
             sibling = heading.find_next_sibling()
             while sibling is not None and sibling.name != "h2":
                 if sibling.name == "h3":
@@ -1261,7 +1380,11 @@ def _navigation(body: str) -> tuple[str, str]:
                         sibling.get("id") or _slug(sibling.get_text(" ", strip=True))
                     )
                     sibling["id"] = nested_anchor
-                    nested_label = sibling.get_text(" ", strip=True)
+                    nested_label = " ".join(
+                        str(text).strip()
+                        for text in sibling.find_all(string=True, recursive=False)
+                        if str(text).strip()
+                    ) or sibling.get_text(" ", strip=True)
                     nested.append(
                         f'<li><a href="#{html.escape(nested_anchor, quote=True)}">{html.escape(nested_label)}</a></li>'
                     )

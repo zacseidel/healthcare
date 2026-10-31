@@ -48,7 +48,36 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Skip reports already created today
+        id: guard
+        env:
+          TZ: America/Denver
+          REQUESTED_SCOPE: ${{ inputs.report_scope || 'both' }}
+        run: |
+          scope="$REQUESTED_SCOPE"
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            today=$(date +%F)
+            remaining=()
+            for profile in healthcare life-science-device; do
+              folder="reports/final/$today"
+              if [ "$profile" = "life-science-device" ]; then folder="reports/final/life-science-device/$today"; fi
+              committed=$(git log -1 --date=format-local:%F --format=%cd -- "$folder")
+              if [ "$committed" = "$today" ]; then
+                echo "::notice::Skipping $profile: its $today report was already committed today."
+              else
+                remaining+=("$profile")
+              fi
+            done
+            case "${#remaining[@]}" in
+              0) scope=none ;;
+              1) scope="${remaining[0]}" ;;
+              *) scope=both ;;
+            esac
+          fi
+          echo "scope=$scope" >> "$GITHUB_OUTPUT"
+
       - name: Set up Python
+        if: steps.guard.outputs.scope != 'none'
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -56,6 +85,7 @@ jobs:
           cache-dependency-path: requirements.lock
 
       - name: Install dependencies
+        if: steps.guard.outputs.scope != 'none'
         run: |
           python -m pip install --upgrade pip
           python -m pip install -r requirements.lock
@@ -63,6 +93,7 @@ jobs:
           python -m playwright install --with-deps chromium
 
       - name: Validate configuration and tests
+        if: steps.guard.outputs.scope != 'none'
         run: |
           python -m healthcare_report validate
           ruff check src tests
@@ -70,6 +101,7 @@ jobs:
           pytest
 
       - name: Require API keys
+        if: steps.guard.outputs.scope != 'none'
         run: |
           if [ -z "$MASSIVE_API_KEY" ]; then
             echo "::error::Add MASSIVE_API_KEY under Settings → Secrets and variables → Actions."
@@ -81,6 +113,7 @@ jobs:
           fi
 
       - name: Generate the final report
+        if: steps.guard.outputs.scope != 'none'
         env:
           REQUESTED_REPORT_DATE: ${{ inputs.report_date }}
         run: |
@@ -88,7 +121,7 @@ jobs:
           if [ -n "$REQUESTED_REPORT_DATE" ]; then
             args+=(--date "$REQUESTED_REPORT_DATE")
           fi
-          args+=(--report "${{ inputs.report_scope || 'both' }}")
+          args+=(--report "${{ steps.guard.outputs.scope }}")
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             args+=(--force-secondary)
           fi
@@ -96,6 +129,7 @@ jobs:
           python -m healthcare_report run "${args[@]}" | tee report-result.json
 
       - name: Add the run summary
+        if: steps.guard.outputs.scope != 'none'
         run: |
           echo "## Healthcare report" >> "$GITHUB_STEP_SUMMARY"
           echo '```json' >> "$GITHUB_STEP_SUMMARY"
@@ -103,9 +137,10 @@ jobs:
           echo '```' >> "$GITHUB_STEP_SUMMARY"
 
       - name: Build the downloadable standalone report
+        if: steps.guard.outputs.scope != 'none'
         id: standalone
         run: |
-          report_scope="${{ inputs.report_scope || 'both' }}"
+          report_scope="${{ steps.guard.outputs.scope }}"
           report_date=$(python -c 'import json; value=json.load(open("report-result.json")); print((value.get("reports") or [value])[0]["report_date"])')
           echo "report_date=$report_date" >> "$GITHUB_OUTPUT"
           echo "scope=$report_scope" >> "$GITHUB_OUTPUT"
@@ -117,6 +152,7 @@ jobs:
           done
 
       - name: Upload the standalone report
+        if: steps.guard.outputs.scope != 'none'
         uses: actions/upload-artifact@v4
         with:
           name: healthcare-intel-reports-${{ steps.standalone.outputs.report_date }}
@@ -125,6 +161,7 @@ jobs:
           retention-days: 90
 
       - name: Commit and push the complete update
+        if: steps.guard.outputs.scope != 'none'
         id: commit
         run: |
           echo "changed=false" >> "$GITHUB_OUTPUT"

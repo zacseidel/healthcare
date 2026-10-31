@@ -17,12 +17,16 @@ from .analysis import (
     build_snapshot,
     compare_snapshots,
     find_baseline,
+    find_monthly_baseline,
+    is_monthly_report,
     load_snapshot,
     months_before,
     notable_change_summary,
     period_moves,
     recommendation_lines,
     recommended_updates,
+    watchlist_flags,
+    watchlist_identity_issues,
 )
 from .cache import MarketCache
 from .config import ProjectConfig
@@ -40,6 +44,8 @@ from .narrative import (
 from .providers import BrowserSession, FetchStatus, MassiveClient
 from .render import (
     build_markdown,
+    category_chart_name,
+    render_category_charts,
     render_charts,
     render_earnings_charts,
     report_html_name,
@@ -60,6 +66,7 @@ from .storage import (
 )
 from .strategy import (
     format_recent_earnings,
+    format_watchlist,
     format_watchlist_movers,
     require_monday_report_date,
     strategy_prompt_path,
@@ -200,53 +207,54 @@ def _render_final(
             for item in recent
             if item.get("summary") or item.get("at_a_glance") or item.get("key_moments")
         ]
-        overview_chart_tickers = [
-            ticker for ticker in config.universe.companies if ticker not in earnings_chart_tickers
-        ]
+        market_sections = is_monthly_report(report_date)
         charts: list[tuple[int, Path]] = []
         earnings_charts: dict[str, Path] = {}
-        overview_charts: dict[str, Path] = {}
+        category_charts: dict[str, Path] = {}
+        categories = list(config.universe.categories)
         if reuse_assets_from is not None:
             assets = temporary / "assets"
             assets.mkdir(parents=True, exist_ok=True)
-            for horizon in config.settings["report"]["chart_horizons_months"]:
-                source = reuse_assets_from / "assets" / f"performance-{horizon}m.webp"
-                if source.is_file():
-                    destination = assets / source.name
-                    shutil.copy2(source, destination)
-                    charts.append((int(horizon), destination))
+
+            def reuse(name: str) -> Path | None:
+                source = reuse_assets_from / "assets" / name
+                if not source.is_file():
+                    return None
+                destination = assets / source.name
+                shutil.copy2(source, destination)
+                return destination
+
+            if market_sections:
+                for horizon in config.settings["report"]["chart_horizons_months"]:
+                    if path := reuse(f"performance-{horizon}m.webp"):
+                        charts.append((int(horizon), path))
+                for category in categories:
+                    if path := reuse(category_chart_name(category)):
+                        category_charts[category] = path
             for ticker in earnings_chart_tickers:
-                source = reuse_assets_from / "assets" / f"earnings-{_asset_slug(ticker)}-3m.webp"
-                if source.is_file():
-                    destination = assets / source.name
-                    shutil.copy2(source, destination)
-                    earnings_charts[ticker] = destination
-            for ticker in overview_chart_tickers:
-                source = reuse_assets_from / "assets" / f"earnings-{_asset_slug(ticker)}-3m.webp"
-                if source.is_file():
-                    destination = assets / source.name
-                    shutil.copy2(source, destination)
-                    overview_charts[ticker] = destination
-        expected_horizons = {
-            int(item) for item in config.settings["report"]["chart_horizons_months"]
-        }
-        if {horizon for horizon, _path in charts} != expected_horizons:
-            for _horizon, path in charts:
-                path.unlink(missing_ok=True)
-            charts = render_charts(temporary, config, report_date, bars, chart_tickers)
+                if path := reuse(f"earnings-{_asset_slug(ticker)}-3m.webp"):
+                    earnings_charts[ticker] = path
+        if market_sections:
+            expected_horizons = {
+                int(item) for item in config.settings["report"]["chart_horizons_months"]
+            }
+            if {horizon for horizon, _path in charts} != expected_horizons:
+                for _horizon, path in charts:
+                    path.unlink(missing_ok=True)
+                charts = render_charts(temporary, config, report_date, bars, chart_tickers)
+            missing_categories = [item for item in categories if item not in category_charts]
+            if missing_categories and any(bars.values()):
+                category_charts.update(
+                    render_category_charts(
+                        temporary, config, report_date, bars, missing_categories
+                    )
+                )
         missing_earnings = [
             ticker for ticker in earnings_chart_tickers if ticker not in earnings_charts
         ]
         if missing_earnings:
             earnings_charts.update(
                 render_earnings_charts(temporary, config, report_date, bars, missing_earnings)
-            )
-        missing_overview = [
-            ticker for ticker in overview_chart_tickers if ticker not in overview_charts
-        ]
-        if missing_overview and any(bars.values()):
-            overview_charts.update(
-                render_earnings_charts(temporary, config, report_date, bars, missing_overview)
             )
         context = {
             "config": config,
@@ -257,7 +265,8 @@ def _render_final(
             "changes": changes,
             "notable": notable_summary["items"],
             "notable_summary": notable_summary,
-            "overview_charts": overview_charts,
+            "category_charts": category_charts,
+            "market_sections": market_sections,
             "period_moves": moves,
             "charts": charts,
             "earnings_charts": earnings_charts,
@@ -305,7 +314,7 @@ def _render_final(
             "render-data.json.gz",
             *[f"assets/{path.name}" for _, path in charts],
             *[f"assets/{path.name}" for path in earnings_charts.values()],
-            *[f"assets/{path.name}" for path in overview_charts.values()],
+            *[f"assets/{path.name}" for path in category_charts.values()],
         ]
         durations = {key: _round_seconds(value) for key, value in stage_durations.items()}
         durations["rendering"] = _round_seconds(time.perf_counter() - render_started)
@@ -318,6 +327,8 @@ def _render_final(
             "generated_at": generated_at or utc_now(),
             "rendered_at": utc_now(),
             "baseline_report_date": baseline.report_date.isoformat() if baseline else None,
+            "comparison_cadence": "monthly",
+            "market_sections": market_sections,
             "configuration_sha256": config_hash(
                 [
                     config.root / "config" / "settings.yaml",
@@ -337,6 +348,7 @@ def _render_final(
                     "price_bars_loaded": sum(len(rows) for rows in bars.values()),
                     "performance_charts": len(charts),
                     "earnings_charts": len(earnings_charts),
+                    "category_charts": len(category_charts),
                     "source_statuses": dict(Counter(row["status"] for row in status_rows)),
                 },
                 "output_bytes": _file_size_summary(temporary, files),
@@ -408,7 +420,9 @@ def run_report(
     reference: dict[str, dict[str, Any]] = {}
     bars: dict[str, list[dict[str, Any]]] = {}
     moves: dict[str, Any] | None = None
+    weekly_baseline: Baseline | None = None
     mover_brief = ""
+    watchlist_brief = ""
     stage_durations: dict[str, float] = {}
     market_started = time.perf_counter()
     massive = MassiveClient(config)
@@ -472,14 +486,29 @@ def run_report(
         analysis_started = time.perf_counter()
         _progress("Calculating returns, ranks, and changes from the previous report...")
         snapshot, market_data_as_of = build_snapshot(config, report_date, bars, reference)
-        baseline = find_baseline(config, report_date)
+        # The weekly brief compares with last Monday; the report's market sections
+        # compare with the previous monthly report.
+        weekly_baseline = find_baseline(config, report_date)
+        baseline = find_monthly_baseline(config, report_date)
         changes = compare_snapshots(snapshot, baseline, config)
         moves = period_moves(config, bars, reference, baseline, report_date)
         mover_brief = format_watchlist_movers(
-            moves,
+            period_moves(config, bars, reference, weekly_baseline, report_date),
             shown=int(config.settings["notable_changes"].get("movers_shown", 3)),
-            previous_market_data_as_of=baseline.market_data_as_of if baseline else None,
+            previous_market_data_as_of=(
+                weekly_baseline.market_data_as_of if weekly_baseline else None
+            ),
             market_data_as_of=market_data_as_of,
+        )
+        for ticker, issue in watchlist_identity_issues(config, reference, report_date).items():
+            statuses.append(_status("watchlist", ticker, "warning", issue))
+        latest_prices: dict[str, date | None] = {}
+        for row in snapshot:
+            if row["entity_type"] == "stock":
+                latest_prices.setdefault(row["ticker"], row.get("price_date"))
+        flagged = watchlist_flags(config, reference, latest_prices, report_date)
+        watchlist_brief = format_watchlist(
+            config, [ticker for ticker in config.universe.companies if ticker not in flagged]
         )
         stage_durations["analysis"] = time.perf_counter() - analysis_started
 
@@ -529,6 +558,7 @@ def run_report(
                 force=force_secondary,
                 movers=mover_brief,
                 earnings=earnings_brief,
+                watchlist=watchlist_brief,
             )
             statuses.append(
                 _status(
@@ -596,6 +626,7 @@ def run_report(
         "output": str((destination / html_name).relative_to(config.root)),
         "site_output": str(Path(site["output"]).relative_to(config.root)),
         "baseline": baseline.report_date.isoformat() if baseline else None,
+        "weekly_baseline": weekly_baseline.report_date.isoformat() if weekly_baseline else None,
         "issues": issues,
         "metrics": manifest.get("metrics", {}),
     }
@@ -644,7 +675,7 @@ def rerender_report(
         if refresh_charts
         else {}
     )
-    baseline = find_baseline(config, report_date)
+    baseline = find_monthly_baseline(config, report_date)
     changes = compare_snapshots(snapshot, baseline, config)
     # The published render data already contains the earnings sections needed
     # for a presentation-only rebuild; do not reopen the mutable earnings
@@ -666,6 +697,9 @@ def rerender_report(
     )
     moves_value = render_data.get("period_moves")
     moves = dict(moves_value) if isinstance(moves_value, dict) else None
+    if refresh_charts:
+        # Saved moves may predate monthly comparisons; recompute them from the price cache.
+        moves = period_moves(config, bars, reference, baseline, report_date)
     status_rows = [dict(row) for row in manifest.get("sources", []) if isinstance(row, dict)]
     recommendations = recommended_updates(
         config, snapshot, status_rows, narrative_age(narrative, report_date)

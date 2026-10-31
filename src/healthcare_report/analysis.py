@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import calendar
 import math
+import re
 from collections import defaultdict
 from collections.abc import Iterable
 from dataclasses import dataclass
@@ -259,11 +260,39 @@ def build_snapshot(
     ), market_data_as_of
 
 
-def find_baseline(config: ProjectConfig, report_date: date) -> Baseline | None:
+MONTHLY_BASELINE_MINIMUM_DAYS = 21
+
+
+def is_monthly_report(report_date: date) -> bool:
+    """The first Monday of a month carries the market-data sections and monthly comparisons."""
+    return report_date.day <= 7
+
+
+def find_monthly_baseline(config: ProjectConfig, report_date: date) -> Baseline | None:
+    """Previous first-Monday report, so monthly market sections compare month to month.
+
+    Falls back to the newest report at least three weeks old when that month's first-Monday
+    report is missing."""
+    return find_baseline(
+        config, report_date, minimum_days=MONTHLY_BASELINE_MINIMUM_DAYS, monthly=True
+    ) or find_baseline(config, report_date, minimum_days=MONTHLY_BASELINE_MINIMUM_DAYS)
+
+
+def find_baseline(
+    config: ProjectConfig,
+    report_date: date,
+    *,
+    minimum_days: int | None = None,
+    monthly: bool = False,
+) -> Baseline | None:
     root = config.final_root
     if not root.exists():
         return None
-    minimum = int(config.settings["report"].get("previous_report_minimum_days", 5))
+    minimum = (
+        minimum_days
+        if minimum_days is not None
+        else int(config.settings["report"].get("previous_report_minimum_days", 5))
+    )
     candidates: list[tuple[date, Path]] = []
     for folder in root.iterdir():
         if not folder.is_dir():
@@ -272,7 +301,7 @@ def find_baseline(config: ProjectConfig, report_date: date) -> Baseline | None:
             candidate_date = date.fromisoformat(folder.name)
         except ValueError:
             continue
-        if candidate_date.weekday() != 0:
+        if candidate_date.weekday() != 0 or (monthly and not is_monthly_report(candidate_date)):
             continue
         if candidate_date <= report_date - timedelta(days=minimum):
             candidates.append((candidate_date, folder))
@@ -591,6 +620,81 @@ def period_moves(
     return {"stocks": stock_rows, "categories": category_rows}
 
 
+_NAME_NOISE = {
+    "inc", "corp", "corporation", "co", "company", "the", "plc", "ltd", "llc", "nv", "sa", "ag",
+    "holdings", "holding", "group", "common", "stock", "class", "shares", "ordinary", "adr",
+    "health", "healthcare", "of",
+}  # fmt: skip
+
+
+def _name_tokens(value: str) -> set[str]:
+    return {
+        token
+        for token in re.findall(r"[a-z0-9]+", value.casefold())
+        if token not in _NAME_NOISE and len(token) > 1
+    }
+
+
+def watchlist_identity_issues(
+    config: ProjectConfig,
+    reference: dict[str, dict[str, Any]],
+    report_date: date,
+) -> dict[str, str]:
+    """Find tickers that no longer identify the company named in companies.md.
+
+    Acquisitions often retire a symbol and the exchange later reassigns it, so a recent
+    listing date under a different provider name means the price history is not the
+    watchlist company's."""
+    longest = max(int(item) for item in config.settings["report"]["return_horizons_months"])
+    horizon_start = months_before(report_date, longest)
+    issues: dict[str, str] = {}
+    for ticker, company in config.universe.companies.items():
+        record = reference.get(ticker) or {}
+        provider_name = str(record.get("provider_name") or "")
+        if record.get("active") is False:
+            issues[ticker] = (
+                f"Massive lists {ticker} as inactive; {company.name} may have been acquired, "
+                "merged, or delisted."
+            )
+            continue
+        try:
+            listed = date.fromisoformat(str(record.get("list_date") or ""))
+        except ValueError:
+            continue
+        if (
+            listed > horizon_start
+            and provider_name
+            and not _name_tokens(company.name) & _name_tokens(provider_name)
+        ):
+            issues[ticker] = (
+                f"{ticker} was listed on {listed.isoformat()} as {provider_name}, not "
+                f"{company.name}; the symbol may have been reassigned after an acquisition."
+            )
+    return issues
+
+
+def watchlist_flags(
+    config: ProjectConfig,
+    reference: dict[str, dict[str, Any]],
+    latest_prices: dict[str, date | None],
+    report_date: date,
+    *,
+    price_reference_date: date | None = None,
+) -> dict[str, str]:
+    """Tickers to leave out of the strategy prompt, with the reason for each.
+
+    Price freshness is measured against ``price_reference_date`` when given (for example the
+    newest date in a cache that has not been refreshed for this report), else the report date."""
+    max_age = int(config.settings["market_data"].get("maximum_price_age_days", 7))
+    reference_date = price_reference_date or report_date
+    flags = watchlist_identity_issues(config, reference, report_date)
+    for ticker in config.universe.companies:
+        latest = latest_prices.get(ticker)
+        if ticker not in flags and (latest is None or (reference_date - latest).days > max_age):
+            flags[ticker] = "No current price is available."
+    return flags
+
+
 def _company_name(config: ProjectConfig, ticker: str) -> str:
     company = config.universe.companies.get(ticker)
     return company.name if company else ticker
@@ -694,6 +798,17 @@ def recommended_updates(
                     "detail": (
                         "The company profile lookup failed. The symbol may have changed after a "
                         "merger, listing change, or delisting."
+                    ),
+                }
+            )
+        elif source == "watchlist":
+            add_verify(subject, detail)
+            input_updates.append(
+                {
+                    "title": f"Update or remove {subject} in companies.md",
+                    "detail": (
+                        f"{detail} It was left out of the strategy prompt's watchlist; its "
+                        "returns and ranks may reflect a different company."
                     ),
                 }
             )

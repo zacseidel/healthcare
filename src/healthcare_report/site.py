@@ -16,6 +16,7 @@ from bs4 import BeautifulSoup
 
 from .analysis import load_snapshot, recommended_updates
 from .config import ProjectConfig
+from .email_draft import build_email_draft, email_draft_name
 from .narrative import narrative_age
 from .render import embed_html_images, report_html_name
 from .storage import atomic_replace_directory, read_gzip_json, read_json, write_json
@@ -127,6 +128,7 @@ class SiteReport:
     quality: str
     source: Path
     archive_path: str
+    email_available: bool = False
 
 
 @dataclass(frozen=True)
@@ -339,6 +341,7 @@ def _discover_reports(config: ProjectConfig) -> list[SiteReport]:
                 quality=str(manifest.get("quality") or "unknown"),
                 source=source,
                 archive_path=archive_path,
+                email_available=(folder / "render-data.json.gz").is_file(),
             )
         )
     return sorted(
@@ -404,11 +407,18 @@ def _report_download_links(
             f'<a class="download-button" href="{html.escape(updates_href, quote=True)}">'
             "Updates</a>"
         )
+    email = ""
+    if report.email_available:
+        email_href = href_prefix + quote(email_draft_name(report.source.name))
+        email = (
+            f'<a class="download-button" href="{html.escape(email_href, quote=True)}" download '
+            'title="Outlook email draft">Email</a>'
+        )
     return (
         f'<div class="{classes}" aria-label="Download {report_label}">{label}'
         f'<a class="download-button" href="{html.escape(pdf_href, quote=True)}" download>PDF</a>'
         f'<a class="download-button" href="{html.escape(html_href, quote=True)}" download>HTML</a>'
-        f"{updates}</div>"
+        f"{email}{updates}</div>"
     )
 
 
@@ -931,6 +941,19 @@ def _publish_report_downloads(
     )
 
 
+def _publish_email_drafts(reports: list[SiteReport], destination: Path) -> None:
+    """Write each report's Outlook draft next to its PDF and HTML downloads."""
+    for report in reports:
+        if not report.email_available:
+            continue
+        draft = build_email_draft(report.source.parent, report.source.name)
+        if draft is None:
+            continue
+        folder = destination / "reports" / report.archive_path
+        folder.mkdir(parents=True, exist_ok=True)
+        (folder / email_draft_name(report.source.name)).write_bytes(draft)
+
+
 def build_site(config: ProjectConfig, output: Path | None = None) -> dict[str, Any]:
     destination = (output or config.root / "docs").resolve()
     destination.parent.mkdir(parents=True, exist_ok=True)
@@ -988,6 +1011,7 @@ def build_site(config: ProjectConfig, output: Path | None = None) -> dict[str, A
                     encoding="utf-8",
                 )
             _publish_report_downloads(reports, temporary, destination if destination.is_dir() else None)
+            _publish_email_drafts(reports, temporary)
         else:
             (temporary / "index.html").write_text(_empty_home(config), encoding="utf-8")
         atomic_replace_directory(temporary, destination)
