@@ -179,13 +179,18 @@ def test_narrative_only_report_and_combined_email(project):
     assert draft is not None
     message = message_from_bytes(draft, policy=default)
     assert message["Subject"] == (
-        "Provider Enablement Intel and Healthcare Intel Digest – November 2, 2026"
+        "Provider Enablement & Healthcare Intel Digest – November 2, 2026"
     )
     html_body = message.get_payload()[1].get_payload(decode=True).decode()
     contents = html_body[html_body.index("Contents") : html_body.index('name="r1"')]
     # The opening contents cover both reports, provider first, with distinct anchors.
-    assert contents.index("Provider Enablement Intel") < contents.index("Healthcare Intel Digest")
+    assert contents.index("Provider Enablement") < contents.index("Healthcare Intel Digest")
     assert 'href="#r1-story-1"' in contents and 'href="#r2-story-1"' in contents
+    # The brief-only report is one linked heading with its stories directly beneath.
+    assert '<a href="#r1-news"' in contents and "Provider Enablement - In the News" in contents
+    assert ">In the News</a>" not in contents[: contents.index("Healthcare Intel Digest")]
+    # Blank Aptos lines precede the report so a cover note can be typed above it.
+    assert html_body.index("font-family:Aptos") < html_body.index("<table")
     assert html_body.index("Agilon resets risk") < html_body.index("Bon Secours")
     assert "Status:" not in html_body
 

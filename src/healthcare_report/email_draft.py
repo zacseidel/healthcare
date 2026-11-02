@@ -41,12 +41,15 @@ from .render import (
 )
 from .storage import read_gzip_json, read_json
 
-EMAIL_WIDTH = 640
+EMAIL_WIDTH = 800
 IMAGE_WIDTH = 600
 IMAGE_PIXEL_WIDTH = 1200
 JPEG_QUALITY = 82
 
 FONT = "Arial, Helvetica, sans-serif"
+# The recipient's own default, used for the blank lines a sender types the cover note into.
+TYPING_STYLE = "font-family:Aptos, Calibri, Arial, sans-serif;font-size:11pt;"
+TYPING_LINES = 3
 HEADING_FONT = "Georgia, 'Times New Roman', serif"
 TEXT = "#1f2933"
 NAVY = "#12395b"
@@ -204,6 +207,18 @@ def _contents(groups: list[tuple[str | None, list[Entry]]]) -> str:
     """Contents box; each group is one report, labelled when the email holds several."""
     blocks = []
     for label, entries in groups:
+        if label and len(entries) == 1:
+            # A brief-only report: one linked heading ("Provider Enablement - In the News")
+            # with its stories directly beneath, rather than a single-item list.
+            name, section, children = entries[0]
+            short_label = label.removesuffix(" Intel")
+            blocks.append(
+                f'<p style="{STYLES["p"]}font-weight:bold;margin:10px 0 4px;">'
+                f'<a href="#{name}" style="{STYLES["a"]}">'
+                f"{html.escape(f'{short_label} - {section}')}</a></p>"
+                + _contents_items([(child, text, []) for child, text in children])
+            )
+            continue
         heading = (
             f'<p style="{STYLES["p"]}font-weight:bold;margin:10px 0 4px;">{html.escape(label)}</p>'
             if label
@@ -480,8 +495,10 @@ def _email_bytes(
         '<!doctype html><html><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width,initial-scale=1">'
         f"<title>{html.escape(subject)}</title></head>"
-        f'<body style="margin:0;padding:0;background:#ffffff;">'
-        f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center">'
+        f'<body style="margin:0;padding:0;background:#ffffff;{TYPING_STYLE}">'
+        # Plain paragraphs above the report give the sender somewhere to type a cover note.
+        + f'<p class="MsoNormal" style="margin:0;{TYPING_STYLE}">&nbsp;</p>' * TYPING_LINES
+        + f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="left">'
         f'<table role="presentation" width="{EMAIL_WIDTH}" cellpadding="0" cellspacing="0" '
         f'style="width:100%;max-width:{EMAIL_WIDTH}px;"><tr><td style="padding:16px 12px;text-align:left;">'
         f'<h1 style="{STYLES["h1"]}">{html.escape(title)}</h1>'
@@ -541,7 +558,9 @@ def build_combined_email_draft(folders: list[Path]) -> bytes | None:
     if not parts:
         return None
     report_date = parts[0].report_date
-    title = " and ".join(part.report_name for part in parts)
+    # "Provider Enablement & Healthcare Intel Digest": only the last name keeps its suffix.
+    names = [part.report_name for part in parts]
+    title = " & ".join([name.removesuffix(" Intel") for name in names[:-1]] + names[-1:])
     market_data_as_of = next((part.market_data_as_of for part in parts if part.market_data_as_of), "")
     body: list[str] = []
     for index, part in enumerate(parts):
