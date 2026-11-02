@@ -535,7 +535,11 @@ def run_narrative_report(
         movers=mover_brief,
         earnings=earnings_brief,
     )
-    if not narrative or narrative.get("source_report_date") != report_date.isoformat():
+    if (
+        not narrative
+        or narrative.get("source_report_date") != report_date.isoformat()
+        or not str(narrative.get("body") or "").strip()
+    ):
         # The brief is the whole report; publishing last week's would mislead readers.
         raise RuntimeError(f"{config.report_name} brief was not generated: {narrative_detail}")
     status_rows = [

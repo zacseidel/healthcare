@@ -194,3 +194,47 @@ def test_narrative_only_report_and_combined_email(project):
         / "Provider Enablement Intel-2026-11-02.eml"
     )
     assert b"Bon Secours" in provider_eml.read_bytes()
+
+
+def test_companion_report_must_name_another_profile(project):
+    import yaml
+
+    from healthcare_report.config import ConfigurationError, load_config
+
+    path = project.root / "config" / "settings.yaml"
+    settings = yaml.safe_load(path.read_text())
+    settings["report_profiles"]["provider-enablement"]["companion_report"] = "helthcare"
+    path.write_text(yaml.safe_dump(settings))
+    with pytest.raises(ConfigurationError, match="companion_report must name another profile"):
+        load_config(project.root)
+
+
+def test_only_cited_sources_are_appended_to_a_brief():
+    from healthcare_report.strategy import _append_missing_sources, _response_sources
+
+    response = {
+        "output": [
+            {
+                "type": "web_search_call",
+                "action": {"sources": [{"url": f"https://example.com/{n}"} for n in range(50)]},
+            },
+            {
+                "type": "message",
+                "content": [
+                    {
+                        "annotations": [
+                            {"type": "url_citation", "url": "https://www.cms.gov/a", "title": "A"},
+                            {"type": "url_citation", "url": "https://www.cms.gov/b", "title": "B"},
+                        ]
+                    }
+                ],
+            },
+        ]
+    }
+    sources = _response_sources(response)
+    assert [source["url"] for source in sources] == ["https://www.cms.gov/a", "https://www.cms.gov/b"]
+    assert _append_missing_sources("Body cites https://www.cms.gov/a.", sources).endswith(
+        "## Sources\n- [B](https://www.cms.gov/b)"
+    )
+    # A response with searches but no citations adds no list at all.
+    assert _response_sources({"output": response["output"][:1]}) == []

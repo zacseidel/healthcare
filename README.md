@@ -327,9 +327,10 @@ state/strategy-runs-provider-enablement.jsonl
 ```
 
 The dated files are permanent history. `latest.md` and `latest.json` are replaced only after a
-successful, validated response, so downstream Python code can read either profile's stable location.
-The narratives are also written to `state/narrative.json` and
-`state/narrative-life-science-device.json` for the existing market-report renderer. If an API run
+successful, validated response, so downstream Python code can read each profile's stable location.
+The narratives are also written to `state/narrative.json`,
+`state/narrative-life-science-device.json`, and `state/narrative-provider-enablement.json` for the
+report renderer. If an API run
 fails, the last good narrative remains in place and the follow-up is recorded in that date's
 recommended-updates page.
 
@@ -374,11 +375,12 @@ JSONL run log. Cost estimates use the centralized model-price table in
 `src/healthcare_report/strategy.py`; update it when OpenAI pricing changes. The API key is read only
 from the environment and must never be committed.
 
-Refresh either profile's API-backed narrative snapshot with:
+Refresh a profile's API-backed narrative snapshot with:
 
 ```sh
 python -m healthcare_report refresh-narrative --report healthcare
 python -m healthcare_report refresh-narrative --report life-science-device
+python -m healthcare_report refresh-narrative --report provider-enablement
 ```
 
 ## GitHub automation

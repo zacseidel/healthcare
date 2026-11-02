@@ -651,25 +651,25 @@ def _as_dict(value: Any) -> dict[str, Any]:
 
 
 def _response_sources(response: Any) -> list[dict[str, str]]:
+    # Only url_citation annotations count. Pages the web search merely visited run to
+    # hundreds per brief and were never cited, so they are not sources.
     cited: dict[str, str] = {}
-    searched: dict[str, str] = {}
 
     def visit(value: Any, *, citation: bool = False) -> None:
         if isinstance(value, dict):
+            citation = citation or value.get("type") == "url_citation"
             url = value.get("url")
-            if isinstance(url, str) and url.startswith(("http://", "https://")):
+            if citation and isinstance(url, str) and url.startswith(("http://", "https://")):
                 title = str(value.get("title") or value.get("name") or url).strip()
-                target = cited if citation or value.get("type") == "url_citation" else searched
-                target[_clean_url(url)] = title or url
+                cited[_clean_url(url)] = title or url
             for child in value.values():
-                visit(child, citation=citation or value.get("type") == "url_citation")
+                visit(child, citation=citation)
         elif isinstance(value, list):
             for child in value:
                 visit(child, citation=citation)
 
     visit(_as_dict(response).get("output", []))
-    found = cited or searched
-    return [{"title": title, "url": url} for url, title in found.items()]
+    return [{"title": title, "url": url} for url, title in cited.items()]
 
 
 def _append_missing_sources(body: str, sources: list[dict[str, str]]) -> str:
@@ -783,8 +783,8 @@ def companion_brief(config: ProjectConfig, report_date: date) -> tuple[str | Non
     Headlines alone are not enough: a company result can sit inside a story whose headline
     names a broader theme.
 
-    Returns the companion scope (or None when the profile has none) and the compact digest,
-    which is empty when the companion brief for that date has not been generated yet."""
+    Returns the companion scope (or None when the profile has none) and the brief text, which
+    is empty when the companion brief for that date has not been generated yet."""
     scope = str(config.settings["report"].get("companion_report") or "").strip()
     if not scope:
         return None, ""

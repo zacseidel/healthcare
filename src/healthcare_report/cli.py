@@ -181,8 +181,8 @@ def main(argv: list[str] | None = None) -> int:
                             force_secondary=bool(args.force_secondary),
                         )
                     )
-                except (ConfigurationError, RuntimeError, ValueError) as exc:
-                    print(f"error: {scope}: {exc}", file=sys.stderr)
+                except Exception as exc:
+                    print(f"error: {scope}: {type(exc).__name__}: {exc}", file=sys.stderr)
                     failures.append({"report_type": scope, "status": "failed", "error": str(exc)})
             if not results:
                 return 1

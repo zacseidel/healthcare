@@ -205,6 +205,11 @@ def _validate_settings(settings: dict[str, Any]) -> None:
             raise ConfigurationError(
                 f"settings.report_profiles.{scope}.strategy_narrative is required"
             )
+        companion = profile.get("companion_report")
+        if companion is not None and (companion == scope or companion not in profiles):
+            raise ConfigurationError(
+                f"settings.report_profiles.{scope}.companion_report must name another profile"
+            )
 
 
 def _load_universe(document: dict[str, Any]) -> Universe:

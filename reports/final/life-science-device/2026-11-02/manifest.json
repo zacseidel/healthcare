@@ -5,11 +5,11 @@
   "report_date": "2026-11-02",
   "market_data_as_of": "2026-10-30",
   "generated_at": "2026-11-02T21:42:30Z",
-  "rendered_at": "2026-11-02T21:42:30Z",
+  "rendered_at": "2026-11-02T22:32:46Z",
   "baseline_report_date": "2026-10-05",
   "comparison_cadence": "monthly",
   "market_sections": true,
-  "configuration_sha256": "3034e32d4042e864245724b70a3ff5e4777ee37822e963e72d9790b65a7c16e7",
+  "configuration_sha256": "d9b8bb2a3742fa087af990bf42dfe2b6373d7b47504aebee128e122e2e70c13b",
   "quality": "ok",
   "issues": [],
   "recommended_updates": {
@@ -974,17 +974,15 @@
     }
   ],
   "metrics": {
-    "mode": "full",
+    "mode": "render-only",
     "durations_seconds": {
-      "market_data": 53.311,
-      "analysis": 0.04,
-      "secondary_sources": 204.825,
-      "rendering": 10.541,
-      "total": 268.989
+      "render_input_load": 0.009,
+      "rendering": 0.837,
+      "total": 0.869
     },
     "counts": {
       "companies": 52,
-      "price_bars_loaded": 26977,
+      "price_bars_loaded": 0,
       "performance_charts": 3,
       "earnings_charts": 22,
       "category_charts": 4,
@@ -994,19 +992,13 @@
       }
     },
     "output_bytes": {
-      "html": 273403,
-      "markdown": 248587,
+      "html": 196527,
+      "markdown": 178132,
       "charts": 1370396,
-      "data": 153944,
-      "total_without_manifest": 2053599
+      "data": 139652,
+      "total_without_manifest": 1891976
     },
-    "price_retention": {
-      "cutoff": "2024-09-18",
-      "files_changed": 51,
-      "bars_removed": 255,
-      "bars_retained": 28183
-    },
-    "directory_bytes": 2077311
+    "directory_bytes": 1915635
   },
   "files": [
     "Life Science and Device Intel-2026-11-02.html",

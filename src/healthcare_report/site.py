@@ -129,6 +129,8 @@ class SiteReport:
     source: Path
     archive_path: str
     email_available: bool = False
+    # Profiles with a companion report publish one draft holding both reports.
+    email_companion: str = ""
 
 
 @dataclass(frozen=True)
@@ -342,6 +344,7 @@ def _discover_reports(config: ProjectConfig) -> list[SiteReport]:
                 source=source,
                 archive_path=archive_path,
                 email_available=(folder / "render-data.json.gz").is_file(),
+                email_companion=str(scoped.settings["report"].get("companion_report") or ""),
             )
         )
     return sorted(
@@ -410,9 +413,15 @@ def _report_download_links(
     email = ""
     if report.email_available:
         email_href = href_prefix + quote(email_draft_name(report.source.name))
+        title = (
+            "Outlook email draft: this brief, then the full "
+            f"{ARCHIVE_HEADINGS.get(report.email_companion, report.email_companion)}"
+            if report.email_companion
+            else "Outlook email draft"
+        )
         email = (
             f'<a class="download-button" href="{html.escape(email_href, quote=True)}" download '
-            'title="Outlook email draft">Email</a>'
+            f'title="{html.escape(title, quote=True)}">Email</a>'
         )
     return (
         f'<div class="{classes}" aria-label="Download {report_label}">{label}'
@@ -950,14 +959,8 @@ def _publish_report_downloads(
     )
 
 
-def _companion_report(
-    report: SiteReport, reports: list[SiteReport], config: ProjectConfig
-) -> SiteReport | None:
-    try:
-        settings = config.for_scope(report.report_type).settings["report"]
-    except Exception:
-        return None
-    scope = str(settings.get("companion_report") or "")
+def _companion_report(report: SiteReport, reports: list[SiteReport]) -> SiteReport | None:
+    scope = report.email_companion
     return next(
         (
             item
@@ -971,9 +974,7 @@ def _companion_report(
     )
 
 
-def _publish_email_drafts(
-    reports: list[SiteReport], destination: Path, config: ProjectConfig
-) -> None:
+def _publish_email_drafts(reports: list[SiteReport], destination: Path) -> None:
     """Write each report's Outlook draft next to its PDF and HTML downloads.
 
     A report with a companion (Provider Enablement) leads a combined draft that continues
@@ -981,7 +982,7 @@ def _publish_email_drafts(
     for report in reports:
         if not report.email_available:
             continue
-        companion = _companion_report(report, reports, config)
+        companion = _companion_report(report, reports)
         if companion is not None:
             draft = build_combined_email_draft([report.source.parent, companion.source.parent])
         else:
@@ -1050,7 +1051,7 @@ def build_site(config: ProjectConfig, output: Path | None = None) -> dict[str, A
                     encoding="utf-8",
                 )
             _publish_report_downloads(reports, temporary, destination if destination.is_dir() else None)
-            _publish_email_drafts(reports, temporary, config)
+            _publish_email_drafts(reports, temporary)
         else:
             (temporary / "index.html").write_text(_empty_home(config), encoding="utf-8")
         atomic_replace_directory(temporary, destination)

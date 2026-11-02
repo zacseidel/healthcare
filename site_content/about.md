@@ -4,11 +4,16 @@ Healthcare Intel Digest is a weekly view of public healthcare companies, with pa
 attention to payers, provider technology, care delivery, revenue-cycle operations, and the
 administrative systems connecting them.
 
-Each edition brings three layers together:
+Each Healthcare edition brings three layers together:
 
 - market performance across a defined healthcare-company watchlist;
 - recent earnings-call highlights and peer-relative price charts; and
 - a strategy narrative focused on the operating and policy developments shaping healthcare.
+
+A separate Life Science and Device edition covers pharmaceutical, biotech, and medical-device
+companies. The Provider Enablement edition is a strategy brief only, focused on Medicare
+Advantage and Medicaid risk contracting and value-based care enablement; its email draft is
+followed by that week's full Healthcare Intel digest.
 
 The goal is to make a broad, fast-moving market easier to scan without losing the source
 context behind an observation. Reports are preserved by publication date so readers can see
