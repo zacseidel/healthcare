@@ -54,6 +54,9 @@ class ProjectConfig:
     universe: Universe
     scope: str = "healthcare"
     available_universe: Universe | None = None
+    # The unscoped settings, so every profile is built from the same base rather than on
+    # top of another profile's keys (for example narrative_only or companion_report).
+    base_settings: dict[str, Any] | None = None
 
     @property
     def timezone(self) -> ZoneInfo:
@@ -89,7 +92,8 @@ class ProjectConfig:
             raise ConfigurationError(
                 f"report profile {scope} references unknown categories: {', '.join(missing)}"
             )
-        settings = deepcopy(self.settings)
+        base_settings = self.base_settings or self.settings
+        settings = deepcopy(base_settings)
         report = dict(settings["report"])
         report.update({key: value for key, value in profile.items() if key != "categories"})
         report["slug"] = scope
@@ -99,7 +103,9 @@ class ProjectConfig:
             raise ConfigurationError(f"report profile {scope} must define strategy_narrative")
         settings["strategy_narrative"] = deepcopy(narrative)
         selected = {category: source_universe.categories[category] for category in categories}
-        return ProjectConfig(self.root, settings, Universe(selected), scope, source_universe)
+        return ProjectConfig(
+            self.root, settings, Universe(selected), scope, source_universe, base_settings
+        )
 
 
 def project_root(start: Path | None = None) -> Path:
@@ -234,7 +240,13 @@ def load_config(root: Path | None = None) -> ProjectConfig:
     settings = _read_yaml(root / "config" / "settings.yaml")
     _validate_settings(settings)
     universe = _load_universe(_read_markdown_frontmatter(root / "inputs" / "companies.md"))
-    config = ProjectConfig(root=root, settings=settings, universe=universe, available_universe=universe)
+    config = ProjectConfig(
+        root=root,
+        settings=settings,
+        universe=universe,
+        available_universe=universe,
+        base_settings=settings,
+    )
     if "healthcare" in settings["report_profiles"]:
         try:
             return config.for_scope("healthcare")

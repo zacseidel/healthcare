@@ -141,6 +141,9 @@ jobs:
           echo '```json' >> "$GITHUB_STEP_SUMMARY"
           cat report-result.json >> "$GITHUB_STEP_SUMMARY"
           echo '```' >> "$GITHUB_STEP_SUMMARY"
+          if python -c 'import json,sys; sys.exit(0 if json.load(open("report-result.json")).get("failed") else 1)'; then
+            echo "::warning::At least one report profile failed; see the run summary."
+          fi
 
       - name: Build the downloadable standalone report
         if: steps.guard.outputs.scope != 'none'
@@ -149,7 +152,8 @@ jobs:
           report_date=$(python -c 'import json; value=json.load(open("report-result.json")); print((value.get("reports") or [value])[0]["report_date"])')
           echo "report_date=$report_date" >> "$GITHUB_OUTPUT"
           mkdir -p "$RUNNER_TEMP/report-artifacts"
-          IFS=, read -ra scopes <<< "${{ steps.guard.outputs.scope }}"
+          # Export only the profiles that succeeded; a failed one is listed under "failed".
+          mapfile -t scopes < <(python -c 'import json; value=json.load(open("report-result.json")); [print(item["report_type"]) for item in (value.get("reports") or [value])]')
           for scope in "${scopes[@]}"; do
             python -m healthcare_report export-standalone --report "$scope" --date "$report_date" \
               --output "$RUNNER_TEMP/report-artifacts/$scope-$report_date.html"

@@ -15,9 +15,9 @@ to `reports/final/provider-enablement/YYYY-MM-DD/`:
   This keeps the Git copy and public site pages small; charts still render next to the file.
 - `Life Science and Device Intel-YYYY-MM-DD.html`: the same report format for the pharma,
   biotech, and device universe.
-- `Provider Enablement Intel-YYYY-MM-DD.html`: the same format for payers and value-based care
-  companies, led by a brief on Medicare Advantage and Medicaid risk contracting and VBC
-  enablement.
+- `Provider Enablement Intel-YYYY-MM-DD.html`: a brief-only report (no market, earnings, or chart
+  sections) on Medicare Advantage and Medicaid risk contracting and VBC enablement. Its folder
+  holds the HTML, `report.md`, `render-data.json.gz`, and `manifest.json`.
 - `report.md` and `assets/`: diffable Markdown and compact WebP chart images.
 - `snapshot.csv`: the published performance values and ranks.
 - `changes.csv`: every comparison with the previous eligible final.
@@ -130,7 +130,9 @@ builds.
 
 The homepage always uses the latest Healthcare report. The Past reports page groups the archive
 under Healthcare Intel Report, Life Sciences Intel Report, and Provider Enablement Intel Report.
-Every report offers PDF, HTML, and Email (an Outlook-ready `.eml` draft) downloads. The News &
+Every report offers PDF, HTML, and Email (an Outlook-ready `.eml` draft) downloads. The
+Provider Enablement Email download is a combined draft: the Provider Enablement brief followed by
+that week's full Healthcare Intel digest, under one Contents box covering both. The News &
 Earnings page provides
 a newest-first weekly index of report headlines and earnings-call coverage, with direct links to
 the corresponding report sections. It also collects headlines under these business topics:
@@ -211,8 +213,13 @@ The Healthcare profile includes services, providers, value-based care, outpatien
 and home care, digital health, health IT/data, pharma distribution, and precision diagnostics.
 The Life Science and Device profile includes Devices & Diagnostic, Big Pharma, Established Biotech,
 and Emerging Biotech. The Provider Enablement profile reuses the Payers and Value-Based Care
-categories, so it shares the Healthcare run's price, company, and earnings caches and adds only
-its own strategy brief call.
+categories and is marked `narrative_only` with `companion_report: healthcare`. It runs after
+Healthcare, reads that run's price and earnings caches for its watchlist movers and earnings
+inputs, and adds only its own strategy brief call. Its prompt receives the same week's Healthcare
+brief headlines, Executive View, and Bottom Line in a `<companion_brief>` block and must not repeat
+those stories; the brief is not requested until that Healthcare brief exists. If the Provider
+brief cannot be generated, no Provider report is published, and the other profiles are still
+committed.
 
 The report date and its automatic earnings selections are runtime values rather than mutable
 configuration. This keeps scheduled reports reproducible.

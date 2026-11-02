@@ -170,15 +170,30 @@ def main(argv: list[str] | None = None) -> int:
             report_date = args.date or datetime.now(config.timezone).date()
             scopes = report_scopes(args.report)
             results = []
+            failures = []
             for scope in scopes:
-                results.append(
-                    run_report(
-                        config.for_scope(scope),
-                        report_date,
-                        force_secondary=bool(args.force_secondary),
+                # One profile's failure must not discard the reports that already succeeded.
+                try:
+                    results.append(
+                        run_report(
+                            config.for_scope(scope),
+                            report_date,
+                            force_secondary=bool(args.force_secondary),
+                        )
                     )
-                )
-            result = results[0] if len(results) == 1 else {"status": "ok", "reports": results}
+                except (ConfigurationError, RuntimeError, ValueError) as exc:
+                    print(f"error: {scope}: {exc}", file=sys.stderr)
+                    failures.append({"report_type": scope, "status": "failed", "error": str(exc)})
+            if not results:
+                return 1
+            if len(results) == 1 and not failures:
+                result = results[0]
+            else:
+                result = {
+                    "status": "partial" if failures else "ok",
+                    "reports": results,
+                    "failed": failures,
+                }
         print(json.dumps(result, indent=2))
         return 0
     except (ConfigurationError, RuntimeError, ValueError) as exc:

@@ -1321,10 +1321,9 @@ def build_markdown(context: dict[str, Any]) -> str:
     narrative = context.get("narrative")
     narrative_created = _narrative_created(narrative)
 
-    metadata = [
-        f"<strong>Week of {_long_date(report_date)}</strong>",
-        f"Market data through: {_long_date(context['market_data_as_of'])}",
-    ]
+    metadata = [f"<strong>Week of {_long_date(report_date)}</strong>"]
+    if context.get("market_data_as_of"):
+        metadata.append(f"Market data through: {_long_date(context['market_data_as_of'])}")
     if narrative_created:
         metadata.append(f"Narrative created: {html.escape(narrative_created)}")
     lines = [
@@ -1349,6 +1348,9 @@ def build_markdown(context: dict[str, Any]) -> str:
         )
     else:
         lines.append("No strategy narrative is available for this week.")
+    if context.get("narrative_only"):
+        lines.append("")
+        return "\n".join(lines)
 
     lines.extend(_earnings_highlights(context, summaries, facts))
     lines.extend(_upcoming_earnings(context, facts, earnings_tickers))

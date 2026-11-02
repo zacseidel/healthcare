@@ -69,9 +69,12 @@ report_profiles:
   provider-enablement:
     name: Provider Enablement Intel
     description: >-
-      Weekly review of Medicare Advantage and Medicaid risk-contracting economics, payer
-      partners, and value-based care enablement platforms, with company performance,
-      earnings activity, and strategy narrative.
+      Weekly strategy brief on Medicare Advantage and Medicaid risk-contracting economics,
+      payer partners, and value-based care enablement platforms.
+    # Brief only: no market, earnings, or chart sections. The companion report supplies the
+    # mover baseline, the headlines this brief must not repeat, and the email that follows it.
+    narrative_only: true
+    companion_report: healthcare
     categories:
       - Payers
       - Value-Based Care

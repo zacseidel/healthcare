@@ -12,6 +12,7 @@ import hashlib
 import html
 import io
 import re
+from dataclasses import dataclass, field
 from datetime import date
 from email.message import EmailMessage
 from email.policy import SMTP
@@ -148,7 +149,9 @@ def _chart_jpeg(path: Path) -> bytes | None:
         return buffer.getvalue()
 
 
-def _narrative_html(body: str, *, strip_status: bool) -> tuple[str, list[tuple[str, str]]]:
+def _narrative_html(
+    body: str, *, strip_status: bool, prefix: str = ""
+) -> tuple[str, list[tuple[str, str]]]:
     """Convert the brief to inline-styled HTML; return it with its numbered-story anchors."""
     body = re.sub(
         r"^\s*\*{0,2}(?:Strategy brief for\s+)?Week of\s+.+?\*{0,2}\s*$",
@@ -166,14 +169,17 @@ def _narrative_html(body: str, *, strip_status: bool) -> tuple[str, list[tuple[s
     for heading in fragment.find_all(re.compile(r"^h[1-6]$")):
         label = heading.get_text(" ", strip=True)
         if re.match(r"^\d+\.\s", label):
-            name = f"story-{len(stories) + 1}"
+            name = f"{prefix}story-{len(stories) + 1}"
             heading.insert(0, BeautifulSoup(_anchor(name), "html.parser"))
             stories.append((name, label))
     _apply_styles(fragment)
     return str(fragment), stories
 
 
-def _contents(entries: list[tuple[str, str, list[tuple[str, str]]]]) -> str:
+Entry = tuple[str, str, list[tuple[str, str]]]
+
+
+def _contents_items(entries: list[Entry]) -> str:
     items: list[str] = []
     for name, label, children in entries:
         nested = ""
@@ -191,11 +197,24 @@ def _contents(entries: list[tuple[str, str, list[tuple[str, str]]]]) -> str:
             f'<li style="{STYLES["li"]}"><a href="#{name}" style="{STYLES["a"]}">'
             f"{html.escape(label)}</a>{nested}</li>"
         )
+    return f'<ul style="{STYLES["ul"]}margin-bottom:0;">{"".join(items)}</ul>'
+
+
+def _contents(groups: list[tuple[str | None, list[Entry]]]) -> str:
+    """Contents box; each group is one report, labelled when the email holds several."""
+    blocks = []
+    for label, entries in groups:
+        heading = (
+            f'<p style="{STYLES["p"]}font-weight:bold;margin:10px 0 4px;">{html.escape(label)}</p>'
+            if label
+            else ""
+        )
+        blocks.append(heading + _contents_items(entries))
     return (
         f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" '
         f'style="background:#f3f6f9;margin:14px 0 6px;"><tr><td style="padding:12px 16px;">'
         f'<p style="{STYLES["p"]}font-weight:bold;margin-bottom:6px;">Contents</p>'
-        f'<ul style="{STYLES["ul"]}margin-bottom:0;">{"".join(items)}</ul>'
+        f'{"".join(blocks)}'
         "</td></tr></table>"
     )
 
@@ -216,8 +235,18 @@ def _td(content: str, *, right: bool = False) -> str:
     return f'<td style="{STYLES["td"]}{"text-align:right;" if right else ""}">{content}</td>'
 
 
-def build_email_draft(folder: Path, html_name: str) -> bytes | None:
-    """Return the .eml bytes for a published report folder, or None if data is missing."""
+@dataclass
+class _EmailPart:
+    report_name: str
+    report_date: date
+    market_data_as_of: str
+    entries: list[Entry] = field(default_factory=list)
+    sections: list[str] = field(default_factory=list)
+    images: list[tuple[str, bytes]] = field(default_factory=list)
+
+
+def _report_part(folder: Path, prefix: str = "") -> _EmailPart | None:
+    """Render one published report's email sections; anchors and image IDs carry ``prefix``."""
     manifest = read_json(folder / "manifest.json", {})
     render_data = read_gzip_json(folder / "render-data.json.gz", None)
     if not isinstance(manifest, dict) or not isinstance(render_data, dict):
@@ -241,16 +270,16 @@ def build_email_draft(folder: Path, html_name: str) -> bytes | None:
 
     narrative = render_data.get("narrative")
     narrative_body = str(narrative.get("body") or "") if isinstance(narrative, dict) else ""
-    sections.append(f'<h2 style="{STYLES["h2"]}">{_anchor("news")}In the News</h2>')
+    sections.append(f'<h2 style="{STYLES["h2"]}">{_anchor(prefix + "news")}In the News</h2>')
     if narrative_body.strip():
         narrative_markup, stories = _narrative_html(
-            narrative_body, strip_status=report_type == "life-science-device"
+            narrative_body, strip_status=report_type == "life-science-device", prefix=prefix
         )
         sections.append(narrative_markup)
     else:
         stories = []
         sections.append(f'<p style="{STYLES["p"]}">No strategy narrative is available for this week.</p>')
-    entries.append(("news", "In the News", stories))
+    entries.append((prefix + "news", "In the News", stories))
 
     recent = [item for item in render_data.get("recent_earnings") or [] if isinstance(item, dict)]
     recent.sort(
@@ -259,14 +288,14 @@ def build_email_draft(folder: Path, html_name: str) -> bytes | None:
     if recent:
         earnings_children: list[tuple[str, str]] = []
         sections.append(
-            f'<h2 style="{STYLES["h2"]}">{_anchor("earnings")}Recent Earnings Highlights</h2>'
+            f'<h2 style="{STYLES["h2"]}">{_anchor(prefix + "earnings")}Recent Earnings Highlights</h2>'
         )
         three_month = [facts.get(item["ticker"], {}).get("returns", {}).get(3) for item in recent]
         badge_max = _maximum(three_month)
         for index, item in enumerate(recent):
             ticker = str(item["ticker"])
             name = str(item.get("name") or ticker)
-            anchor = f"earnings-{_slug(ticker)}"
+            anchor = f"{prefix}earnings-{_slug(ticker)}"
             earnings_children.append((anchor, f"{name} ({ticker})"))
             sections.append(
                 f'<h3 style="{STYLES["h3"]}">{_anchor(anchor)}{html.escape(name)} '
@@ -290,7 +319,7 @@ def build_email_draft(folder: Path, html_name: str) -> bytes | None:
             if chart:
                 # Stable IDs keep rebuilt drafts byte-identical, so the committed site
                 # does not churn on every build.
-                cid = f"<earnings-{_slug(ticker)}@healthcare-intel.local>"
+                cid = f"<{prefix}earnings-{_slug(ticker)}@healthcare-intel.local>"
                 images.append((cid, chart))
                 sections.append(
                     f'<p style="{STYLES["p"]}"><img src="cid:{cid[1:-1]}" width="{IMAGE_WIDTH}" '
@@ -312,17 +341,17 @@ def build_email_draft(folder: Path, html_name: str) -> bytes | None:
                 for insight in glance:
                     headline = _summary_text(insight.get("headline"))
                     detail = _summary_text(insight.get("detail"))
-                    prefix = f"<strong>{html.escape(headline)}:</strong> " if headline else ""
-                    bullets.append(f'<li style="{STYLES["li"]}">{prefix}{html.escape(detail)}</li>')
+                    lead = f"<strong>{html.escape(headline)}:</strong> " if headline else ""
+                    bullets.append(f'<li style="{STYLES["li"]}">{lead}{html.escape(detail)}</li>')
                 sections.append(f'<ul style="{STYLES["ul"]}">{"".join(bullets)}</ul>')
             if not summary and not glance:
                 note = html.escape(no_summary_note(bool(results)))
                 sections.append(f'<p style="{STYLES["p"]}"><em>{note}</em></p>')
-        entries.append(("earnings", "Recent Earnings Highlights", earnings_children))
+        entries.append((prefix + "earnings", "Recent Earnings Highlights", earnings_children))
 
     upcoming = [row for row in render_data.get("upcoming_earnings") or [] if isinstance(row, dict)]
     if upcoming:
-        sections.append(f'<h2 style="{STYLES["h2"]}">{_anchor("upcoming")}Upcoming Earnings</h2>')
+        sections.append(f'<h2 style="{STYLES["h2"]}">{_anchor(prefix + "upcoming")}Upcoming Earnings</h2>')
         upcoming.sort(key=lambda row: (str(row.get("date")), str(row.get("ticker"))))
         three = [facts.get(row["ticker"], {}).get("returns", {}).get(3) for row in upcoming]
         twelve = [facts.get(row["ticker"], {}).get("returns", {}).get(12) for row in upcoming]
@@ -345,13 +374,13 @@ def build_email_draft(folder: Path, html_name: str) -> bytes | None:
         sections.append(
             _table(["Company", "Ticker", "Date", "3m Return", "12m Return"], rows, {3, 4})
         )
-        entries.append(("upcoming", "Upcoming Earnings", []))
+        entries.append((prefix + "upcoming", "Upcoming Earnings", []))
 
     market_sections = manifest.get("market_sections")
     if market_sections is None:
         market_sections = is_monthly_report(report_date)
     if market_sections and snapshot:
-        sections.append(f'<h2 style="{STYLES["h2"]}">{_anchor("market")}Market Snapshot</h2>')
+        sections.append(f'<h2 style="{STYLES["h2"]}">{_anchor(prefix + "market")}Market Snapshot</h2>')
         horizons = sorted(
             {int(row["horizon_months"]) for row in snapshot if row.get("horizon_months")}
         )
@@ -421,31 +450,52 @@ def build_email_draft(folder: Path, html_name: str) -> bytes | None:
                     {2, 3},
                 )
             )
-        entries.append(("market", "Market Snapshot", []))
+        entries.append((prefix + "market", "Market Snapshot", []))
 
-    market_data_as_of = str(manifest.get("market_data_as_of") or "")
+    return _EmailPart(
+        report_name=report_name,
+        report_date=report_date,
+        market_data_as_of=str(manifest.get("market_data_as_of") or ""),
+        entries=entries,
+        sections=sections,
+        images=images,
+    )
+
+
+def _meta_line(report_date: date, market_data_as_of: str) -> str:
     meta = _long_date(report_date)
     if market_data_as_of:
         meta += f" · Market data through {_long_date(date.fromisoformat(market_data_as_of))}"
+    return meta
+
+
+def _email_bytes(
+    title: str,
+    subject: str,
+    meta: str,
+    contents: str,
+    body: str,
+    images: list[tuple[str, bytes]],
+) -> bytes:
     document = (
         '<!doctype html><html><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width,initial-scale=1">'
-        f"<title>{html.escape(email_subject(report_name, report_date))}</title></head>"
+        f"<title>{html.escape(subject)}</title></head>"
         f'<body style="margin:0;padding:0;background:#ffffff;">'
         f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center">'
         f'<table role="presentation" width="{EMAIL_WIDTH}" cellpadding="0" cellspacing="0" '
         f'style="width:100%;max-width:{EMAIL_WIDTH}px;"><tr><td style="padding:16px 12px;text-align:left;">'
-        f'<h1 style="{STYLES["h1"]}">{html.escape(report_name)}</h1>'
+        f'<h1 style="{STYLES["h1"]}">{html.escape(title)}</h1>'
         f'<p style="{STYLES["p"]}color:#52606d;font-size:14px;">{html.escape(meta)}</p>'
-        f"{_contents(entries)}"
-        f"{''.join(sections)}"
+        f"{contents}"
+        f"{body}"
         f'<p style="{STYLES["p"]}color:#7b8794;font-size:12px;margin-top:24px;">'
         "Informational only; not investment advice.</p>"
         "</td></tr></table></td></tr></table></body></html>"
     )
 
     message = EmailMessage()
-    message["Subject"] = email_subject(report_name, report_date)
+    message["Subject"] = subject
     # Outlook opens a message carrying X-Unsent as an editable, unsent draft.
     message["X-Unsent"] = "1"
     plain = BeautifulSoup(document, "html.parser").get_text("\n", strip=True)
@@ -461,3 +511,52 @@ def build_email_draft(folder: Path, html_name: str) -> bytes | None:
         if part.is_multipart():
             part.set_boundary(f"==healthcare-intel-{index}-{digest}==")
     return message.as_bytes(policy=SMTP)
+
+
+def build_email_draft(folder: Path, html_name: str) -> bytes | None:
+    """Return the .eml bytes for a published report folder, or None if data is missing."""
+    part = _report_part(folder)
+    if part is None:
+        return None
+    return _email_bytes(
+        part.report_name,
+        email_subject(part.report_name, part.report_date),
+        _meta_line(part.report_date, part.market_data_as_of),
+        _contents([(None, part.entries)]),
+        "".join(part.sections),
+        part.images,
+    )
+
+
+def build_combined_email_draft(folders: list[Path]) -> bytes | None:
+    """One draft holding several same-week reports in order, under a shared Contents box.
+
+    Each report keeps its own sections behind a report-name banner; the first report's
+    brief leads, so the email opens with it."""
+    parts: list[_EmailPart] = []
+    for index, folder in enumerate(folders):
+        part = _report_part(folder, prefix=f"r{index + 1}-")
+        if part is None:
+            return None
+        parts.append(part)
+    if not parts:
+        return None
+    report_date = parts[0].report_date
+    title = " and ".join(part.report_name for part in parts)
+    market_data_as_of = next((part.market_data_as_of for part in parts if part.market_data_as_of), "")
+    body: list[str] = []
+    for index, part in enumerate(parts):
+        anchor = f"r{index + 1}"
+        body.append(
+            f'<h1 style="{STYLES["h1"]}margin-top:{36 if index else 18}px;padding-top:10px;'
+            f'border-top:4px solid {NAVY};">{_anchor(anchor)}{html.escape(part.report_name)}</h1>'
+        )
+        body.extend(part.sections)
+    return _email_bytes(
+        title,
+        email_subject(title, report_date),
+        _meta_line(report_date, market_data_as_of),
+        _contents([(part.report_name, part.entries) for part in parts]),
+        "".join(body),
+        [image for part in parts for image in part.images],
+    )

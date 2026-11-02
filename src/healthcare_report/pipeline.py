@@ -68,6 +68,7 @@ from .strategy import (
     format_recent_earnings,
     format_watchlist,
     format_watchlist_movers,
+    in_window_earnings,
     require_monday_report_date,
     strategy_prompt_path,
 )
@@ -401,12 +402,181 @@ def _finish_manifest(
     return manifest
 
 
+def is_narrative_only(config: ProjectConfig) -> bool:
+    return bool(config.settings["report"].get("narrative_only"))
+
+
+def _render_narrative_only(
+    config: ProjectConfig,
+    report_date: date,
+    narrative: dict[str, Any] | None,
+    status_rows: list[dict[str, str]],
+    stage_durations: dict[str, float],
+    *,
+    market_data_as_of: date | None,
+    generated_at: str | None = None,
+    mode: str = "full",
+) -> Path:
+    """Publish a brief-only report: the strategy narrative without market or earnings sections."""
+    render_started = time.perf_counter()
+    final_root = config.final_root
+    final_root.mkdir(parents=True, exist_ok=True)
+    temporary = Path(tempfile.mkdtemp(prefix=f".{report_date.isoformat()}-", dir=final_root))
+    try:
+        recommendations = recommended_updates(
+            config, [], status_rows, narrative_age(narrative, report_date)
+        )
+        issues = recommendation_lines(recommendations)
+        markdown_text = build_markdown(
+            {
+                "config": config,
+                "report_date": report_date,
+                "market_data_as_of": None,
+                "snapshot": [],
+                "recent_earnings": [],
+                "narrative": narrative,
+                "narrative_only": True,
+            }
+        )
+        html_name = report_html_name(report_date, config)
+        write_report_files(temporary, markdown_text, report_date, config)
+        from .site import recommended_updates_document, recommended_updates_name
+
+        (temporary / recommended_updates_name()).write_text(
+            recommended_updates_document(config.report_name, report_date, recommendations),
+            encoding="utf-8",
+        )
+        write_gzip_json(
+            temporary / "render-data.json.gz",
+            {
+                "schema": 1,
+                "reference": {},
+                "recent_earnings": [],
+                "upcoming_earnings": [],
+                "narrative": narrative,
+                "period_moves": {},
+            },
+        )
+        files = [html_name, recommended_updates_name(), "report.md", "render-data.json.gz"]
+        durations = {key: _round_seconds(value) for key, value in stage_durations.items()}
+        durations["rendering"] = _round_seconds(time.perf_counter() - render_started)
+        write_json(
+            temporary / "manifest.json",
+            {
+                "schema": 2,
+                "report_type": config.scope,
+                "report_name": config.report_name,
+                "report_date": report_date.isoformat(),
+                "market_data_as_of": market_data_as_of.isoformat() if market_data_as_of else None,
+                "generated_at": generated_at or utc_now(),
+                "rendered_at": utc_now(),
+                "narrative_only": True,
+                "market_sections": False,
+                "configuration_sha256": config_hash(
+                    [
+                        config.root / "config" / "settings.yaml",
+                        config.root / "inputs" / "companies.md",
+                        strategy_prompt_path(config),
+                    ]
+                ),
+                "quality": "ok",
+                "issues": issues,
+                "recommended_updates": recommendations,
+                "sources": status_rows,
+                "metrics": {"mode": mode, "durations_seconds": durations},
+                "files": files,
+            },
+        )
+        destination = final_root / report_date.isoformat()
+        atomic_replace_directory(temporary, destination)
+        return destination
+    except Exception:
+        if temporary.exists():
+            shutil.rmtree(temporary)
+        raise
+
+
+def run_narrative_report(
+    config: ProjectConfig,
+    report_date: date,
+    *,
+    force_secondary: bool = False,
+) -> dict[str, Any]:
+    """Generate a brief-only report from the caches the companion report just refreshed."""
+    require_monday_report_date(report_date)
+    total_started = time.perf_counter()
+    _progress(f"Starting the {config.report_name} brief for {report_date.isoformat()}...")
+    cache = MarketCache(config)
+    reference = cache.reference()
+    bars = {
+        ticker: cache.price_bars(ticker, end=report_date - timedelta(days=1))
+        for ticker in config.universe.companies
+    }
+    market_data_as_of = max((rows[-1]["date"] for rows in bars.values() if rows), default=None)
+    companion = str(config.settings["report"].get("companion_report") or "").strip()
+    baseline = find_baseline(config.for_scope(companion), report_date) if companion else None
+    mover_brief = ""
+    if baseline is not None:
+        mover_brief = format_watchlist_movers(
+            period_moves(config, bars, reference, baseline, report_date),
+            shown=int(config.settings["notable_changes"].get("movers_shown", 3)),
+            previous_market_data_as_of=baseline.market_data_as_of,
+            market_data_as_of=market_data_as_of,
+        )
+    earnings_brief = format_recent_earnings(in_window_earnings(config, report_date))
+    narrative_started = time.perf_counter()
+    _progress("Refreshing the strategy narrative via OpenAI Responses API...")
+    narrative, narrative_status, narrative_detail = refresh_narrative_with_fallback(
+        config,
+        None,
+        as_of=report_date,
+        checked_on=datetime.now(UTC).date(),
+        force=force_secondary,
+        movers=mover_brief,
+        earnings=earnings_brief,
+    )
+    if not narrative or narrative.get("source_report_date") != report_date.isoformat():
+        # The brief is the whole report; publishing last week's would mislead readers.
+        raise RuntimeError(f"{config.report_name} brief was not generated: {narrative_detail}")
+    status_rows = [
+        _status(
+            "strategy narrative", "OpenAI Responses API", narrative_status, narrative_detail
+        ).as_dict()
+    ]
+    destination = _render_narrative_only(
+        config,
+        report_date,
+        narrative,
+        status_rows,
+        {"secondary_sources": time.perf_counter() - narrative_started},
+        market_data_as_of=market_data_as_of,
+    )
+    manifest = _finish_manifest(destination, total_seconds=time.perf_counter() - total_started)
+    from .site import build_site
+
+    site = build_site(config)
+    html_name = report_html_name(report_date, config)
+    _progress(f"Complete: {destination.relative_to(config.root)}/{html_name}")
+    return {
+        "status": manifest["quality"],
+        "report_date": report_date.isoformat(),
+        "report_type": config.scope,
+        "output": str((destination / html_name).relative_to(config.root)),
+        "site_output": str(Path(site["output"]).relative_to(config.root)),
+        "narrative_status": narrative_status,
+        "issues": manifest.get("issues", []),
+        "metrics": manifest.get("metrics", {}),
+    }
+
+
 def run_report(
     config: ProjectConfig,
     report_date: date,
     *,
     force_secondary: bool = False,
 ) -> dict[str, Any]:
+    if is_narrative_only(config):
+        return run_narrative_report(config, report_date, force_secondary=force_secondary)
     require_monday_report_date(report_date)
     total_started = time.perf_counter()
     _progress(
@@ -643,6 +813,8 @@ def rerender_report(
     manifest = read_json(folder / "manifest.json", {})
     if not isinstance(manifest, dict) or not manifest.get("report_date"):
         raise RuntimeError(f"No published report is available for {report_date.isoformat()}")
+    if is_narrative_only(config):
+        return _rerender_narrative_only(config, report_date, folder, manifest, total_started)
     snapshot = load_snapshot(folder / "snapshot.csv")
     if not snapshot:
         raise RuntimeError(f"Cannot rerender {report_date.isoformat()}; snapshot.csv is empty")
@@ -743,6 +915,43 @@ def rerender_report(
         "site_output": str(Path(site["output"]).relative_to(config.root)),
         "mode": "render-only",
         "issues": issues,
+        "metrics": final_manifest.get("metrics", {}),
+    }
+
+
+def _rerender_narrative_only(
+    config: ProjectConfig,
+    report_date: date,
+    folder: Path,
+    manifest: dict[str, Any],
+    total_started: float,
+) -> dict[str, Any]:
+    render_data = read_gzip_json(folder / "render-data.json.gz", {})
+    narrative_value = render_data.get("narrative") if isinstance(render_data, dict) else None
+    narrative = narrative_value if isinstance(narrative_value, dict) else load_narrative(config)
+    raw_as_of = str(manifest.get("market_data_as_of") or "")
+    destination = _render_narrative_only(
+        config,
+        report_date,
+        narrative,
+        [dict(row) for row in manifest.get("sources", []) if isinstance(row, dict)],
+        {},
+        market_data_as_of=date.fromisoformat(raw_as_of) if raw_as_of else None,
+        generated_at=str(manifest.get("generated_at") or utc_now()),
+        mode="render-only",
+    )
+    final_manifest = _finish_manifest(destination, total_seconds=time.perf_counter() - total_started)
+    from .site import build_site
+
+    site = build_site(config)
+    html_name = report_html_name(report_date, config)
+    return {
+        "status": final_manifest["quality"],
+        "report_date": report_date.isoformat(),
+        "output": str((destination / html_name).relative_to(config.root)),
+        "site_output": str(Path(site["output"]).relative_to(config.root)),
+        "mode": "render-only",
+        "issues": final_manifest.get("issues", []),
         "metrics": final_manifest.get("metrics", {}),
     }
 

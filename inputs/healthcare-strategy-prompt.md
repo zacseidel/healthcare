@@ -102,7 +102,7 @@ Use this structure and only these headings:
 ...
 
 ## What to Watch For
-- Up to 5 dated items. Exact, verified dates only; omit the section if none are confirmed.
+- Up to 5 dated items, each starting with the plain date and a colon (`- December 15, 2026: ...`). Exact, verified dates only; omit the section if none are confirmed.
 
 ## Bottom Line
 Two or three sentences: the most important change this week, the exposure needing the closest attention, and the upcoming event most likely to change the view.

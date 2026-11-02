@@ -16,7 +16,7 @@ from bs4 import BeautifulSoup
 
 from .analysis import load_snapshot, recommended_updates
 from .config import ProjectConfig
-from .email_draft import build_email_draft, email_draft_name
+from .email_draft import build_combined_email_draft, build_email_draft, email_draft_name
 from .narrative import narrative_age
 from .render import embed_html_images, report_html_name
 from .storage import atomic_replace_directory, read_gzip_json, read_json, write_json
@@ -950,12 +950,42 @@ def _publish_report_downloads(
     )
 
 
-def _publish_email_drafts(reports: list[SiteReport], destination: Path) -> None:
-    """Write each report's Outlook draft next to its PDF and HTML downloads."""
+def _companion_report(
+    report: SiteReport, reports: list[SiteReport], config: ProjectConfig
+) -> SiteReport | None:
+    try:
+        settings = config.for_scope(report.report_type).settings["report"]
+    except Exception:
+        return None
+    scope = str(settings.get("companion_report") or "")
+    return next(
+        (
+            item
+            for item in reports
+            if scope
+            and item.report_type == scope
+            and item.report_date == report.report_date
+            and item.email_available
+        ),
+        None,
+    )
+
+
+def _publish_email_drafts(
+    reports: list[SiteReport], destination: Path, config: ProjectConfig
+) -> None:
+    """Write each report's Outlook draft next to its PDF and HTML downloads.
+
+    A report with a companion (Provider Enablement) leads a combined draft that continues
+    with the companion report for the same week."""
     for report in reports:
         if not report.email_available:
             continue
-        draft = build_email_draft(report.source.parent, report.source.name)
+        companion = _companion_report(report, reports, config)
+        if companion is not None:
+            draft = build_combined_email_draft([report.source.parent, companion.source.parent])
+        else:
+            draft = build_email_draft(report.source.parent, report.source.name)
         if draft is None:
             continue
         folder = destination / "reports" / report.archive_path
@@ -1020,7 +1050,7 @@ def build_site(config: ProjectConfig, output: Path | None = None) -> dict[str, A
                     encoding="utf-8",
                 )
             _publish_report_downloads(reports, temporary, destination if destination.is_dir() else None)
-            _publish_email_drafts(reports, temporary)
+            _publish_email_drafts(reports, temporary, config)
         else:
             (temporary / "index.html").write_text(_empty_home(config), encoding="utf-8")
         atomic_replace_directory(temporary, destination)

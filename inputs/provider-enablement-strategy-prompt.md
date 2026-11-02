@@ -32,6 +32,10 @@ Source priority: Prefer primary government and regulatory documents, SEC filings
 
 The request may include `<recent_earnings>` (watchlist companies that reported during the window, with headlines already collected) and `<watchlist_movers>` (the largest price moves since the previous Monday report). Read these before searching those names. Treat them as a scan list: decide for each name whether the print or move reflects a consequential development, and include it only when it changes risk-contract mix, attributed-life growth, payer-partnership terms, medical-cost trend under risk, or enablement-platform competitive position. A beat-and-raise with no thesis change is omitted. Do not write about a price move you cannot explain with a sourced development, and do not run a separate search for every name when one scan covers several.
 
+## No overlap with the Healthcare brief
+
+The request includes `<companion_brief>`: this week's full Healthcare Strategy Brief. The same readers receive it in the same email, directly after this brief. Read all of it, not only the headlines: a company result or policy action can sit inside a story whose headline names a broader theme. Do not write a numbered story, Executive View bullet, or What to Watch For item about any development, company result, or rule covered anywhere in it, even from a risk-contracting angle; this brief covers what the Healthcare brief does not. When a Healthcare story has a risk-contracting consequence that brief does not state, give that consequence in at most one sentence inside a related story of your own, without retelling the development. Do not mention that the Healthcare brief exists. If little is left after removing its stories, write a shorter brief rather than repeating them.
+
 ## Delta-first requirement
 
 This is a weekly change report, not a recurring overview of VBC or MA and Medicaid risk contracting. The previous Monday briefing in `<prior_report_history>` is the baseline of what the reader already knows. Older prior-report digests are for hypothesis tracking only. Intra-week notes are not last week's published report: a development mentioned only in an intra-week note is still new to this reader. When no prior report is supplied, establish the baseline from this week's developments without writing a background overview.
@@ -110,7 +114,7 @@ Use this structure and only these headings:
 ...
 
 ## What to Watch For
-- Up to 5 dated items. Exact, verified dates only; omit the section if none are confirmed.
+- Up to 5 dated items, each starting with the plain date and a colon (`- December 15, 2026: ...`). Exact, verified dates only; omit the section if none are confirmed.
 
 ## Bottom Line
 Two or three sentences: the most important change this week, the exposure needing the closest attention, and the upcoming event most likely to change the view.
@@ -120,7 +124,7 @@ Length:
 
 - Write 2-5 numbered stories, about 150-200 words each, counting all three labeled parts. Quiet weeks get fewer stories, not shorter ones.
 - The whole brief is usually 800-1,200 words, 500-800 in a quiet week, and must not exceed 1,500 words, not counting link URLs. Never pad to reach a length.
-- A headline states the finding in plain words ("Humana narrows agilon's 2027 full-risk footprint to 12 markets"), not a label or a teaser.
+- A headline states the finding in plain words ("A national payer shifts more 2027 cost-trend risk onto its full-risk partners"), not a label or a teaser.
 - Separate stories with a horizontal rule (`---`). Fold dependable public figures into the relevant story; do not add tables.
 
 ## Writing style
@@ -128,8 +132,8 @@ Length:
 Write like a senior analyst's client note: direct, specific, and plain. The reader is an expert and does not need setup.
 
 - Lead each paragraph with the point. Use concrete subjects and active verbs: who did what, by when, worth how much.
-- Prefer a number, a date, or a named mechanism to an adjective. "A 2027 MA rate increase of 5.1% against 6% trend" beats "a meaningful headwind."
-- Hedge once and specifically ("Humana did not disclose the affected member count"), not with stacked qualifiers such as "could potentially."
+- Prefer a number, a date, or a named mechanism to an adjective. "Capitation up about 5% against 6% cost trend" beats "a meaningful headwind."
+- Hedge once and specifically ("the payer did not disclose the affected member count"), not with stacked qualifiers such as "could potentially."
 - Use em dashes rarely; a comma, colon, parenthesis, or new sentence usually reads better.
 - Avoid the "not X, but Y" and "this isn't just X, it's Y" constructions. State what the thing is.
 - Do not default to lists of three. Use as many items as the facts support.
