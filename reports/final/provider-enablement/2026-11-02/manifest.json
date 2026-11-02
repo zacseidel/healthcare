@@ -1,0 +1,42 @@
+{
+  "schema": 2,
+  "report_type": "provider-enablement",
+  "report_name": "Provider Enablement Intel",
+  "report_date": "2026-11-02",
+  "market_data_as_of": "2026-10-30",
+  "generated_at": "2026-11-02T22:19:03Z",
+  "rendered_at": "2026-11-02T22:19:03Z",
+  "narrative_only": true,
+  "market_sections": false,
+  "configuration_sha256": "4b609c948c744934d7d292b3a068a05d933a39febe9dd9b9291d1262625b41ff",
+  "quality": "ok",
+  "issues": [],
+  "recommended_updates": {
+    "verify_symbols": [],
+    "input_updates": [],
+    "other": []
+  },
+  "sources": [
+    {
+      "source": "strategy narrative",
+      "subject": "OpenAI Responses API",
+      "status": "ok",
+      "detail": "OpenAI Responses API"
+    }
+  ],
+  "metrics": {
+    "mode": "full",
+    "durations_seconds": {
+      "secondary_sources": 220.329,
+      "rendering": 0.284,
+      "total": 220.656
+    },
+    "directory_bytes": 169055
+  },
+  "files": [
+    "Provider Enablement Intel-2026-11-02.html",
+    "recommended-updates.html",
+    "report.md",
+    "render-data.json.gz"
+  ]
+}
