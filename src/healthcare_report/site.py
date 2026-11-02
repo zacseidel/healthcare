@@ -501,11 +501,20 @@ def _content_page(config: ProjectConfig, name: str, *, prefix: str) -> str:
     return _page_document(name.title(), body, prefix=prefix, active=name)
 
 
-def _archive_page(reports: list[SiteReport]) -> str:
-    groups = (
-        ("healthcare", "Healthcare Intel Report"),
-        ("life-science-device", "Life Sciences Intel Report"),
-    )
+ARCHIVE_HEADINGS = {
+    "healthcare": "Healthcare Intel Report",
+    "life-science-device": "Life Sciences Intel Report",
+    "provider-enablement": "Provider Enablement Intel Report",
+}
+
+
+def _archive_page(reports: list[SiteReport], config: ProjectConfig) -> str:
+    # One archive group per configured profile, in settings order.
+    groups = [
+        (scope, ARCHIVE_HEADINGS.get(scope, f"{profile.get('name') or scope} Report"))
+        for scope, profile in config.settings.get("report_profiles", {}).items()
+        if isinstance(profile, dict)
+    ]
     sections: list[str] = []
     for report_type, heading in groups:
         group_reports = [report for report in reports if report.report_type == report_type]
@@ -963,7 +972,7 @@ def build_site(config: ProjectConfig, output: Path | None = None) -> dict[str, A
         (temporary / ".nojekyll").write_text("", encoding="utf-8")
         (temporary / "reports").mkdir()
         (temporary / "reports" / "index.html").write_text(
-            _archive_page(reports), encoding="utf-8"
+            _archive_page(reports, config), encoding="utf-8"
         )
         (temporary / "news").mkdir()
         news_index = _news_index_page(reports)

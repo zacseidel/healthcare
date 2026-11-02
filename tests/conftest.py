@@ -49,4 +49,8 @@ def project(tmp_path: Path):
         source / "inputs" / "life-sciences-strategy-prompt.md",
         tmp_path / "inputs" / "life-sciences-strategy-prompt.md",
     )
+    shutil.copy(
+        source / "inputs" / "provider-enablement-strategy-prompt.md",
+        tmp_path / "inputs" / "provider-enablement-strategy-prompt.md",
+    )
     return load_config(tmp_path)

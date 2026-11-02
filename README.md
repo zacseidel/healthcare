@@ -1,18 +1,23 @@
 # Healthcare Intel Digest
 
-A Python application that creates weekly healthcare and life-science stock intelligence reports from
+A Python application that creates weekly healthcare, life-science, and provider-enablement
+intelligence reports from
 Massive market data, public earnings pages, and report-specific strategy narratives.
 Reports are generated as final versions immediately and stored in Git.
 
 ## What it produces
 
 Healthcare reports are written to `reports/final/YYYY-MM-DD/`; Life Science and Device reports are
-written to `reports/final/life-science-device/YYYY-MM-DD/`:
+written to `reports/final/life-science-device/YYYY-MM-DD/`; Provider Enablement reports are written
+to `reports/final/provider-enablement/YYYY-MM-DD/`:
 
 - `Healthcare Intel-YYYY-MM-DD.html`: report HTML that references WebP charts in `assets/`.
   This keeps the Git copy and public site pages small; charts still render next to the file.
 - `Life Science and Device Intel-YYYY-MM-DD.html`: the same report format for the pharma,
   biotech, and device universe.
+- `Provider Enablement Intel-YYYY-MM-DD.html`: the same format for payers and value-based care
+  companies, led by a brief on Medicare Advantage and Medicaid risk contracting and VBC
+  enablement.
 - `report.md` and `assets/`: diffable Markdown and compact WebP chart images.
 - `snapshot.csv`: the published performance values and ranks.
 - `changes.csv`: every comparison with the previous eligible final.
@@ -124,7 +129,9 @@ JPEG-compresses them, then reuses unchanged PDFs through `docs/.download-manifes
 builds.
 
 The homepage always uses the latest Healthcare report. The Past reports page groups the archive
-under Healthcare Intel Report and Life Sciences Intel Report. The News & Earnings page provides
+under Healthcare Intel Report, Life Sciences Intel Report, and Provider Enablement Intel Report.
+Every report offers PDF, HTML, and Email (an Outlook-ready `.eml` draft) downloads. The News &
+Earnings page provides
 a newest-first weekly index of report headlines and earnings-call coverage, with direct links to
 the corresponding report sections. It also collects headlines under these business topics:
 
@@ -160,9 +167,10 @@ Playwright Chromium, and the existing `.env` automatically:
 ./bin/run-report
 ```
 
-This updates both report profiles. Use the Python CLI's `--report` option when only one profile
-needs to be refreshed. Both strategy narratives run through the OpenAI Responses API with separate
-prompts, histories, archives, and downstream latest files.
+This updates all three report profiles. Use the Python CLI's `--report` option with one profile
+or a comma-separated list (for example `--report provider-enablement`) when only some need to be
+refreshed. Each strategy narrative runs through the OpenAI Responses API with its own prompt,
+history, archive, and downstream latest files.
 
 To create or replace a report for a particular date:
 
@@ -194,13 +202,17 @@ mypy src
 - `inputs/healthcare-strategy-prompt.md` is the version-controlled Healthcare research brief.
 - `inputs/life-sciences-strategy-prompt.md` is the version-controlled pharmaceutical, biotech,
   life-sciences, and medical-device research brief.
+- `inputs/provider-enablement-strategy-prompt.md` is the version-controlled Medicare Advantage and
+  Medicaid risk-contracting and value-based care enablement research brief.
 - `config/settings.yaml` defines horizons, thresholds, source behavior, report presentation,
   report-profile category membership, and narrative freshness rules.
 
 The Healthcare profile includes services, providers, value-based care, outpatient
 and home care, digital health, health IT/data, pharma distribution, and precision diagnostics.
 The Life Science and Device profile includes Devices & Diagnostic, Big Pharma, Established Biotech,
-and Emerging Biotech.
+and Emerging Biotech. The Provider Enablement profile reuses the Payers and Value-Based Care
+categories, so it shares the Healthcare run's price, company, and earnings caches and adds only
+its own strategy brief call.
 
 The report date and its automatic earnings selections are runtime values rather than mutable
 configuration. This keeps scheduled reports reproducible.
@@ -287,7 +299,7 @@ not suppress otherwise valid market analysis and remains recorded in `manifest.j
 
 ## Strategy narrative
 
-Both profiles generate their weekly strategy briefs with the OpenAI Responses API using GPT-5.6
+All three profiles generate their weekly strategy briefs with the OpenAI Responses API using GPT-5.6
 Sol, high reasoning, and built-in web search by default. Each request explicitly supplies the report
 date, prior-seven-day window, profile-specific master prompt, and that profile's four newest prior
 reports. Reports are persisted under:
@@ -301,8 +313,10 @@ reports/strategy/life-science-device/YYYY-MM-DD.md
 reports/strategy/life-science-device/YYYY-MM-DD.json
 reports/strategy/life-science-device/latest.md
 reports/strategy/life-science-device/latest.json
+reports/strategy/provider-enablement/...
 state/strategy-runs-healthcare.jsonl
 state/strategy-runs-life-science-device.jsonl
+state/strategy-runs-provider-enablement.jsonl
 ```
 
 The dated files are permanent history. `latest.md` and `latest.json` are replaced only after a
@@ -341,7 +355,11 @@ OPENAI_REASONING_EFFORT=high
 REPORT_HISTORY_COUNT=4
 OPENAI_MAX_OUTPUT_TOKENS=16000
 OPENAI_TIMEOUT_SECONDS=900
+OPENAI_MAX_RETRIES=2
 ```
+
+A single request can wait up to `OPENAI_TIMEOUT_SECONDS × (OPENAI_MAX_RETRIES + 1)`. The workflow
+uses 600 seconds and one retry so a stalled response cannot exhaust the job.
 
 Set `OPENAI_MODEL=gpt-5.6-terra` for a lower-cost development run without changing code. Usage,
 web-search-call count, request identifiers, and estimated cost are recorded in the JSON report and
@@ -358,21 +376,22 @@ python -m healthcare_report refresh-narrative --report life-science-device
 
 ## GitHub automation
 
-The **Run full healthcare update** workflow runs every Monday at 5:00 AM America/Denver and
-updates both report profiles. Weekly reports are Monday-dated and compare with the previous
+The **Run full healthcare update** workflow runs every Monday at about 5:17 AM America/Denver
+(off the top of the hour, when GitHub most often delays or drops scheduled runs) and updates all
+three report profiles. Weekly reports are Monday-dated and compare with the previous
 Monday only; mid-week strategy notes are not used as last week's published briefing. Manual
-dispatch accepts an optional Monday report date and a report scope of Healthcare, Life Science
-and Device, or Both. Add both `MASSIVE_API_KEY` and `OPENAI_API_KEY`
+dispatch accepts an optional Monday report date and a report scope of all, Healthcare, Life
+Science and Device, or Provider Enablement. Add both `MASSIVE_API_KEY` and `OPENAI_API_KEY`
 under **Settings → Secrets and variables → Actions**, and allow GitHub Actions read/write
 repository permissions. A manual run forces fresh earnings and strategy-narrative checks, even if
 those sources were already checked that day.
 
-The workflow runs at 5:00 AM Monday in `America/Denver`; GitHub's timezone-aware schedule handles
+The workflow runs early Monday morning in `America/Denver`; GitHub's timezone-aware schedule handles
 Mountain Time daylight-saving changes. A scheduled run skips any report profile whose report for
 today was already committed earlier the same day (for example by a manual run), and does nothing
-when both were. Manual runs never skip. The strategy prompt also receives a compact list of the
+when all were. Manual runs never skip. The strategy prompt also receives a compact list of the
 week's largest watchlist movers so material names are not dropped as "already covered." A
-successful run commits both dated strategy archives, stable latest files, final market reports,
+successful run commits the dated strategy archives, stable latest files, final market reports,
 state, and the rebuilt site.
 
 The workflow validates and tests the project, installs anonymous Chromium, creates the final,
@@ -381,8 +400,13 @@ using `github-actions[bot]`, and deploys the refreshed public site. If core mark
 cannot be built, it commits nothing. Earnings or narrative follow-ups are recorded on that date's
 recommended-updates page while preserving the valid market report.
 
-The workflow verifies that the branch has not changed while it runs and pushes through
-`github-actions[bot]`. It deploys Pages only when it committed a changed report or state snapshot.
+If commits land on the branch while the report runs (for example a prompt edit), the workflow
+rebases its generated commit onto them before pushing through `github-actions[bot]`, so a paid
+run is not discarded. If the run fails or times out after generating output, the
+`unsaved-report-output-*` artifact keeps `reports/strategy`, `reports/final`, `state`, and `docs`
+for 30 days. Restoring the dated `reports/strategy/<profile>/YYYY-MM-DD.json` files and rerunning
+skips the OpenAI call for those profiles, unless the rerun is a manual dispatch, which forces fresh
+narratives. It deploys Pages only when it committed a changed report or state snapshot.
 
 ### Strategy troubleshooting
 
@@ -408,5 +432,5 @@ branch-based Pages build for commits pushed with the workflow's `GITHUB_TOKEN`.
 
 Public page copy lives in `site_content/about.md` and `site_content/methodology.md`. The site
 generator automatically publishes legacy Healthcare folders and report-profile folders under
-`reports/final/`, lists both types in the Past reports archive, sorts newest-first, and uses the
+`reports/final/`, lists every profile in the Past reports archive, sorts newest-first, and uses the
 newest report as the homepage.

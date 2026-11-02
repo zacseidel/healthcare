@@ -66,3 +66,14 @@ report_profiles:
       - Emerging Biotech
     strategy_narrative:
       stale_after_days: 6
+  provider-enablement:
+    name: Provider Enablement Intel
+    description: >-
+      Weekly review of Medicare Advantage and Medicaid risk-contracting economics, payer
+      partners, and value-based care enablement platforms, with company performance,
+      earnings activity, and strategy narrative.
+    categories:
+      - Payers
+      - Value-Based Care
+    strategy_narrative:
+      stale_after_days: 6

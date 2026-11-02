@@ -8,6 +8,27 @@ from pathlib import Path
 
 from .config import ConfigurationError, load_config
 
+# Profiles in run order. Provider Enablement follows Healthcare so it reuses that run's fresh
+# price, company, and earnings caches.
+REPORT_SCOPES = ("healthcare", "life-science-device", "provider-enablement")
+LEGACY_BOTH = ("healthcare", "life-science-device")
+
+
+def report_scopes(value: str) -> tuple[str, ...]:
+    """Resolve ``all``, the legacy ``both``, or a comma-separated list of profiles."""
+    if value == "all":
+        return REPORT_SCOPES
+    if value == "both":
+        return LEGACY_BOTH
+    scopes = tuple(dict.fromkeys(item.strip() for item in value.split(",") if item.strip()))
+    unknown = [scope for scope in scopes if scope not in REPORT_SCOPES]
+    if not scopes or unknown:
+        raise ValueError(
+            f"Unknown report scope: {', '.join(unknown) or value!r}. "
+            f"Use all or a comma-separated list of: {', '.join(REPORT_SCOPES)}"
+        )
+    return scopes
+
 
 def parse_date(value: str) -> date:
     try:
@@ -27,9 +48,11 @@ def build_parser() -> argparse.ArgumentParser:
     )
     run.add_argument(
         "--report",
-        choices=("healthcare", "life-science-device", "both"),
-        default="both",
-        help="report scope to update (default: both)",
+        default="all",
+        help=(
+            "report profiles to update: all (default), or a comma-separated list of "
+            + ", ".join(REPORT_SCOPES)
+        ),
     )
     run.add_argument(
         "--force-secondary",
@@ -40,9 +63,7 @@ def build_parser() -> argparse.ArgumentParser:
         "render", help="rebuild an existing report from saved data without network requests"
     )
     render.add_argument("--date", type=parse_date, required=True, help="published report date")
-    render.add_argument(
-        "--report", choices=("healthcare", "life-science-device"), default="healthcare"
-    )
+    render.add_argument("--report", choices=REPORT_SCOPES, default="healthcare")
     render.add_argument(
         "--refresh-charts",
         action="store_true",
@@ -52,9 +73,7 @@ def build_parser() -> argparse.ArgumentParser:
         "export-standalone", help="create a self-contained HTML copy of an existing report"
     )
     standalone.add_argument("--date", type=parse_date, required=True, help="published report date")
-    standalone.add_argument(
-        "--report", choices=("healthcare", "life-science-device"), default="healthcare"
-    )
+    standalone.add_argument("--report", choices=REPORT_SCOPES, default="healthcare")
     standalone.add_argument("--output", type=Path, help="destination HTML path")
     site = subparsers.add_parser("build-site", help="build the static GitHub Pages website")
     site.add_argument("--output", type=Path, help="destination directory; defaults to docs/")
@@ -62,9 +81,7 @@ def build_parser() -> argparse.ArgumentParser:
     narrative = subparsers.add_parser(
         "refresh-narrative", help="refresh only the configured strategy narrative snapshot"
     )
-    narrative.add_argument(
-        "--report", choices=("healthcare", "life-science-device"), default="healthcare"
-    )
+    narrative.add_argument("--report", choices=REPORT_SCOPES, default="healthcare")
     strategy = subparsers.add_parser(
         "generate-strategy", help="generate a strategy brief with OpenAI"
     )
@@ -75,7 +92,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     strategy.add_argument(
         "--report",
-        choices=("healthcare", "life-science-device"),
+        choices=REPORT_SCOPES,
         default="healthcare",
         help="strategy report profile (default: healthcare)",
     )
@@ -151,7 +168,7 @@ def main(argv: list[str] | None = None) -> int:
             result = build_site(config, args.output)
         else:
             report_date = args.date or datetime.now(config.timezone).date()
-            scopes = ("healthcare", "life-science-device") if args.report == "both" else (args.report,)
+            scopes = report_scopes(args.report)
             results = []
             for scope in scopes:
                 results.append(

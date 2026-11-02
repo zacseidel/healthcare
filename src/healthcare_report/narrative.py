@@ -63,7 +63,7 @@ def _human_date(value: str) -> str | None:
 def _embedded_strategy_body(body: str) -> str:
     """Remove the standalone title and nest its sections inside the full market report."""
     embedded = re.sub(
-        r"^#\s+(?:Healthcare|Life Sciences) Strategy Brief\s*\n+",
+        r"^#\s+(?:Healthcare|Life Sciences|Provider Enablement) Strategy Brief\s*\n+",
         "",
         body.strip(),
         count=1,

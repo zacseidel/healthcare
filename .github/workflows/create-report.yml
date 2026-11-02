@@ -2,7 +2,8 @@ name: Run full healthcare update
 
 on:
   schedule:
-    - cron: "0 5 * * 1"
+    # Off the top of the hour: GitHub delays and sometimes drops scheduled runs at :00.
+    - cron: "17 5 * * 1"
       timezone: America/Denver
   workflow_dispatch:
     inputs:
@@ -13,12 +14,13 @@ on:
       report_scope:
         description: Which report to update manually
         required: true
-        default: both
+        default: all
         type: choice
         options:
+          - all
           - healthcare
           - life-science-device
-          - both
+          - provider-enablement
 
 permissions:
   contents: write
@@ -32,12 +34,15 @@ jobs:
   report:
     name: Generate and commit complete update
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 110
     env:
       MASSIVE_API_KEY: ${{ secrets.MASSIVE_API_KEY }}
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       OPENAI_MODEL: gpt-5.6-sol
       OPENAI_REASONING_EFFORT: high
+      # One retry at most per request, so a stalled response cannot consume the whole job.
+      OPENAI_TIMEOUT_SECONDS: "600"
+      OPENAI_MAX_RETRIES: "1"
       REPORT_HISTORY_COUNT: "4"
       MPLBACKEND: Agg
       PYTHONUNBUFFERED: "1"
@@ -52,15 +57,17 @@ jobs:
         id: guard
         env:
           TZ: America/Denver
-          REQUESTED_SCOPE: ${{ inputs.report_scope || 'both' }}
+          REQUESTED_SCOPE: ${{ inputs.report_scope || 'all' }}
         run: |
+          profiles=(healthcare life-science-device provider-enablement)
           scope="$REQUESTED_SCOPE"
+          if [ "$scope" = "all" ]; then scope=$(IFS=,; echo "${profiles[*]}"); fi
           if [ "${{ github.event_name }}" = "schedule" ]; then
             today=$(date +%F)
             remaining=()
-            for profile in healthcare life-science-device; do
-              folder="reports/final/$today"
-              if [ "$profile" = "life-science-device" ]; then folder="reports/final/life-science-device/$today"; fi
+            for profile in "${profiles[@]}"; do
+              folder="reports/final/$profile/$today"
+              if [ "$profile" = "healthcare" ]; then folder="reports/final/$today"; fi
               committed=$(git log -1 --date=format-local:%F --format=%cd -- "$folder")
               if [ "$committed" = "$today" ]; then
                 echo "::notice::Skipping $profile: its $today report was already committed today."
@@ -68,11 +75,8 @@ jobs:
                 remaining+=("$profile")
               fi
             done
-            case "${#remaining[@]}" in
-              0) scope=none ;;
-              1) scope="${remaining[0]}" ;;
-              *) scope=both ;;
-            esac
+            scope=$(IFS=,; echo "${remaining[*]}")
+            if [ -z "$scope" ]; then scope=none; fi
           fi
           echo "scope=$scope" >> "$GITHUB_OUTPUT"
 
@@ -114,6 +118,8 @@ jobs:
 
       - name: Generate the final report
         if: steps.guard.outputs.scope != 'none'
+        # A step timeout (unlike the job timeout) still lets the save-on-failure step run.
+        timeout-minutes: 90
         env:
           REQUESTED_REPORT_DATE: ${{ inputs.report_date }}
         run: |
@@ -140,13 +146,11 @@ jobs:
         if: steps.guard.outputs.scope != 'none'
         id: standalone
         run: |
-          report_scope="${{ steps.guard.outputs.scope }}"
           report_date=$(python -c 'import json; value=json.load(open("report-result.json")); print((value.get("reports") or [value])[0]["report_date"])')
           echo "report_date=$report_date" >> "$GITHUB_OUTPUT"
-          echo "scope=$report_scope" >> "$GITHUB_OUTPUT"
           mkdir -p "$RUNNER_TEMP/report-artifacts"
-          for scope in healthcare life-science-device; do
-            if [ "$report_scope" != "both" ] && [ "$report_scope" != "$scope" ]; then continue; fi
+          IFS=, read -ra scopes <<< "${{ steps.guard.outputs.scope }}"
+          for scope in "${scopes[@]}"; do
             python -m healthcare_report export-standalone --report "$scope" --date "$report_date" \
               --output "$RUNNER_TEMP/report-artifacts/$scope-$report_date.html"
           done
@@ -165,11 +169,6 @@ jobs:
         id: commit
         run: |
           echo "changed=false" >> "$GITHUB_OUTPUT"
-          git fetch origin "${GITHUB_REF_NAME}"
-          if [ "$(git rev-parse HEAD)" != "$(git rev-parse "origin/${GITHUB_REF_NAME}")" ]; then
-            echo "::error::The branch changed while the report was running. Rerun from the new head."
-            exit 1
-          fi
           git add -- docs reports/final reports/strategy state
           if git diff --cached --quiet; then
             echo "No report, site, or state changes were produced."
@@ -179,8 +178,37 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           report_date=$(python -c 'import json; value=json.load(open("report-result.json")); print((value.get("reports") or [value])[0]["report_date"])')
           git commit -m "Create healthcare report for $report_date"
-          git push origin "HEAD:${GITHUB_REF_NAME}"
-          echo "changed=true" >> "$GITHUB_OUTPUT"
+          # Commits pushed while the report ran (prompt or code edits) touch other paths, so
+          # replay the generated output on top of them instead of discarding a paid run.
+          for attempt in 1 2 3; do
+            git fetch origin "${GITHUB_REF_NAME}"
+            if ! git rebase "origin/${GITHUB_REF_NAME}"; then
+              git rebase --abort
+              echo "::error::Generated files conflict with commits pushed during the run. Download the unsaved-report-output artifact to recover them."
+              exit 1
+            fi
+            if git push origin "HEAD:${GITHUB_REF_NAME}"; then
+              echo "changed=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            sleep $((attempt * 10))
+          done
+          echo "::error::Could not push the report after three attempts."
+          exit 1
+
+      - name: Save generated output when the run fails
+        if: (failure() || cancelled()) && steps.guard.outputs.scope != 'none'
+        uses: actions/upload-artifact@v4
+        with:
+          name: unsaved-report-output-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            reports/strategy
+            reports/final
+            state
+            docs
+            report-result.json
+          if-no-files-found: warn
+          retention-days: 30
 
       - name: Request the branch-based Pages build
         if: >-

@@ -57,6 +57,15 @@ STRATEGY_PROFILES: dict[str, StrategyProfile] = {
             "material pharmaceutical, biotechnology, life-sciences, and medical-device developments"
         ),
     ),
+    "provider-enablement": StrategyProfile(
+        prompt_filename="provider-enablement-strategy-prompt.md",
+        report_title="Provider Enablement Strategy Brief",
+        analyst_domain="value-based care",
+        task_subject=(
+            "material Medicare Advantage and Medicaid risk-contracting, payer-partner, and "
+            "value-based care enablement developments"
+        ),
+    ),
 }
 
 
@@ -67,6 +76,7 @@ class StrategySettings:
     history_count: int = 4
     max_output_tokens: int = 16_000
     timeout_seconds: float = 900.0
+    max_retries: int = 2
 
     @classmethod
     def from_environment(cls) -> StrategySettings:
@@ -80,9 +90,10 @@ class StrategySettings:
             history_count = int(os.getenv("REPORT_HISTORY_COUNT", "4"))
             max_output_tokens = int(os.getenv("OPENAI_MAX_OUTPUT_TOKENS", "16000"))
             timeout_seconds = float(os.getenv("OPENAI_TIMEOUT_SECONDS", "900"))
+            max_retries = int(os.getenv("OPENAI_MAX_RETRIES", "2"))
         except ValueError as exc:
             raise RuntimeError("OpenAI numeric environment settings are invalid") from exc
-        if history_count < 0 or max_output_tokens <= 0 or timeout_seconds <= 0:
+        if history_count < 0 or max_output_tokens <= 0 or timeout_seconds <= 0 or max_retries < 0:
             raise RuntimeError("OpenAI numeric environment settings must be positive")
         return cls(
             model=os.getenv("OPENAI_MODEL", "gpt-5.6-sol").strip() or "gpt-5.6-sol",
@@ -90,6 +101,7 @@ class StrategySettings:
             history_count=history_count,
             max_output_tokens=max_output_tokens,
             timeout_seconds=timeout_seconds,
+            max_retries=max_retries,
         )
 
 
@@ -729,7 +741,8 @@ def _call_openai(
         from openai import OpenAI
     except ImportError as exc:
         raise RuntimeError("The openai Python package is not installed") from exc
-    client = OpenAI(timeout=settings.timeout_seconds, max_retries=2)
+    # Worst case per request is timeout_seconds * (max_retries + 1); keep it inside the CI budget.
+    client = OpenAI(timeout=settings.timeout_seconds, max_retries=settings.max_retries)
     responses = cast(Any, client.responses)
     search_options: dict[str, Any] = (
         {"tools": [{"type": "web_search"}], "include": ["web_search_call.action.sources"]}

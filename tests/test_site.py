@@ -23,7 +23,11 @@ def _fake_report(
     assets = folder / "assets"
     assets.mkdir(parents=True)
     (assets / "chart.webp").write_bytes(b"RIFF-fake-webp")
-    name = "Healthcare Intel" if report_type == "healthcare" else "Life Science and Device Intel"
+    name = {
+        "healthcare": "Healthcare Intel",
+        "life-science-device": "Life Science and Device Intel",
+        "provider-enablement": "Provider Enablement Intel",
+    }[report_type]
     headline_links = "".join(
         f'<li><a href="#{fragment}">{label}</a></li>' for fragment, label in headlines
     )
@@ -189,6 +193,25 @@ def test_build_site_lists_both_report_types(project):
     assert (output / "reports" / "life-science-device" / "2026-08-03" / "index.html").is_file()
 
 
+def test_archive_groups_every_configured_profile(project):
+    _fake_report(project.root, date(2026, 11, 2))
+    _fake_report(project.root, date(2026, 11, 2), report_type="provider-enablement")
+
+    output = project.root / "public-site"
+    build_site(project, output)
+
+    archive = BeautifulSoup((output / "reports" / "index.html").read_text(), "html.parser")
+    headings = [heading.get_text(strip=True) for heading in archive.select(".report-group h2")]
+    assert headings == [
+        "Healthcare Intel Report",
+        "Life Sciences Intel Report",
+        "Provider Enablement Intel Report",
+    ]
+    links = [str(link["href"]) for link in archive.select(".report-list-link")]
+    assert links == ["2026-11-02/", "provider-enablement/2026-11-02/"]
+    assert (output / "reports" / "provider-enablement" / "2026-11-02" / "index.html").is_file()
+
+
 def test_news_and_earnings_index_links_reports_by_week_and_business_topic(project):
     _fake_report(
         project.root,
@@ -311,7 +334,11 @@ def test_homepage_remains_healthcare_when_life_science_is_newer(project):
     assert "Report for 2026-08-03" in home.get_text(" ", strip=True)
     archive = BeautifulSoup((output / "reports" / "index.html").read_text(), "html.parser")
     headings = [heading.get_text(" ", strip=True) for heading in archive.select(".report-group h2")]
-    assert headings == ["Healthcare Intel Report", "Life Sciences Intel Report"]
+    assert headings == [
+        "Healthcare Intel Report",
+        "Life Sciences Intel Report",
+        "Provider Enablement Intel Report",
+    ]
 
 
 def test_reports_with_saved_render_data_offer_an_email_draft(project, tmp_path):
