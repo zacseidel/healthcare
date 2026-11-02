@@ -1,0 +1,870 @@
+Subject: Healthcare Intel Digest =?utf-8?b?4oCT?= October 5, 2026
+X-Unsent: 1
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="==healthcare-intel-0-49aa062856085c2cc72b88a7=="
+
+--==healthcare-intel-0-49aa062856085c2cc72b88a7==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+Healthcare Intel Digest =E2=80=93 October 5, 2026
+Healthcare Intel Digest
+October 5, 2026 =C2=B7 Market data through October 2, 2026
+Contents
+In the News
+1. Aggregate MA stability conceals targeted carrier retrenchment
+2. Transparency in Coverage shifts from file production to governed data infr=
+astructure
+3. GLOBE survives as a mandatory model but loses most of its proposed economi=
+c reach
+4. OIG expands the Medicare preclusion gap into ownership and pharmacy contro=
+ls
+Market Snapshot
+In the News
+Executive View
+The final 2027 Medicare Advantage landscape resolves the benefit-retrenchment=
+ question but reveals a two-speed market.
+National plan availability and average premiums appear stable, while major ca=
+rriers are pruning underperforming products and shifting toward HMOs and spec=
+ial-needs plans.
+Federal price-transparency policy moved from data volume toward data usabilit=
+y and accountability.
+New requirements reduce redundant files but add utilization context, provider=
+-taxonomy logic and senior-official attestations, changing the opportunity fo=
+r transparency-data vendors.
+CMS finalized international reference pricing for Part B drugs, but at a frac=
+tion of the proposed economic scale.
+GLOBE remains operationally complex for selected providers while targeting le=
+ss than 1% of relevant Original Medicare Part B drug spending.
+OIG identified a broader Medicare managed-care screening failure.
+Plans paid $72 million for services associated with revoked or otherwise prob=
+lematic providers, extending the integrity gap from individual suppliers into=
+ ownership, pharmacy and list-management controls.
+Overall environment: modestly deteriorated for MA plan continuity and payment=
+ integrity; improved for transparency-data quality; broadly unchanged for nea=
+r-term provider drug economics.
+1. Aggregate MA stability conceals targeted carrier retrenchment
+Status:
+RESOLVE
+What happened
+The September 28 Medicare Advantage landscape resolves the preliminary plan-d=
+esign signals discussed earlier in September. CMS projects that the weighted =
+average monthly MA premium will decline 16.5%, from $14.37 in 2026 to $12.00 =
+in 2027. The number of available plans is expected to remain nearly flat=E2=
+=80=945,532 versus 5,553=E2=80=94while more than 99% of beneficiaries retain =
+access to at least one MA plan and 97% have at least 10 choices. CMS projects=
+ 34 million enrollees, or 47.4% of Medicare beneficiaries. (
+CMS, =E2=80=9CMedicare Advantage and Medicare Prescription Drug Programs Expe=
+cted to Remain Stable in 2027,=E2=80=9D September 28, 2026
+). (
+cms.gov
+)
+The national totals obscure substantial portfolio rotation. Analysis of the C=
+MS files found heavy product reductions by UnitedHealthcare and Humana offset=
+ partly by continued growth in special-needs plans. UnitedHealthcare separate=
+ly confirmed that it is discontinuing plans and changing service areas effect=
+ive January 1, with nonrenewal notices dated October 2. (
+Healthcare Dive, =E2=80=9CHere=E2=80=99s how much insurers are cutting Medica=
+re Advantage plans for 2027,=E2=80=9D September 29, 2026
+;
+UnitedHealthcare, =E2=80=9C2027 Medicare Advantage service area changes,=E2=
+=80=9D October 1, 2026
+). (
+healthcaredive.com
+)
+Implication
+The prior thesis is now more precise: MA margin repair is being pursued throu=
+gh local product selection, network structure and benefit design rather than =
+broad premium increases or a nationwide withdrawal. Average premiums therefor=
+e overstate stability because they do not capture changes in cost sharing, su=
+pplemental allowances, provider access or forced member switching.
+The directional benefit for carriers is improved 2027 risk selection and redu=
+ced exposure to structurally unprofitable markets. Providers face greater ref=
+erral and contracting concentration as enrollment shifts toward narrower HMO =
+and SNP products. Distribution, member-comparison and provider-directory plat=
+forms should expect elevated demand during open enrollment, particularly wher=
+e nonrenewals require beneficiaries to choose replacement coverage.
+Watch next
+Enrollment migration during the October 15=E2=80=93December 7 open-enrollment=
+ period, especially whether product exits move members toward competitors or =
+into carriers=E2=80=99 narrower successor plans.
+2. Transparency in Coverage shifts from file production to governed data infr=
+astructure
+Status:
+NEW
+What happened
+On October 5, the Departments of HHS, Labor and Treasury finalized revisions =
+to the Transparency in Coverage rules. Plans and issuers will report one in-n=
+etwork-rate file per provider network rather than per plan, move in-network a=
+nd out-of-network files from monthly to quarterly publication, and exclude cl=
+inically implausible provider-service combinations using the same taxonomy lo=
+gic employed in claims adjudication.
+The rules also add provider-taxonomy and utilization files, lower the out-of-=
+network reporting threshold from 20 claims to 11, require standardized file-l=
+ocation information and mandate attestations that the disclosures are complet=
+e and accurate. Each file must identify the CEO, president or designated seni=
+or official responsible for oversight. The departments estimate approximately=
+ $174.5 million of annual net savings for plans and issuers beginning in the =
+second implementation year. (
+CMS, =E2=80=9CTransparency in Coverage Final Rules,=E2=80=9D October 5, 2026
+). (
+cms.gov
+)
+The in-network and out-of-network amendments apply five months after Federal =
+Register publication; the new taxonomy, utilization and location files apply =
+after 11 months. Telephone access to personalized cost-sharing information ap=
+plies for plan years beginning January 1, 2027. Prescription-drug file develo=
+pment begins in November 2026, with publication expected to start in December=
+ 2027. (
+CMS, =E2=80=9CNew Regulations Make It Easier to Find, Compare, and Report Hea=
+lthcare Pricing and Coverage Information,=E2=80=9D October 5, 2026
+). (
+cms.gov
+)
+Implication
+The opportunity is moving away from brute-force hosting and ingestion of enor=
+mous duplicate files. Competitive advantage will increasingly come from provi=
+der identity resolution, taxonomy mapping, contractual-rate normalization, ut=
+ilization context and defensible data-quality controls.
+For plans, quarterly reporting and network-level files reduce infrastructure =
+expense, but senior-official attestation turns data accuracy into an enterpri=
+se compliance issue. For employers and providers, more usable out-of-network =
+and utilization data should improve benchmarking and contract analysis. Vendo=
+rs dependent primarily on storage volume face pressure; platforms that connec=
+t transparency data to claims, network design and contracting gain relevance.
+Watch next
+Technical guidance specifying the single machine-readable format and how regu=
+lators evaluate taxonomy exclusions, utilization completeness and executive a=
+ttestations.
+3. GLOBE survives as a mandatory model but loses most of its proposed economi=
+c reach
+Status:
+UPDATE
+What happened
+CMS finalized the Global Benchmark for Efficient Drug Pricing Model, effectiv=
+e November 30. The mandatory manufacturer model begins January 1, 2027; inter=
+national-benchmark rebates and reduced beneficiary coinsurance start April 1 =
+and continue through March 31, 2032, with reconciliation extending into 2034.=
+ Selected geographic areas will represent approximately 25% of Original Medic=
+are Part B beneficiaries. (
+CMS Innovation Center, =E2=80=9CGLOBE Model,=E2=80=9D updated October 2, 2026
+). (
+cms.gov
+)
+The final model is materially narrower than proposed. CMS estimates that cove=
+red utilization will represent less than 1% of non-dual, non-340B Original Me=
+dicare Part B drug spending. Estimated annualized Part B savings fell from $2=
+.3 billion in the proposal to $80 million in the final rule; cumulative estim=
+ates include $298 million for Original Medicare, $288 million from subsequent=
+ MA benchmark effects and $39 million for Medicaid. CMS estimates $177 millio=
+n of beneficiary premium and coinsurance savings. The standard provider add-o=
+n remains 6% of average sales price for most drugs. (
+Federal Register, =E2=80=9CGlobal Benchmark for Efficient Drug Pricing Model,=
+=E2=80=9D October 2, 2026
+). (
+govinfo.gov
+)
+Implication
+GLOBE is not a broad reset of oncology or specialty-infusion economics. Its i=
+mmediate burden is operational: selected providers must identify eligible ben=
+eficiaries and drugs, collect the correct reduced coinsurance and reconcile g=
+eographically variable claim treatment. Because Medicare adjusts its payment =
+when beneficiary coinsurance falls, the model does not directly reduce the al=
+lowed provider payment.
+The longer-term payer effect is small but directionally negative for MA rebat=
+es: lower Original Medicare spending flows into benchmarks beginning with 202=
+8 rate setting. Technology demand should concentrate in eligibility, charge-c=
+apture and patient-responsibility workflows rather than widespread drug-cost =
+management.
+Watch next
+CMS=E2=80=99s selected geographic areas and initial drug list, which will det=
+ermine which oncology practices, hospital outpatient departments and billing =
+platforms must implement the model.
+4. OIG expands the Medicare preclusion gap into ownership and pharmacy contro=
+ls
+Status:
+UPDATE
+What happened
+Prior audits showed that suppliers removed from Original Medicare could conti=
+nue billing MA plans. OIG now reports that MA organizations and Part D plans =
+paid $72 million during 2022=E2=80=932024 for services associated with 249 of=
+ 1,017 revoked provider identifiers reviewed.
+OIG attributed the payments to delays and errors in CMS=E2=80=99s Preclusion =
+List, failure to list some organizations whose owners were excluded or convic=
+ted of felonies, and regulations that do not subject dispensing-only pharmaci=
+es to preclusion. OIG issued no formal recommendations but said the findings =
+could support future regulation or guidance. (
+HHS-OIG, =E2=80=9CMedicare Advantage Organizations and Prescription Drug Plan=
+s Paid $72 Million During a 3-Year Period for Services Associated With Exclud=
+ed Providers or Individuals Convicted of Certain Felonies,=E2=80=9D October 1=
+, 2026
+). (
+oig.hhs.gov
+)
+Implication
+NPI-level screening is insufficient when exclusion risk can sit with an owner=
+, affiliated organization or dispensing pharmacy. Plans need entity-resolutio=
+n controls that connect enrollment status, ownership, felony and exclusion da=
+ta across Parts A, B, C and D.
+The direct $72 million finding is modest relative to total managed-care spend=
+ing, but the control failure creates recovery, audit and reputational exposur=
+e. It strengthens demand for continuously refreshed provider-master data and =
+prepayment screening rather than periodic list checks.
+Watch next
+Whether CMS expands the Preclusion List=E2=80=99s ownership and pharmacy scop=
+e or places explicit screening obligations on MA and Part D sponsors.
+What I'm Watching Next
+October 6, 2026:
+Scheduled Federal Register publication of the Transparency in Coverage final =
+rules. (
+Federal Register, public-inspection notice, October 5, 2026
+). (
+federalregister.gov
+)
+October 15, 2026:
+Medicare open enrollment begins, providing the first market test of 2027 MA n=
+onrenewals and product redesign.
+October 21, 2026:
+Comment period closes on preliminary 2027 Clinical Laboratory Fee Schedule ra=
+tes. (
+CMS, September 21, 2026
+). (
+cms.gov
+)
+Bottom Line
+The week=E2=80=99s most important change is the resolution of the 2027 MA lan=
+dscape: national access remains broad, but carrier-level product pruning conf=
+irms that margin repair is occurring through localized exits, narrower design=
+s and member migration. MA plan continuity requires the closest attention. Op=
+en enrollment beginning October 15 is the next event most likely to reveal wh=
+ether retrenchment improves payer mix without materially weakening competitiv=
+e position.
+Market Snapshot
+Subcategory returns
+Subcategory
+3m Return
+12m Return
+24m Return
+Precision Diagnostics
++28.5%
++121.5%
++194.4%
+Health System Providers
++8.3%
++2.5%
++14.9%
+Health IT and Data
++6.6%
+-38.8%
+-9.5%
+Pharma Distribution
++6.2%
++23.1%
++74.6%
+Inpatient Non-Acute Providers
++3.2%
++48.0%
++13.9%
+Health Care Real Estate
+-6.0%
++23.4%
++58.6%
+Outpatient and Home Providers
+-7.4%
++35.5%
++69.0%
+Digital Health, Specialty, Benefits
+-9.1%
+-0.4%
++32.8%
+Payers
+-11.6%
++8.5%
+-13.6%
+Value-Based Care
+-26.4%
++53.6%
+-6.5%
+Largest company moves: price change since September 28, 2026
+Company
+Ticker
+Market cap
+Price Move
+PacBio
+PACB
+$447.3M
++56.8%
+10x Genomics
+TXG
+$6.1B
++9.1%
+BrightSpring Health Services
+BTSG
+$12.4B
++6.5%
+BillionToOne
+BLLN
+$6.5B
+-14.0%
+Tempus AI
+TEM
+$8.5B
+-9.9%
+P3 Health
+PIII
+$32.7M
+-9.8%
+Informational only; not investment advice.
+
+--==healthcare-intel-0-49aa062856085c2cc72b88a7==
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+<!doctype html><html><head><meta charset=3D"utf-8"><meta name=3D"viewport" co=
+ntent=3D"width=3Ddevice-width,initial-scale=3D1"><title>Healthcare Intel Dige=
+st =E2=80=93 October 5, 2026</title></head><body style=3D"margin:0;padding:0;=
+background:#ffffff;"><table role=3D"presentation" width=3D"100%" cellpadding=
+=3D"0" cellspacing=3D"0"><tr><td align=3D"center"><table role=3D"presentation=
+" width=3D"640" cellpadding=3D"0" cellspacing=3D"0" style=3D"width:100%;max-w=
+idth:640px;"><tr><td style=3D"padding:16px 12px;text-align:left;"><h1 style=
+=3D"font-family:Georgia, 'Times New Roman', serif;font-size:26px;color:#12395=
+b;margin:0 0 6px;">Healthcare Intel Digest</h1><p style=3D"font-family:Arial,=
+ Helvetica, sans-serif;font-size:15px;line-height:1.5;color:#1f2933;margin:0 =
+0 12px;color:#52606d;font-size:14px;">October 5, 2026 =C2=B7 Market data thro=
+ugh October 2, 2026</p><table role=3D"presentation" width=3D"100%" cellpaddin=
+g=3D"0" cellspacing=3D"0" style=3D"background:#f3f6f9;margin:14px 0 6px;"><tr=
+><td style=3D"padding:12px 16px;"><p style=3D"font-family:Arial, Helvetica, s=
+ans-serif;font-size:15px;line-height:1.5;color:#1f2933;margin:0 0 12px;font-w=
+eight:bold;margin-bottom:6px;">Contents</p><ul style=3D"margin:0 0 12px;paddi=
+ng-left:22px;margin-bottom:0;"><li style=3D"font-family:Arial, Helvetica, san=
+s-serif;font-size:15px;line-height:1.5;color:#1f2933;margin:0 0 6px;"><a href=
+=3D"#news" style=3D"color:#1a5e9a;text-decoration:underline;">In the News</a>=
+<ul style=3D"margin:0 0 12px;padding-left:22px;margin-top:4px;"><li style=3D"=
+font-family:Arial, Helvetica, sans-serif;font-size:15px;line-height:1.5;color=
+:#1f2933;margin:0 0 6px;font-size:14px;"><a href=3D"#story-1" style=3D"color:=
+#1a5e9a;text-decoration:underline;">1. Aggregate MA stability conceals target=
+ed carrier retrenchment</a></li><li style=3D"font-family:Arial, Helvetica, sa=
+ns-serif;font-size:15px;line-height:1.5;color:#1f2933;margin:0 0 6px;font-siz=
+e:14px;"><a href=3D"#story-2" style=3D"color:#1a5e9a;text-decoration:underlin=
+e;">2. Transparency in Coverage shifts from file production to governed data =
+infrastructure</a></li><li style=3D"font-family:Arial, Helvetica, sans-serif;=
+font-size:15px;line-height:1.5;color:#1f2933;margin:0 0 6px;font-size:14px;">=
+<a href=3D"#story-3" style=3D"color:#1a5e9a;text-decoration:underline;">3. GL=
+OBE survives as a mandatory model but loses most of its proposed economic rea=
+ch</a></li><li style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15=
+px;line-height:1.5;color:#1f2933;margin:0 0 6px;font-size:14px;"><a href=3D"#=
+story-4" style=3D"color:#1a5e9a;text-decoration:underline;">4. OIG expands th=
+e Medicare preclusion gap into ownership and pharmacy controls</a></li></ul><=
+/li><li style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line=
+-height:1.5;color:#1f2933;margin:0 0 6px;"><a href=3D"#market" style=3D"color=
+:#1a5e9a;text-decoration:underline;">Market Snapshot</a></li></ul></td></tr><=
+/table><h2 style=3D"font-family:Georgia, 'Times New Roman', serif;font-size:2=
+1px;color:#12395b;margin:28px 0 10px;padding-bottom:4px;border-bottom:2px sol=
+id #12395b;"><a name=3D"news" id=3D"news"></a>In the News</h2><h3 style=3D"fo=
+nt-family:Georgia, 'Times New Roman', serif;font-size:17px;color:#12395b;marg=
+in:22px 0 8px;">Executive View</h3>
+<ul style=3D"margin:0 0 12px;padding-left:22px;">
+<li style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-hei=
+ght:1.5;color:#1f2933;margin:0 0 6px;"><strong>The final 2027 Medicare Advant=
+age landscape resolves the benefit-retrenchment question but reveals a two-sp=
+eed market.</strong> National plan availability and average premiums appear s=
+table, while major carriers are pruning underperforming products and shifting=
+ toward HMOs and special-needs plans.</li>
+<li style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-hei=
+ght:1.5;color:#1f2933;margin:0 0 6px;"><strong>Federal price-transparency pol=
+icy moved from data volume toward data usability and accountability.</strong>=
+ New requirements reduce redundant files but add utilization context, provide=
+r-taxonomy logic and senior-official attestations, changing the opportunity f=
+or transparency-data vendors.</li>
+<li style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-hei=
+ght:1.5;color:#1f2933;margin:0 0 6px;"><strong>CMS finalized international re=
+ference pricing for Part B drugs, but at a fraction of the proposed economic =
+scale.</strong> GLOBE remains operationally complex for selected providers wh=
+ile targeting less than 1% of relevant Original Medicare Part B drug spending=
+.</li>
+<li style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-hei=
+ght:1.5;color:#1f2933;margin:0 0 6px;"><strong>OIG identified a broader Medic=
+are managed-care screening failure.</strong> Plans paid $72 million for servi=
+ces associated with revoked or otherwise problematic providers, extending the=
+ integrity gap from individual suppliers into ownership, pharmacy and list-ma=
+nagement controls.</li>
+<li style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-hei=
+ght:1.5;color:#1f2933;margin:0 0 6px;"><strong>Overall environment: modestly =
+deteriorated for MA plan continuity and payment integrity; improved for trans=
+parency-data quality; broadly unchanged for near-term provider drug economics=
+.</strong></li>
+</ul>
+<h3 style=3D"font-family:Georgia, 'Times New Roman', serif;font-size:17px;col=
+or:#12395b;margin:22px 0 8px;"><a id=3D"story-1" name=3D"story-1" style=3D"co=
+lor:#1a5e9a;text-decoration:underline;"></a>1. Aggregate MA stability conceal=
+s targeted carrier retrenchment</h3>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>Status:</strong> RESOLVE</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>What happened</strong></p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">The September 28 Medicare Advantage la=
+ndscape resolves the preliminary plan-design signals discussed earlier in Sep=
+tember. CMS projects that the weighted average monthly MA premium will declin=
+e 16.5%, from $14.37 in 2026 to $12.00 in 2027. The number of available plans=
+ is expected to remain nearly flat=E2=80=945,532 versus 5,553=E2=80=94while m=
+ore than 99% of beneficiaries retain access to at least one MA plan and 97% h=
+ave at least 10 choices. CMS projects 34 million enrollees, or 47.4% of Medic=
+are beneficiaries. (<a href=3D"https://www.cms.gov/newsroom/press-releases/me=
+dicare-advantage-medicare-prescription-drug-programs-expected-remain-stable-2=
+027" style=3D"color:#1a5e9a;text-decoration:underline;">CMS, =E2=80=9CMedicar=
+e Advantage and Medicare Prescription Drug Programs Expected to Remain Stable=
+ in 2027,=E2=80=9D September 28, 2026</a>). (<a href=3D"https://www.cms.gov/n=
+ewsroom/press-releases/medicare-advantage-medicare-prescription-drug-programs=
+-expected-remain-stable-2027?utm_source=3Dopenai" style=3D"color:#1a5e9a;text=
+-decoration:underline;">cms.gov</a>)</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">The national totals obscure substantia=
+l portfolio rotation. Analysis of the CMS files found heavy product reduction=
+s by UnitedHealthcare and Humana offset partly by continued growth in special=
+-needs plans. UnitedHealthcare separately confirmed that it is discontinuing =
+plans and changing service areas effective January 1, with nonrenewal notices=
+ dated October 2. (<a href=3D"https://www.healthcaredive.com/news/medicare-ad=
+vantage-cuts-2027-cms-landscape/831563/" style=3D"color:#1a5e9a;text-decorati=
+on:underline;">Healthcare Dive, =E2=80=9CHere=E2=80=99s how much insurers are=
+ cutting Medicare Advantage plans for 2027,=E2=80=9D September 29, 2026</a>; =
+<a href=3D"https://ams-gateway.uhcprovider.com/en/resource-library/news/2026/=
+medadv-2027-service-area-changes.html" style=3D"color:#1a5e9a;text-decoration=
+:underline;">UnitedHealthcare, =E2=80=9C2027 Medicare Advantage service area =
+changes,=E2=80=9D October 1, 2026</a>). (<a href=3D"https://www.healthcarediv=
+e.com/news/medicare-advantage-cuts-2027-cms-landscape/831563/?trk=3Darticle-s=
+sr-frontend-pulse_little-text-block&amp;utm_source=3Dopenai" style=3D"color:#=
+1a5e9a;text-decoration:underline;">healthcaredive.com</a>)</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>Implication</strong></p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">The prior thesis is now more precise: =
+MA margin repair is being pursued through local product selection, network st=
+ructure and benefit design rather than broad premium increases or a nationwid=
+e withdrawal. Average premiums therefore overstate stability because they do =
+not capture changes in cost sharing, supplemental allowances, provider access=
+ or forced member switching.</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">The directional benefit for carriers i=
+s improved 2027 risk selection and reduced exposure to structurally unprofita=
+ble markets. Providers face greater referral and contracting concentration as=
+ enrollment shifts toward narrower HMO and SNP products. Distribution, member=
+-comparison and provider-directory platforms should expect elevated demand du=
+ring open enrollment, particularly where nonrenewals require beneficiaries to=
+ choose replacement coverage.</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>Watch next</strong></p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">Enrollment migration during the Octobe=
+r 15=E2=80=93December 7 open-enrollment period, especially whether product ex=
+its move members toward competitors or into carriers=E2=80=99 narrower succes=
+sor plans.</p>
+<hr style=3D"border:0;border-top:1px solid #d5dde3;margin:18px 0;"/>
+<h3 style=3D"font-family:Georgia, 'Times New Roman', serif;font-size:17px;col=
+or:#12395b;margin:22px 0 8px;"><a id=3D"story-2" name=3D"story-2" style=3D"co=
+lor:#1a5e9a;text-decoration:underline;"></a>2. Transparency in Coverage shift=
+s from file production to governed data infrastructure</h3>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>Status:</strong> NEW</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>What happened</strong></p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">On October 5, the Departments of HHS, =
+Labor and Treasury finalized revisions to the Transparency in Coverage rules.=
+ Plans and issuers will report one in-network-rate file per provider network =
+rather than per plan, move in-network and out-of-network files from monthly t=
+o quarterly publication, and exclude clinically implausible provider-service =
+combinations using the same taxonomy logic employed in claims adjudication.</=
+p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">The rules also add provider-taxonomy a=
+nd utilization files, lower the out-of-network reporting threshold from 20 cl=
+aims to 11, require standardized file-location information and mandate attest=
+ations that the disclosures are complete and accurate. Each file must identif=
+y the CEO, president or designated senior official responsible for oversight.=
+ The departments estimate approximately $174.5 million of annual net savings =
+for plans and issuers beginning in the second implementation year. (<a href=
+=3D"https://www.cms.gov/newsroom/fact-sheets/transparency-coverage-final-rule=
+s-cms-9882-f" style=3D"color:#1a5e9a;text-decoration:underline;">CMS, =E2=80=
+=9CTransparency in Coverage Final Rules,=E2=80=9D October 5, 2026</a>). (<a h=
+ref=3D"https://www.cms.gov/newsroom/fact-sheets/transparency-coverage-final-r=
+ules-cms-9882-f" style=3D"color:#1a5e9a;text-decoration:underline;">cms.gov</=
+a>)</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">The in-network and out-of-network amen=
+dments apply five months after Federal Register publication; the new taxonomy=
+, utilization and location files apply after 11 months. Telephone access to p=
+ersonalized cost-sharing information applies for plan years beginning January=
+ 1, 2027. Prescription-drug file development begins in November 2026, with pu=
+blication expected to start in December 2027. (<a href=3D"https://www.cms.gov=
+/newsroom/press-releases/new-regulations-make-it-easier-find-compare-report-h=
+ealthcare-pricing-coverage-information" style=3D"color:#1a5e9a;text-decoratio=
+n:underline;">CMS, =E2=80=9CNew Regulations Make It Easier to Find, Compare, =
+and Report Healthcare Pricing and Coverage Information,=E2=80=9D October 5, 2=
+026</a>). (<a href=3D"https://www.cms.gov/newsroom/press-releases/new-regulat=
+ions-make-it-easier-find-compare-report-healthcare-pricing-coverage-informati=
+on" style=3D"color:#1a5e9a;text-decoration:underline;">cms.gov</a>)</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>Implication</strong></p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">The opportunity is moving away from br=
+ute-force hosting and ingestion of enormous duplicate files. Competitive adva=
+ntage will increasingly come from provider identity resolution, taxonomy mapp=
+ing, contractual-rate normalization, utilization context and defensible data-=
+quality controls.</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">For plans, quarterly reporting and net=
+work-level files reduce infrastructure expense, but senior-official attestati=
+on turns data accuracy into an enterprise compliance issue. For employers and=
+ providers, more usable out-of-network and utilization data should improve be=
+nchmarking and contract analysis. Vendors dependent primarily on storage volu=
+me face pressure; platforms that connect transparency data to claims, network=
+ design and contracting gain relevance.</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>Watch next</strong></p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">Technical guidance specifying the sing=
+le machine-readable format and how regulators evaluate taxonomy exclusions, u=
+tilization completeness and executive attestations.</p>
+<hr style=3D"border:0;border-top:1px solid #d5dde3;margin:18px 0;"/>
+<h3 style=3D"font-family:Georgia, 'Times New Roman', serif;font-size:17px;col=
+or:#12395b;margin:22px 0 8px;"><a id=3D"story-3" name=3D"story-3" style=3D"co=
+lor:#1a5e9a;text-decoration:underline;"></a>3. GLOBE survives as a mandatory =
+model but loses most of its proposed economic reach</h3>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>Status:</strong> UPDATE</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>What happened</strong></p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">CMS finalized the Global Benchmark for=
+ Efficient Drug Pricing Model, effective November 30. The mandatory manufactu=
+rer model begins January 1, 2027; international-benchmark rebates and reduced=
+ beneficiary coinsurance start April 1 and continue through March 31, 2032, w=
+ith reconciliation extending into 2034. Selected geographic areas will repres=
+ent approximately 25% of Original Medicare Part B beneficiaries. (<a href=3D"=
+https://www.cms.gov/priorities/innovation/innovation-models/globe" style=3D"c=
+olor:#1a5e9a;text-decoration:underline;">CMS Innovation Center, =E2=80=9CGLOB=
+E Model,=E2=80=9D updated October 2, 2026</a>). (<a href=3D"https://www.cms.g=
+ov/priorities/innovation/innovation-models/globe?utm_source=3Dopenai" style=
+=3D"color:#1a5e9a;text-decoration:underline;">cms.gov</a>)</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">The final model is materially narrower=
+ than proposed. CMS estimates that covered utilization will represent less th=
+an 1% of non-dual, non-340B Original Medicare Part B drug spending. Estimated=
+ annualized Part B savings fell from $2.3 billion in the proposal to $80 mill=
+ion in the final rule; cumulative estimates include $298 million for Original=
+ Medicare, $288 million from subsequent MA benchmark effects and $39 million =
+for Medicaid. CMS estimates $177 million of beneficiary premium and coinsuran=
+ce savings. The standard provider add-on remains 6% of average sales price fo=
+r most drugs. (<a href=3D"https://www.govinfo.gov/content/pkg/FR-2026-10-02/h=
+tml/2026-20281.htm" style=3D"color:#1a5e9a;text-decoration:underline;">Federa=
+l Register, =E2=80=9CGlobal Benchmark for Efficient Drug Pricing Model,=E2=80=
+=9D October 2, 2026</a>). (<a href=3D"https://www.govinfo.gov/content/pkg/FR-=
+2026-10-02/html/2026-20281.htm" style=3D"color:#1a5e9a;text-decoration:underl=
+ine;">govinfo.gov</a>)</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>Implication</strong></p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">GLOBE is not a broad reset of oncology=
+ or specialty-infusion economics. Its immediate burden is operational: select=
+ed providers must identify eligible beneficiaries and drugs, collect the corr=
+ect reduced coinsurance and reconcile geographically variable claim treatment=
+. Because Medicare adjusts its payment when beneficiary coinsurance falls, th=
+e model does not directly reduce the allowed provider payment.</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">The longer-term payer effect is small =
+but directionally negative for MA rebates: lower Original Medicare spending f=
+lows into benchmarks beginning with 2028 rate setting. Technology demand shou=
+ld concentrate in eligibility, charge-capture and patient-responsibility work=
+flows rather than widespread drug-cost management.</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>Watch next</strong></p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">CMS=E2=80=99s selected geographic area=
+s and initial drug list, which will determine which oncology practices, hospi=
+tal outpatient departments and billing platforms must implement the model.</p>
+<hr style=3D"border:0;border-top:1px solid #d5dde3;margin:18px 0;"/>
+<h3 style=3D"font-family:Georgia, 'Times New Roman', serif;font-size:17px;col=
+or:#12395b;margin:22px 0 8px;"><a id=3D"story-4" name=3D"story-4" style=3D"co=
+lor:#1a5e9a;text-decoration:underline;"></a>4. OIG expands the Medicare precl=
+usion gap into ownership and pharmacy controls</h3>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>Status:</strong> UPDATE</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>What happened</strong></p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">Prior audits showed that suppliers rem=
+oved from Original Medicare could continue billing MA plans. OIG now reports =
+that MA organizations and Part D plans paid $72 million during 2022=E2=80=932=
+024 for services associated with 249 of 1,017 revoked provider identifiers re=
+viewed.</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">OIG attributed the payments to delays =
+and errors in CMS=E2=80=99s Preclusion List, failure to list some organizatio=
+ns whose owners were excluded or convicted of felonies, and regulations that =
+do not subject dispensing-only pharmacies to preclusion. OIG issued no formal=
+ recommendations but said the findings could support future regulation or gui=
+dance. (<a href=3D"https://oig.hhs.gov/reports/all/2026/medicare-advantage-or=
+ganizations-and-prescription-drug-plans-paid-72-million-during-a-3-year-perio=
+d-for-services-associated-with-excluded-providers-or-individuals-convicted-of=
+-certain-felonies/" style=3D"color:#1a5e9a;text-decoration:underline;">HHS-OI=
+G, =E2=80=9CMedicare Advantage Organizations and Prescription Drug Plans Paid=
+ $72 Million During a 3-Year Period for Services Associated With Excluded Pro=
+viders or Individuals Convicted of Certain Felonies,=E2=80=9D October 1, 2026=
+</a>). (<a href=3D"https://oig.hhs.gov/reports/all/2026/medicare-advantage-or=
+ganizations-and-prescription-drug-plans-paid-72-million-during-a-3-year-perio=
+d-for-services-associated-with-excluded-providers-or-individuals-convicted-of=
+-certain-felonies/" style=3D"color:#1a5e9a;text-decoration:underline;">oig.hh=
+s.gov</a>)</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>Implication</strong></p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">NPI-level screening is insufficient wh=
+en exclusion risk can sit with an owner, affiliated organization or dispensin=
+g pharmacy. Plans need entity-resolution controls that connect enrollment sta=
+tus, ownership, felony and exclusion data across Parts A, B, C and D.</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">The direct $72 million finding is mode=
+st relative to total managed-care spending, but the control failure creates r=
+ecovery, audit and reputational exposure. It strengthens demand for continuou=
+sly refreshed provider-master data and prepayment screening rather than perio=
+dic list checks.</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>Watch next</strong></p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">Whether CMS expands the Preclusion Lis=
+t=E2=80=99s ownership and pharmacy scope or places explicit screening obligat=
+ions on MA and Part D sponsors.</p>
+<h3 style=3D"font-family:Georgia, 'Times New Roman', serif;font-size:17px;col=
+or:#12395b;margin:22px 0 8px;">What I'm Watching Next</h3>
+<ul style=3D"margin:0 0 12px;padding-left:22px;">
+<li style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-hei=
+ght:1.5;color:#1f2933;margin:0 0 6px;"><strong>October 6, 2026:</strong> Sche=
+duled Federal Register publication of the Transparency in Coverage final rule=
+s. (<a href=3D"https://www.federalregister.gov/public-inspection/2026-20447/t=
+ransparency-in-coverage" style=3D"color:#1a5e9a;text-decoration:underline;">F=
+ederal Register, public-inspection notice, October 5, 2026</a>). (<a href=3D"=
+https://www.federalregister.gov/public-inspection/2026-20447/transparency-in-=
+coverage" style=3D"color:#1a5e9a;text-decoration:underline;">federalregister.=
+gov</a>)</li>
+<li style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-hei=
+ght:1.5;color:#1f2933;margin:0 0 6px;"><strong>October 15, 2026:</strong> Med=
+icare open enrollment begins, providing the first market test of 2027 MA nonr=
+enewals and product redesign.</li>
+<li style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-hei=
+ght:1.5;color:#1f2933;margin:0 0 6px;"><strong>October 21, 2026:</strong> Com=
+ment period closes on preliminary 2027 Clinical Laboratory Fee Schedule rates=
+. (<a href=3D"https://www.cms.gov/newsroom/fact-sheets/preliminary-calendar-y=
+ear-cy-2027-medicare-clinical-laboratory-fee-schedule-payment-rates" style=3D=
+"color:#1a5e9a;text-decoration:underline;">CMS, September 21, 2026</a>). (<a =
+href=3D"https://www.cms.gov/newsroom/press-releases/cms-announces-new-prelimi=
+nary-medicare-payment-rates-laboratory-services-saving-taxpayers-estimated?ut=
+m_source=3Dopenai" style=3D"color:#1a5e9a;text-decoration:underline;">cms.gov=
+</a>)</li>
+</ul>
+<h3 style=3D"font-family:Georgia, 'Times New Roman', serif;font-size:17px;col=
+or:#12395b;margin:22px 0 8px;">Bottom Line</h3>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">The week=E2=80=99s most important chan=
+ge is the resolution of the 2027 MA landscape: national access remains broad,=
+ but carrier-level product pruning confirms that margin repair is occurring t=
+hrough localized exits, narrower designs and member migration. MA plan contin=
+uity requires the closest attention. Open enrollment beginning October 15 is =
+the next event most likely to reveal whether retrenchment improves payer mix =
+without materially weakening competitive position.</p><h2 style=3D"font-famil=
+y:Georgia, 'Times New Roman', serif;font-size:21px;color:#12395b;margin:28px =
+0 10px;padding-bottom:4px;border-bottom:2px solid #12395b;"><a name=3D"market=
+" id=3D"market"></a>Market Snapshot</h2><h3 style=3D"font-family:Georgia, 'Ti=
+mes New Roman', serif;font-size:17px;color:#12395b;margin:22px 0 8px;">Subcat=
+egory returns</h3><table role=3D"presentation" cellpadding=3D"0" cellspacing=
+=3D"0" style=3D"border-collapse:collapse;width:100%;margin:0 0 14px;"><tr><th=
+ style=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;text-align:=
+left;padding:6px 8px;background:#f3f5f7;color:#1f2933;border-bottom:1px solid=
+ #d5dde3;">Subcategory</th><th style=3D"font-family:Arial, Helvetica, sans-se=
+rif;font-size:13px;text-align:left;padding:6px 8px;background:#f3f5f7;color:#=
+1f2933;border-bottom:1px solid #d5dde3;text-align:right;">3m Return</th><th s=
+tyle=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;text-align:le=
+ft;padding:6px 8px;background:#f3f5f7;color:#1f2933;border-bottom:1px solid #=
+d5dde3;text-align:right;">12m Return</th><th style=3D"font-family:Arial, Helv=
+etica, sans-serif;font-size:13px;text-align:left;padding:6px 8px;background:#=
+f3f5f7;color:#1f2933;border-bottom:1px solid #d5dde3;text-align:right;">24m R=
+eturn</th></tr><tr><td style=3D"font-family:Arial, Helvetica, sans-serif;font=
+-size:13px;padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;">Pr=
+ecision Diagnostics</td><td style=3D"font-family:Arial, Helvetica, sans-serif=
+;font-size:13px;padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0=
+;text-align:right;background:#1a7a3c;color:#ffffff;">+28.5%</td><td style=3D"=
+font-family:Arial, Helvetica, sans-serif;font-size:13px;padding:6px 8px;color=
+:#1f2933;border-bottom:1px solid #e9edf0;text-align:right;background:#1a7a3c;=
+color:#ffffff;">+121.5%</td><td style=3D"font-family:Arial, Helvetica, sans-s=
+erif;font-size:13px;padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9=
+edf0;text-align:right;background:#1a7a3c;color:#ffffff;">+194.4%</td></tr><tr=
+><td style=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;padding=
+:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;">Health System Provid=
+ers</td><td style=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;=
+padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;text-align:righ=
+t;background:#a9d9a4;color:#111820;">+8.3%</td><td style=3D"font-family:Arial=
+, Helvetica, sans-serif;font-size:13px;padding:6px 8px;color:#1f2933;border-b=
+ottom:1px solid #e9edf0;text-align:right;background:#d6ecd4;color:#111820;">+=
+2.5%</td><td style=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px=
+;padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;text-align:rig=
+ht;background:#d6ecd4;color:#111820;">+14.9%</td></tr><tr><td style=3D"font-f=
+amily:Arial, Helvetica, sans-serif;font-size:13px;padding:6px 8px;color:#1f29=
+33;border-bottom:1px solid #e9edf0;">Health IT and Data</td><td style=3D"font=
+-family:Arial, Helvetica, sans-serif;font-size:13px;padding:6px 8px;color:#1f=
+2933;border-bottom:1px solid #e9edf0;text-align:right;background:#a9d9a4;colo=
+r:#111820;">+6.6%</td><td style=3D"font-family:Arial, Helvetica, sans-serif;f=
+ont-size:13px;padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;t=
+ext-align:right;background:#f5aead;color:#111820;">-38.8%</td><td style=3D"fo=
+nt-family:Arial, Helvetica, sans-serif;font-size:13px;padding:6px 8px;color:#=
+1f2933;border-bottom:1px solid #e9edf0;text-align:right;background:#fbd5d4;co=
+lor:#111820;">-9.5%</td></tr><tr><td style=3D"font-family:Arial, Helvetica, s=
+ans-serif;font-size:13px;padding:6px 8px;color:#1f2933;border-bottom:1px soli=
+d #e9edf0;">Pharma Distribution</td><td style=3D"font-family:Arial, Helvetica=
+, sans-serif;font-size:13px;padding:6px 8px;color:#1f2933;border-bottom:1px s=
+olid #e9edf0;text-align:right;background:#a9d9a4;color:#111820;">+6.2%</td><t=
+d style=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;padding:6p=
+x 8px;color:#1f2933;border-bottom:1px solid #e9edf0;text-align:right;backgrou=
+nd:#d6ecd4;color:#111820;">+23.1%</td><td style=3D"font-family:Arial, Helveti=
+ca, sans-serif;font-size:13px;padding:6px 8px;color:#1f2933;border-bottom:1px=
+ solid #e9edf0;text-align:right;background:#a9d9a4;color:#111820;">+74.6%</td=
+></tr><tr><td style=3D"font-family:Arial, Helvetica, sans-serif;font-size:13p=
+x;padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;">Inpatient N=
+on-Acute Providers</td><td style=3D"font-family:Arial, Helvetica, sans-serif;=
+font-size:13px;padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;=
+text-align:right;background:#d6ecd4;color:#111820;">+3.2%</td><td style=3D"fo=
+nt-family:Arial, Helvetica, sans-serif;font-size:13px;padding:6px 8px;color:#=
+1f2933;border-bottom:1px solid #e9edf0;text-align:right;background:#a9d9a4;co=
+lor:#111820;">+48.0%</td><td style=3D"font-family:Arial, Helvetica, sans-seri=
+f;font-size:13px;padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf=
+0;text-align:right;background:#d6ecd4;color:#111820;">+13.9%</td></tr><tr><td=
+ style=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;padding:6px=
+ 8px;color:#1f2933;border-bottom:1px solid #e9edf0;">Health Care Real Estate<=
+/td><td style=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;padd=
+ing:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;text-align:right;ba=
+ckground:#f5aead;color:#111820;">-6.0%</td><td style=3D"font-family:Arial, He=
+lvetica, sans-serif;font-size:13px;padding:6px 8px;color:#1f2933;border-botto=
+m:1px solid #e9edf0;text-align:right;background:#d6ecd4;color:#111820;">+23.4=
+%</td><td style=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;pa=
+dding:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;text-align:right;=
+background:#a9d9a4;color:#111820;">+58.6%</td></tr><tr><td style=3D"font-fami=
+ly:Arial, Helvetica, sans-serif;font-size:13px;padding:6px 8px;color:#1f2933;=
+border-bottom:1px solid #e9edf0;">Outpatient and Home Providers</td><td style=
+=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;padding:6px 8px;c=
+olor:#1f2933;border-bottom:1px solid #e9edf0;text-align:right;background:#f5a=
+ead;color:#111820;">-7.4%</td><td style=3D"font-family:Arial, Helvetica, sans=
+-serif;font-size:13px;padding:6px 8px;color:#1f2933;border-bottom:1px solid #=
+e9edf0;text-align:right;background:#a9d9a4;color:#111820;">+35.5%</td><td sty=
+le=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;padding:6px 8px=
+;color:#1f2933;border-bottom:1px solid #e9edf0;text-align:right;background:#a=
+9d9a4;color:#111820;">+69.0%</td></tr><tr><td style=3D"font-family:Arial, Hel=
+vetica, sans-serif;font-size:13px;padding:6px 8px;color:#1f2933;border-bottom=
+:1px solid #e9edf0;">Digital Health, Specialty, Benefits</td><td style=3D"fon=
+t-family:Arial, Helvetica, sans-serif;font-size:13px;padding:6px 8px;color:#1=
+f2933;border-bottom:1px solid #e9edf0;text-align:right;background:#f5aead;col=
+or:#111820;">-9.1%</td><td style=3D"font-family:Arial, Helvetica, sans-serif;=
+font-size:13px;padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;=
+text-align:right;background:#fbd5d4;color:#111820;">-0.4%</td><td style=3D"fo=
+nt-family:Arial, Helvetica, sans-serif;font-size:13px;padding:6px 8px;color:#=
+1f2933;border-bottom:1px solid #e9edf0;text-align:right;background:#d6ecd4;co=
+lor:#111820;">+32.8%</td></tr><tr><td style=3D"font-family:Arial, Helvetica, =
+sans-serif;font-size:13px;padding:6px 8px;color:#1f2933;border-bottom:1px sol=
+id #e9edf0;">Payers</td><td style=3D"font-family:Arial, Helvetica, sans-serif=
+;font-size:13px;padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0=
+;text-align:right;background:#ee8483;color:#111820;">-11.6%</td><td style=3D"=
+font-family:Arial, Helvetica, sans-serif;font-size:13px;padding:6px 8px;color=
+:#1f2933;border-bottom:1px solid #e9edf0;text-align:right;background:#d6ecd4;=
+color:#111820;">+8.5%</td><td style=3D"font-family:Arial, Helvetica, sans-ser=
+if;font-size:13px;padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9ed=
+f0;text-align:right;background:#fbd5d4;color:#111820;">-13.6%</td></tr><tr><t=
+d style=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;padding:6p=
+x 8px;color:#1f2933;border-bottom:1px solid #e9edf0;">Value-Based Care</td><t=
+d style=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;padding:6p=
+x 8px;color:#1f2933;border-bottom:1px solid #e9edf0;text-align:right;backgrou=
+nd:#c0302f;color:#ffffff;">-26.4%</td><td style=3D"font-family:Arial, Helveti=
+ca, sans-serif;font-size:13px;padding:6px 8px;color:#1f2933;border-bottom:1px=
+ solid #e9edf0;text-align:right;background:#7cc077;color:#111820;">+53.6%</td=
+><td style=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;padding=
+:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;text-align:right;backg=
+round:#fbd5d4;color:#111820;">-6.5%</td></tr></table><h3 style=3D"font-family=
+:Georgia, 'Times New Roman', serif;font-size:17px;color:#12395b;margin:22px 0=
+ 8px;">Largest company moves: price change since September 28, 2026</h3><tabl=
+e role=3D"presentation" cellpadding=3D"0" cellspacing=3D"0" style=3D"border-c=
+ollapse:collapse;width:100%;margin:0 0 14px;"><tr><th style=3D"font-family:Ar=
+ial, Helvetica, sans-serif;font-size:13px;text-align:left;padding:6px 8px;bac=
+kground:#f3f5f7;color:#1f2933;border-bottom:1px solid #d5dde3;">Company</th><=
+th style=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;text-alig=
+n:left;padding:6px 8px;background:#f3f5f7;color:#1f2933;border-bottom:1px sol=
+id #d5dde3;">Ticker</th><th style=3D"font-family:Arial, Helvetica, sans-serif=
+;font-size:13px;text-align:left;padding:6px 8px;background:#f3f5f7;color:#1f2=
+933;border-bottom:1px solid #d5dde3;text-align:right;">Market cap</th><th sty=
+le=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;text-align:left=
+;padding:6px 8px;background:#f3f5f7;color:#1f2933;border-bottom:1px solid #d5=
+dde3;text-align:right;">Price Move</th></tr><tr><td style=3D"font-family:Aria=
+l, Helvetica, sans-serif;font-size:13px;padding:6px 8px;color:#1f2933;border-=
+bottom:1px solid #e9edf0;">PacBio</td><td style=3D"font-family:Arial, Helveti=
+ca, sans-serif;font-size:13px;padding:6px 8px;color:#1f2933;border-bottom:1px=
+ solid #e9edf0;"><a href=3D"https://www.google.com/finance/quote/PACB:NASDAQ?=
+hl=3Den" style=3D"color:#1a5e9a;text-decoration:underline;">PACB</a></td><td =
+style=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;padding:6px =
+8px;color:#1f2933;border-bottom:1px solid #e9edf0;text-align:right;">$447.3M<=
+/td><td style=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;padd=
+ing:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;text-align:right;ba=
+ckground:#1a7a3c;color:#ffffff;">+56.8%</td></tr><tr><td style=3D"font-family=
+:Arial, Helvetica, sans-serif;font-size:13px;padding:6px 8px;color:#1f2933;bo=
+rder-bottom:1px solid #e9edf0;">10x Genomics</td><td style=3D"font-family:Ari=
+al, Helvetica, sans-serif;font-size:13px;padding:6px 8px;color:#1f2933;border=
+-bottom:1px solid #e9edf0;"><a href=3D"https://www.google.com/finance/quote/T=
+XG:NASDAQ?hl=3Den" style=3D"color:#1a5e9a;text-decoration:underline;">TXG</a>=
+</td><td style=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;pad=
+ding:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;text-align:right;"=
+>$6.1B</td><td style=3D"font-family:Arial, Helvetica, sans-serif;font-size:13=
+px;padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;text-align:r=
+ight;background:#d6ecd4;color:#111820;">+9.1%</td></tr><tr><td style=3D"font-=
+family:Arial, Helvetica, sans-serif;font-size:13px;padding:6px 8px;color:#1f2=
+933;border-bottom:1px solid #e9edf0;">BrightSpring Health Services</td><td st=
+yle=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;padding:6px 8p=
+x;color:#1f2933;border-bottom:1px solid #e9edf0;"><a href=3D"https://www.goog=
+le.com/finance/quote/BTSG:NASDAQ?hl=3Den" style=3D"color:#1a5e9a;text-decorat=
+ion:underline;">BTSG</a></td><td style=3D"font-family:Arial, Helvetica, sans-=
+serif;font-size:13px;padding:6px 8px;color:#1f2933;border-bottom:1px solid #e=
+9edf0;text-align:right;">$12.4B</td><td style=3D"font-family:Arial, Helvetica=
+, sans-serif;font-size:13px;padding:6px 8px;color:#1f2933;border-bottom:1px s=
+olid #e9edf0;text-align:right;background:#d6ecd4;color:#111820;">+6.5%</td></=
+tr><tr><td style=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;p=
+adding:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;">BillionToOne</=
+td><td style=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;paddi=
+ng:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;"><a href=3D"https:/=
+/www.google.com/finance/quote/BLLN:NASDAQ?hl=3Den" style=3D"color:#1a5e9a;tex=
+t-decoration:underline;">BLLN</a></td><td style=3D"font-family:Arial, Helveti=
+ca, sans-serif;font-size:13px;padding:6px 8px;color:#1f2933;border-bottom:1px=
+ solid #e9edf0;text-align:right;">$6.5B</td><td style=3D"font-family:Arial, H=
+elvetica, sans-serif;font-size:13px;padding:6px 8px;color:#1f2933;border-bott=
+om:1px solid #e9edf0;text-align:right;background:#f5aead;color:#111820;">-14.=
+0%</td></tr><tr><td style=3D"font-family:Arial, Helvetica, sans-serif;font-si=
+ze:13px;padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;">Tempu=
+s AI</td><td style=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px=
+;padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;"><a href=3D"h=
+ttps://www.google.com/finance/quote/TEM:NASDAQ?hl=3Den" style=3D"color:#1a5e9=
+a;text-decoration:underline;">TEM</a></td><td style=3D"font-family:Arial, Hel=
+vetica, sans-serif;font-size:13px;padding:6px 8px;color:#1f2933;border-bottom=
+:1px solid #e9edf0;text-align:right;">$8.5B</td><td style=3D"font-family:Aria=
+l, Helvetica, sans-serif;font-size:13px;padding:6px 8px;color:#1f2933;border-=
+bottom:1px solid #e9edf0;text-align:right;background:#fbd5d4;color:#111820;">=
+-9.9%</td></tr><tr><td style=3D"font-family:Arial, Helvetica, sans-serif;font=
+-size:13px;padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;">P3=
+ Health</td><td style=3D"font-family:Arial, Helvetica, sans-serif;font-size:1=
+3px;padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;"><a href=
+=3D"https://www.google.com/finance/quote/PIII:NASDAQ?hl=3Den" style=3D"color:=
+#1a5e9a;text-decoration:underline;">PIII</a></td><td style=3D"font-family:Ari=
+al, Helvetica, sans-serif;font-size:13px;padding:6px 8px;color:#1f2933;border=
+-bottom:1px solid #e9edf0;text-align:right;">$32.7M</td><td style=3D"font-fam=
+ily:Arial, Helvetica, sans-serif;font-size:13px;padding:6px 8px;color:#1f2933=
+;border-bottom:1px solid #e9edf0;text-align:right;background:#fbd5d4;color:#1=
+11820;">-9.8%</td></tr></table><p style=3D"font-family:Arial, Helvetica, sans=
+-serif;font-size:15px;line-height:1.5;color:#1f2933;margin:0 0 12px;color:#7b=
+8794;font-size:12px;margin-top:24px;">Informational only; not investment advi=
+ce.</p></td></tr></table></td></tr></table></body></html>
+
+--==healthcare-intel-0-49aa062856085c2cc72b88a7==--

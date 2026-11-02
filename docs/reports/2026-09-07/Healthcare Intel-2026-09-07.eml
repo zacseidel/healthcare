@@ -1,0 +1,2245 @@
+Subject: Healthcare Intel Digest =?utf-8?b?4oCT?= September 7, 2026
+X-Unsent: 1
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="==healthcare-intel-0-ad23a79a9ea4e144ae0bd56d=="
+
+--==healthcare-intel-0-ad23a79a9ea4e144ae0bd56d==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+Healthcare Intel Digest =E2=80=93 September 7, 2026
+Healthcare Intel Digest
+September 7, 2026 =C2=B7 Market data through September 4, 2026
+Contents
+In the News
+1. CMS adds a new verification layer to Medicaid and CHIP eligibility
+2. OIG exposes a $587.7 million Part D reference-data failure
+3. Health Net=E2=80=99s exit reinforces the structural thinning of traditiona=
+l group insurance
+4. VA oversight weakens Oracle Health=E2=80=99s enterprise-execution thesis
+Recent Earnings Highlights
+Phreesia (PHR)
+Upcoming Earnings
+Market Snapshot
+In the News
+Executive View
+Medicaid eligibility operations acquired a new source of friction.
+CMS=E2=80=99s September 4 citizenship-verification guidance introduces additi=
+onal documentary and parental-attestation pathways, creating near-term system=
+s, call-center and appeals work for states and potentially more enrollment vo=
+latility for Medicaid plans.
+Payment integrity=E2=80=99s weak point is often reference data, not detection=
+ algorithms.
+HHS-OIG found $587.7 million of ineligible Part D payments caused by obsolete=
+ prescription-status data and the absence of a rejection deadline after drugs=
+ moved over the counter.
+Traditional employer-group insurance is becoming more segmented.
+Health Net=E2=80=99s California and Oregon exit, coupled with new CBO evidenc=
+e of migration toward level-funded and other non-community-rated arrangements=
+, strengthens the thesis that carriers are concentrating capital where risk a=
+nd administration are more controllable.
+Oracle Health=E2=80=99s largest deployment remains an execution liability rat=
+her than an unqualified reference account.
+Congressional subpoenas and unresolved GAO recommendations increase scrutiny =
+as the VA accelerates implementation.
+Overall environment: modestly deteriorated for Medicaid administration and la=
+rge-platform execution, mixed for commercial payers, and improved for eligibi=
+lity, payment-integrity and implementation-services demand.
+1. CMS adds a new verification layer to Medicaid and CHIP eligibility
+Status:
+NEW
+What happened
+On September 4, CMS issued prospective guidance implementing Executive Order =
+14418 when an applicant or beneficiary asserts U.S. citizenship as the basis =
+for Medicaid or CHIP eligibility. The document reiterates electronic or docum=
+entary verification requirements but introduces a framework under which certa=
+in applicants using separate citizenship and identity documents must also sup=
+ply a qualifying parent document or parental attestation. Where neither paren=
+t has documentary evidence of citizenship, a parent may attest that none of t=
+he exclusions specified by the executive order applies.
+CMS said the guidance became effective upon publication, subject to applicabl=
+e law. It is distinct from=E2=80=94but operationally adjacent to=E2=80=94the =
+October 1, 2026 restrictions on federal Medicaid and CHIP matching funds for =
+specified noncitizen categories.
+CMS, =E2=80=9CCMS Guidance on Continuing to Protect the Meaning and Value of =
+American Citizenship =E2=80=A6 for Medicaid and CHIP Verification Requirement=
+s,=E2=80=9D September 4, 2026
+. (
+hhs.gov
+)
+Implication
+The first-order effect is administrative rather than actuarial. States may ne=
+ed to modify eligibility rules, document-management systems, notices, staff s=
+cripts and appeal workflows while clarifying how the new pathway interacts wi=
+th automated Social Security Administration verification. Eligibility-platfor=
+m, systems-integration and document-processing demand should rise immediately.
+For Medicaid MCOs, the risk is increased procedural churn: delayed determinat=
+ions or documentation failures could interrupt capitation and care-management=
+ continuity even when underlying eligibility has not economically changed. Pr=
+oviders would absorb the corresponding risk through coverage uncertainty and =
+uncompensated care. Magnitude is not yet measurable, and implementation or li=
+tigation could materially change the outcome.
+Watch next
+State implementation instructions; CMS technical guidance on automated verifi=
+cation and pending applications; legal challenges; and whether states report =
+higher denial, pending-case or appeal volumes.
+2. OIG exposes a $587.7 million Part D reference-data failure
+Status:
+NEW
+What happened
+HHS-OIG reported on August 31 that Part D sponsors made $587.7 million of ine=
+ligible payments from 2021 through 2023 for five drugs that remained labeled =
+prescription-only after their brand-name equivalents became available over th=
+e counter. OIG attributed the failure to obsolete FDA information in CMS=E2=
+=80=99s Part D Formulary Reference File and CMS=E2=80=99s lack of a deadline =
+for sponsors to reject claims after an Rx-to-OTC switch.
+CMS concurred with OIG=E2=80=99s recommendation to establish a rejection time=
+frame. OIG did
+not
+recommend recovering the full $587.7 million, so the estimate should not be t=
+reated as a disclosed sponsor repayment liability.
+HHS-OIG, =E2=80=9CCMS Oversight Did Not Prevent Medicare Part D Sponsors From=
+ Making $587.7 Million in Ineligible Payments,=E2=80=9D August 31, 2026
+. (
+oig.hhs.gov
+)
+Implication
+This qualifies last week=E2=80=99s evidence that CMS is moving payment integr=
+ity toward prepayment intervention. Sophisticated anomaly models cannot compe=
+nsate for incorrect product-status data embedded in the adjudication stack.
+Part D plans and PBMs need tighter synchronization across FDA labeling, CMS f=
+ormulary files, National Drug Codes and point-of-sale edits. The commercial o=
+pportunity favors vendors that combine regulatory reference-data management w=
+ith configurable claims rules, exception handling and audit trails=E2=80=94no=
+t analytics alone. Sponsors face remediation costs and prospective leakage re=
+duction, but a reliable public estimate of direct plan-level exposure is unav=
+ailable.
+Watch next
+CMS=E2=80=99s rejection deadline; whether sponsors must review historical pre=
+scription-drug-event records; and whether OIG expands the methodology to term=
+inated NDCs, excluded products or other formulary-status mismatches.
+3. Health Net=E2=80=99s exit reinforces the structural thinning of traditiona=
+l group insurance
+Status:
+NEW
+What happened
+Health Net began notifying employers and brokers on September 1 that it will =
+exit traditional small- and large-group HMO, PPO and POS products in Californ=
+ia and Oregon. Coverage will generally end February 28, 2027. Centene said th=
+e decision does not affect Marketplace, Medicaid or Medicare products and ref=
+lects a decision to focus on government-sponsored coverage.
+Becker=E2=80=99s Payer Issues, =E2=80=9CCentene=E2=80=99s Health Net to Exit =
+Commercial Group Market in California, Oregon,=E2=80=9D September 2, 2026
+. (
+beckerspayer.com
+)
+Separately, CBO=E2=80=99s new small-business market analysis found that only =
+53% of small-business employees worked for firms offering coverage in 2024. E=
+nrollment in small-business plans grew 10% from 2014 to 2024 while small-busi=
+ness employment grew 21%. Community-rated products fell to 50% of enrollment,=
+ while self-insured and other non-community-rated arrangements reached 46%, d=
+riven largely by level-funded plans. CBO said migration by healthier groups m=
+ay have worsened risk in the community-rated pool, although multiple factors =
+affect premiums.
+Congressional Budget Office, =E2=80=9CHealth Insurance Options for Small Busi=
+nesses,=E2=80=9D September 2026
+. (
+cbo.gov
+)
+Implication
+The combined evidence points to segmentation rather than a simple contraction=
+ of employer coverage. Carriers can prioritize Medicaid, Medicare and ACA mar=
+kets while healthier or more predictable employer groups migrate toward level=
+ funding, stop-loss and other experience-sensitive arrangements.
+That creates demand for underwriting data, stop-loss administration, benefit-=
+navigation and ICHRA infrastructure, but potentially weakens community-rated =
+risk pools. Providers should expect payer-mix migration and contract-transiti=
+on work rather than assume affected members will become uninsured. State-spec=
+ific membership and competitive-share effects remain publicly unavailable.
+Watch next
+Health Net=E2=80=99s regulatory filings; replacement-carrier decisions during=
+ employer renewals; and whether other regional carriers reduce traditional gr=
+oup exposure for 2027.
+4. VA oversight weakens Oracle Health=E2=80=99s enterprise-execution thesis
+Status:
+UPDATE
+What happened
+GAO reported that the VA had not fully implemented 14 of 18 recommendations c=
+overing cost estimates, schedules, program management, user adoption and oper=
+ational testing. The department has provided Congress with a notional deploym=
+ent schedule but not the detailed documentation or updated cost estimate GAO =
+requested. VA nevertheless plans nine additional deployments during 2026 and =
+approximately 170 sites by 2031.
+GAO, =E2=80=9CVA Electronic Health Record Modernization: Actions Needed to Su=
+stain Accelerated System Deployments,=E2=80=9D September 2, 2026
+. (
+gao.gov
+)
+On September 2, the House Veterans=E2=80=99 Affairs Committee voted 19-0 to a=
+uthorize subpoenas compelling Oracle Executive Chairman Larry Ellison and CEO=
+ Mike Sicilia to testify. A hearing date has not been announced.
+U.S. House Committee on Veterans=E2=80=99 Affairs, =E2=80=9CBeyond Go-Live: V=
+A Electronic Health Record Modernization Status Update,=E2=80=9D updated Sept=
+ember 3, 2026
+. (
+docs.house.gov
+)
+Implication
+The new information does not establish commercial customer losses, but it rai=
+ses the burden of proof for Oracle Health as an enterprise modernization plat=
+form. Accelerating deployment before core governance recommendations are clos=
+ed increases demand for migration, testing, training, data-quality and indepe=
+ndent-assurance services while raising the probability of costly remediation.
+Health systems evaluating large platform conversions are likely to demand cle=
+arer milestone accountability, user-adoption measures and operational testing=
+ rather than relying on technical go-live status.
+Watch next
+The subpoena hearing; VA=E2=80=99s updated lifecycle cost estimate and detail=
+ed schedule; and performance at the next deployment cohort.
+What I'm Watching Next
+September 21, 2026:
+Comments are due on CMS=E2=80=99s proposed implementation of new Medicaid pro=
+vider-tax hold-harmless thresholds.
+CMS, =E2=80=9CAmending the Indirect Hold Harmless Threshold of Health Care-Re=
+lated Taxes Proposed Rule,=E2=80=9D July 21, 2026
+. (
+cms.gov
+)
+October 1, 2026:
+New federal Medicaid and CHIP matching-fund restrictions for specified noncit=
+izen categories take effect, increasing the stakes of state eligibility-syste=
+m readiness. (
+hhs.gov
+)
+Bottom Line
+The most important weekly change is CMS=E2=80=99s new Medicaid and CHIP citiz=
+enship-verification framework because it can transmit quickly from policy int=
+o enrollment operations, MCO capitation and provider collections. Eligibility=
+-system execution requires the closest attention. The next major catalyst is =
+the October 1 federal matching-fund change, which will show whether states ca=
+n implement overlapping eligibility restrictions without materially increasin=
+g procedural coverage loss.
+Recent Earnings Highlights
+Phreesia (
+PHR
+)
++14.7% Last 3m
+Phreesia Inc is a provides an integrated software, payments, and engagement p=
+latform designed to address three foundational challenges in healthcare deliv=
+ery: access to care, affordability of care, and patient health outcomes. Its =
+platform is embedded directly into provider workflows and patient interaction=
+s, enabling healthcare organizations to activate patients, streamline adminis=
+trative processes, and improve financial performance across the care continuu=
+m. The group serves a diverse group of healthcare organizations, including am=
+bulatory practices, health systems, and hospitals, as well as life sciences c=
+ompanies, government entities, patient advocacy, public interest, and not-for=
+-profit and other organizations.
+Reported:
+September 2, 2026 =C2=B7
+Google Finance earnings page
+Earnings Call Summary
+Phreesia delivered a solid Q2 fiscal 2027, with revenue growing 10% year-over=
+-year to $129.5 million. The company generated positive operating and free ca=
+sh flow, allowing it to reduce debt principal by over $23 million while maint=
+aining a healthy cash balance.
+At a Glance
+Phreesia Beats Revenue, Misses EPS Estimates:
+Phreesia reported Q2 fiscal 2027 revenue of $129.46 million, slightly beating=
+ estimates of $128.99 million, but posted a reported adjusted EPS of $0.00 co=
+mpared to expectations of $0.32.
+Core Client Metrics Show Moderate Growth:
+Average Health Care Services Clients rose 6% year-over-year to 4,744, while t=
+otal revenue per client increased 4% to $27,289, demonstrating stable monetiz=
+ation despite slowing customer acquisition rates.
+Full-Year Fiscal 2027 Guidance Reaffirmed:
+The company maintained its full-year guidance, projecting total revenue betwe=
+en $510 million and $520 million and adjusted EBITDA between $125 million and=
+ $135 million.
+Strategic Acquisitions Drive Incremental Growth:
+Early commercial traction from the AccessOne patient financing platform and s=
+trong momentum in ProviderConnect digital marketing campaigns emerged as key =
+strategic growth drivers.
+Restructuring Plan Enhances Profitability Margins:
+Adjusted EBITDA increased to $32.9 million with a 25% margin, driven by effic=
+iency gains from a corporate restructuring plan initiated in May.
+Stock Declines Due to Margin Reinvestment:
+Shares fell after-hours as investors expressed concern over the earnings miss=
+ and management's choice to reinvest cost savings back into the business rath=
+er than raising the full-year outlook.
+Upcoming Earnings
+Company
+Ticker
+Date
+3m Return
+12m Return
+Oracle-Cerner
+ORCL
+September 10, 2026
+-25.7%
+-31.8%
+Market Snapshot
+Subcategory returns
+Subcategory
+3m Return
+12m Return
+24m Return
+Precision Diagnostics
++35.2%
++88.7%
++161.3%
+Health System Providers
++19.1%
++2.1%
++12.7%
+Pharma Distribution
++18.4%
++34.8%
++76.9%
+Outpatient and Home Providers
++13.2%
++46.2%
++85.5%
+Digital Health, Specialty, Benefits
++11.8%
++2.0%
++47.1%
+Health Care Real Estate
++11.3%
++33.5%
++66.6%
+Inpatient Non-Acute Providers
++10.8%
++64.9%
++14.2%
+Payers
++1.0%
++28.8%
+-7.8%
+Value-Based Care
+-4.0%
++56.1%
+-5.2%
+Health IT and Data
+-11.7%
+-21.8%
++13.0%
+Largest company moves: price change since August 31, 2026
+Company
+Ticker
+Market cap
+Price Move
+Definitive Healthcare
+DH
+$85.5M
++30.9%
+Accendra Health
+AHCO
+$912.9M
++12.1%
+Amwell
+AMWL
+$179.6M
++8.9%
+Phreesia
+PHR
+$663.2M
+-10.0%
+Consensus Cloud Solutions
+CCSI
+$669.7M
+-6.9%
+Evolent Health
+EVH
+$347.6M
+-6.1%
+Informational only; not investment advice.
+
+--==healthcare-intel-0-ad23a79a9ea4e144ae0bd56d==
+MIME-Version: 1.0
+Content-Type: multipart/related;
+ boundary="==healthcare-intel-2-ad23a79a9ea4e144ae0bd56d=="
+
+--==healthcare-intel-2-ad23a79a9ea4e144ae0bd56d==
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+<!doctype html><html><head><meta charset=3D"utf-8"><meta name=3D"viewport" co=
+ntent=3D"width=3Ddevice-width,initial-scale=3D1"><title>Healthcare Intel Dige=
+st =E2=80=93 September 7, 2026</title></head><body style=3D"margin:0;padding:=
+0;background:#ffffff;"><table role=3D"presentation" width=3D"100%" cellpaddin=
+g=3D"0" cellspacing=3D"0"><tr><td align=3D"center"><table role=3D"presentatio=
+n" width=3D"640" cellpadding=3D"0" cellspacing=3D"0" style=3D"width:100%;max-=
+width:640px;"><tr><td style=3D"padding:16px 12px;text-align:left;"><h1 style=
+=3D"font-family:Georgia, 'Times New Roman', serif;font-size:26px;color:#12395=
+b;margin:0 0 6px;">Healthcare Intel Digest</h1><p style=3D"font-family:Arial,=
+ Helvetica, sans-serif;font-size:15px;line-height:1.5;color:#1f2933;margin:0 =
+0 12px;color:#52606d;font-size:14px;">September 7, 2026 =C2=B7 Market data th=
+rough September 4, 2026</p><table role=3D"presentation" width=3D"100%" cellpa=
+dding=3D"0" cellspacing=3D"0" style=3D"background:#f3f6f9;margin:14px 0 6px;"=
+><tr><td style=3D"padding:12px 16px;"><p style=3D"font-family:Arial, Helvetic=
+a, sans-serif;font-size:15px;line-height:1.5;color:#1f2933;margin:0 0 12px;fo=
+nt-weight:bold;margin-bottom:6px;">Contents</p><ul style=3D"margin:0 0 12px;p=
+adding-left:22px;margin-bottom:0;"><li style=3D"font-family:Arial, Helvetica,=
+ sans-serif;font-size:15px;line-height:1.5;color:#1f2933;margin:0 0 6px;"><a =
+href=3D"#news" style=3D"color:#1a5e9a;text-decoration:underline;">In the News=
+</a><ul style=3D"margin:0 0 12px;padding-left:22px;margin-top:4px;"><li style=
+=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-height:1.5;c=
+olor:#1f2933;margin:0 0 6px;font-size:14px;"><a href=3D"#story-1" style=3D"co=
+lor:#1a5e9a;text-decoration:underline;">1. CMS adds a new verification layer =
+to Medicaid and CHIP eligibility</a></li><li style=3D"font-family:Arial, Helv=
+etica, sans-serif;font-size:15px;line-height:1.5;color:#1f2933;margin:0 0 6px=
+;font-size:14px;"><a href=3D"#story-2" style=3D"color:#1a5e9a;text-decoration=
+:underline;">2. OIG exposes a $587.7 million Part D reference-data failure</a=
+></li><li style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;li=
+ne-height:1.5;color:#1f2933;margin:0 0 6px;font-size:14px;"><a href=3D"#story=
+-3" style=3D"color:#1a5e9a;text-decoration:underline;">3. Health Net=E2=80=99=
+s exit reinforces the structural thinning of traditional group insurance</a><=
+/li><li style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line=
+-height:1.5;color:#1f2933;margin:0 0 6px;font-size:14px;"><a href=3D"#story-4=
+" style=3D"color:#1a5e9a;text-decoration:underline;">4. VA oversight weakens =
+Oracle Health=E2=80=99s enterprise-execution thesis</a></li></ul></li><li sty=
+le=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-height:1.5=
+;color:#1f2933;margin:0 0 6px;"><a href=3D"#earnings" style=3D"color:#1a5e9a;=
+text-decoration:underline;">Recent Earnings Highlights</a><ul style=3D"margin=
+:0 0 12px;padding-left:22px;margin-top:4px;"><li style=3D"font-family:Arial, =
+Helvetica, sans-serif;font-size:15px;line-height:1.5;color:#1f2933;margin:0 0=
+ 6px;font-size:14px;"><a href=3D"#earnings-phr" style=3D"color:#1a5e9a;text-d=
+ecoration:underline;">Phreesia (PHR)</a></li></ul></li><li style=3D"font-fami=
+ly:Arial, Helvetica, sans-serif;font-size:15px;line-height:1.5;color:#1f2933;=
+margin:0 0 6px;"><a href=3D"#upcoming" style=3D"color:#1a5e9a;text-decoration=
+:underline;">Upcoming Earnings</a></li><li style=3D"font-family:Arial, Helvet=
+ica, sans-serif;font-size:15px;line-height:1.5;color:#1f2933;margin:0 0 6px;"=
+><a href=3D"#market" style=3D"color:#1a5e9a;text-decoration:underline;">Marke=
+t Snapshot</a></li></ul></td></tr></table><h2 style=3D"font-family:Georgia, '=
+Times New Roman', serif;font-size:21px;color:#12395b;margin:28px 0 10px;paddi=
+ng-bottom:4px;border-bottom:2px solid #12395b;"><a name=3D"news" id=3D"news">=
+</a>In the News</h2><h3 style=3D"font-family:Georgia, 'Times New Roman', seri=
+f;font-size:17px;color:#12395b;margin:22px 0 8px;">Executive View</h3>
+<ul style=3D"margin:0 0 12px;padding-left:22px;">
+<li style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-hei=
+ght:1.5;color:#1f2933;margin:0 0 6px;"><strong>Medicaid eligibility operation=
+s acquired a new source of friction.</strong> CMS=E2=80=99s September 4 citiz=
+enship-verification guidance introduces additional documentary and parental-a=
+ttestation pathways, creating near-term systems, call-center and appeals work=
+ for states and potentially more enrollment volatility for Medicaid plans.</l=
+i>
+<li style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-hei=
+ght:1.5;color:#1f2933;margin:0 0 6px;"><strong>Payment integrity=E2=80=99s we=
+ak point is often reference data, not detection algorithms.</strong> HHS-OIG =
+found $587.7 million of ineligible Part D payments caused by obsolete prescri=
+ption-status data and the absence of a rejection deadline after drugs moved o=
+ver the counter.</li>
+<li style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-hei=
+ght:1.5;color:#1f2933;margin:0 0 6px;"><strong>Traditional employer-group ins=
+urance is becoming more segmented.</strong> Health Net=E2=80=99s California a=
+nd Oregon exit, coupled with new CBO evidence of migration toward level-funde=
+d and other non-community-rated arrangements, strengthens the thesis that car=
+riers are concentrating capital where risk and administration are more contro=
+llable.</li>
+<li style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-hei=
+ght:1.5;color:#1f2933;margin:0 0 6px;"><strong>Oracle Health=E2=80=99s larges=
+t deployment remains an execution liability rather than an unqualified refere=
+nce account.</strong> Congressional subpoenas and unresolved GAO recommendati=
+ons increase scrutiny as the VA accelerates implementation.</li>
+<li style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-hei=
+ght:1.5;color:#1f2933;margin:0 0 6px;"><strong>Overall environment: modestly =
+deteriorated for Medicaid administration and large-platform execution, mixed =
+for commercial payers, and improved for eligibility, payment-integrity and im=
+plementation-services demand.</strong></li>
+</ul>
+<h3 style=3D"font-family:Georgia, 'Times New Roman', serif;font-size:17px;col=
+or:#12395b;margin:22px 0 8px;"><a id=3D"story-1" name=3D"story-1" style=3D"co=
+lor:#1a5e9a;text-decoration:underline;"></a>1. CMS adds a new verification la=
+yer to Medicaid and CHIP eligibility</h3>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>Status:</strong> NEW</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>What happened</strong></p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">On September 4, CMS issued prospective=
+ guidance implementing Executive Order 14418 when an applicant or beneficiary=
+ asserts U.S. citizenship as the basis for Medicaid or CHIP eligibility. The =
+document reiterates electronic or documentary verification requirements but i=
+ntroduces a framework under which certain applicants using separate citizensh=
+ip and identity documents must also supply a qualifying parent document or pa=
+rental attestation. Where neither parent has documentary evidence of citizens=
+hip, a parent may attest that none of the exclusions specified by the executi=
+ve order applies.</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">CMS said the guidance became effective=
+ upon publication, subject to applicable law. It is distinct from=E2=80=94but=
+ operationally adjacent to=E2=80=94the October 1, 2026 restrictions on federa=
+l Medicaid and CHIP matching funds for specified noncitizen categories. <a hr=
+ef=3D"https://www.hhs.gov/sites/default/files/citizenship-eo-14418-guidance-c=
+ms.pdf" style=3D"color:#1a5e9a;text-decoration:underline;">CMS, =E2=80=9CCMS =
+Guidance on Continuing to Protect the Meaning and Value of American Citizensh=
+ip =E2=80=A6 for Medicaid and CHIP Verification Requirements,=E2=80=9D Septem=
+ber 4, 2026</a>. (<a href=3D"https://www.hhs.gov/sites/default/files/citizens=
+hip-eo-14418-guidance-cms.pdf" style=3D"color:#1a5e9a;text-decoration:underli=
+ne;">hhs.gov</a>)</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>Implication</strong></p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">The first-order effect is administrati=
+ve rather than actuarial. States may need to modify eligibility rules, docume=
+nt-management systems, notices, staff scripts and appeal workflows while clar=
+ifying how the new pathway interacts with automated Social Security Administr=
+ation verification. Eligibility-platform, systems-integration and document-pr=
+ocessing demand should rise immediately.</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">For Medicaid MCOs, the risk is increas=
+ed procedural churn: delayed determinations or documentation failures could i=
+nterrupt capitation and care-management continuity even when underlying eligi=
+bility has not economically changed. Providers would absorb the corresponding=
+ risk through coverage uncertainty and uncompensated care. Magnitude is not y=
+et measurable, and implementation or litigation could materially change the o=
+utcome.</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>Watch next</strong></p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">State implementation instructions; CMS=
+ technical guidance on automated verification and pending applications; legal=
+ challenges; and whether states report higher denial, pending-case or appeal =
+volumes.</p>
+<hr style=3D"border:0;border-top:1px solid #d5dde3;margin:18px 0;"/>
+<h3 style=3D"font-family:Georgia, 'Times New Roman', serif;font-size:17px;col=
+or:#12395b;margin:22px 0 8px;"><a id=3D"story-2" name=3D"story-2" style=3D"co=
+lor:#1a5e9a;text-decoration:underline;"></a>2. OIG exposes a $587.7 million P=
+art D reference-data failure</h3>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>Status:</strong> NEW</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>What happened</strong></p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">HHS-OIG reported on August 31 that Par=
+t D sponsors made $587.7 million of ineligible payments from 2021 through 202=
+3 for five drugs that remained labeled prescription-only after their brand-na=
+me equivalents became available over the counter. OIG attributed the failure =
+to obsolete FDA information in CMS=E2=80=99s Part D Formulary Reference File =
+and CMS=E2=80=99s lack of a deadline for sponsors to reject claims after an R=
+x-to-OTC switch.</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">CMS concurred with OIG=E2=80=99s recom=
+mendation to establish a rejection timeframe. OIG did <strong>not</strong> re=
+commend recovering the full $587.7 million, so the estimate should not be tre=
+ated as a disclosed sponsor repayment liability. <a href=3D"https://oig.hhs.g=
+ov/reports/all/2026/cms-oversight-did-not-prevent-medicare-part-d-sponsors-fr=
+om-making-5877-million-in-ineligible-payments-to-pharmacies-for-drugs-availab=
+le-over-the-counter-but-labeled-as-prescription-only/" style=3D"color:#1a5e9a=
+;text-decoration:underline;">HHS-OIG, =E2=80=9CCMS Oversight Did Not Prevent =
+Medicare Part D Sponsors From Making $587.7 Million in Ineligible Payments,=
+=E2=80=9D August 31, 2026</a>. (<a href=3D"https://www.oig.hhs.gov/reports/al=
+l/2026/cms-oversight-did-not-prevent-medicare-part-d-sponsors-from-making-587=
+7-million-in-ineligible-payments-to-pharmacies-for-drugs-available-over-the-c=
+ounter-but-labeled-as-prescription-only/" style=3D"color:#1a5e9a;text-decorat=
+ion:underline;">oig.hhs.gov</a>)</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>Implication</strong></p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">This qualifies last week=E2=80=99s evi=
+dence that CMS is moving payment integrity toward prepayment intervention. So=
+phisticated anomaly models cannot compensate for incorrect product-status dat=
+a embedded in the adjudication stack.</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">Part D plans and PBMs need tighter syn=
+chronization across FDA labeling, CMS formulary files, National Drug Codes an=
+d point-of-sale edits. The commercial opportunity favors vendors that combine=
+ regulatory reference-data management with configurable claims rules, excepti=
+on handling and audit trails=E2=80=94not analytics alone. Sponsors face remed=
+iation costs and prospective leakage reduction, but a reliable public estimat=
+e of direct plan-level exposure is unavailable.</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>Watch next</strong></p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">CMS=E2=80=99s rejection deadline; whet=
+her sponsors must review historical prescription-drug-event records; and whet=
+her OIG expands the methodology to terminated NDCs, excluded products or othe=
+r formulary-status mismatches.</p>
+<hr style=3D"border:0;border-top:1px solid #d5dde3;margin:18px 0;"/>
+<h3 style=3D"font-family:Georgia, 'Times New Roman', serif;font-size:17px;col=
+or:#12395b;margin:22px 0 8px;"><a id=3D"story-3" name=3D"story-3" style=3D"co=
+lor:#1a5e9a;text-decoration:underline;"></a>3. Health Net=E2=80=99s exit rein=
+forces the structural thinning of traditional group insurance</h3>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>Status:</strong> NEW</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>What happened</strong></p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">Health Net began notifying employers a=
+nd brokers on September 1 that it will exit traditional small- and large-grou=
+p HMO, PPO and POS products in California and Oregon. Coverage will generally=
+ end February 28, 2027. Centene said the decision does not affect Marketplace=
+, Medicaid or Medicare products and reflects a decision to focus on governmen=
+t-sponsored coverage. <a href=3D"https://www.beckerspayer.com/payer/centenes-=
+health-net-to-exit-commercial-group-market-in-california-oregon/" style=3D"co=
+lor:#1a5e9a;text-decoration:underline;">Becker=E2=80=99s Payer Issues, =E2=80=
+=9CCentene=E2=80=99s Health Net to Exit Commercial Group Market in California=
+, Oregon,=E2=80=9D September 2, 2026</a>. (<a href=3D"https://www.beckerspaye=
+r.com/payer/centenes-health-net-to-exit-commercial-group-market-in-california=
+-oregon/" style=3D"color:#1a5e9a;text-decoration:underline;">beckerspayer.com=
+</a>)</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">Separately, CBO=E2=80=99s new small-bu=
+siness market analysis found that only 53% of small-business employees worked=
+ for firms offering coverage in 2024. Enrollment in small-business plans grew=
+ 10% from 2014 to 2024 while small-business employment grew 21%. Community-ra=
+ted products fell to 50% of enrollment, while self-insured and other non-comm=
+unity-rated arrangements reached 46%, driven largely by level-funded plans. C=
+BO said migration by healthier groups may have worsened risk in the community=
+-rated pool, although multiple factors affect premiums. <a href=3D"https://ww=
+w.cbo.gov/publication/62745" style=3D"color:#1a5e9a;text-decoration:underline=
+;">Congressional Budget Office, =E2=80=9CHealth Insurance Options for Small B=
+usinesses,=E2=80=9D September 2026</a>. (<a href=3D"https://www.cbo.gov/publi=
+cation/62745" style=3D"color:#1a5e9a;text-decoration:underline;">cbo.gov</a>)=
+</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>Implication</strong></p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">The combined evidence points to segmen=
+tation rather than a simple contraction of employer coverage. Carriers can pr=
+ioritize Medicaid, Medicare and ACA markets while healthier or more predictab=
+le employer groups migrate toward level funding, stop-loss and other experien=
+ce-sensitive arrangements.</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">That creates demand for underwriting d=
+ata, stop-loss administration, benefit-navigation and ICHRA infrastructure, b=
+ut potentially weakens community-rated risk pools. Providers should expect pa=
+yer-mix migration and contract-transition work rather than assume affected me=
+mbers will become uninsured. State-specific membership and competitive-share =
+effects remain publicly unavailable.</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>Watch next</strong></p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">Health Net=E2=80=99s regulatory filing=
+s; replacement-carrier decisions during employer renewals; and whether other =
+regional carriers reduce traditional group exposure for 2027.</p>
+<hr style=3D"border:0;border-top:1px solid #d5dde3;margin:18px 0;"/>
+<h3 style=3D"font-family:Georgia, 'Times New Roman', serif;font-size:17px;col=
+or:#12395b;margin:22px 0 8px;"><a id=3D"story-4" name=3D"story-4" style=3D"co=
+lor:#1a5e9a;text-decoration:underline;"></a>4. VA oversight weakens Oracle He=
+alth=E2=80=99s enterprise-execution thesis</h3>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>Status:</strong> UPDATE</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>What happened</strong></p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">GAO reported that the VA had not fully=
+ implemented 14 of 18 recommendations covering cost estimates, schedules, pro=
+gram management, user adoption and operational testing. The department has pr=
+ovided Congress with a notional deployment schedule but not the detailed docu=
+mentation or updated cost estimate GAO requested. VA nevertheless plans nine =
+additional deployments during 2026 and approximately 170 sites by 2031. <a hr=
+ef=3D"https://www.gao.gov/products/gao-26-109393" style=3D"color:#1a5e9a;text=
+-decoration:underline;">GAO, =E2=80=9CVA Electronic Health Record Modernizati=
+on: Actions Needed to Sustain Accelerated System Deployments,=E2=80=9D Septem=
+ber 2, 2026</a>. (<a href=3D"https://www.gao.gov/products/gao-26-109393" styl=
+e=3D"color:#1a5e9a;text-decoration:underline;">gao.gov</a>)</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">On September 2, the House Veterans=E2=
+=80=99 Affairs Committee voted 19-0 to authorize subpoenas compelling Oracle =
+Executive Chairman Larry Ellison and CEO Mike Sicilia to testify. A hearing d=
+ate has not been announced. <a href=3D"https://docs.house.gov/Committee/Calen=
+dar/ByEvent.aspx?EventID=3D119517" style=3D"color:#1a5e9a;text-decoration:und=
+erline;">U.S. House Committee on Veterans=E2=80=99 Affairs, =E2=80=9CBeyond G=
+o-Live: VA Electronic Health Record Modernization Status Update,=E2=80=9D upd=
+ated September 3, 2026</a>. (<a href=3D"https://docs.house.gov/Committee/Cale=
+ndar/ByEvent.aspx?EventID=3D119517" style=3D"color:#1a5e9a;text-decoration:un=
+derline;">docs.house.gov</a>)</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>Implication</strong></p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">The new information does not establish=
+ commercial customer losses, but it raises the burden of proof for Oracle Hea=
+lth as an enterprise modernization platform. Accelerating deployment before c=
+ore governance recommendations are closed increases demand for migration, tes=
+ting, training, data-quality and independent-assurance services while raising=
+ the probability of costly remediation.</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">Health systems evaluating large platfo=
+rm conversions are likely to demand clearer milestone accountability, user-ad=
+option measures and operational testing rather than relying on technical go-l=
+ive status.</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>Watch next</strong></p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">The subpoena hearing; VA=E2=80=99s upd=
+ated lifecycle cost estimate and detailed schedule; and performance at the ne=
+xt deployment cohort.</p>
+<h3 style=3D"font-family:Georgia, 'Times New Roman', serif;font-size:17px;col=
+or:#12395b;margin:22px 0 8px;">What I'm Watching Next</h3>
+<ul style=3D"margin:0 0 12px;padding-left:22px;">
+<li style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-hei=
+ght:1.5;color:#1f2933;margin:0 0 6px;"><strong>September 21, 2026:</strong> C=
+omments are due on CMS=E2=80=99s proposed implementation of new Medicaid prov=
+ider-tax hold-harmless thresholds. <a href=3D"https://www.cms.gov/newsroom/fa=
+ct-sheets/amending-indirect-hold-harmless-threshold-health-care-related-taxes=
+-proposed-rule-cms-2452-p" style=3D"color:#1a5e9a;text-decoration:underline;"=
+>CMS, =E2=80=9CAmending the Indirect Hold Harmless Threshold of Health Care-R=
+elated Taxes Proposed Rule,=E2=80=9D July 21, 2026</a>. (<a href=3D"https://w=
+ww.cms.gov/newsroom/fact-sheets/amending-indirect-hold-harmless-threshold-hea=
+lth-care-related-taxes-proposed-rule-cms-2452-p?utm_source=3Dopenai" style=3D=
+"color:#1a5e9a;text-decoration:underline;">cms.gov</a>)</li>
+<li style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-hei=
+ght:1.5;color:#1f2933;margin:0 0 6px;"><strong>October 1, 2026:</strong> New =
+federal Medicaid and CHIP matching-fund restrictions for specified noncitizen=
+ categories take effect, increasing the stakes of state eligibility-system re=
+adiness. (<a href=3D"https://www.hhs.gov/sites/default/files/citizenship-eo-1=
+4418-guidance-cms.pdf" style=3D"color:#1a5e9a;text-decoration:underline;">hhs=
+.gov</a>)</li>
+</ul>
+<h3 style=3D"font-family:Georgia, 'Times New Roman', serif;font-size:17px;col=
+or:#12395b;margin:22px 0 8px;">Bottom Line</h3>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">The most important weekly change is CM=
+S=E2=80=99s new Medicaid and CHIP citizenship-verification framework because =
+it can transmit quickly from policy into enrollment operations, MCO capitatio=
+n and provider collections. Eligibility-system execution requires the closest=
+ attention. The next major catalyst is the October 1 federal matching-fund ch=
+ange, which will show whether states can implement overlapping eligibility re=
+strictions without materially increasing procedural coverage loss.</p><h2 sty=
+le=3D"font-family:Georgia, 'Times New Roman', serif;font-size:21px;color:#123=
+95b;margin:28px 0 10px;padding-bottom:4px;border-bottom:2px solid #12395b;"><=
+a name=3D"earnings" id=3D"earnings"></a>Recent Earnings Highlights</h2><h3 st=
+yle=3D"font-family:Georgia, 'Times New Roman', serif;font-size:17px;color:#12=
+395b;margin:22px 0 8px;"><a name=3D"earnings-phr" id=3D"earnings-phr"></a>Phr=
+eesia (<a href=3D"https://www.google.com/finance/quote/PHR:NYSE?hl=3Den" styl=
+e=3D"color:#1a5e9a;text-decoration:underline;">PHR</a>) <span style=3D"backgr=
+ound:#1a7a3c;color:#ffffff;font-family:Arial, Helvetica, sans-serif;font-size=
+:12px;font-weight:bold;padding:2px 6px;white-space:nowrap;">+14.7% Last 3m</s=
+pan></h3><p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;=
+line-height:1.5;color:#1f2933;margin:0 0 12px;">Phreesia Inc is a provides an=
+ integrated software, payments, and engagement platform designed to address t=
+hree foundational challenges in healthcare delivery: access to care, affordab=
+ility of care, and patient health outcomes. Its platform is embedded directly=
+ into provider workflows and patient interactions, enabling healthcare organi=
+zations to activate patients, streamline administrative processes, and improv=
+e financial performance across the care continuum. The group serves a diverse=
+ group of healthcare organizations, including ambulatory practices, health sy=
+stems, and hospitals, as well as life sciences companies, government entities=
+, patient advocacy, public interest, and not-for-profit and other organizatio=
+ns.</p><p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;li=
+ne-height:1.5;color:#1f2933;margin:0 0 12px;"><strong>Reported:</strong> Sept=
+ember 2, 2026 =C2=B7 <a href=3D"https://www.google.com/finance/quote/PHR:NYSE=
+?tab=3Dearnings&amp;hl=3Den" style=3D"color:#1a5e9a;text-decoration:underline=
+;">Google Finance earnings page</a></p><p style=3D"font-family:Arial, Helveti=
+ca, sans-serif;font-size:15px;line-height:1.5;color:#1f2933;margin:0 0 12px;"=
+><img src=3D"cid:earnings-phr@healthcare-intel.local" width=3D"600" alt=3D"Ph=
+reesia versus category peers and the S&amp;P 500, last 3 months" style=3D"dis=
+play:block;width:100%;max-width:600px;height:auto;border:0;"></p><h4 style=3D=
+"font-family:Arial, Helvetica, sans-serif;font-size:15px;color:#12395b;margin=
+:16px 0 6px;">Earnings Call Summary</h4><p style=3D"font-family:Arial, Helvet=
+ica, sans-serif;font-size:15px;line-height:1.5;color:#1f2933;margin:0 0 12px;=
+">Phreesia delivered a solid Q2 fiscal 2027, with revenue growing 10% year-ov=
+er-year to $129.5 million. The company generated positive operating and free =
+cash flow, allowing it to reduce debt principal by over $23 million while mai=
+ntaining a healthy cash balance.</p><h4 style=3D"font-family:Arial, Helvetica=
+, sans-serif;font-size:15px;color:#12395b;margin:16px 0 6px;">At a Glance</h4=
+><ul style=3D"margin:0 0 12px;padding-left:22px;"><li style=3D"font-family:Ar=
+ial, Helvetica, sans-serif;font-size:15px;line-height:1.5;color:#1f2933;margi=
+n:0 0 6px;"><strong>Phreesia Beats Revenue, Misses EPS Estimates:</strong> Ph=
+reesia reported Q2 fiscal 2027 revenue of $129.46 million, slightly beating e=
+stimates of $128.99 million, but posted a reported adjusted EPS of $0.00 comp=
+ared to expectations of $0.32.</li><li style=3D"font-family:Arial, Helvetica,=
+ sans-serif;font-size:15px;line-height:1.5;color:#1f2933;margin:0 0 6px;"><st=
+rong>Core Client Metrics Show Moderate Growth:</strong> Average Health Care S=
+ervices Clients rose 6% year-over-year to 4,744, while total revenue per clie=
+nt increased 4% to $27,289, demonstrating stable monetization despite slowing=
+ customer acquisition rates.</li><li style=3D"font-family:Arial, Helvetica, s=
+ans-serif;font-size:15px;line-height:1.5;color:#1f2933;margin:0 0 6px;"><stro=
+ng>Full-Year Fiscal 2027 Guidance Reaffirmed:</strong> The company maintained=
+ its full-year guidance, projecting total revenue between $510 million and $5=
+20 million and adjusted EBITDA between $125 million and $135 million.</li><li=
+ style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-height=
+:1.5;color:#1f2933;margin:0 0 6px;"><strong>Strategic Acquisitions Drive Incr=
+emental Growth:</strong> Early commercial traction from the AccessOne patient=
+ financing platform and strong momentum in ProviderConnect digital marketing =
+campaigns emerged as key strategic growth drivers.</li><li style=3D"font-fami=
+ly:Arial, Helvetica, sans-serif;font-size:15px;line-height:1.5;color:#1f2933;=
+margin:0 0 6px;"><strong>Restructuring Plan Enhances Profitability Margins:</=
+strong> Adjusted EBITDA increased to $32.9 million with a 25% margin, driven =
+by efficiency gains from a corporate restructuring plan initiated in May.</li=
+><li style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-he=
+ight:1.5;color:#1f2933;margin:0 0 6px;"><strong>Stock Declines Due to Margin =
+Reinvestment:</strong> Shares fell after-hours as investors expressed concern=
+ over the earnings miss and management&#x27;s choice to reinvest cost savings=
+ back into the business rather than raising the full-year outlook.</li></ul><=
+h2 style=3D"font-family:Georgia, 'Times New Roman', serif;font-size:21px;colo=
+r:#12395b;margin:28px 0 10px;padding-bottom:4px;border-bottom:2px solid #1239=
+5b;"><a name=3D"upcoming" id=3D"upcoming"></a>Upcoming Earnings</h2><table ro=
+le=3D"presentation" cellpadding=3D"0" cellspacing=3D"0" style=3D"border-colla=
+pse:collapse;width:100%;margin:0 0 14px;"><tr><th style=3D"font-family:Arial,=
+ Helvetica, sans-serif;font-size:13px;text-align:left;padding:6px 8px;backgro=
+und:#f3f5f7;color:#1f2933;border-bottom:1px solid #d5dde3;">Company</th><th s=
+tyle=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;text-align:le=
+ft;padding:6px 8px;background:#f3f5f7;color:#1f2933;border-bottom:1px solid #=
+d5dde3;">Ticker</th><th style=3D"font-family:Arial, Helvetica, sans-serif;fon=
+t-size:13px;text-align:left;padding:6px 8px;background:#f3f5f7;color:#1f2933;=
+border-bottom:1px solid #d5dde3;">Date</th><th style=3D"font-family:Arial, He=
+lvetica, sans-serif;font-size:13px;text-align:left;padding:6px 8px;background=
+:#f3f5f7;color:#1f2933;border-bottom:1px solid #d5dde3;text-align:right;">3m =
+Return</th><th style=3D"font-family:Arial, Helvetica, sans-serif;font-size:13=
+px;text-align:left;padding:6px 8px;background:#f3f5f7;color:#1f2933;border-bo=
+ttom:1px solid #d5dde3;text-align:right;">12m Return</th></tr><tr><td style=
+=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;padding:6px 8px;c=
+olor:#1f2933;border-bottom:1px solid #e9edf0;">Oracle-Cerner</td><td style=3D=
+"font-family:Arial, Helvetica, sans-serif;font-size:13px;padding:6px 8px;colo=
+r:#1f2933;border-bottom:1px solid #e9edf0;"><a href=3D"https://www.google.com=
+/finance/quote/ORCL:NYSE?hl=3Den" style=3D"color:#1a5e9a;text-decoration:unde=
+rline;">ORCL</a></td><td style=3D"font-family:Arial, Helvetica, sans-serif;fo=
+nt-size:13px;padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;">=
+September 10, 2026</td><td style=3D"font-family:Arial, Helvetica, sans-serif;=
+font-size:13px;padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;=
+text-align:right;background:#c0302f;color:#ffffff;">-25.7%</td><td style=3D"f=
+ont-family:Arial, Helvetica, sans-serif;font-size:13px;padding:6px 8px;color:=
+#1f2933;border-bottom:1px solid #e9edf0;text-align:right;background:#c0302f;c=
+olor:#ffffff;">-31.8%</td></tr></table><h2 style=3D"font-family:Georgia, 'Tim=
+es New Roman', serif;font-size:21px;color:#12395b;margin:28px 0 10px;padding-=
+bottom:4px;border-bottom:2px solid #12395b;"><a name=3D"market" id=3D"market"=
+></a>Market Snapshot</h2><h3 style=3D"font-family:Georgia, 'Times New Roman',=
+ serif;font-size:17px;color:#12395b;margin:22px 0 8px;">Subcategory returns</=
+h3><table role=3D"presentation" cellpadding=3D"0" cellspacing=3D"0" style=3D"=
+border-collapse:collapse;width:100%;margin:0 0 14px;"><tr><th style=3D"font-f=
+amily:Arial, Helvetica, sans-serif;font-size:13px;text-align:left;padding:6px=
+ 8px;background:#f3f5f7;color:#1f2933;border-bottom:1px solid #d5dde3;">Subca=
+tegory</th><th style=3D"font-family:Arial, Helvetica, sans-serif;font-size:13=
+px;text-align:left;padding:6px 8px;background:#f3f5f7;color:#1f2933;border-bo=
+ttom:1px solid #d5dde3;text-align:right;">3m Return</th><th style=3D"font-fam=
+ily:Arial, Helvetica, sans-serif;font-size:13px;text-align:left;padding:6px 8=
+px;background:#f3f5f7;color:#1f2933;border-bottom:1px solid #d5dde3;text-alig=
+n:right;">12m Return</th><th style=3D"font-family:Arial, Helvetica, sans-seri=
+f;font-size:13px;text-align:left;padding:6px 8px;background:#f3f5f7;color:#1f=
+2933;border-bottom:1px solid #d5dde3;text-align:right;">24m Return</th></tr><=
+tr><td style=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;paddi=
+ng:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;">Precision Diagnost=
+ics</td><td style=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;=
+padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;text-align:righ=
+t;background:#1a7a3c;color:#ffffff;">+35.2%</td><td style=3D"font-family:Aria=
+l, Helvetica, sans-serif;font-size:13px;padding:6px 8px;color:#1f2933;border-=
+bottom:1px solid #e9edf0;text-align:right;background:#1a7a3c;color:#ffffff;">=
++88.7%</td><td style=3D"font-family:Arial, Helvetica, sans-serif;font-size:13=
+px;padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;text-align:r=
+ight;background:#1a7a3c;color:#ffffff;">+161.3%</td></tr><tr><td style=3D"fon=
+t-family:Arial, Helvetica, sans-serif;font-size:13px;padding:6px 8px;color:#1=
+f2933;border-bottom:1px solid #e9edf0;">Health System Providers</td><td style=
+=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;padding:6px 8px;c=
+olor:#1f2933;border-bottom:1px solid #e9edf0;text-align:right;background:#7cc=
+077;color:#111820;">+19.1%</td><td style=3D"font-family:Arial, Helvetica, san=
+s-serif;font-size:13px;padding:6px 8px;color:#1f2933;border-bottom:1px solid =
+#e9edf0;text-align:right;background:#d6ecd4;color:#111820;">+2.1%</td><td sty=
+le=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;padding:6px 8px=
+;color:#1f2933;border-bottom:1px solid #e9edf0;text-align:right;background:#d=
+6ecd4;color:#111820;">+12.7%</td></tr><tr><td style=3D"font-family:Arial, Hel=
+vetica, sans-serif;font-size:13px;padding:6px 8px;color:#1f2933;border-bottom=
+:1px solid #e9edf0;">Pharma Distribution</td><td style=3D"font-family:Arial, =
+Helvetica, sans-serif;font-size:13px;padding:6px 8px;color:#1f2933;border-bot=
+tom:1px solid #e9edf0;text-align:right;background:#7cc077;color:#111820;">+18=
+.4%</td><td style=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;=
+padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;text-align:righ=
+t;background:#a9d9a4;color:#111820;">+34.8%</td><td style=3D"font-family:Aria=
+l, Helvetica, sans-serif;font-size:13px;padding:6px 8px;color:#1f2933;border-=
+bottom:1px solid #e9edf0;text-align:right;background:#7cc077;color:#111820;">=
++76.9%</td></tr><tr><td style=3D"font-family:Arial, Helvetica, sans-serif;fon=
+t-size:13px;padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;">O=
+utpatient and Home Providers</td><td style=3D"font-family:Arial, Helvetica, s=
+ans-serif;font-size:13px;padding:6px 8px;color:#1f2933;border-bottom:1px soli=
+d #e9edf0;text-align:right;background:#a9d9a4;color:#111820;">+13.2%</td><td =
+style=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;padding:6px =
+8px;color:#1f2933;border-bottom:1px solid #e9edf0;text-align:right;background=
+:#7cc077;color:#111820;">+46.2%</td><td style=3D"font-family:Arial, Helvetica=
+, sans-serif;font-size:13px;padding:6px 8px;color:#1f2933;border-bottom:1px s=
+olid #e9edf0;text-align:right;background:#7cc077;color:#111820;">+85.5%</td><=
+/tr><tr><td style=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;=
+padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;">Digital Healt=
+h, Specialty, Benefits</td><td style=3D"font-family:Arial, Helvetica, sans-se=
+rif;font-size:13px;padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9e=
+df0;text-align:right;background:#a9d9a4;color:#111820;">+11.8%</td><td style=
+=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;padding:6px 8px;c=
+olor:#1f2933;border-bottom:1px solid #e9edf0;text-align:right;background:#d6e=
+cd4;color:#111820;">+2.0%</td><td style=3D"font-family:Arial, Helvetica, sans=
+-serif;font-size:13px;padding:6px 8px;color:#1f2933;border-bottom:1px solid #=
+e9edf0;text-align:right;background:#a9d9a4;color:#111820;">+47.1%</td></tr><t=
+r><td style=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;paddin=
+g:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;">Health Care Real Es=
+tate</td><td style=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px=
+;padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;text-align:rig=
+ht;background:#a9d9a4;color:#111820;">+11.3%</td><td style=3D"font-family:Ari=
+al, Helvetica, sans-serif;font-size:13px;padding:6px 8px;color:#1f2933;border=
+-bottom:1px solid #e9edf0;text-align:right;background:#a9d9a4;color:#111820;"=
+>+33.5%</td><td style=3D"font-family:Arial, Helvetica, sans-serif;font-size:1=
+3px;padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;text-align:=
+right;background:#7cc077;color:#111820;">+66.6%</td></tr><tr><td style=3D"fon=
+t-family:Arial, Helvetica, sans-serif;font-size:13px;padding:6px 8px;color:#1=
+f2933;border-bottom:1px solid #e9edf0;">Inpatient Non-Acute Providers</td><td=
+ style=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;padding:6px=
+ 8px;color:#1f2933;border-bottom:1px solid #e9edf0;text-align:right;backgroun=
+d:#a9d9a4;color:#111820;">+10.8%</td><td style=3D"font-family:Arial, Helvetic=
+a, sans-serif;font-size:13px;padding:6px 8px;color:#1f2933;border-bottom:1px =
+solid #e9edf0;text-align:right;background:#2f9e44;color:#111820;">+64.9%</td>=
+<td style=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;padding:=
+6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;text-align:right;backgr=
+ound:#d6ecd4;color:#111820;">+14.2%</td></tr><tr><td style=3D"font-family:Ari=
+al, Helvetica, sans-serif;font-size:13px;padding:6px 8px;color:#1f2933;border=
+-bottom:1px solid #e9edf0;">Payers</td><td style=3D"font-family:Arial, Helvet=
+ica, sans-serif;font-size:13px;padding:6px 8px;color:#1f2933;border-bottom:1p=
+x solid #e9edf0;text-align:right;background:#d6ecd4;color:#111820;">+1.0%</td=
+><td style=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;padding=
+:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;text-align:right;backg=
+round:#a9d9a4;color:#111820;">+28.8%</td><td style=3D"font-family:Arial, Helv=
+etica, sans-serif;font-size:13px;padding:6px 8px;color:#1f2933;border-bottom:=
+1px solid #e9edf0;text-align:right;background:#fbd5d4;color:#111820;">-7.8%</=
+td></tr><tr><td style=3D"font-family:Arial, Helvetica, sans-serif;font-size:1=
+3px;padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;">Value-Bas=
+ed Care</td><td style=3D"font-family:Arial, Helvetica, sans-serif;font-size:1=
+3px;padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;text-align:=
+right;background:#fbd5d4;color:#111820;">-4.0%</td><td style=3D"font-family:A=
+rial, Helvetica, sans-serif;font-size:13px;padding:6px 8px;color:#1f2933;bord=
+er-bottom:1px solid #e9edf0;text-align:right;background:#2f9e44;color:#111820=
+;">+56.1%</td><td style=3D"font-family:Arial, Helvetica, sans-serif;font-size=
+:13px;padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;text-alig=
+n:right;background:#fbd5d4;color:#111820;">-5.2%</td></tr><tr><td style=3D"fo=
+nt-family:Arial, Helvetica, sans-serif;font-size:13px;padding:6px 8px;color:#=
+1f2933;border-bottom:1px solid #e9edf0;">Health IT and Data</td><td style=3D"=
+font-family:Arial, Helvetica, sans-serif;font-size:13px;padding:6px 8px;color=
+:#1f2933;border-bottom:1px solid #e9edf0;text-align:right;background:#f5aead;=
+color:#111820;">-11.7%</td><td style=3D"font-family:Arial, Helvetica, sans-se=
+rif;font-size:13px;padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9e=
+df0;text-align:right;background:#f5aead;color:#111820;">-21.8%</td><td style=
+=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;padding:6px 8px;c=
+olor:#1f2933;border-bottom:1px solid #e9edf0;text-align:right;background:#d6e=
+cd4;color:#111820;">+13.0%</td></tr></table><h3 style=3D"font-family:Georgia,=
+ 'Times New Roman', serif;font-size:17px;color:#12395b;margin:22px 0 8px;">La=
+rgest company moves: price change since August 31, 2026</h3><table role=3D"pr=
+esentation" cellpadding=3D"0" cellspacing=3D"0" style=3D"border-collapse:coll=
+apse;width:100%;margin:0 0 14px;"><tr><th style=3D"font-family:Arial, Helveti=
+ca, sans-serif;font-size:13px;text-align:left;padding:6px 8px;background:#f3f=
+5f7;color:#1f2933;border-bottom:1px solid #d5dde3;">Company</th><th style=3D"=
+font-family:Arial, Helvetica, sans-serif;font-size:13px;text-align:left;paddi=
+ng:6px 8px;background:#f3f5f7;color:#1f2933;border-bottom:1px solid #d5dde3;"=
+>Ticker</th><th style=3D"font-family:Arial, Helvetica, sans-serif;font-size:1=
+3px;text-align:left;padding:6px 8px;background:#f3f5f7;color:#1f2933;border-b=
+ottom:1px solid #d5dde3;text-align:right;">Market cap</th><th style=3D"font-f=
+amily:Arial, Helvetica, sans-serif;font-size:13px;text-align:left;padding:6px=
+ 8px;background:#f3f5f7;color:#1f2933;border-bottom:1px solid #d5dde3;text-al=
+ign:right;">Price Move</th></tr><tr><td style=3D"font-family:Arial, Helvetica=
+, sans-serif;font-size:13px;padding:6px 8px;color:#1f2933;border-bottom:1px s=
+olid #e9edf0;">Definitive Healthcare</td><td style=3D"font-family:Arial, Helv=
+etica, sans-serif;font-size:13px;padding:6px 8px;color:#1f2933;border-bottom:=
+1px solid #e9edf0;"><a href=3D"https://www.google.com/finance/quote/DH:NASDAQ=
+?hl=3Den" style=3D"color:#1a5e9a;text-decoration:underline;">DH</a></td><td s=
+tyle=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;padding:6px 8=
+px;color:#1f2933;border-bottom:1px solid #e9edf0;text-align:right;">$85.5M</t=
+d><td style=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;paddin=
+g:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;text-align:right;back=
+ground:#1a7a3c;color:#ffffff;">+30.9%</td></tr><tr><td style=3D"font-family:A=
+rial, Helvetica, sans-serif;font-size:13px;padding:6px 8px;color:#1f2933;bord=
+er-bottom:1px solid #e9edf0;">Accendra Health</td><td style=3D"font-family:Ar=
+ial, Helvetica, sans-serif;font-size:13px;padding:6px 8px;color:#1f2933;borde=
+r-bottom:1px solid #e9edf0;"><a href=3D"https://www.google.com/finance/quote/=
+AHCO:NASDAQ?hl=3Den" style=3D"color:#1a5e9a;text-decoration:underline;">AHCO<=
+/a></td><td style=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;=
+padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;text-align:righ=
+t;">$912.9M</td><td style=3D"font-family:Arial, Helvetica, sans-serif;font-si=
+ze:13px;padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;text-al=
+ign:right;background:#a9d9a4;color:#111820;">+12.1%</td></tr><tr><td style=3D=
+"font-family:Arial, Helvetica, sans-serif;font-size:13px;padding:6px 8px;colo=
+r:#1f2933;border-bottom:1px solid #e9edf0;">Amwell</td><td style=3D"font-fami=
+ly:Arial, Helvetica, sans-serif;font-size:13px;padding:6px 8px;color:#1f2933;=
+border-bottom:1px solid #e9edf0;"><a href=3D"https://www.google.com/finance/q=
+uote/AMWL:NYSE?hl=3Den" style=3D"color:#1a5e9a;text-decoration:underline;">AM=
+WL</a></td><td style=3D"font-family:Arial, Helvetica, sans-serif;font-size:13=
+px;padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;text-align:r=
+ight;">$179.6M</td><td style=3D"font-family:Arial, Helvetica, sans-serif;font=
+-size:13px;padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;text=
+-align:right;background:#a9d9a4;color:#111820;">+8.9%</td></tr><tr><td style=
+=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;padding:6px 8px;c=
+olor:#1f2933;border-bottom:1px solid #e9edf0;">Phreesia</td><td style=3D"font=
+-family:Arial, Helvetica, sans-serif;font-size:13px;padding:6px 8px;color:#1f=
+2933;border-bottom:1px solid #e9edf0;"><a href=3D"https://www.google.com/fina=
+nce/quote/PHR:NYSE?hl=3Den" style=3D"color:#1a5e9a;text-decoration:underline;=
+">PHR</a></td><td style=3D"font-family:Arial, Helvetica, sans-serif;font-size=
+:13px;padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;text-alig=
+n:right;">$663.2M</td><td style=3D"font-family:Arial, Helvetica, sans-serif;f=
+ont-size:13px;padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;t=
+ext-align:right;background:#f5aead;color:#111820;">-10.0%</td></tr><tr><td st=
+yle=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;padding:6px 8p=
+x;color:#1f2933;border-bottom:1px solid #e9edf0;">Consensus Cloud Solutions</=
+td><td style=3D"font-family:Arial, Helvetica, sans-serif;font-size:13px;paddi=
+ng:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;"><a href=3D"https:/=
+/www.google.com/finance/quote/CCSI:NASDAQ?hl=3Den" style=3D"color:#1a5e9a;tex=
+t-decoration:underline;">CCSI</a></td><td style=3D"font-family:Arial, Helveti=
+ca, sans-serif;font-size:13px;padding:6px 8px;color:#1f2933;border-bottom:1px=
+ solid #e9edf0;text-align:right;">$669.7M</td><td style=3D"font-family:Arial,=
+ Helvetica, sans-serif;font-size:13px;padding:6px 8px;color:#1f2933;border-bo=
+ttom:1px solid #e9edf0;text-align:right;background:#f5aead;color:#111820;">-6=
+.9%</td></tr><tr><td style=3D"font-family:Arial, Helvetica, sans-serif;font-s=
+ize:13px;padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;">Evol=
+ent Health</td><td style=3D"font-family:Arial, Helvetica, sans-serif;font-siz=
+e:13px;padding:6px 8px;color:#1f2933;border-bottom:1px solid #e9edf0;"><a hre=
+f=3D"https://www.google.com/finance/quote/EVH:NYSE?hl=3Den" style=3D"color:#1=
+a5e9a;text-decoration:underline;">EVH</a></td><td style=3D"font-family:Arial,=
+ Helvetica, sans-serif;font-size:13px;padding:6px 8px;color:#1f2933;border-bo=
+ttom:1px solid #e9edf0;text-align:right;">$347.6M</td><td style=3D"font-famil=
+y:Arial, Helvetica, sans-serif;font-size:13px;padding:6px 8px;color:#1f2933;b=
+order-bottom:1px solid #e9edf0;text-align:right;background:#fbd5d4;color:#111=
+820;">-6.1%</td></tr></table><p style=3D"font-family:Arial, Helvetica, sans-s=
+erif;font-size:15px;line-height:1.5;color:#1f2933;margin:0 0 12px;color:#7b87=
+94;font-size:12px;margin-top:24px;">Informational only; not investment advice=
+.</p></td></tr></table></td></tr></table></body></html>
+
+--==healthcare-intel-2-ad23a79a9ea4e144ae0bd56d==
+Content-Type: image/jpeg
+Content-Transfer-Encoding: base64
+Content-ID: <earnings-phr@healthcare-intel.local>
+MIME-Version: 1.0
+Content-Disposition: inline
+
+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
+wSZd+VZk9f13tVM0QQz4JMu/Ksyev672qfBJl35VmT1/Xe1UzRBDPgky78qzJ6/rvap8EmXflWZP
+X9d7VTNEEM+CTLvyrMnr+u9qnwSZd+VZk9f13tVM0QQz4JMu/Ksyev672qfBJl35VmT1/Xe1UzRB
+DPgky78qzJ6/rvap8EmXflWZPX9d7VTNEEM+CTLvyrMnr+u9qnwSZd+VZk9f13tVM0QQz4JMu/Ks
+yev672qfBJl35VmT1/Xe1UzRBDPgky78qzJ6/rvap8EmXflWZPX9d7VTNEEM+CTLvyrMnr+u9qnw
+SZd+VZk9f13tVM0QQz4JMu/Ksyev672qfBJl35VmT1/Xe1UzRB5Tn7IeGZZwCLFMNrcwR1UWJYex
+rpMaq5G2fVxMcC10hBBa4jeOderKGcrv4mf+p4Z/voFM0BERAREQEREBERBHeUf+77M/6pq/4L1v
+5X/FnCP8lB/DatDlH/u+zP8Aqmr/AIL1v5X/ABZwj/JQfw2oOmiIgIiICIiAiIgIiICIiAiIgIiI
+CIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiI
+gIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAio1wdexG
+42O9VQERYqqqho4TLM8NYPrQZSQBcq2ORkrQ9jg5p4EG65myqcY3z66ak4iMGz5PP0DsSEe5NeIG
+ttSVG9g6j+ceYomuqiA3QmyKIuRWYnUzskOHMD44d75Twdbi1v8AVdOmmZUwRzMN2vaCEGRERARE
+QEREBERAREQEREBERAREQEREBERAREQEREBERBDOV38TP/U8M/30CmahnK7+Jn/qeGf76BTNAREQ
+EREBERAREQR3lH/u+zP+qav+C9b+V/xZwj/JQfw2rQ5R/wC77M/6pq/4L1v5X/FnCP8AJQfw2oOm
+iIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiI
+CIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiI
+gIiICIiAiIgIiICIrJ37OF7r2s0n6kHBoJJaEOry4upppXiUW8jxtzh/NSBrg4Ag3B3grRwiIHCK
+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
+7U0P67fR+1Xogs0P67fR+1ND+u30ftV6ILND+u30ftTQ/rt9H7VeiCzQ/rt9H7U0P67fR+1Xogs0
+P67fR+1ND+u30ftV6ILND+u30ftTQ/rt9H7VeiCzQ/rt9H7U0P67fR+1Xogs0P67fR+1ND+u30ft
+V6ILND+u30ftTQ/rt9H7VeiCzQ/rt9H7U0P67fR+1Xogs0P67fR+1ND+u30ftV6ILND+u30ftTQ/
+rt9H7VeiCzQ/rt9H7U0P67fR+1Xogs0P67fR+1ND+u30ftV6ILND+u30ftTQ/rt9H7VeiCzQ/rt9
+H7U0P67fR+1Xogs0P67fR+1ND+u30ftV6ILND+u30ftTQ/rt9H7VeiCzQ/rt9H7U0P67fR+1Xogs
+0P67fR+1ND+u30ftV6ILND+u30ftTQ/rt9H7VeiCzQ/rt9H7U0P67fR+1Xogs0P67fR+1ND+u30f
+tV6ILND+u30ftTQ/rt9H7VeiCzQ/rt9H7U0P67fR+1Xogs0P67fR+1ND+u30ftV6ILND+u30ftTQ
+/rt9H7VeiCzQ/rt9H7U0P67fR+1Xogs0P67fR+1ND+u30ftV6ILND+u30ftTQ/rt9H7VeiCzQ/rt
+9H7U0P67fR+1Xogs0P67fR+1ND+u30ftV6ILND+u30ftXOxhr3Gji1NOuoZ8XmG9dRc6t++Yph7O
+IBe8/QNyDe0v6zfR+1NL+lvo/arwiCzS/pb6P2ppd0t9H7VeiCzS7pb6P2ppd0t9H7VeiCzS7pb6
+P2ppd0t9H7VeiCzS7pb6P2ppd0t9H7VeiCzS7pb6P2ppd0t9H7VeiCzS7pb6P2ppd0t9H7VeiCzS
+7pb6P2ppd0t9H7VeiCzS7pb6P2ppd0t9H7VeiCzS7pb6P2ppd0t9H7VeiCzS7pb6P2ppd0t9H7Ve
+iCzS7pb6P2ppd0t9H7VeiCzS7pb6P2ppd0t9H7VeiCzS7pb6P2ppd0t9H7VeiCzS7pb6P2ppd0t9
+H7VeiCzS7pb6P2ppd0t9H7VeiCzS7pb6P2ppd0t9H7VeiCzS7pb6P2ppd0t9H7VeiCE8rYcMnNOo
+W91MM3Acf7dApsoXyu/iaP1phn++gU0QEREBERAREQEREEd5R/7vc0fqis/gvW/lf8WsJ/yUP8Nq
+0OUf+73NH6orP4L1v5X/ABawn/JQ/wANqDpoiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgI
+iICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiA
+iIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAuc/wAfHoxx2dOT5iXLornU/wB8
+xmsO86Y42g9HEkfuQdFECICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiA
+iIghfK7+Jo/WmGf76BTRQvld/E0frTDP99ApogIiICIiAiIgIiII7yj/AN3uaP1RWfwXrfyv+LWE
+/wCSh/htWhyj/wB3uaP1RWfwXrfyv+LWE/5KH+G1B00REBERAREQEREBERAREQEREBERAREQEREB
+ERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQ
+EREBERAREQEREBERAREQEREBERAREQUc4MaXONgBclYqWrirIRLEbtO5auMyO8GbTMNpKl4jHm5z
+3LFSsbhmJGlAtDUN1R9jgLEfzRNdVERFEREBEQmwugXRciBtRir5akVU9PDq0xNjPEDnPnWV1Lic
+I1w1rZ7f4csYF/pCJrpItOlxOOeTYSMdBUAXMT+J8x5wtsusiqordowcXN71aaiIcZYx/wBQQZEW
+NlTBIdLJo3HoDgsl0FCudhfj1WISdM+keYNC6RK5+CXNLJIeMkz3X6d6I6CIiKIiICIiAiIgIiIC
+IiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiCF8rv4mj9aYZ/voFNFC+V38TR+tMM/30Cm
+iAiIgIiICIiAiIgjvKP/AHe5o/VFZ/Bet/K/4tYT/kof4bVoco/93uaP1RWfwXrfyv8Ai1hP+Sh/
+htQdNERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBE
+RAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQERY6mdtNTyT
+PNmsaSUGi0Gsxh7/APDpW6B+kd5+pZsVpjPTB7PwsLhIzzjmVuDwPhomukuJJiZX343dvW8UGGjq
+WVlNHOzg8X8yzLl+D1uGPkdTMbUU7nF+yvpe09nMVnpcWpah2yLnRTfk5Rpd9qDdRLpdAXPxed+z
+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
+CiMOMtEUdPM1gvHOw3twBNj9RW+GMt5Le5a2MM2uGVDQN4YSPo3q2oxFtPh7KgN1PkaNmwfGcRuC
+CytrLS+CUcbH1J8okeLEOkrPRYdFRsd/iSv3vkcN7ircMojRwHaEPnkOuV/S4/yW4irNmzqN7lUR
+st5De5XIiLdmzqN7k2bOo3uVyIq3Zs6je5NmzqN7lciC3Zs6je5NmzqN7lciC3Zs6je5NmzqN7lc
+iC3Zs6je5NmzqN7lciC3Zs6je5NmzqN7lciC3Zs6je5NmzqN7lciC3Zs6je5NmzqN7lciC3Zs6je
+5NmzqN7lciC3Zs6je5NmzqN7lciC3Zs6je5NmzqN7lciC3Zs6je5NmzqN7lciC3Zs6je5NmzqN7l
+ciC3Zs6je5NmzqN7lciC3Zs6re5V0M6o7lVEFuyZ1R3Joba2kW8yuRBjfTwyDx4o3edoK1ZMFw+S
+5NHCCd12tsVvIg1qPDaah1bGOxcd5JLj3lbGhvVb3KqIKaG9VvcmhvVb3KqIKaG9VvcmhvVHcqog
+pob1W9yaG9Vvcqogpob1W9yaG9VvcqogxvijkaWOY0tcLEELmQ4LI5wiqZhJSRG8cY4u6NXTZdey
+WRFoiYAAGNAAtwTZs6je5XIirdmzqN7k2bOo3uVyILdmzqN7lZPSxTwviexul7S07llQ8EGhhEmu
+kEUgG1gJjfu6OB7lvaG9Udy5c8zMLxIzSFwhqWb7Amz2+bpCyHEame4pKGQjrzHQD5gia6GhvVHc
+mhvVHctCLFow7Z1Ub6SXok4HzHnW+1wIuCD5ihpob1R3Job1R3KqIqmhvVHcmhvVHcqogoWtHxR3
+Lm0rW1eKVFTYFkI2LNw48XfySqnlr5TSUbtDBumnHxewdq3qemipYWwws0sbwCJq/Q3qt7lXQ3qj
+uVURVNDeqO5NDeqO5VRBTQ3qjuTQ3qjuVUQU0N6o7lqVuHipLJI37GaM+K9ovuPELcRBzRgcLzqq
+Z6iod+e+w7hZXe9/Dfk49IroIg5hwNkRLqOomp3HiL6mnzgqhocQmtFPUQiH4z4W2e/s7PoXURNG
+CmoqekiEUMTWtHZxPSVlMbOq3uVyIKbNnUb3Js2dRvcqogps2dRvcmzZ1G9yqiCmzZ1G9ybNnUb3
+KqIKbNnUb3Js2dRvcqogps2dRvcmzZ1G9yqiCmzZ1G9ybNnUb3KqIKbNnUb3Js2dRvcqogps2dRv
+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
+ERASyIgIiICIiAiIgtkjbI0tcA5pFiCLgrQGAUAPjQueOZr3kgfQuiiDTfhNDIzQ6lisOFm2I+lY
+XYPuMbaypbAfKj1XuOgHiF0kRMY4YY4I2xRMDGNFgAslkRFFrVGGUdVvlp43Hje1j3rZRBzTgcB8
+V01S6LniMpLT/NbsNNFTsDIY2saOZoWWyImARERRERAREQFa9jZGlrgC1wsQecK5EHIZg0ziKeao
+LqKM3ZGOLh0OPQF1WsDGhrWhoHAAWVyImCIiKIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiI
+gIiIIZyu/iaP1phn++gUzUM5XfxNH60wz/fQKZoCIiAiIgIi8xzpnusbn5uUaKbFKdkGHNxCc4ZR
+eE1M+p7mhrbgtY1oYSSd5JaAg9OReZ4hnepxLCsnUWXccFS/MdY+ndipp2tfHFGx75LRkANkuzRY
+jcbm26y6+S8axRmasx5UxWsNecLFNU0tW9gbJJBM13ivDdxc1zHC4tcEdCDp8o393uZ/1TV/wXrf
+yv8AizhH+Sh/0BRTlWzzljCcq5jwWvx7DqXEpMKqWspZZ2tlcXQu0gN47+ZSnLD2ty1hILgCKKHn
+/MCDqordqzrN71TbR9dqC9FZto+u1NtH12oL0Vm2j67U20fXagvRWbaPrtTbR9dqC9FZto+u1NtH
+12oL0Vm2j67U20fXagvRWbaPrtTbR9dqC9FZto+u1NtH12oL0Vm2j67U20fXagvRWbaPrtTbR9dq
+C9FZto+u1NtH12oL0Vm2j67U20fXagvRWbaPrtTbR9dqC9FZto+u1NtH12oL0Vm2j67U20fXagvR
+WbaPrtTbR9dqC9FZto+u1NtH12oL0Vm2j67U20fXagvRWbaPrtTbR9dqC9FZto+u1NtH12oL0Vm2
+j67U20fXagvRWbaPrtTbR9dqC9YqilhqmaJo2vb28yu20fXam2j67UHP2Fbhm+nJq6f8k4+O3zHn
+8y26OugrWExOOpu5zHCzmntCy7aPrt71qVlFDVO2scpgnHkys4/T0hBu3XPfjcDaoRNa98YcGPmH
+kNceAWAnEKpwpqh8cMY8uaN2+UdA6FuGmpfA3UgDGxFum1/rVRuIubhlYWh1HUP+/Qbrn47eYhb+
+3jt5be9RV6LGKiFwu2RpHYbqu3j64QXorNvH1wm3j64QXosMtZBDG6R8rWtaLklY4MUoqk2iqoXH
+q6t/cg2kVu1Z1m96bVnWb3oLkVm1b1m96bVvWb3oL0Vm1b1m96bVvWb3oL0Vm1b1m96bVvWb3oL0
+Vm1b1m96x1FZDTQvmle0MYLmxugz3stSuxGOkAYA6Wd/kRM3uJ/kO1agqa6uI2eijiPBz/GkI83M
+tmko6ekJeHmSV3lSyOu4omscGHSTyipxAiSQb2RjyI/6ntXR+hWbVg5wm2Z1ggusllbto+uE20fX
+CLi9FZto+uE20fXCC9FZto+uE20fXCC9FZto+uE20fXCC9FZto+uE20fXCC9FZto+uE20fXCC9FZ
+to+uE20fXCC9FZto+uE20fXCC9FZto+uE20fXCC9FZto+uE20fXCC9FZto+uE20fXCC9FZto+uE2
+0fXCC9FZto+uE20fXCC9FZto+uE20fXCC9FZto+uE20fXCC9FZto+uE20fXCC9FZto+uE20fXCC9
+FZto+uE20fXCC9FZto+uE20fXCC9FZto+uE20fXCC9FZto+uE20fXCC9FZto+uE20fXCC9FZto+u
+E20fXCC9FZto+uE20fXCC9FZto+uE20fXCC9FZto+uE20fXCC9FZto+uE20fXCC9FZto+uE20fXC
+C9FZto+uE20fXCC9FZto+uE20fXCC9FZto+uE20fXCC9FZto+uE20fXCC9FZto+uE20fXCCH8rv4
+mj9aYZ/voFM1CeVuRjsnANcCfdTDP99CpsgIiICIiAoZjuUMWjziM3ZcqKAVs1AMOqqeva8xyMa8
+vje1zDdrmuLrjeCDzEKZog81p+SiqwzL+CNocVhdj2E4lNiwqpoSIJ5pi/bMLAbtYRIQLG4sDvUh
+yjlWtwvF8azBjFTTz4pi7oWvZTNcIYIYmlscbdRuTvc4k8S7gLKUpZBG+UeNhyBmZxaCfcmr5v8A
+kvXRyv8AizhH+Sh/0BaHKN/d9mb9U1f8F638r/izhH+Sg/0BB00siIFksiIFksiIFksiIFksiIFk
+siIFksiIFksiIFksiIFksiIFksiIFksiIFksiIFksiIFksiIFksiIFksiIFksiIFksiIFksiIFks
+iIFksiIFksiICEA8QERAsEsERBpV9FLJJHU0pY2pj3DXwc08QVj9yHVG+uqHzD8k3xWD6BxXRRBz
+nYHTscX0r5aV/wDynbj9B3KmnFKY3+81jfQf/RdJEHObjMLTpqopaV/RI3d3hbnhUIhM21YYwLlw
+IIWRzGvaWuaHNPEHeCtGTA6GR4fsdO+5DTYO84RGKKN2LTionaW00bvvUZ+P+cf5Lamwyjqd0tNE
+7t02P1LZAAAAFgECDlFzsFm8YufRSG2om5hPb2LqizhcWIKpJGyVhY9oc1wsQeBXMifJg8ghmJfR
+uNo5D/hnqns7UV1bDoCWHQEBuLjgiBYdASw6ArJZ4oGl0sjI2jiXGy0XY1C8ltLFNVOH5Ju7vO5B
+0bDoCWHQFzvCMXfvbRU7R0PlN/qCeFYpF481DE9g4iGS7vrsg6Nh0Bcup/8AaOJMpQLw09pJegu5
+grnY7Smnke1xErRuieLOJ5hZZsMozSUw175ZDrkd0uKI27Kth0BERSw6Alh0IiBYJYIiBYJYIiBY
+JYIiBYJYIiBYJYIiBYJYIiBYJYIiBYJYIiBYJYIiBYJYIiBYJYIiBYJYIiBYJYIiBYJYIiBYJYIi
+BYJYIiBYJYIiBYJYIiBYJYIiBYJYIiBYJYIiBYJYIiBYJYIiBYJYIiBYJYIiBYJYIiBYJYIiBYJY
+IiBYJYIiBYJYIiBYJYIiBYJYIiBYJYIiCF8roHvObu//AFTDP99ApooXyu/ia39aYZ/voVNEBERA
+REQEREBERBHeUb+7/M36prP4L1v5X/FnCP8AJQf6AtDlG/u/zN+qaz+C5b+V/wAWcI/yUH+gIOmi
+IgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiIC
+IiAiIgIiICIiAiIgIiICtliZMx0cjQ5rhYg8CFciDlNbXYY7YwQOq4D+D8YAs7CTzK/YYpU/hqmK
+mafiwt1O7yuklkGhHg1G14klY6eQfGldqW81gY0Na0NaOAAsFWyICIiDHJTQyua98THOabglu8LI
+iICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiA
+iIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIghfK7+Jrf1phn++hU0UL5XfxNb+tMM/wB9
+CpogIiICIiAiIgIiII7yjf3f5m/VNZ/Bct/K/wCLOEf5KD/QFizlhtTjOUsbw2ja19TWUFRTxNc7
+SC98bmi55t5UYwnGeUDDsLo6I5BpXmngjhLvdyMX0tAv+D7EE/RQr3zZ/wDm/pfXsfs0982f/m/p
+fXsfs0E1RQr3zZ/+b+l9ex+zT3zZ/wDm/pfXsfs0E1RQr3zZ/wDm/pfXsfs0982f/m/pfXsfs0E1
+RQr3zZ/+b+l9ex+zT3zZ/wDm/pfXsfs0E1RQr3zZ/wDm/pfXsfs0982f/m/pfXsfs0E1RQr3zZ/+
+b+l9ex+zT3zZ/wDm/pfXsfs0E1RQr3zZ/wDm/pfXsfs0982f/m/pfXsfs0E1RedYFyh5yzHhceJ4
+fkGJ1NI+RjS/Go2m7HuY7ds+s0roe+fP3zfU3r2P2aCaooV758/fN9TevY/Zp758/fN9TevY/ZoJ
+qihXvnz9831N69j9mnvnz9831N69j9mgmqKFe+fP3zfU3r2P2ae+fP3zfU3r2P2aCaooV758/fN9
+TevY/Zp758/fN9TevY/ZoJqihXvnz9831N69j9mnvnz9831N69j9mgmqKFe+fP3zfU3r2P2ae+fP
+3zfU3r2P2aCaooV758/fN9TevY/Zp758/fN9TevY/ZoJqihXvnz9831N69j9mnvnz9831N69j9mg
+mqKFe+fP3zfU3r2P2ae+fP3zfU3r2P2aCaooV758/fN9TevY/Zp758/fN9TevY/ZoJqihXvnz983
+1N69j9mnvnz9831N69j9mgmqLzvEeUHOeF1uGUdRkCETYnO6mpw3G4yC9sb5Dc7PcNMbvq6Vve+f
+lA+b2m9ex+zQTZFCffPygfN7S+vY/Zp75+UD5vaX17H7NBNkUJ98/KB83tL69j9mnvn5QPm9pfXs
+fs0E2RQn3z8oHze0vr2P2ae+flA+b2l9ex+zQTZFCffPygfN7S+vY/Zp75+UD5vaX17H7NBNkUJ9
+8/KB83tL69j9mnvn5QPm9pfXsfs0E2RQn3z8oHze0vr2P2ae+flA+b2l9ex+zQTZFCffPygfN7S+
+vY/Zp75+UD5vaX17H7NBNkUJ98/KB83tL69j9mnvn5QPm9pfXsfs0E2RQn3z8oHze0vr2P2ae+fl
+A+b2l9ex+zQTZFCffPygfN7S+vY/Zp75+UD5vaX17H7NBNkUJ98/KB83tL69j9mnvn5QPm9pfXsf
+s0E2RQn3z5/+b6lH/rsfs1oYByh5yzLg1JjGHZAidSVbNpEZMaja617bxs93BB6KihXvmz/83tN6
+9j9mnvmz/wDN7TevY/ZoJqihXvmz/wDN7TevY/Zp75s//N7TevY/ZoJqihXvmz/83tN69j9mnvmz
+/wDN7TevY/ZoJqihXvmz/wDN7TevY/Zp75s//N7TevY/ZoJqihXvmz/83tN69j9mnvmz/wDN7Tev
+Y/ZoJqihXvmz/wDN7TevY/Zp75s//N7TevY/ZoJqihXvmz/83tN69j9mnvmz/wDN7TevY/ZoJqih
+Xvmz/wDN7TevY/Zp75s//N7TevY/ZoJqihXvmz/83tN69j9mnvmz/wDN7TevY/ZoJqihXvmz/wDN
+7TevY/Zp75s//N7TevY/ZoJqihXvmz/83tN69j9mnvmz/wDN7TevY/ZoJqihXvmz/wDN7TevY/Zr
+nV3KJnLD8Vw3C6jIEQqcTdK2nAxuMtJjZrdqOz3bgg9GRQn3zZ/+b6m9ex+zT3zZ/wDm+pvXsfs0
+E2RQn3zZ/wDm+pvXsfs0982f/m+pvXsfs0E2RQn3zZ/+b6m9ex+zT3zZ/wDm+pvXsfs0E2RQn3zZ
+/wDm+pvXsfs0982f/m+pvXsfs0E2RQn3zZ/+b6m9ex+zT3zZ/wDm+pvXsfs0E2RQn3zZ/wDm+pvX
+sfs0982f/m+pvXsfs0E2RQn3zZ/+b6m9ex+zT3zZ/wDm+pvXsfs0E2RQn3zZ/wDm+pvXsfs0982f
+/m+pvXsfs0E2RQn3zZ/+b6m9ex+zT3zZ/wDm+pvXsfs0E2RQn3zZ/wDm+pvXsfs0982f/m+pvXsf
+s0E2RQn3zZ/+b6m9ex+zT3zZ/wDm+pvXsfs0E2RQn3zZ/wDm+pvXsfs1R+ac/Rsc93J/TaWgk/8A
+t2P2aCbovPMDz/nTMWDUOMUGQIHUldAyohL8bja4scLi42e42K3vfPn/AOb6l9ex+zQTVFCvfPn/
+AOb6l9ex+zT3z5/+b6l9ex+zQTVFCvfPn/5vqX17H7NPfPn/AOb6l9ex+zQTVFCvfPn/AOb6l9ex
++zT3z5/+b6l9ex+zQTVFCvfPn/5vqX17H7NPfPn/AOb6l9ex+zQTVFCvfPn/AOb6l9ex+zT3z5/+
+b6l9ex+zQTVFCvfPn/5vqX17H7NPfPn/AOb6l9ex+zQTVFCvfPn/AOb6l9ex+zT3z5/+b6l9ex+z
+QTVFCvfPn/5vqX17H7NPfPn/AOb6l9ex+zQTVFCvfPn/AOb6l9ex+zT3z5/+b6l9ex+zQTVFCvfP
+n/5vqX17H7NPfPn/AOb6l9ex+zQTVFCvfPn/AOb6l9ex+zT3z5/+b6l9ex+zQTVF51Vcoec6PGaD
+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
+REBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERA
+REQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQERE
+BERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERARE
+QEREH//Z
+
+--==healthcare-intel-2-ad23a79a9ea4e144ae0bd56d==--
+
+--==healthcare-intel-0-ad23a79a9ea4e144ae0bd56d==--
