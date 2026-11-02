@@ -28,7 +28,7 @@
       }
     },
     "HUM": {
-      "fetched_at": "2026-11-02T21:25:08Z",
+      "fetched_at": "2026-11-02T21:30:44Z",
       "value": {
         "ticker": "HUM",
         "provider_name": "Humana Inc.",
@@ -42,7 +42,7 @@
       }
     },
     "OSCR": {
-      "fetched_at": "2026-11-02T21:25:21Z",
+      "fetched_at": "2026-11-02T21:30:57Z",
       "value": {
         "ticker": "OSCR",
         "provider_name": "Oscar Health, Inc.",
@@ -56,7 +56,7 @@
       }
     },
     "MOH": {
-      "fetched_at": "2026-11-02T21:25:34Z",
+      "fetched_at": "2026-11-02T21:31:10Z",
       "value": {
         "ticker": "MOH",
         "provider_name": "Molina Healthcare, Inc.",
@@ -70,7 +70,7 @@
       }
     },
     "CI": {
-      "fetched_at": "2026-11-02T21:25:47Z",
+      "fetched_at": "2026-11-02T21:31:23Z",
       "value": {
         "ticker": "CI",
         "provider_name": "The Cigna Group",
@@ -84,7 +84,7 @@
       }
     },
     "ELV": {
-      "fetched_at": "2026-11-02T21:26:00Z",
+      "fetched_at": "2026-11-02T21:31:36Z",
       "value": {
         "ticker": "ELV",
         "provider_name": "Elevance Health, Inc.",
@@ -98,7 +98,7 @@
       }
     },
     "CLOV": {
-      "fetched_at": "2026-11-02T21:26:13Z",
+      "fetched_at": "2026-11-02T21:31:49Z",
       "value": {
         "ticker": "CLOV",
         "provider_name": "Clover Health Investments, Corp",
@@ -112,7 +112,7 @@
       }
     },
     "CNC": {
-      "fetched_at": "2026-11-02T21:26:26Z",
+      "fetched_at": "2026-11-02T21:32:02Z",
       "value": {
         "ticker": "CNC",
         "provider_name": "Centene Corporation",
@@ -126,7 +126,7 @@
       }
     },
     "ALHC": {
-      "fetched_at": "2026-11-02T21:26:39Z",
+      "fetched_at": "2026-11-02T21:32:15Z",
       "value": {
         "ticker": "ALHC",
         "provider_name": "Alignment Healthcare, Inc. Common Stock",
@@ -140,7 +140,7 @@
       }
     },
     "HCA": {
-      "fetched_at": "2026-11-02T21:26:52Z",
+      "fetched_at": "2026-11-02T21:32:28Z",
       "value": {
         "ticker": "HCA",
         "provider_name": "HCA Healthcare, Inc.",
@@ -154,7 +154,7 @@
       }
     },
     "THC": {
-      "fetched_at": "2026-11-02T21:27:05Z",
+      "fetched_at": "2026-11-02T21:32:41Z",
       "value": {
         "ticker": "THC",
         "provider_name": "Tenet Healthcare Corporation New",
@@ -168,7 +168,7 @@
       }
     },
     "UHS": {
-      "fetched_at": "2026-11-02T21:27:18Z",
+      "fetched_at": "2026-11-02T21:32:54Z",
       "value": {
         "ticker": "UHS",
         "provider_name": "Universal Health Services, Inc. Class B",
@@ -182,7 +182,7 @@
       }
     },
     "ENSG": {
-      "fetched_at": "2026-11-02T21:27:31Z",
+      "fetched_at": "2026-11-02T21:33:07Z",
       "value": {
         "ticker": "ENSG",
         "provider_name": "The Ensign Group, Inc.",
@@ -196,7 +196,7 @@
       }
     },
     "ACHC": {
-      "fetched_at": "2026-11-02T21:27:44Z",
+      "fetched_at": "2026-11-02T21:33:20Z",
       "value": {
         "ticker": "ACHC",
         "provider_name": "Acadia Healthcare Company, Inc.",
@@ -210,7 +210,7 @@
       }
     },
     "EHC": {
-      "fetched_at": "2026-11-02T21:27:57Z",
+      "fetched_at": "2026-11-02T21:33:33Z",
       "value": {
         "ticker": "EHC",
         "provider_name": "Encompass Health Corporation Common Stock",
@@ -224,7 +224,7 @@
       }
     },
     "PACS": {
-      "fetched_at": "2026-11-02T21:28:10Z",
+      "fetched_at": "2026-11-02T21:33:46Z",
       "value": {
         "ticker": "PACS",
         "provider_name": "PACS Group, Inc.",
@@ -303,7 +303,7 @@
       }
     },
     "PRVA": {
-      "fetched_at": "2026-11-02T21:28:23Z",
+      "fetched_at": "2026-11-02T21:33:59Z",
       "value": {
         "ticker": "PRVA",
         "provider_name": "Privia Health Group, Inc. Common Stock",
@@ -317,7 +317,7 @@
       }
     },
     "ASTH": {
-      "fetched_at": "2026-11-02T21:28:36Z",
+      "fetched_at": "2026-11-02T21:34:12Z",
       "value": {
         "ticker": "ASTH",
         "provider_name": "Astrana Health Inc. Common Stock",
@@ -344,7 +344,7 @@
       }
     },
     "EVH": {
-      "fetched_at": "2026-11-02T21:28:49Z",
+      "fetched_at": "2026-11-02T21:34:25Z",
       "value": {
         "ticker": "EVH",
         "provider_name": "Evolent Health, Inc Class A Common Stock",
@@ -358,7 +358,7 @@
       }
     },
     "PIII": {
-      "fetched_at": "2026-11-02T21:29:02Z",
+      "fetched_at": "2026-11-02T21:34:38Z",
       "value": {
         "ticker": "PIII",
         "provider_name": "P3 Health Partners Inc. Common Stock",
@@ -372,7 +372,7 @@
       }
     },
     "DVA": {
-      "fetched_at": "2026-11-02T21:29:16Z",
+      "fetched_at": "2026-11-02T21:34:51Z",
       "value": {
         "ticker": "DVA",
         "provider_name": "DaVita Inc.",
@@ -386,7 +386,7 @@
       }
     },
     "FMS": {
-      "fetched_at": "2026-11-02T21:29:28Z",
+      "fetched_at": "2026-11-02T21:35:04Z",
       "value": {
         "ticker": "FMS",
         "provider_name": "Fresenius Medical Care AG",
@@ -400,7 +400,7 @@
       }
     },
     "SGRY": {
-      "fetched_at": "2026-11-02T21:29:41Z",
+      "fetched_at": "2026-11-02T21:35:17Z",
       "value": {
         "ticker": "SGRY",
         "provider_name": "Surgery Partners, Inc. Common Stock",
@@ -414,7 +414,7 @@
       }
     },
     "OPCH": {
-      "fetched_at": "2026-11-02T21:29:54Z",
+      "fetched_at": "2026-11-02T21:35:30Z",
       "value": {
         "ticker": "OPCH",
         "provider_name": "Option Care Health, Inc. Common Stock",
@@ -428,7 +428,7 @@
       }
     },
     "LFST": {
-      "fetched_at": "2026-11-02T21:30:07Z",
+      "fetched_at": "2026-11-02T21:35:43Z",
       "value": {
         "ticker": "LFST",
         "provider_name": "LifeStance Health Group, Inc. Common Stock",
@@ -442,7 +442,7 @@
       }
     },
     "TDOC": {
-      "fetched_at": "2026-11-02T21:30:20Z",
+      "fetched_at": "2026-11-02T21:35:56Z",
       "value": {
         "ticker": "TDOC",
         "provider_name": "Teladoc Health, Inc.",
@@ -456,7 +456,7 @@
       }
     },
     "AMWL": {
-      "fetched_at": "2026-11-02T21:30:33Z",
+      "fetched_at": "2026-11-02T21:36:09Z",
       "value": {
         "ticker": "AMWL",
         "provider_name": "American Well Corporation",
@@ -483,7 +483,7 @@
       }
     },
     "HIMS": {
-      "fetched_at": "2026-11-02T21:30:46Z",
+      "fetched_at": "2026-11-02T21:36:22Z",
       "value": {
         "ticker": "HIMS",
         "provider_name": "Hims & Hers Health, Inc.",
@@ -497,7 +497,7 @@
       }
     },
     "LFMD": {
-      "fetched_at": "2026-11-02T21:30:59Z",
+      "fetched_at": "2026-11-02T21:36:35Z",
       "value": {
         "ticker": "LFMD",
         "provider_name": "LifeMD, Inc. Common Stock",
@@ -511,7 +511,7 @@
       }
     },
     "OMDA": {
-      "fetched_at": "2026-11-02T21:31:13Z",
+      "fetched_at": "2026-11-02T21:36:48Z",
       "value": {
         "ticker": "OMDA",
         "provider_name": "Omada Health, Inc. Common Stock",
@@ -525,7 +525,7 @@
       }
     },
     "GDRX": {
-      "fetched_at": "2026-11-02T21:31:25Z",
+      "fetched_at": "2026-11-02T21:37:01Z",
       "value": {
         "ticker": "GDRX",
         "provider_name": "GoodRx Holdings, Inc. Class A Common Stock",
@@ -539,7 +539,7 @@
       }
     },
     "ORCL": {
-      "fetched_at": "2026-11-02T21:31:38Z",
+      "fetched_at": "2026-11-02T21:37:14Z",
       "value": {
         "ticker": "ORCL",
         "provider_name": "Oracle Corp",
@@ -566,7 +566,7 @@
       }
     },
     "WAY": {
-      "fetched_at": "2026-11-02T21:31:51Z",
+      "fetched_at": "2026-11-02T21:37:27Z",
       "value": {
         "ticker": "WAY",
         "provider_name": "Waystar Holding Corp. Common Stock",
@@ -593,7 +593,7 @@
       }
     },
     "PHR": {
-      "fetched_at": "2026-11-02T21:32:04Z",
+      "fetched_at": "2026-11-02T21:37:40Z",
       "value": {
         "ticker": "PHR",
         "provider_name": "Phreesia, Inc.",
@@ -607,7 +607,7 @@
       }
     },
     "CCSI": {
-      "fetched_at": "2026-11-02T21:32:17Z",
+      "fetched_at": "2026-11-02T21:37:53Z",
       "value": {
         "ticker": "CCSI",
         "provider_name": "Consensus Cloud Solutions, Inc. Common Stock",
@@ -634,7 +634,7 @@
       }
     },
     "IQV": {
-      "fetched_at": "2026-11-02T21:32:30Z",
+      "fetched_at": "2026-11-02T21:38:06Z",
       "value": {
         "ticker": "IQV",
         "provider_name": "IQVIA Holdings Inc.",
@@ -648,7 +648,7 @@
       }
     },
     "HCAT": {
-      "fetched_at": "2026-11-02T21:32:43Z",
+      "fetched_at": "2026-11-02T21:38:19Z",
       "value": {
         "ticker": "HCAT",
         "provider_name": "Health Catalyst, Inc Common Stock",
@@ -662,7 +662,7 @@
       }
     },
     "DOCS": {
-      "fetched_at": "2026-11-02T21:32:56Z",
+      "fetched_at": "2026-11-02T21:38:32Z",
       "value": {
         "ticker": "DOCS",
         "provider_name": "Doximity, Inc.",
@@ -676,7 +676,7 @@
       }
     },
     "VEEV": {
-      "fetched_at": "2026-11-02T21:33:09Z",
+      "fetched_at": "2026-11-02T21:38:45Z",
       "value": {
         "ticker": "VEEV",
         "provider_name": "Veeva Systems Inc.",
