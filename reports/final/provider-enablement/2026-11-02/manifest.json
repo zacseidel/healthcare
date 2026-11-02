@@ -5,7 +5,7 @@
   "report_date": "2026-11-02",
   "market_data_as_of": "2026-10-30",
   "generated_at": "2026-11-02T22:19:03Z",
-  "rendered_at": "2026-11-02T22:33:47Z",
+  "rendered_at": "2026-11-02T22:55:56Z",
   "narrative_only": true,
   "market_sections": false,
   "configuration_sha256": "4b609c948c744934d7d292b3a068a05d933a39febe9dd9b9291d1262625b41ff",
@@ -27,10 +27,10 @@
   "metrics": {
     "mode": "render-only",
     "durations_seconds": {
-      "rendering": 0.252,
-      "total": 0.259
+      "rendering": 0.106,
+      "total": 0.109
     },
-    "directory_bytes": 43051
+    "directory_bytes": 42886
   },
   "files": [
     "Provider Enablement Intel-2026-11-02.html",

@@ -22,8 +22,6 @@ Weekly strategy brief on Medicare Advantage and Medicaid risk-contracting econom
 
 <h3 id="strategy-executive-view-1-california-removes-1-9-million-members-from-medicaid-managed-care-risk">1. California removes 1.9 million members from Medicaid managed-care risk</h3>
 
-**Status:** NEW
-
 **What happened**
 
 An October 30 issue brief quantified California’s January 1, 2027 transition of Medi-Cal members with unsatisfactory immigration status from managed care to fee-for-service at approximately 1.9 million people, including 251,000 children. It found that 58.7% of affected members receiving active treatment use providers that are not enrolled in Medi-Cal fee-for-service. The state has confirmed that affected members retain coverage but lose access to managed-care-only Enhanced Care Management and Community Supports. ([California Health Care Foundation, *Medi-Cal Enrollees with Unsatisfactory Immigration Status: What to Know About the Transition to Fee-for-Service*, October 30, 2026](https://www.chcf.org/resource/2026/10/30/medi-cal-unsatisfactory-immigration-status-fee-for-service-transition/); [California DHCS, *Transition to Medi-Cal Fee-for-Service*, accessed November 2, 2026](https://www.dhcs.ca.gov/providers-partners/medi-cal-fee-for-service-transition/))
@@ -42,8 +40,6 @@ DHCS guidance on existing authorizations and complex-care transitions, provider 
 
 <h3 id="strategy-executive-view-2-privia-buys-attributed-lives-and-a-pathway-into-physician-practices">2. Privia buys attributed lives and a pathway into physician practices</h3>
 
-**Status:** NEW
-
 **What happened**
 
 Privia acquired American Choice Healthcare MSSP, a Cano Health subsidiary whose ACO will manage more than 36,000 MSSP-attributed lives beginning January 1, 2027. Privia paid approximately $36 million in cash at closing and expects minimal 2026 impact but positive contributions to attributed lives and adjusted EBITDA in 2027. The ACO includes practices in existing and new Privia states. ([Privia Health, *Privia Health Expands VBC Footprint with Acquisition of American Choice Healthcare MSSP Business*, November 2, 2026](https://www.priviahealth.com/press-release/privia-health-expands-vbc-footprint-acquisition-american-choice))
@@ -61,8 +57,6 @@ Privia’s November 5 disclosure of the ACO’s geographic mix, expected shared-
 ---
 
 <h3 id="strategy-executive-view-3-centene-s-ma-margin-recovery-now-runs-ahead-of-its-2028-stars-economics">3. Centene’s MA margin recovery now runs ahead of its 2028 Stars economics</h3>
-
-**Status:** UPDATE
 
 **What happened**
 

@@ -5,7 +5,7 @@
   "report_date": "2026-11-02",
   "market_data_as_of": "2026-10-30",
   "generated_at": "2026-11-02T21:37:30Z",
-  "rendered_at": "2026-11-02T22:31:50Z",
+  "rendered_at": "2026-11-02T22:55:07Z",
   "baseline_report_date": "2026-10-05",
   "comparison_cadence": "monthly",
   "market_sections": true,
@@ -1336,9 +1336,9 @@
   "metrics": {
     "mode": "render-only",
     "durations_seconds": {
-      "render_input_load": 0.012,
-      "rendering": 0.826,
-      "total": 0.856
+      "render_input_load": 0.019,
+      "rendering": 0.838,
+      "total": 0.875
     },
     "counts": {
       "companies": 72,
@@ -1352,13 +1352,13 @@
       }
     },
     "output_bytes": {
-      "html": 208309,
-      "markdown": 191663,
+      "html": 208122,
+      "markdown": 191571,
       "charts": 1434880,
       "data": 182888,
-      "total_without_manifest": 2025003
+      "total_without_manifest": 2024724
     },
-    "directory_bytes": 2056682
+    "directory_bytes": 2056403
   },
   "files": [
     "Healthcare Intel-2026-11-02.html",

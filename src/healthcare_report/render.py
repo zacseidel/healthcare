@@ -1341,10 +1341,8 @@ def build_markdown(context: dict[str, Any]) -> str:
     narrative_body = str((narrative or {}).get("body") or "").strip() if narrative else ""
     if narrative_body:
         lines.append(
-            _presentation_narrative(
-                narrative_body,
-                strip_status_headers=config.scope == "life-science-device",
-            )
+            # Status labels steer the weekly delta in the saved brief; readers never see them.
+            _presentation_narrative(narrative_body, strip_status_headers=True)
         )
     else:
         lines.append("No strategy narrative is available for this week.")

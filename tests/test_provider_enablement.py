@@ -172,6 +172,7 @@ def test_narrative_only_report_and_combined_email(project):
     assert "Agilon resets risk" in report_md
     assert "Recent Earnings" not in report_md
     assert "Market data through" not in report_md
+    assert "Status:" not in report_md
     assert not (folders[0] / "snapshot.csv").exists()
 
     draft = build_combined_email_draft(folders)
@@ -186,6 +187,7 @@ def test_narrative_only_report_and_combined_email(project):
     assert contents.index("Provider Enablement Intel") < contents.index("Healthcare Intel Digest")
     assert 'href="#r1-story-1"' in contents and 'href="#r2-story-1"' in contents
     assert html_body.index("Agilon resets risk") < html_body.index("Bon Secours")
+    assert "Status:" not in html_body
 
     output = project.root / "public-site"
     build_site(project, output)

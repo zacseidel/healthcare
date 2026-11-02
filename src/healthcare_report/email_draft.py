@@ -256,7 +256,6 @@ def _report_part(folder: Path, prefix: str = "") -> _EmailPart | None:
     except (KeyError, ValueError):
         return None
     report_name = str(manifest.get("report_name") or "Healthcare Intel Digest")
-    report_type = str(manifest.get("report_type") or "healthcare")
     snapshot = load_snapshot(folder / "snapshot.csv")
     facts = _stock_facts(snapshot)
     reference: dict[str, dict[str, Any]] = {
@@ -273,7 +272,7 @@ def _report_part(folder: Path, prefix: str = "") -> _EmailPart | None:
     sections.append(f'<h2 style="{STYLES["h2"]}">{_anchor(prefix + "news")}In the News</h2>')
     if narrative_body.strip():
         narrative_markup, stories = _narrative_html(
-            narrative_body, strip_status=report_type == "life-science-device", prefix=prefix
+            narrative_body, strip_status=True, prefix=prefix
         )
         sections.append(narrative_markup)
     else:

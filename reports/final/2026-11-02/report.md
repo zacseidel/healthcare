@@ -26,8 +26,6 @@ Weekly review of healthcare services, technology, distribution, and diagnostic c
 
 <h3 id="strategy-executive-view-1-employer-pbm-contracts-become-auditable-before-the-broader-rebate-pass-through-mandate">1. Employer PBM contracts become auditable before the broader rebate pass-through mandate</h3>
 
-**Status:** NEW
-
 **What happened**
 
 The Labor Department finalized requirements for PBMs and affiliated brokers or consultants serving large self-insured ERISA plans, generally those with at least 100 participants or sponsored by employers with at least 100 employees. Covered firms must disclose direct compensation, manufacturer payments, spread compensation, pharmacy recoupments and affiliate-steering arrangements. Plans receive initial disclosures before contracting or renewal, ongoing disclosures semiannually or quarterly upon request, and rights to audit the information. The detailed requirements apply to plan years beginning on or after July 1, 2027. ([U.S. Department of Labor, *Pharmacy Benefit Manager Fee Disclosure Final Rule*, October 29, 2026](https://www.dol.gov/index.php/agencies/ebsa/about-ebsa/our-activities/resource-center/fact-sheets/pharmacy-benefit-manager-fee-disclosure-final-rule))
@@ -45,8 +43,6 @@ Whether employers use the data to change vendors or primarily renegotiate incumb
 ---
 
 <h3 id="strategy-executive-view-2-bon-secours-buys-national-scale-in-outpatient-surgery">2. Bon Secours buys national scale in outpatient surgery</h3>
-
-**Status:** NEW
 
 **What happened**
 
@@ -66,8 +62,6 @@ Change-of-control provisions in payer and physician agreements, regulatory condi
 
 <h3 id="strategy-executive-view-3-medicaid-frailty-ruling-creates-a-temporary-two-speed-work-requirement-rollout">3. Medicaid frailty ruling creates a temporary two-speed work-requirement rollout</h3>
 
-**Status:** UPDATE
-
 **What happened**
 
 On October 29, a federal court vacated CMS’s requirement that people within Congress’s listed medical-frailty categories also demonstrate that their condition significantly impairs their ability to satisfy Medicaid work requirements. The court permanently enjoined the challenged provision and gave the plaintiff states a six-month enforcement stay for determinations of whether an individual qualifies as medically frail. It upheld CMS’s 12-month limit on claims and encounter data and restrictions on repeated self-attestation. The statutory January 1, 2027 implementation date remains unchanged. ([U.S. District Court for the District of Massachusetts, *Massachusetts v. Oz Memorandum and Order*, October 29, 2026](https://www.mass.gov/doc/mwr-district-court-ruling/download))
@@ -86,8 +80,6 @@ Whether HHS appeals or issues nationwide guidance, and how plaintiff states use 
 
 <h3 id="strategy-executive-view-4-coverage-and-claims-friction-overwhelmed-otherwise-strong-volume-growth">4. Coverage and claims friction overwhelmed otherwise strong volume growth</h3>
 
-**Status:** NEW
-
 **What happened**
 
 HCA reported 3% growth in same-facility equivalent admissions and 5.1% growth in emergency visits, but estimated that an increase in uninsured volume, primarily among patients who lost Exchange coverage, reduced third-quarter pretax income by approximately $400 million. ([HCA Healthcare, *Third Quarter 2026 Results*, October 27, 2026](https://investor.hcahealthcare.com/news/news-details/2026/HCA-Healthcare-Reports-Third-Quarter-2026-Results/default.aspx))
@@ -105,8 +97,6 @@ HCA’s uninsured trend during 2027 Exchange enrollment and whether Alignment’
 ---
 
 <h3 id="strategy-executive-view-5-hti-5-lowers-certification-costs-while-shifting-ai-governance-to-buyers">5. HTI-5 lowers certification costs while shifting AI governance to buyers</h3>
-
-**Status:** RESOLVE
 
 **What happened**
 
