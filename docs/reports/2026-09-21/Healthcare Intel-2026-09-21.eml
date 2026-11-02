@@ -1,0 +1,548 @@
+Subject: Healthcare Intel Digest =?utf-8?b?4oCT?= September 21, 2026
+X-Unsent: 1
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="==healthcare-intel-0-94b2e85b5632c0470874f87f=="
+
+--==healthcare-intel-0-94b2e85b5632c0470874f87f==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+Healthcare Intel Digest =E2=80=93 September 21, 2026
+Healthcare Intel Digest
+September 21, 2026 =C2=B7 Market data through September 18, 2026
+Contents
+In the News
+1. OIG moves MA integrity risk from isolated cases to carrier operating contr=
+ols
+2. Alignment links MA cost pressure to hospital billing and claims operations
+3. ACCESS creates a Medicare payment path for technology-supported chronic ca=
+re
+4. GENEROUS shifts Medicaid drug savings into rebate operations
+In the News
+Executive View
+Medicare Advantage integrity exposure widened on both sides of plan economics.
+HHS-OIG estimated $177.8 million of combined risk-adjustment overpayments at =
+two Humana and UnitedHealthcare contracts, while a separate review identified=
+ weak screening of out-of-network DME suppliers. The findings increase pressu=
+re for diagnosis validation, supplier identity resolution and prepayment cont=
+rols. (
+oig.hhs.gov
+)
+Alignment supplied a direct operating explanation for continued MA margin pre=
+ssure.
+Hospital disputes, retrospective billing and skilled-nursing length of stay=
+=E2=80=94not merely admissions=E2=80=94remained elevated into July and August=
+, increasing the value of payment integrity and transitions-of-care capabilit=
+ies. (
+stockanalysis.com
+)
+CMS expanded outcomes-based reimbursement for digital chronic care.
+The ACCESS Model will add heart failure, COPD, substance-use disorder and tob=
+acco-cessation tracks in spring 2027, creating a Medicare fee-for-service pay=
+ment channel for remote monitoring, coaching and connected-care platforms. (
+cms.gov
+)
+Medicaid drug purchasing moved from model design toward national-scale implem=
+entation.
+Forty states and Puerto Rico have signed the GENEROUS Model agreements, altho=
+ugh the allocation of savings among governments, MCOs and pharmacy contractor=
+s remains unresolved. (
+cms.gov
+)
+Overall environment: modestly deteriorated for MA risk and medical-cost econo=
+mics, but improved for payment-integrity, chronic-care infrastructure and Med=
+icaid rebate-administration demand.
+1. OIG moves MA integrity risk from isolated cases to carrier operating contr=
+ols
+Status:
+NEW
+What happened
+HHS-OIG estimated that HumanaChoice contract H5216 received at least $130.9 m=
+illion in overpayments during 2020 and 2021 after medical records failed to s=
+upport diagnoses in 178 of 220 sampled enrollee-years. A parallel audit estim=
+ated at least $46.9 million for UnitedHealthcare of Wisconsin contract H5253,=
+ with unsupported diagnoses in 183 of 250 sampled enrollee-years. Humana and =
+United disputed portions of the findings and the repayment recommendations; t=
+he estimates are OIG extrapolations, not finalized CMS recoveries or disclose=
+d RADV liabilities. (
+HHS-OIG, =E2=80=9CMedicare Advantage Compliance Audit=E2=80=A6HumanaChoice,=
+=E2=80=9D September 15, 2026
+;
+HHS-OIG, =E2=80=9CMedicare Advantage Compliance Audit=E2=80=A6UnitedHealthcar=
+e of Wisconsin,=E2=80=9D September 15, 2026
+). (
+oig.hhs.gov
+)
+Separately, OIG found that MA organizations perform fewer checks on out-of-ne=
+twork DME suppliers and that CMS does not screen suppliers that bill MA witho=
+ut enrolling in Medicare. OIG recommended requiring all DME suppliers billing=
+ MA to enroll in Medicare and strengthening the Preclusion List. (
+HHS-OIG, =E2=80=9CMedicare Advantage Organizations and CMS Can Do More To Pre=
+vent Durable Medical Equipment Fraud,=E2=80=9D September 14, 2026
+). (
+oig.hhs.gov
+)
+Implication
+The incremental message is that MA integrity increasingly requires a shared c=
+ontrol layer across revenue and claims. Plans need to validate high-risk diag=
+noses before submission while also resolving supplier ownership, enrollment a=
+nd sanctions before payment.
+This favors platforms combining medical-record validation, code-level anomaly=
+ detection, entity resolution and prepayment intervention. It weakens pure di=
+agnosis-capture models whose economics depend primarily on maximizing submiss=
+ions. The financial horizon is multiyear, but plan spending on retrospective =
+validation and prospective code suppression should rise sooner because OIG re=
+commended reviewing similar diagnoses after the audited period.
+Watch next
+CMS=E2=80=99s disposition of the proposed repayments, whether the carriers ap=
+peal, and whether CMS converts OIG=E2=80=99s DME enrollment recommendation in=
+to a mandatory condition for MA payment.
+2. Alignment links MA cost pressure to hospital billing and claims operations
+Status:
+UPDATE
+What happened
+Last week=E2=80=99s preliminary 2027 benefit reductions suggested that MA pla=
+ns were repairing margins through product design. Alignment this week provide=
+d a more specific operating mechanism: management said institutional costs re=
+mained elevated into July and August because of hospital appeals and disputes=
+ reaching back to 2025, aggressive billing practices and, to a lesser extent,=
+ longer skilled-nursing stays.
+Alignment maintained 2026 guidance and said its 2027 bids incorporated conser=
+vative assumptions. Management also said its claims-system transition had del=
+ayed payment-integrity recoveries and contributed to approximately $6 million=
+ of adverse prior-period development, but reported improving claims throughpu=
+t and early stabilization during September. (
+Alignment Healthcare, Baird conference event, September 15, 2026
+;
+conference transcript, September 15, 2026
+). (
+ir.alignmenthealth.com
+)
+Implication
+This extends the MA retrenchment thesis beyond generalized utilization. Provi=
+der billing intensity, claims-platform execution and the timing of recoveries=
+ can independently create material benefit-ratio volatility.
+For plans, the immediate demand is for prepayment claims review, secondary an=
+d tertiary edits, dispute analytics and SNF transition management. For hospit=
+als, aggressive appeals may improve gross collections but also lengthen adjud=
+ication cycles and increase payer friction. Confidence is high for Alignment=
+=E2=80=99s experience but moderate for industry generalization.
+Watch next
+Whether Alignment=E2=80=99s third-quarter reserve development confirms stabil=
+ization, and whether other MA carriers identify retrospective hospital billin=
+g=E2=80=94not admissions alone=E2=80=94as a 2027 pricing and benefit-design f=
+actor.
+3. ACCESS creates a Medicare payment path for technology-supported chronic ca=
+re
+Status:
+NEW
+What happened
+CMS expanded the ACCESS Model to include heart failure, COPD, substance-use d=
+isorders and nicotine dependence beginning in spring 2027. The model ties pay=
+ments to specified health outcomes and permits participating organizations to=
+ use virtual care, coaching, remote monitoring, connected devices and wearabl=
+es. CMS said 160 organizations will participate at launch and that payers rep=
+resenting 165 million people have pledged to adopt aligned outcomes-based str=
+uctures; MA members are not eligible for the Medicare model itself. (
+CMS, =E2=80=9CCMS Adds Medicare Options to Help People Manage Substance Use D=
+isorder, Heart Failure, and Other Common Chronic Conditions,=E2=80=9D Septemb=
+er 15, 2026
+). (
+cms.gov
+)
+Implication
+ACCESS moves digital chronic care beyond employer and MA pilot budgets into a=
+ defined Original Medicare reimbursement pathway. The opportunity extends to =
+monitoring devices, patient engagement, referrals, outcomes measurement and d=
+ata exchange with primary-care workflows.
+However, this is not fee-for-technology reimbursement. Vendors must demonstra=
+te CMS-defined outcomes and manage attribution, clinical escalation and longi=
+tudinal data. Platforms capable of supporting multiple conditions and payers =
+should have an advantage over single-condition applications.
+Watch next
+Track-level payment methodology, outcome thresholds, beneficiary attribution =
+and evidence that commercial and MA payers convert their pledges into impleme=
+nted contracts.
+4. GENEROUS shifts Medicaid drug savings into rebate operations
+Status:
+NEW
+What happened
+All states, the District of Columbia and Puerto Rico applied to the GENEROUS =
+Model; 40 states and Puerto Rico had signed participation agreements by Septe=
+mber 18. Participating manufacturers provide covered outpatient drugs at most=
+-favored-nation pricing through supplemental rebates invoiced by states, with=
+ CMS reducing the federal Medicaid share to reflect its portion. CMS estimate=
+s $64.3 billion of taxpayer savings over ten years. Remaining states have unt=
+il September 30, 2026, to sign. (
+CMS, =E2=80=9CCMS Announces Participants in Landmark Medicaid Drug Payment Mo=
+del,=E2=80=9D September 18, 2026
+). (
+cms.gov
+)
+Implication
+The immediate technology opportunity is rebate invoicing, price validation an=
+d reconciliation=E2=80=94not necessarily higher MCO margins. States can rebas=
+e pharmacy capitation or require pass-through treatment, meaning savings may =
+accrue primarily to state and federal governments.
+The model could reduce the strategic value of opaque PBM spread economics whi=
+le increasing demand for auditable manufacturer-rebate administration. Actual=
+ magnitude remains uncertain because participating manufacturers, covered pro=
+ducts and state contract treatment will determine realized savings.
+Watch next
+State MCO contract amendments and disclosure of participating manufacturers a=
+nd covered drugs.
+What I'm Watching Next
+September 30, 2026:
+Deadline for remaining states to sign GENEROUS Model participation agreements=
+. (
+cms.gov
+)
+October 1, 2026:
+New federal Medicaid and CHIP matching-fund restrictions for specified noncit=
+izen categories take effect, testing state eligibility and claims-processing =
+readiness. (
+CMS, implementation guidance, April 8, 2026
+). (
+cms.gov
+)
+Bottom Line
+The most important weekly change is OIG=E2=80=99s simultaneous escalation of =
+MA diagnosis and supplier-integrity risk: plans increasingly need one control=
+ architecture spanning risk revenue, provider documentation, supplier identit=
+y and claims payment. MA integrity operations require the closest attention. =
+The October 1 Medicaid funding transition is the next confirmed event most li=
+kely to expose operational weaknesses across eligibility, MCO capitation and =
+provider collections.
+Informational only; not investment advice.
+
+--==healthcare-intel-0-94b2e85b5632c0470874f87f==
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+<!doctype html><html><head><meta charset=3D"utf-8"><meta name=3D"viewport" co=
+ntent=3D"width=3Ddevice-width,initial-scale=3D1"><title>Healthcare Intel Dige=
+st =E2=80=93 September 21, 2026</title></head><body style=3D"margin:0;padding=
+:0;background:#ffffff;"><table role=3D"presentation" width=3D"100%" cellpaddi=
+ng=3D"0" cellspacing=3D"0"><tr><td align=3D"center"><table role=3D"presentati=
+on" width=3D"640" cellpadding=3D"0" cellspacing=3D"0" style=3D"width:100%;max=
+-width:640px;"><tr><td style=3D"padding:16px 12px;text-align:left;"><h1 style=
+=3D"font-family:Georgia, 'Times New Roman', serif;font-size:26px;color:#12395=
+b;margin:0 0 6px;">Healthcare Intel Digest</h1><p style=3D"font-family:Arial,=
+ Helvetica, sans-serif;font-size:15px;line-height:1.5;color:#1f2933;margin:0 =
+0 12px;color:#52606d;font-size:14px;">September 21, 2026 =C2=B7 Market data t=
+hrough September 18, 2026</p><table role=3D"presentation" width=3D"100%" cell=
+padding=3D"0" cellspacing=3D"0" style=3D"background:#f3f6f9;margin:14px 0 6px=
+;"><tr><td style=3D"padding:12px 16px;"><p style=3D"font-family:Arial, Helvet=
+ica, sans-serif;font-size:15px;line-height:1.5;color:#1f2933;margin:0 0 12px;=
+font-weight:bold;margin-bottom:6px;">Contents</p><ul style=3D"margin:0 0 12px=
+;padding-left:22px;margin-bottom:0;"><li style=3D"font-family:Arial, Helvetic=
+a, sans-serif;font-size:15px;line-height:1.5;color:#1f2933;margin:0 0 6px;"><=
+a href=3D"#news" style=3D"color:#1a5e9a;text-decoration:underline;">In the Ne=
+ws</a><ul style=3D"margin:0 0 12px;padding-left:22px;margin-top:4px;"><li sty=
+le=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-height:1.5=
+;color:#1f2933;margin:0 0 6px;font-size:14px;"><a href=3D"#story-1" style=3D"=
+color:#1a5e9a;text-decoration:underline;">1. OIG moves MA integrity risk from=
+ isolated cases to carrier operating controls</a></li><li style=3D"font-famil=
+y:Arial, Helvetica, sans-serif;font-size:15px;line-height:1.5;color:#1f2933;m=
+argin:0 0 6px;font-size:14px;"><a href=3D"#story-2" style=3D"color:#1a5e9a;te=
+xt-decoration:underline;">2. Alignment links MA cost pressure to hospital bil=
+ling and claims operations</a></li><li style=3D"font-family:Arial, Helvetica,=
+ sans-serif;font-size:15px;line-height:1.5;color:#1f2933;margin:0 0 6px;font-=
+size:14px;"><a href=3D"#story-3" style=3D"color:#1a5e9a;text-decoration:under=
+line;">3. ACCESS creates a Medicare payment path for technology-supported chr=
+onic care</a></li><li style=3D"font-family:Arial, Helvetica, sans-serif;font-=
+size:15px;line-height:1.5;color:#1f2933;margin:0 0 6px;font-size:14px;"><a hr=
+ef=3D"#story-4" style=3D"color:#1a5e9a;text-decoration:underline;">4. GENEROU=
+S shifts Medicaid drug savings into rebate operations</a></li></ul></li></ul>=
+</td></tr></table><h2 style=3D"font-family:Georgia, 'Times New Roman', serif;=
+font-size:21px;color:#12395b;margin:28px 0 10px;padding-bottom:4px;border-bot=
+tom:2px solid #12395b;"><a name=3D"news" id=3D"news"></a>In the News</h2><h3 =
+style=3D"font-family:Georgia, 'Times New Roman', serif;font-size:17px;color:#=
+12395b;margin:22px 0 8px;">Executive View</h3>
+<ul style=3D"margin:0 0 12px;padding-left:22px;">
+<li style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-hei=
+ght:1.5;color:#1f2933;margin:0 0 6px;"><strong>Medicare Advantage integrity e=
+xposure widened on both sides of plan economics.</strong> HHS-OIG estimated $=
+177.8 million of combined risk-adjustment overpayments at two Humana and Unit=
+edHealthcare contracts, while a separate review identified weak screening of =
+out-of-network DME suppliers. The findings increase pressure for diagnosis va=
+lidation, supplier identity resolution and prepayment controls. (<a href=3D"h=
+ttps://www.oig.hhs.gov/reports/all/2026/medicare-advantage-compliance-audit-o=
+f-specific-diagnosis-codes-that-humanachoice-contract-h5216-submitted-to-cms/=
+" style=3D"color:#1a5e9a;text-decoration:underline;">oig.hhs.gov</a>)</li>
+<li style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-hei=
+ght:1.5;color:#1f2933;margin:0 0 6px;"><strong>Alignment supplied a direct op=
+erating explanation for continued MA margin pressure.</strong> Hospital dispu=
+tes, retrospective billing and skilled-nursing length of stay=E2=80=94not mer=
+ely admissions=E2=80=94remained elevated into July and August, increasing the=
+ value of payment integrity and transitions-of-care capabilities. (<a href=3D=
+"https://stockanalysis.com/stocks/alhc/transcripts/737718-2026-global-healthc=
+are-conference/" style=3D"color:#1a5e9a;text-decoration:underline;">stockanal=
+ysis.com</a>)</li>
+<li style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-hei=
+ght:1.5;color:#1f2933;margin:0 0 6px;"><strong>CMS expanded outcomes-based re=
+imbursement for digital chronic care.</strong> The ACCESS Model will add hear=
+t failure, COPD, substance-use disorder and tobacco-cessation tracks in sprin=
+g 2027, creating a Medicare fee-for-service payment channel for remote monito=
+ring, coaching and connected-care platforms. (<a href=3D"https://www.cms.gov/=
+newsroom/press-releases/cms-adds-medicare-options-help-people-manage-substanc=
+e-use-disorder-heart-failure-other-common" style=3D"color:#1a5e9a;text-decora=
+tion:underline;">cms.gov</a>)</li>
+<li style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-hei=
+ght:1.5;color:#1f2933;margin:0 0 6px;"><strong>Medicaid drug purchasing moved=
+ from model design toward national-scale implementation.</strong> Forty state=
+s and Puerto Rico have signed the GENEROUS Model agreements, although the all=
+ocation of savings among governments, MCOs and pharmacy contractors remains u=
+nresolved. (<a href=3D"https://www.cms.gov/newsroom/press-releases/cms-announ=
+ces-participants-landmark-medicaid-drug-payment-model-bring-down-drug-costs-m=
+ost" style=3D"color:#1a5e9a;text-decoration:underline;">cms.gov</a>)</li>
+<li style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-hei=
+ght:1.5;color:#1f2933;margin:0 0 6px;"><strong>Overall environment: modestly =
+deteriorated for MA risk and medical-cost economics, but improved for payment=
+-integrity, chronic-care infrastructure and Medicaid rebate-administration de=
+mand.</strong></li>
+</ul>
+<h3 style=3D"font-family:Georgia, 'Times New Roman', serif;font-size:17px;col=
+or:#12395b;margin:22px 0 8px;"><a id=3D"story-1" name=3D"story-1" style=3D"co=
+lor:#1a5e9a;text-decoration:underline;"></a>1. OIG moves MA integrity risk fr=
+om isolated cases to carrier operating controls</h3>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>Status:</strong> NEW</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>What happened</strong></p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">HHS-OIG estimated that HumanaChoice co=
+ntract H5216 received at least $130.9 million in overpayments during 2020 and=
+ 2021 after medical records failed to support diagnoses in 178 of 220 sampled=
+ enrollee-years. A parallel audit estimated at least $46.9 million for United=
+Healthcare of Wisconsin contract H5253, with unsupported diagnoses in 183 of =
+250 sampled enrollee-years. Humana and United disputed portions of the findin=
+gs and the repayment recommendations; the estimates are OIG extrapolations, n=
+ot finalized CMS recoveries or disclosed RADV liabilities. (<a href=3D"https:=
+//www.oig.hhs.gov/reports/all/2026/medicare-advantage-compliance-audit-of-spe=
+cific-diagnosis-codes-that-humanachoice-contract-h5216-submitted-to-cms/" sty=
+le=3D"color:#1a5e9a;text-decoration:underline;">HHS-OIG, =E2=80=9CMedicare Ad=
+vantage Compliance Audit=E2=80=A6HumanaChoice,=E2=80=9D September 15, 2026</a=
+>; <a href=3D"https://www.oig.hhs.gov/reports/all/2026/medicare-advantage-com=
+pliance-audit-of-specific-diagnosis-codes-that-unitedhealthcare-of-wisconsin-=
+inc-contract-h5253-submitted-to-cms/" style=3D"color:#1a5e9a;text-decoration:=
+underline;">HHS-OIG, =E2=80=9CMedicare Advantage Compliance Audit=E2=80=A6Uni=
+tedHealthcare of Wisconsin,=E2=80=9D September 15, 2026</a>). (<a href=3D"htt=
+ps://www.oig.hhs.gov/reports/all/2026/medicare-advantage-compliance-audit-of-=
+specific-diagnosis-codes-that-humanachoice-contract-h5216-submitted-to-cms/" =
+style=3D"color:#1a5e9a;text-decoration:underline;">oig.hhs.gov</a>)</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">Separately, OIG found that MA organiza=
+tions perform fewer checks on out-of-network DME suppliers and that CMS does =
+not screen suppliers that bill MA without enrolling in Medicare. OIG recommen=
+ded requiring all DME suppliers billing MA to enroll in Medicare and strength=
+ening the Preclusion List. (<a href=3D"https://www.oig.hhs.gov/reports/all/20=
+26/medicare-advantage-organizations-and-cms-can-do-more-to-prevent-durable-me=
+dical-equipment-fraud-in-medicare-advantage/" style=3D"color:#1a5e9a;text-dec=
+oration:underline;">HHS-OIG, =E2=80=9CMedicare Advantage Organizations and CM=
+S Can Do More To Prevent Durable Medical Equipment Fraud,=E2=80=9D September =
+14, 2026</a>). (<a href=3D"https://www.oig.hhs.gov/reports/all/2026/medicare-=
+advantage-organizations-and-cms-can-do-more-to-prevent-durable-medical-equipm=
+ent-fraud-in-medicare-advantage/" style=3D"color:#1a5e9a;text-decoration:unde=
+rline;">oig.hhs.gov</a>)</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>Implication</strong></p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">The incremental message is that MA int=
+egrity increasingly requires a shared control layer across revenue and claims=
+. Plans need to validate high-risk diagnoses before submission while also res=
+olving supplier ownership, enrollment and sanctions before payment.</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">This favors platforms combining medica=
+l-record validation, code-level anomaly detection, entity resolution and prep=
+ayment intervention. It weakens pure diagnosis-capture models whose economics=
+ depend primarily on maximizing submissions. The financial horizon is multiye=
+ar, but plan spending on retrospective validation and prospective code suppre=
+ssion should rise sooner because OIG recommended reviewing similar diagnoses =
+after the audited period.</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>Watch next</strong></p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">CMS=E2=80=99s disposition of the propo=
+sed repayments, whether the carriers appeal, and whether CMS converts OIG=E2=
+=80=99s DME enrollment recommendation into a mandatory condition for MA payme=
+nt.</p>
+<hr style=3D"border:0;border-top:1px solid #d5dde3;margin:18px 0;"/>
+<h3 style=3D"font-family:Georgia, 'Times New Roman', serif;font-size:17px;col=
+or:#12395b;margin:22px 0 8px;"><a id=3D"story-2" name=3D"story-2" style=3D"co=
+lor:#1a5e9a;text-decoration:underline;"></a>2. Alignment links MA cost pressu=
+re to hospital billing and claims operations</h3>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>Status:</strong> UPDATE</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>What happened</strong></p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">Last week=E2=80=99s preliminary 2027 b=
+enefit reductions suggested that MA plans were repairing margins through prod=
+uct design. Alignment this week provided a more specific operating mechanism:=
+ management said institutional costs remained elevated into July and August b=
+ecause of hospital appeals and disputes reaching back to 2025, aggressive bil=
+ling practices and, to a lesser extent, longer skilled-nursing stays.</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">Alignment maintained 2026 guidance and=
+ said its 2027 bids incorporated conservative assumptions. Management also sa=
+id its claims-system transition had delayed payment-integrity recoveries and =
+contributed to approximately $6 million of adverse prior-period development, =
+but reported improving claims throughput and early stabilization during Septe=
+mber. (<a href=3D"https://ir.alignmenthealth.com/news-events/events-and-prese=
+ntations" style=3D"color:#1a5e9a;text-decoration:underline;">Alignment Health=
+care, Baird conference event, September 15, 2026</a>; <a href=3D"https://stoc=
+kanalysis.com/stocks/alhc/transcripts/737718-2026-global-healthcare-conferenc=
+e/" style=3D"color:#1a5e9a;text-decoration:underline;">conference transcript,=
+ September 15, 2026</a>). (<a href=3D"https://ir.alignmenthealth.com/news-eve=
+nts/events-and-presentations?utm_source=3Dopenai" style=3D"color:#1a5e9a;text=
+-decoration:underline;">ir.alignmenthealth.com</a>)</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>Implication</strong></p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">This extends the MA retrenchment thesi=
+s beyond generalized utilization. Provider billing intensity, claims-platform=
+ execution and the timing of recoveries can independently create material ben=
+efit-ratio volatility.</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">For plans, the immediate demand is for=
+ prepayment claims review, secondary and tertiary edits, dispute analytics an=
+d SNF transition management. For hospitals, aggressive appeals may improve gr=
+oss collections but also lengthen adjudication cycles and increase payer fric=
+tion. Confidence is high for Alignment=E2=80=99s experience but moderate for =
+industry generalization.</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>Watch next</strong></p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">Whether Alignment=E2=80=99s third-quar=
+ter reserve development confirms stabilization, and whether other MA carriers=
+ identify retrospective hospital billing=E2=80=94not admissions alone=E2=80=
+=94as a 2027 pricing and benefit-design factor.</p>
+<hr style=3D"border:0;border-top:1px solid #d5dde3;margin:18px 0;"/>
+<h3 style=3D"font-family:Georgia, 'Times New Roman', serif;font-size:17px;col=
+or:#12395b;margin:22px 0 8px;"><a id=3D"story-3" name=3D"story-3" style=3D"co=
+lor:#1a5e9a;text-decoration:underline;"></a>3. ACCESS creates a Medicare paym=
+ent path for technology-supported chronic care</h3>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>Status:</strong> NEW</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>What happened</strong></p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">CMS expanded the ACCESS Model to inclu=
+de heart failure, COPD, substance-use disorders and nicotine dependence begin=
+ning in spring 2027. The model ties payments to specified health outcomes and=
+ permits participating organizations to use virtual care, coaching, remote mo=
+nitoring, connected devices and wearables. CMS said 160 organizations will pa=
+rticipate at launch and that payers representing 165 million people have pled=
+ged to adopt aligned outcomes-based structures; MA members are not eligible f=
+or the Medicare model itself. (<a href=3D"https://www.cms.gov/newsroom/press-=
+releases/cms-adds-medicare-options-help-people-manage-substance-use-disorder-=
+heart-failure-other-common" style=3D"color:#1a5e9a;text-decoration:underline;=
+">CMS, =E2=80=9CCMS Adds Medicare Options to Help People Manage Substance Use=
+ Disorder, Heart Failure, and Other Common Chronic Conditions,=E2=80=9D Septe=
+mber 15, 2026</a>). (<a href=3D"https://www.cms.gov/newsroom/press-releases/c=
+ms-adds-medicare-options-help-people-manage-substance-use-disorder-heart-fail=
+ure-other-common" style=3D"color:#1a5e9a;text-decoration:underline;">cms.gov<=
+/a>)</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>Implication</strong></p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">ACCESS moves digital chronic care beyo=
+nd employer and MA pilot budgets into a defined Original Medicare reimburseme=
+nt pathway. The opportunity extends to monitoring devices, patient engagement=
+, referrals, outcomes measurement and data exchange with primary-care workflo=
+ws.</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">However, this is not fee-for-technolog=
+y reimbursement. Vendors must demonstrate CMS-defined outcomes and manage att=
+ribution, clinical escalation and longitudinal data. Platforms capable of sup=
+porting multiple conditions and payers should have an advantage over single-c=
+ondition applications.</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>Watch next</strong></p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">Track-level payment methodology, outco=
+me thresholds, beneficiary attribution and evidence that commercial and MA pa=
+yers convert their pledges into implemented contracts.</p>
+<hr style=3D"border:0;border-top:1px solid #d5dde3;margin:18px 0;"/>
+<h3 style=3D"font-family:Georgia, 'Times New Roman', serif;font-size:17px;col=
+or:#12395b;margin:22px 0 8px;"><a id=3D"story-4" name=3D"story-4" style=3D"co=
+lor:#1a5e9a;text-decoration:underline;"></a>4. GENEROUS shifts Medicaid drug =
+savings into rebate operations</h3>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>Status:</strong> NEW</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>What happened</strong></p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">All states, the District of Columbia a=
+nd Puerto Rico applied to the GENEROUS Model; 40 states and Puerto Rico had s=
+igned participation agreements by September 18. Participating manufacturers p=
+rovide covered outpatient drugs at most-favored-nation pricing through supple=
+mental rebates invoiced by states, with CMS reducing the federal Medicaid sha=
+re to reflect its portion. CMS estimates $64.3 billion of taxpayer savings ov=
+er ten years. Remaining states have until September 30, 2026, to sign. (<a hr=
+ef=3D"https://www.cms.gov/newsroom/press-releases/cms-announces-participants-=
+landmark-medicaid-drug-payment-model-bring-down-drug-costs-most" style=3D"col=
+or:#1a5e9a;text-decoration:underline;">CMS, =E2=80=9CCMS Announces Participan=
+ts in Landmark Medicaid Drug Payment Model,=E2=80=9D September 18, 2026</a>).=
+ (<a href=3D"https://www.cms.gov/newsroom/press-releases/cms-announces-partic=
+ipants-landmark-medicaid-drug-payment-model-bring-down-drug-costs-most" style=
+=3D"color:#1a5e9a;text-decoration:underline;">cms.gov</a>)</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>Implication</strong></p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">The immediate technology opportunity i=
+s rebate invoicing, price validation and reconciliation=E2=80=94not necessari=
+ly higher MCO margins. States can rebase pharmacy capitation or require pass-=
+through treatment, meaning savings may accrue primarily to state and federal =
+governments.</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">The model could reduce the strategic v=
+alue of opaque PBM spread economics while increasing demand for auditable man=
+ufacturer-rebate administration. Actual magnitude remains uncertain because p=
+articipating manufacturers, covered products and state contract treatment wil=
+l determine realized savings.</p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;"><strong>Watch next</strong></p>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">State MCO contract amendments and disc=
+losure of participating manufacturers and covered drugs.</p>
+<h3 style=3D"font-family:Georgia, 'Times New Roman', serif;font-size:17px;col=
+or:#12395b;margin:22px 0 8px;">What I'm Watching Next</h3>
+<ul style=3D"margin:0 0 12px;padding-left:22px;">
+<li style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-hei=
+ght:1.5;color:#1f2933;margin:0 0 6px;"><strong>September 30, 2026:</strong> D=
+eadline for remaining states to sign GENEROUS Model participation agreements.=
+ (<a href=3D"https://www.cms.gov/newsroom/press-releases/cms-announces-partic=
+ipants-landmark-medicaid-drug-payment-model-bring-down-drug-costs-most" style=
+=3D"color:#1a5e9a;text-decoration:underline;">cms.gov</a>)</li>
+<li style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-hei=
+ght:1.5;color:#1f2933;margin:0 0 6px;"><strong>October 1, 2026:</strong> New =
+federal Medicaid and CHIP matching-fund restrictions for specified noncitizen=
+ categories take effect, testing state eligibility and claims-processing read=
+iness. (<a href=3D"https://www.cms.gov/newsroom/press-releases/cms-issues-gui=
+dance-implement-new-limits-federal-medicaid-chip-funding-certain-noncitizens"=
+ style=3D"color:#1a5e9a;text-decoration:underline;">CMS, implementation guida=
+nce, April 8, 2026</a>). (<a href=3D"https://www.cms.gov/newsroom/press-relea=
+ses/cms-issues-guidance-implement-new-limits-federal-medicaid-chip-funding-ce=
+rtain-noncitizens?utm_source=3Dopenai" style=3D"color:#1a5e9a;text-decoration=
+:underline;">cms.gov</a>)</li>
+</ul>
+<h3 style=3D"font-family:Georgia, 'Times New Roman', serif;font-size:17px;col=
+or:#12395b;margin:22px 0 8px;">Bottom Line</h3>
+<p style=3D"font-family:Arial, Helvetica, sans-serif;font-size:15px;line-heig=
+ht:1.5;color:#1f2933;margin:0 0 12px;">The most important weekly change is OI=
+G=E2=80=99s simultaneous escalation of MA diagnosis and supplier-integrity ri=
+sk: plans increasingly need one control architecture spanning risk revenue, p=
+rovider documentation, supplier identity and claims payment. MA integrity ope=
+rations require the closest attention. The October 1 Medicaid funding transit=
+ion is the next confirmed event most likely to expose operational weaknesses =
+across eligibility, MCO capitation and provider collections.</p><p style=3D"f=
+ont-family:Arial, Helvetica, sans-serif;font-size:15px;line-height:1.5;color:=
+#1f2933;margin:0 0 12px;color:#7b8794;font-size:12px;margin-top:24px;">Inform=
+ational only; not investment advice.</p></td></tr></table></td></tr></table><=
+/body></html>
+
+--==healthcare-intel-0-94b2e85b5632c0470874f87f==--

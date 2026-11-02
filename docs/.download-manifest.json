@@ -1,6 +1,8 @@
 {
   "schema": 1,
   "reports": {
+    "2026-11-02": "2f23c4e1db057cc1097a960fd145ee915a275140a4d9cfddd2994d2cccc8777f",
+    "life-science-device/2026-11-02": "575f07d2e42385a64f2ce57393e8133eba39ea3ddf87de1570082104bae7cfc7",
     "2026-10-26": "21ee852182e8089daac1d7e8325fe4c9ac69946bd55e9a6f1861a38dd1bddff0",
     "life-science-device/2026-10-26": "63d453b6e6f6a56ed0dfc26a4dceebf1d8690b7da643853d46a8b892bd01210a",
     "2026-10-19": "1bd43ff177966a1beb006aa2df45b0a6b3a50a1ef0ad6defa71765ddfdcc15ec",
