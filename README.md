@@ -215,9 +215,9 @@ The Life Science and Device profile includes Devices & Diagnostic, Big Pharma, E
 and Emerging Biotech. The Provider Enablement profile reuses the Payers and Value-Based Care
 categories and is marked `narrative_only` with `companion_report: healthcare`. It runs after
 Healthcare, reads that run's price and earnings caches for its watchlist movers and earnings
-inputs, and adds only its own strategy brief call. Its prompt receives the same week's Healthcare
-brief headlines, Executive View, and Bottom Line in a `<companion_brief>` block and must not repeat
-those stories; the brief is not requested until that Healthcare brief exists. If the Provider
+inputs, and adds only its own strategy brief call. Its prompt receives the same week's full Healthcare
+brief in a `<companion_brief>` block and must not repeat any development, result, or rule covered
+there; the brief is not requested until that Healthcare brief exists. If the Provider
 brief cannot be generated, no Provider report is published, and the other profiles are still
 committed.
 

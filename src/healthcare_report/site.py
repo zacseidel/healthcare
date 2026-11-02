@@ -5,7 +5,7 @@ import html
 import re
 import shutil
 import tempfile
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from datetime import date
 from pathlib import Path
 from typing import Any
@@ -131,6 +131,8 @@ class SiteReport:
     email_available: bool = False
     # Profiles with a companion report publish one draft holding both reports.
     email_companion: str = ""
+    # Brief-only reports have no earnings section to index.
+    narrative_only: bool = False
 
 
 @dataclass(frozen=True)
@@ -345,12 +347,24 @@ def _discover_reports(config: ProjectConfig) -> list[SiteReport]:
                 archive_path=archive_path,
                 email_available=(folder / "render-data.json.gz").is_file(),
                 email_companion=str(scoped.settings["report"].get("companion_report") or ""),
+                narrative_only=bool(manifest.get("narrative_only")),
             )
         )
+    # A companion draft is only combined when that week's companion report exists.
+    available = {(report.report_type, report.report_date) for report in reports}
+    reports = [
+        report
+        if not report.email_companion
+        or (report.email_companion, report.report_date) in available
+        else replace(report, email_companion="")
+        for report in reports
+    ]
+    # Newest week first, then settings order, so every page lists a week's reports alike
+    # regardless of directory listing order.
+    order = {scope: index for index, scope in enumerate(profiles)}
     return sorted(
         reports,
-        key=lambda item: (item.report_date, item.report_type == "healthcare"),
-        reverse=True,
+        key=lambda item: (-item.report_date.toordinal(), order.get(item.report_type, len(order))),
     )
 
 
@@ -740,8 +754,12 @@ def _news_index_page(reports: list[SiteReport]) -> str:
                 f'{_report_download_links(report, f"../reports/{report.archive_path}/", compact=True)}'
                 "</div>"
                 f"<h4>In the News</h4>{_index_link_list(headlines)}"
-                f"<h4>Earnings Calls</h4>{_index_link_list(earnings_calls)}"
-                "</article>"
+                + (
+                    ""
+                    if report.narrative_only
+                    else f"<h4>Earnings Calls</h4>{_index_link_list(earnings_calls)}"
+                )
+                + "</article>"
             )
         weeks.append(
             f'<section class="index-week"><h2>{_long_date(report_date)}</h2>'
