@@ -211,11 +211,10 @@ def _contents(groups: list[tuple[str | None, list[Entry]]]) -> str:
             # A brief-only report: one linked heading ("Provider Enablement - In the News")
             # with its stories directly beneath, rather than a single-item list.
             name, section, children = entries[0]
-            short_label = label.removesuffix(" Intel")
             blocks.append(
                 f'<p style="{STYLES["p"]}font-weight:bold;margin:10px 0 4px;">'
                 f'<a href="#{name}" style="{STYLES["a"]}">'
-                f"{html.escape(f'{short_label} - {section}')}</a></p>"
+                f"{html.escape(f'{label} - {section}')}</a></p>"
                 + _contents_items([(child, text, []) for child, text in children])
             )
             continue
@@ -558,23 +557,33 @@ def build_combined_email_draft(folders: list[Path]) -> bytes | None:
     if not parts:
         return None
     report_date = parts[0].report_date
-    # "Provider Enablement & Healthcare Intel Digest": only the last name keeps its suffix.
     names = [part.report_name for part in parts]
+    # "Provider Enablement Intel" -> "Provider Enablement"; "Healthcare Intel Digest" ->
+    # "Healthcare Digest" in the body and "Healthcare" in Contents.
+    body_names = [name.replace(" Intel Digest", " Digest").removesuffix(" Intel") for name in names]
+    contents_names = [name.removesuffix(" Intel Digest").removesuffix(" Intel") for name in names]
     title = " & ".join([name.removesuffix(" Intel") for name in names[:-1]] + names[-1:])
+    subject = " & ".join(contents_names[:-1] + body_names[-1:])
     market_data_as_of = next((part.market_data_as_of for part in parts if part.market_data_as_of), "")
     body: list[str] = []
-    for index, part in enumerate(parts):
+    for index, (part, body_name) in enumerate(zip(parts, body_names, strict=True)):
         anchor = f"r{index + 1}"
+        # One banner per report, "Healthcare Digest - In the News", replaces the report name
+        # and the In the News heading that would otherwise sit on separate lines.
         body.append(
             f'<h1 style="{STYLES["h1"]}margin-top:{36 if index else 18}px;padding-top:10px;'
-            f'border-top:4px solid {NAVY};">{_anchor(anchor)}{html.escape(part.report_name)}</h1>'
+            f'border-top:4px solid {NAVY};">{_anchor(anchor)}{_anchor(f"{anchor}-news")}'
+            f"{html.escape(body_name)} - In the News</h1>"
         )
-        body.extend(part.sections)
+        body.extend(
+            re.sub(r">(\s*)Executive View(\s*)<", r">\1Executive Summary\2<", section)
+            for section in part.sections[1:]
+        )
     return _email_bytes(
         title,
-        email_subject(title, report_date),
+        f"{subject} - {_long_date(report_date)}",
         _meta_line(report_date, market_data_as_of),
-        _contents([(part.report_name, part.entries) for part in parts]),
+        _contents(list(zip(contents_names, (part.entries for part in parts), strict=True))),
         "".join(body),
         [image for part in parts for image in part.images],
     )
