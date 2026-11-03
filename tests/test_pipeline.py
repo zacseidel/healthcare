@@ -133,7 +133,7 @@ Watch CMS guidance.
         "1. Prior-authorization transparency is now a competitive benchmark",
         "2. NSA QPA ruling shifts dollars toward providers",
     ]
-    assert soup.select_one("h3#executive-view") is not None
+    assert soup.select_one("h3#executive-summary") is not None
     assert soup.select_one("h3#bottom-line") is not None
     assert all("Executive view" not in label for label in labels)
     assert all("Risk dashboard" not in label for label in labels)

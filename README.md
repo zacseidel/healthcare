@@ -1,4 +1,4 @@
-# Healthcare Intel Digest
+# Healthcare Digest
 
 A Python application that creates weekly healthcare, life-science, and provider-enablement
 intelligence reports from
@@ -129,10 +129,11 @@ JPEG-compresses them, then reuses unchanged PDFs through `docs/.download-manifes
 builds.
 
 The homepage always uses the latest Healthcare report. The Past reports page groups the archive
-under Healthcare Intel Report, Life Sciences Intel Report, and Provider Enablement Intel Report.
+under Healthcare Digest, Life Sciences Digest, and Provider Enablement Digest.
 Every report offers PDF, HTML, and Email (an Outlook-ready `.eml` draft) downloads. The
 Provider Enablement Email download is a combined draft: the Provider Enablement brief followed by
-that week's full Healthcare Intel digest, under one Contents box covering both. The News &
+that week's full Healthcare Digest, under one Contents box covering both. Report file names
+keep their original `... Intel-YYYY-MM-DD` form so published links keep working. The News &
 Earnings page provides
 a newest-first weekly index of report headlines and earnings-call coverage, with direct links to
 the corresponding report sections. It also collects headlines under these business topics:

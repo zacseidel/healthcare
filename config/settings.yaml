@@ -1,6 +1,6 @@
 report:
   slug: healthcare
-  name: Healthcare Intel Digest
+  name: Healthcare Digest
   description: >-
     Weekly review of category and company performance, changes since the previous
     report, earnings activity, and the payer-technology strategy narrative.
@@ -38,7 +38,7 @@ strategy_narrative:
 
 report_profiles:
   healthcare:
-    name: Healthcare Intel Digest
+    name: Healthcare Digest
     description: >-
       Weekly review of healthcare services, technology, distribution, and diagnostic
       company performance, changes, earnings activity, and strategy narrative.
@@ -55,7 +55,7 @@ report_profiles:
     strategy_narrative:
       stale_after_days: 6
   life-science-device:
-    name: Life Science and Device Intel
+    name: Life Sciences Digest
     description: >-
       Weekly review of pharmaceutical, biotech, biologics, and medical-device
       company performance, changes, earnings activity, and strategy narrative.
@@ -67,7 +67,7 @@ report_profiles:
     strategy_narrative:
       stale_after_days: 6
   provider-enablement:
-    name: Provider Enablement Intel
+    name: Provider Enablement Digest
     description: >-
       Weekly strategy brief on Medicare Advantage and Medicaid risk-contracting economics,
       payer partners, and value-based care enablement platforms.

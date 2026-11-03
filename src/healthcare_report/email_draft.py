@@ -38,6 +38,7 @@ from .render import (
     _strip_status_headers,
     _summary_text,
     format_cap,
+    rename_executive_view,
 )
 from .storage import read_gzip_json, read_json
 
@@ -88,7 +89,7 @@ def email_draft_name(html_name: str) -> str:
 
 
 def email_subject(report_name: str, report_date: date) -> str:
-    return f"{report_name} – {_long_date(report_date)}"
+    return f"{report_name} - {_long_date(report_date)}"
 
 
 def _anchor(name: str) -> str:
@@ -165,6 +166,7 @@ def _narrative_html(
     )
     if strip_status:
         body = _strip_status_headers(body)
+    body = rename_executive_view(body)
     fragment = BeautifulSoup(
         markdown.markdown(body.strip(), extensions=["tables", "sane_lists"]), "html.parser"
     )
@@ -259,7 +261,9 @@ class _EmailPart:
     images: list[tuple[str, bytes]] = field(default_factory=list)
 
 
-def _report_part(folder: Path, prefix: str = "") -> _EmailPart | None:
+def _report_part(
+    folder: Path, prefix: str = "", report_name: str | None = None
+) -> _EmailPart | None:
     """Render one published report's email sections; anchors and image IDs carry ``prefix``."""
     manifest = read_json(folder / "manifest.json", {})
     render_data = read_gzip_json(folder / "render-data.json.gz", None)
@@ -269,7 +273,8 @@ def _report_part(folder: Path, prefix: str = "") -> _EmailPart | None:
         report_date = date.fromisoformat(str(manifest["report_date"]))
     except (KeyError, ValueError):
         return None
-    report_name = str(manifest.get("report_name") or "Healthcare Intel Digest")
+    # The current configured name, when given, so older weeks' drafts match today's naming.
+    report_name = report_name or str(manifest.get("report_name") or "Healthcare Digest")
     snapshot = load_snapshot(folder / "snapshot.csv")
     facts = _stock_facts(snapshot)
     reference: dict[str, dict[str, Any]] = {
@@ -283,7 +288,10 @@ def _report_part(folder: Path, prefix: str = "") -> _EmailPart | None:
 
     narrative = render_data.get("narrative")
     narrative_body = str(narrative.get("body") or "") if isinstance(narrative, dict) else ""
-    sections.append(f'<h2 style="{STYLES["h2"]}">{_anchor(prefix + "news")}In the News</h2>')
+    sections.append(
+        f'<h2 style="{STYLES["h2"]}">{_anchor(prefix + "news")}'
+        f"{html.escape(report_name)} - In the News</h2>"
+    )
     if narrative_body.strip():
         narrative_markup, stories = _narrative_html(
             narrative_body, strip_status=True, prefix=prefix
@@ -528,9 +536,11 @@ def _email_bytes(
     return message.as_bytes(policy=SMTP)
 
 
-def build_email_draft(folder: Path, html_name: str) -> bytes | None:
+def build_email_draft(
+    folder: Path, html_name: str, report_name: str | None = None
+) -> bytes | None:
     """Return the .eml bytes for a published report folder, or None if data is missing."""
-    part = _report_part(folder)
+    part = _report_part(folder, report_name=report_name)
     if part is None:
         return None
     return _email_bytes(
@@ -543,47 +553,49 @@ def build_email_draft(folder: Path, html_name: str) -> bytes | None:
     )
 
 
-def build_combined_email_draft(folders: list[Path]) -> bytes | None:
+def _short_name(name: str) -> str:
+    return name.removesuffix(" Intel Digest").removesuffix(" Digest").removesuffix(" Intel")
+
+
+def build_combined_email_draft(
+    folders: list[Path], report_names: list[str] | None = None
+) -> bytes | None:
     """One draft holding several same-week reports in order, under a shared Contents box.
 
     Each report keeps its own sections behind a report-name banner; the first report's
     brief leads, so the email opens with it."""
     parts: list[_EmailPart] = []
     for index, folder in enumerate(folders):
-        part = _report_part(folder, prefix=f"r{index + 1}-")
+        name = report_names[index] if report_names else None
+        part = _report_part(folder, prefix=f"r{index + 1}-", report_name=name)
         if part is None:
             return None
         parts.append(part)
     if not parts:
         return None
     report_date = parts[0].report_date
-    names = [part.report_name for part in parts]
-    # "Provider Enablement Intel" -> "Provider Enablement"; "Healthcare Intel Digest" ->
-    # "Healthcare Digest" in the body and "Healthcare" in Contents.
-    body_names = [name.replace(" Intel Digest", " Digest").removesuffix(" Intel") for name in names]
-    contents_names = [name.removesuffix(" Intel Digest").removesuffix(" Intel") for name in names]
-    title = " & ".join([name.removesuffix(" Intel") for name in names[:-1]] + names[-1:])
-    subject = " & ".join(contents_names[:-1] + body_names[-1:])
+    # "Provider Enablement & Healthcare Digest": only the last report keeps "Digest", in the
+    # title and in its banner; Contents uses the short names ("Healthcare").
+    short_names = [_short_name(part.report_name) for part in parts]
+    body_names = short_names[:-1] + [parts[-1].report_name]
+    title = " & ".join(body_names)
     market_data_as_of = next((part.market_data_as_of for part in parts if part.market_data_as_of), "")
     body: list[str] = []
     for index, (part, body_name) in enumerate(zip(parts, body_names, strict=True)):
         anchor = f"r{index + 1}"
-        # One banner per report, "Healthcare Digest - In the News", replaces the report name
-        # and the In the News heading that would otherwise sit on separate lines.
+        # One banner per report, "Healthcare Digest - In the News", in place of the report's
+        # own In the News heading.
         body.append(
             f'<h1 style="{STYLES["h1"]}margin-top:{36 if index else 18}px;padding-top:10px;'
             f'border-top:4px solid {NAVY};">{_anchor(anchor)}{_anchor(f"{anchor}-news")}'
             f"{html.escape(body_name)} - In the News</h1>"
         )
-        body.extend(
-            re.sub(r">(\s*)Executive View(\s*)<", r">\1Executive Summary\2<", section)
-            for section in part.sections[1:]
-        )
+        body.extend(part.sections[1:])
     return _email_bytes(
         title,
-        f"{subject} - {_long_date(report_date)}",
+        email_subject(title, report_date),
         _meta_line(report_date, market_data_as_of),
-        _contents(list(zip(contents_names, (part.entries for part in parts), strict=True))),
+        _contents(list(zip(short_names, (part.entries for part in parts), strict=True))),
         "".join(body),
         [image for part in parts for image in part.images],
     )

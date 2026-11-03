@@ -206,13 +206,13 @@ def test_narrative_only_report_and_combined_email(project):
     )
     assert b"Bon Secours" in provider_eml.read_bytes()
     archive = (output / "reports" / "index.html").read_text()
-    assert "this brief, then the full Healthcare Intel Report" in archive
+    assert "this brief, then the full Healthcare Digest" in archive
     news = (output / "news" / "index.html").read_text()
     # Settings order within a week, and no empty earnings list for the brief-only report.
-    provider_card = news[news.index("Provider Enablement Intel</a></h3>") :]
+    provider_card = news[news.index("Provider Enablement Digest</a></h3>") :]
     provider_card = provider_card[: provider_card.index("</article>")]
-    assert news.index("Healthcare Intel Digest</a></h3>") < news.index(
-        "Provider Enablement Intel</a></h3>"
+    assert news.index("Healthcare Digest</a></h3>") < news.index(
+        "Provider Enablement Digest</a></h3>"
     )
     assert "Earnings Calls" not in provider_card
 

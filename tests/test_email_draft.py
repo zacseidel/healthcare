@@ -82,7 +82,7 @@ def test_monthly_draft_is_an_outlook_draft_with_digest_sections(tmp_path):
 
     assert data is not None
     message = message_from_bytes(data, policy=policy.default)
-    assert message["Subject"] == "Healthcare Intel Digest – November 2, 2026"
+    assert message["Subject"] == "Healthcare Intel Digest - November 2, 2026"
     assert "Week of" not in message["Subject"]
     assert message["X-Unsent"] == "1"
     body = message.get_body(("html",)).get_content()
@@ -118,7 +118,7 @@ def test_mid_month_draft_omits_market_and_empty_upcoming_sections(tmp_path):
 def test_draft_names():
     assert email_draft_name("Healthcare Intel-2026-11-02.html") == "Healthcare Intel-2026-11-02.eml"
     assert email_subject("Life Science and Device Intel", date(2026, 11, 2)) == (
-        "Life Science and Device Intel – November 2, 2026"
+        "Life Science and Device Intel - November 2, 2026"
     )
 
 

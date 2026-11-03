@@ -1,4 +1,4 @@
-# Provider Enablement Intel
+# Provider Enablement Digest
 
 <div class="report-meta"><span><strong>Week of November 2, 2026</strong></span><span>Narrative created: November 2, 2026</span></div>
 
@@ -8,19 +8,19 @@ Weekly strategy brief on Medicare Advantage and Medicaid risk-contracting econom
 
 <nav class="strategy-narrative-links" aria-label="Strategy narrative sections">
 <ul>
-<li><a href="#strategy-executive-view-1-california-removes-1-9-million-members-from-medicaid-managed-care-risk">1. California removes 1.9 million members from Medicaid managed-care risk</a></li>
-<li><a href="#strategy-executive-view-2-privia-buys-attributed-lives-and-a-pathway-into-physician-practices">2. Privia buys attributed lives and a pathway into physician practices</a></li>
-<li><a href="#strategy-executive-view-3-centene-s-ma-margin-recovery-now-runs-ahead-of-its-2028-stars-economics">3. Centene’s MA margin recovery now runs ahead of its 2028 Stars economics</a></li>
+<li><a href="#strategy-executive-summary-1-california-removes-1-9-million-members-from-medicaid-managed-care-risk">1. California removes 1.9 million members from Medicaid managed-care risk</a></li>
+<li><a href="#strategy-executive-summary-2-privia-buys-attributed-lives-and-a-pathway-into-physician-practices">2. Privia buys attributed lives and a pathway into physician practices</a></li>
+<li><a href="#strategy-executive-summary-3-centene-s-ma-margin-recovery-now-runs-ahead-of-its-2028-stars-economics">3. Centene’s MA margin recovery now runs ahead of its 2028 Stars economics</a></li>
 </ul>
 </nav>
 
-<h3 id="executive-view">Executive View</h3>
+<h3 id="executive-summary">Executive Summary</h3>
 - California’s January 1 conversion of about 1.9 million Medi-Cal members from managed care to fee-for-service will remove a large population from capitated contracts; Centene estimates that approximately 175,000 at-risk Health Net members are affected. ([California Health Care Foundation, *Medi-Cal Enrollees with Unsatisfactory Immigration Status: What to Know About the Transition to Fee-for-Service*, October 30, 2026](https://www.chcf.org/resource/2026/10/30/medi-cal-unsatisfactory-immigration-status-fee-for-service-transition/); [Centene, *Form 10-Q for Quarter Ended September 30, 2026*, October 27, 2026](https://www.sec.gov/Archives/edgar/data/1071739/000107173926000192/cnc-20260930.htm))
 - Privia paid approximately $36 million for a Cano Health ACO with more than 36,000 MSSP lives, expanding its attributed-life base for less than $1,000 per starting beneficiary without acquiring the underlying practices. ([Privia Health, *Privia Health Expands VBC Footprint with Acquisition of American Choice Healthcare MSSP Business*, November 2, 2026](https://www.priviahealth.com/press-release/privia-health-expands-vbc-footprint-acquisition-american-choice))
 - Centene’s Medicare operations improved faster than planned, but the share of its MA membership in four-star contracts fell from approximately 20% to 10%, creating a quality-bonus headwind for 2028 revenue. ([Centene, *Third Quarter 2026 Results*, October 27, 2026](https://investors.centene.com/2026-10-27-CENTENE-CORPORATION-REPORTS-THIRD-QUARTER-2026-RESULTS); [Centene, *Form 10-Q for Quarter Ended September 30, 2026*, October 27, 2026](https://www.sec.gov/Archives/edgar/data/1071739/000107173926000192/cnc-20260930.htm))
 - Overall environment: deteriorated modestly because California’s removal of 1.9 million members from managed-care risk outweighs a small ACO acquisition and Centene’s near-term MA margin recovery.
 
-<h3 id="strategy-executive-view-1-california-removes-1-9-million-members-from-medicaid-managed-care-risk">1. California removes 1.9 million members from Medicaid managed-care risk</h3>
+<h3 id="strategy-executive-summary-1-california-removes-1-9-million-members-from-medicaid-managed-care-risk">1. California removes 1.9 million members from Medicaid managed-care risk</h3>
 
 **What happened**
 
@@ -38,7 +38,7 @@ DHCS guidance on existing authorizations and complex-care transitions, provider 
 
 ---
 
-<h3 id="strategy-executive-view-2-privia-buys-attributed-lives-and-a-pathway-into-physician-practices">2. Privia buys attributed lives and a pathway into physician practices</h3>
+<h3 id="strategy-executive-summary-2-privia-buys-attributed-lives-and-a-pathway-into-physician-practices">2. Privia buys attributed lives and a pathway into physician practices</h3>
 
 **What happened**
 
@@ -56,7 +56,7 @@ Privia’s November 5 disclosure of the ACO’s geographic mix, expected shared-
 
 ---
 
-<h3 id="strategy-executive-view-3-centene-s-ma-margin-recovery-now-runs-ahead-of-its-2028-stars-economics">3. Centene’s MA margin recovery now runs ahead of its 2028 Stars economics</h3>
+<h3 id="strategy-executive-summary-3-centene-s-ma-margin-recovery-now-runs-ahead-of-its-2028-stars-economics">3. Centene’s MA margin recovery now runs ahead of its 2028 Stars economics</h3>
 
 **What happened**
 

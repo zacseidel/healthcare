@@ -309,6 +309,11 @@ def _strip_narrative_section(body: str, title: str) -> str:
     return "\n".join(output)
 
 
+def rename_executive_view(body: str) -> str:
+    """Readers see "Executive Summary"; the saved brief keeps the prompt's "Executive View"."""
+    return re.sub(r"^(#{1,6}\s+)Executive View\s*$", r"\1Executive Summary", body, flags=re.M)
+
+
 def _strip_status_headers(body: str) -> str:
     return re.sub(
         r"^\s*\*{0,2}Status:?\*{0,2}:?\s*[A-Z][A-Z0-9 /]*\*{0,2}\s*$",
@@ -327,6 +332,7 @@ def _presentation_narrative(body: str, *, strip_status_headers: bool = False) ->
         flags=re.IGNORECASE | re.MULTILINE,
     )
     body = _strip_narrative_section(body, "Functional strategy summary")
+    body = rename_executive_view(body)
     if strip_status_headers:
         body = _strip_status_headers(body)
     body = re.sub(r"\n{3,}", "\n\n", body).strip()
@@ -1360,10 +1366,19 @@ def build_markdown(context: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
+# File names keep the original report names so published links and archived folders still
+# resolve after a display rename.
+REPORT_FILE_PREFIXES = {
+    "healthcare": "Healthcare Intel",
+    "life-science-device": "Life Science and Device Intel",
+    "provider-enablement": "Provider Enablement Intel",
+}
+
+
 def _report_file_prefix(config: ProjectConfig | None) -> str:
-    if config is None or config.scope == "healthcare":
-        return "Healthcare Intel"
-    return config.report_name
+    if config is None:
+        return REPORT_FILE_PREFIXES["healthcare"]
+    return REPORT_FILE_PREFIXES.get(config.scope, config.report_name)
 
 
 def report_html_name(report_date: date, config: ProjectConfig | None = None) -> str:
@@ -1453,7 +1468,7 @@ def _html_document(
         table.wrap(wrapper)
     body = str(soup)
     title_match = re.search(r"^# (.+)$", markdown_text, re.M)
-    title = html.escape(title_match.group(1) if title_match else "Healthcare Intel Digest")
+    title = html.escape(title_match.group(1) if title_match else "Healthcare Digest")
     navigation, body = _navigation(body)
     return (
         '<!doctype html><html lang="en"><head><meta charset="utf-8">'

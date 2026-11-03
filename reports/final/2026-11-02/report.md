@@ -1,4 +1,4 @@
-# Healthcare Intel Digest
+# Healthcare Digest
 
 <div class="report-meta"><span><strong>Week of November 2, 2026</strong></span><span>Market data through: October 30, 2026</span><span>Narrative created: November 2, 2026</span></div>
 
@@ -8,23 +8,22 @@ Weekly review of healthcare services, technology, distribution, and diagnostic c
 
 <nav class="strategy-narrative-links" aria-label="Strategy narrative sections">
 <ul>
-<li><a href="#strategy-executive-view-1-coverage-loss-not-utilization-becomes-the-hospital-margin-constraint">1. Coverage loss, not utilization, becomes the hospital margin constraint</a></li>
-<li><a href="#strategy-executive-view-2-alignment-turns-a-claims-migration-into-a-medical-cost-event">2. Alignment turns a claims migration into a medical-cost event</a></li>
-<li><a href="#strategy-executive-view-3-bon-secours-moves-from-asc-partnerships-to-a-national-ownership-platform">3. Bon Secours moves from ASC partnerships to a national ownership platform</a></li>
-<li><a href="#strategy-executive-view-4-onc-preserves-prior-authorization-apis-while-removing-broader-certification-burden">4. ONC preserves prior-authorization APIs while removing broader certification burden</a></li>
-<li><a href="#strategy-executive-view-5-cms-s-2-7-dialysis-increase-mostly-funds-phosphate-binders">5. CMS’s 2.7% dialysis increase mostly funds phosphate binders</a></li>
+<li><a href="#strategy-executive-summary-1-coverage-loss-not-utilization-becomes-the-hospital-margin-constraint">1. Coverage loss, not utilization, becomes the hospital margin constraint</a></li>
+<li><a href="#strategy-executive-summary-2-alignment-turns-a-claims-migration-into-a-medical-cost-event">2. Alignment turns a claims migration into a medical-cost event</a></li>
+<li><a href="#strategy-executive-summary-3-bon-secours-moves-from-asc-partnerships-to-a-national-ownership-platform">3. Bon Secours moves from ASC partnerships to a national ownership platform</a></li>
+<li><a href="#strategy-executive-summary-4-onc-preserves-prior-authorization-apis-while-removing-broader-certification-burden">4. ONC preserves prior-authorization APIs while removing broader certification burden</a></li>
+<li><a href="#strategy-executive-summary-5-cms-s-2-7-dialysis-increase-mostly-funds-phosphate-binders">5. CMS’s 2.7% dialysis increase mostly funds phosphate binders</a></li>
 </ul>
 </nav>
 
-<h3 id="executive-view">Executive View</h3>
-
+<h3 id="executive-summary">Executive Summary</h3>
 - Exchange coverage loss became a measurable hospital earnings problem: HCA estimated that higher uninsured volume reduced third-quarter pre-tax income by approximately $400 million. ([HCA Healthcare, *HCA Healthcare Reports Third Quarter 2026 Results*, October 27, 2026](https://investor.hcahealthcare.com/news/news-details/2026/HCA-Healthcare-Reports-Third-Quarter-2026-Results/default.aspx))
 - Alignment showed that claims-platform migration can affect medical cost, as provider appeals and disputes contributed to a 240-basis-point increase in its medical benefits ratio despite strong membership growth. ([Alignment Healthcare, *Third Quarter 2026 Results*, October 29, 2026](https://ir.alignmenthealth.com/news-releases/news-release-details/alignment-healthcare-reports-third-quarter-2026-results-updates))
 - Bon Secours Mercy Health-affiliated HealthSpan is acquiring Surgery Partners for $5.7 billion, moving a health-system affiliate toward ownership of a national outpatient surgical platform. ([Surgery Partners, *HealthSpan Partners to Acquire Surgery Partners*, October 26, 2026](https://ir.surgerypartners.com/node/12056))
 - Federal policy improved developer economics and dialysis reimbursement: ONC reduced health-IT certification requirements, while CMS raised the dialysis bundle mainly to cover newly included phosphate binders. ([Federal Register, *HTI-5 Final Rule*, October 28, 2026](https://www.federalregister.gov/documents/2026/10/28/2026-21943/health-data-technology-and-interoperability-onc-deregulatory-actions-to-unleash-prosperity); [CMS, *CY 2027 ESRD PPS Final Rule*, October 28, 2026](https://www.cms.gov/newsroom/fact-sheets/calendar-year-cy-2027-end-stage-renal-disease-esrd-prospective-payment-system-final-rule-cms-1846-f))
 - Overall environment: modestly deteriorated for payer and provider operating execution because coverage loss and claims-processing friction outweighed improved health-IT compliance costs and targeted dialysis reimbursement.
 
-<h3 id="strategy-executive-view-1-coverage-loss-not-utilization-becomes-the-hospital-margin-constraint">1. Coverage loss, not utilization, becomes the hospital margin constraint</h3>
+<h3 id="strategy-executive-summary-1-coverage-loss-not-utilization-becomes-the-hospital-margin-constraint">1. Coverage loss, not utilization, becomes the hospital margin constraint</h3>
 
 **What happened**
 
@@ -42,7 +41,7 @@ Whether fourth-quarter uninsured admissions continue rising during 2027 open enr
 
 ---
 
-<h3 id="strategy-executive-view-2-alignment-turns-a-claims-migration-into-a-medical-cost-event">2. Alignment turns a claims migration into a medical-cost event</h3>
+<h3 id="strategy-executive-summary-2-alignment-turns-a-claims-migration-into-a-medical-cost-event">2. Alignment turns a claims migration into a medical-cost event</h3>
 
 **What happened**
 
@@ -62,7 +61,7 @@ Whether Alignment’s fourth-quarter MBR shows that claims stabilization is redu
 
 ---
 
-<h3 id="strategy-executive-view-3-bon-secours-moves-from-asc-partnerships-to-a-national-ownership-platform">3. Bon Secours moves from ASC partnerships to a national ownership platform</h3>
+<h3 id="strategy-executive-summary-3-bon-secours-moves-from-asc-partnerships-to-a-national-ownership-platform">3. Bon Secours moves from ASC partnerships to a national ownership platform</h3>
 
 **What happened**
 
@@ -80,7 +79,7 @@ Regulatory conditions, change-of-control notices under payer contracts and wheth
 
 ---
 
-<h3 id="strategy-executive-view-4-onc-preserves-prior-authorization-apis-while-removing-broader-certification-burden">4. ONC preserves prior-authorization APIs while removing broader certification burden</h3>
+<h3 id="strategy-executive-summary-4-onc-preserves-prior-authorization-apis-while-removing-broader-certification-burden">4. ONC preserves prior-authorization APIs while removing broader certification burden</h3>
 
 **What happened**
 
@@ -98,7 +97,7 @@ Whether ONC separately finalizes the information-blocking proposals it left unde
 
 ---
 
-<h3 id="strategy-executive-view-5-cms-s-2-7-dialysis-increase-mostly-funds-phosphate-binders">5. CMS’s 2.7% dialysis increase mostly funds phosphate binders</h3>
+<h3 id="strategy-executive-summary-5-cms-s-2-7-dialysis-increase-mostly-funds-phosphate-binders">5. CMS’s 2.7% dialysis increase mostly funds phosphate binders</h3>
 
 **What happened**
 

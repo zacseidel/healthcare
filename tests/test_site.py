@@ -189,7 +189,7 @@ def test_build_site_lists_both_report_types(project):
     archive = BeautifulSoup((output / "reports" / "index.html").read_text(), "html.parser")
     links = [str(link["href"]) for link in archive.select(".report-list-link")]
     assert links == ["2026-08-03/", "life-science-device/2026-08-03/"]
-    assert "Life Sciences Intel Report" in archive.get_text(" ", strip=True)
+    assert "Life Sciences Digest" in archive.get_text(" ", strip=True)
     assert (output / "reports" / "life-science-device" / "2026-08-03" / "index.html").is_file()
 
 
@@ -203,9 +203,9 @@ def test_archive_groups_every_configured_profile(project):
     archive = BeautifulSoup((output / "reports" / "index.html").read_text(), "html.parser")
     headings = [heading.get_text(strip=True) for heading in archive.select(".report-group h2")]
     assert headings == [
-        "Healthcare Intel Report",
-        "Life Sciences Intel Report",
-        "Provider Enablement Intel Report",
+        "Healthcare Digest",
+        "Life Sciences Digest",
+        "Provider Enablement Digest",
     ]
     links = [str(link["href"]) for link in archive.select(".report-list-link")]
     assert links == ["2026-11-02/", "provider-enablement/2026-11-02/"]
@@ -335,9 +335,9 @@ def test_homepage_remains_healthcare_when_life_science_is_newer(project):
     archive = BeautifulSoup((output / "reports" / "index.html").read_text(), "html.parser")
     headings = [heading.get_text(" ", strip=True) for heading in archive.select(".report-group h2")]
     assert headings == [
-        "Healthcare Intel Report",
-        "Life Sciences Intel Report",
-        "Provider Enablement Intel Report",
+        "Healthcare Digest",
+        "Life Sciences Digest",
+        "Provider Enablement Digest",
     ]
 
 

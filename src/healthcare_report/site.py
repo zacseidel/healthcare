@@ -131,6 +131,7 @@ class SiteReport:
     email_available: bool = False
     # Profiles with a companion report publish one draft holding both reports.
     email_companion: str = ""
+    email_companion_name: str = ""
     # Brief-only reports have no earnings section to index.
     narrative_only: bool = False
 
@@ -336,17 +337,25 @@ def _discover_reports(config: ProjectConfig) -> list[SiteReport]:
         if not source.is_file() or not isinstance(manifest, dict):
             continue
         report_type = str(manifest.get("report_type") or scoped.scope)
+        companion = str(scoped.settings["report"].get("companion_report") or "")
+        companion_profile = profiles.get(companion) if companion else None
         reports.append(
             SiteReport(
                 report_date=published,
                 report_type=report_type,
-                report_name=str(manifest.get("report_name") or scoped.report_name),
+                # The configured name, so older weeks read with today's naming.
+                report_name=scoped.report_name or str(manifest.get("report_name") or ""),
                 market_data_as_of=str(manifest.get("market_data_as_of") or ""),
                 quality=str(manifest.get("quality") or "unknown"),
                 source=source,
                 archive_path=archive_path,
                 email_available=(folder / "render-data.json.gz").is_file(),
-                email_companion=str(scoped.settings["report"].get("companion_report") or ""),
+                email_companion=companion,
+                email_companion_name=(
+                    str(companion_profile.get("name") or companion)
+                    if isinstance(companion_profile, dict)
+                    else ""
+                ),
                 narrative_only=bool(manifest.get("narrative_only")),
             )
         )
@@ -356,7 +365,7 @@ def _discover_reports(config: ProjectConfig) -> list[SiteReport]:
         report
         if not report.email_companion
         or (report.email_companion, report.report_date) in available
-        else replace(report, email_companion="")
+        else replace(report, email_companion="", email_companion_name="")
         for report in reports
     ]
     # Newest week first, then settings order, so every page lists a week's reports alike
@@ -428,8 +437,7 @@ def _report_download_links(
     if report.email_available:
         email_href = href_prefix + quote(email_draft_name(report.source.name))
         title = (
-            "Outlook email draft: this brief, then the full "
-            f"{ARCHIVE_HEADINGS.get(report.email_companion, report.email_companion)}"
+            f"Outlook email draft: this brief, then the full {report.email_companion_name}"
             if report.email_companion
             else "Outlook email draft"
         )
@@ -506,11 +514,11 @@ def _page_document(title: str, body: str, *, prefix: str, active: str) -> str:
     return (
         '<!doctype html><html lang="en"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width,initial-scale=1">'
-        f"<title>{html.escape(title)} · Healthcare Intel Digest</title>"
+        f"<title>{html.escape(title)} · Healthcare Digest</title>"
         f"<style>{SITE_CSS}</style></head>"
         f'<body class="public-page-body">{_site_header(prefix, active)}'
         f'<main class="public-page">{body}'
-        '<footer class="public-site-footer">Healthcare Intel Digest uses public market and '
+        '<footer class="public-site-footer">Healthcare Digest uses public market and '
         "company information. It is informational and is not investment advice.</footer>"
         "</main></body></html>"
     )
@@ -524,17 +532,10 @@ def _content_page(config: ProjectConfig, name: str, *, prefix: str) -> str:
     return _page_document(name.title(), body, prefix=prefix, active=name)
 
 
-ARCHIVE_HEADINGS = {
-    "healthcare": "Healthcare Intel Report",
-    "life-science-device": "Life Sciences Intel Report",
-    "provider-enablement": "Provider Enablement Intel Report",
-}
-
-
 def _archive_page(reports: list[SiteReport], config: ProjectConfig) -> str:
     # One archive group per configured profile, in settings order.
     groups = [
-        (scope, ARCHIVE_HEADINGS.get(scope, f"{profile.get('name') or scope} Report"))
+        (scope, str(profile.get("name") or scope))
         for scope, profile in config.settings.get("report_profiles", {}).items()
         if isinstance(profile, dict)
     ]
@@ -1002,9 +1003,12 @@ def _publish_email_drafts(reports: list[SiteReport], destination: Path) -> None:
             continue
         companion = _companion_report(report, reports)
         if companion is not None:
-            draft = build_combined_email_draft([report.source.parent, companion.source.parent])
+            draft = build_combined_email_draft(
+                [report.source.parent, companion.source.parent],
+                [report.report_name, companion.report_name],
+            )
         else:
-            draft = build_email_draft(report.source.parent, report.source.name)
+            draft = build_email_draft(report.source.parent, report.source.name, report.report_name)
         if draft is None:
             continue
         folder = destination / "reports" / report.archive_path

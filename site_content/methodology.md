@@ -1,6 +1,6 @@
 # Methodology
 
-Healthcare Intel Digest is generated from a consistent company universe and a reproducible
+Healthcare Digest is generated from a consistent company universe and a reproducible
 weekly reporting process. Each report records its market-data date, source outcomes, and the
 inputs needed to rebuild the published edition.
 

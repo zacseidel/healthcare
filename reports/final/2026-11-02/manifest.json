@@ -1,15 +1,15 @@
 {
   "schema": 2,
   "report_type": "healthcare",
-  "report_name": "Healthcare Intel Digest",
+  "report_name": "Healthcare Digest",
   "report_date": "2026-11-02",
   "market_data_as_of": "2026-10-30",
   "generated_at": "2026-11-02T21:45:58Z",
-  "rendered_at": "2026-11-02T23:01:13Z",
+  "rendered_at": "2026-11-03T13:11:53Z",
   "baseline_report_date": "2026-10-05",
   "comparison_cadence": "monthly",
   "market_sections": true,
-  "configuration_sha256": "ca144b4011beceee35e5ee50839ddffc676cb846c1e7635a3e60a8ccee7e58cf",
+  "configuration_sha256": "68b9060d7692e42853e04b8bae8441968ffc8149b7889f2308cd46a7a7e7a9c1",
   "quality": "ok",
   "issues": [],
   "recommended_updates": {
@@ -1337,8 +1337,8 @@
     "mode": "render-only",
     "durations_seconds": {
       "render_input_load": 0.012,
-      "rendering": 0.641,
-      "total": 0.666
+      "rendering": 0.615,
+      "total": 0.646
     },
     "counts": {
       "companies": 72,
@@ -1352,13 +1352,13 @@
       }
     },
     "output_bytes": {
-      "html": 208761,
-      "markdown": 192040,
+      "html": 208779,
+      "markdown": 192069,
       "charts": 1434880,
       "data": 182981,
-      "total_without_manifest": 2025925
+      "total_without_manifest": 2025966
     },
-    "directory_bytes": 2057604
+    "directory_bytes": 2057639
   },
   "files": [
     "Healthcare Intel-2026-11-02.html",

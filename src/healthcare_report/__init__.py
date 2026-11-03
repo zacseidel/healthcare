@@ -1,3 +1,3 @@
-"""Healthcare Intel Digest report generator."""
+"""Healthcare Digest report generator."""
 
 __version__ = "1.0.0"

@@ -1,4 +1,4 @@
-# Life Science and Device Intel
+# Life Sciences Digest
 
 <div class="report-meta"><span><strong>Week of November 2, 2026</strong></span><span>Market data through: October 30, 2026</span><span>Narrative created: November 2, 2026</span></div>
 
@@ -8,23 +8,22 @@ Weekly review of pharmaceutical, biotech, biologics, and medical-device company 
 
 <nav class="strategy-narrative-links" aria-label="Strategy narrative sections">
 <ul>
-<li><a href="#strategy-executive-view-1-retatrutide-s-advantage-over-semaglutide-is-primarily-weight-loss-not-glycemic-control">1. Retatrutide’s advantage over semaglutide is primarily weight loss, not glycemic control</a></li>
-<li><a href="#strategy-executive-view-2-petosemtamab-creates-a-chemotherapy-free-threat-to-first-line-head-and-neck-cancer-standards">2. Petosemtamab creates a chemotherapy-free threat to first-line head-and-neck cancer standards</a></li>
-<li><a href="#strategy-executive-view-3-allonk-s-failure-makes-conditioning-risk-and-durability-central-to-autoimmune-cell-therapy">3. AlloNK’s failure makes conditioning risk and durability central to autoimmune cell therapy</a></li>
-<li><a href="#strategy-executive-view-4-fda-is-reducing-genome-editing-duplication-while-raising-the-manufacturing-bar">4. FDA is reducing genome-editing duplication while raising the manufacturing bar</a></li>
-<li><a href="#strategy-executive-view-5-voceryq-validates-plasmid-dna-immunotherapy-on-a-narrow-evidence-base">5. Voceryq validates plasmid DNA immunotherapy on a narrow evidence base</a></li>
+<li><a href="#strategy-executive-summary-1-retatrutide-s-advantage-over-semaglutide-is-primarily-weight-loss-not-glycemic-control">1. Retatrutide’s advantage over semaglutide is primarily weight loss, not glycemic control</a></li>
+<li><a href="#strategy-executive-summary-2-petosemtamab-creates-a-chemotherapy-free-threat-to-first-line-head-and-neck-cancer-standards">2. Petosemtamab creates a chemotherapy-free threat to first-line head-and-neck cancer standards</a></li>
+<li><a href="#strategy-executive-summary-3-allonk-s-failure-makes-conditioning-risk-and-durability-central-to-autoimmune-cell-therapy">3. AlloNK’s failure makes conditioning risk and durability central to autoimmune cell therapy</a></li>
+<li><a href="#strategy-executive-summary-4-fda-is-reducing-genome-editing-duplication-while-raising-the-manufacturing-bar">4. FDA is reducing genome-editing duplication while raising the manufacturing bar</a></li>
+<li><a href="#strategy-executive-summary-5-voceryq-validates-plasmid-dna-immunotherapy-on-a-narrow-evidence-base">5. Voceryq validates plasmid DNA immunotherapy on a narrow evidence base</a></li>
 </ul>
 </nav>
 
-<h3 id="executive-view">Executive View</h3>
-
+<h3 id="executive-summary">Executive Summary</h3>
 - Retatrutide’s 20%–21% weight loss versus 9.4% with Ozempic resolves cross-trial uncertainty about its efficacy, although its glycemic advantage was smaller and adverse-event discontinuations were higher. ([Eli Lilly, *Retatrutide delivered greater A1C reduction and more than double the weight loss of Ozempic*, October 28, 2026](https://investor.lilly.com/news-releases/news-release-details/lillys-retatrutide-delivered-greater-a1c-reduction-and-more))
 - Petosemtamab plus pembrolizumab reduced mortality risk by 50% in first-line PD-L1-positive head-and-neck cancer, creating a potential chemotherapy-free standard if the detailed safety and absolute survival data hold. ([Genmab, *Petosemtamab combination improves overall survival and objective response in LiGeR-HN1*, October 28, 2026](https://www.us.genmab.com/company/news/press-releases/genmab-announces-statistically-significant-clinically-meaningful-improvement-in-overall-survival-and-objective-response-with-petosemtamab-combination-at-first-interim-analysis-in-first-line-r-m-patients-with-pd-l1-head-and-neck-cancer-2026-10))
 - Artiva’s discontinuation of AlloNK refutes the premise that deep B-cell depletion and early responses alone justify conditioning-intensive cell therapy in chronic autoimmune disease.
 - FDA proposed a single-license pathway for bounded variants of individualized genome-editing products while separately finalizing lifecycle potency standards, shifting the competitive advantage toward platforms with validated manufacturing and assays.
 - Voceryq’s accelerated approval validates plasmid DNA immunotherapy commercially, but the evidence consists of 26 efficacy-evaluable patients and requires confirmation through at least three years of follow-up.
 
-<h3 id="strategy-executive-view-1-retatrutide-s-advantage-over-semaglutide-is-primarily-weight-loss-not-glycemic-control">1. Retatrutide’s advantage over semaglutide is primarily weight loss, not glycemic control</h3>
+<h3 id="strategy-executive-summary-1-retatrutide-s-advantage-over-semaglutide-is-primarily-weight-loss-not-glycemic-control">1. Retatrutide’s advantage over semaglutide is primarily weight loss, not glycemic control</h3>
 
 **What changed**
 
@@ -40,7 +39,7 @@ The retatrutide-versus-tirzepatide TRIUMPH-5 trial, treatment-regimen estimand r
 
 ---
 
-<h3 id="strategy-executive-view-2-petosemtamab-creates-a-chemotherapy-free-threat-to-first-line-head-and-neck-cancer-standards">2. Petosemtamab creates a chemotherapy-free threat to first-line head-and-neck cancer standards</h3>
+<h3 id="strategy-executive-summary-2-petosemtamab-creates-a-chemotherapy-free-threat-to-first-line-head-and-neck-cancer-standards">2. Petosemtamab creates a chemotherapy-free threat to first-line head-and-neck cancer standards</h3>
 
 **What changed**
 
@@ -56,7 +55,7 @@ Median overall survival, response duration, PD-L1 subgroup performance, EGFR-rel
 
 ---
 
-<h3 id="strategy-executive-view-3-allonk-s-failure-makes-conditioning-risk-and-durability-central-to-autoimmune-cell-therapy">3. AlloNK’s failure makes conditioning risk and durability central to autoimmune cell therapy</h3>
+<h3 id="strategy-executive-summary-3-allonk-s-failure-makes-conditioning-risk-and-durability-central-to-autoimmune-cell-therapy">3. AlloNK’s failure makes conditioning risk and durability central to autoimmune cell therapy</h3>
 
 **What changed**
 
@@ -74,7 +73,7 @@ Publication of the fludarabine case, complete response-duration data and conditi
 
 ---
 
-<h3 id="strategy-executive-view-4-fda-is-reducing-genome-editing-duplication-while-raising-the-manufacturing-bar">4. FDA is reducing genome-editing duplication while raising the manufacturing bar</h3>
+<h3 id="strategy-executive-summary-4-fda-is-reducing-genome-editing-duplication-while-raising-the-manufacturing-bar">4. FDA is reducing genome-editing duplication while raising the manufacturing bar</h3>
 
 **What changed**
 
@@ -94,7 +93,7 @@ Industry comments, FDA’s promised guidance on clinical evidence and the first 
 
 ---
 
-<h3 id="strategy-executive-view-5-voceryq-validates-plasmid-dna-immunotherapy-on-a-narrow-evidence-base">5. Voceryq validates plasmid DNA immunotherapy on a narrow evidence base</h3>
+<h3 id="strategy-executive-summary-5-voceryq-validates-plasmid-dna-immunotherapy-on-a-narrow-evidence-base">5. Voceryq validates plasmid DNA immunotherapy on a narrow evidence base</h3>
 
 **What changed**
 

@@ -1,15 +1,15 @@
 {
   "schema": 2,
   "report_type": "life-science-device",
-  "report_name": "Life Science and Device Intel",
+  "report_name": "Life Sciences Digest",
   "report_date": "2026-11-02",
   "market_data_as_of": "2026-10-30",
   "generated_at": "2026-11-02T21:52:04Z",
-  "rendered_at": "2026-11-02T23:02:00Z",
+  "rendered_at": "2026-11-03T13:12:32Z",
   "baseline_report_date": "2026-10-05",
   "comparison_cadence": "monthly",
   "market_sections": true,
-  "configuration_sha256": "d9b8bb2a3742fa087af990bf42dfe2b6373d7b47504aebee128e122e2e70c13b",
+  "configuration_sha256": "bc3093e82ceac0b287bf449986a06574f72da3189ab0fdf2017d51c666f1f91f",
   "quality": "ok",
   "issues": [],
   "recommended_updates": {
@@ -976,9 +976,9 @@
   "metrics": {
     "mode": "render-only",
     "durations_seconds": {
-      "render_input_load": 0.006,
-      "rendering": 0.77,
-      "total": 0.796
+      "render_input_load": 0.009,
+      "rendering": 0.744,
+      "total": 0.772
     },
     "counts": {
       "companies": 52,
@@ -992,13 +992,13 @@
       }
     },
     "output_bytes": {
-      "html": 196385,
-      "markdown": 178043,
+      "html": 196394,
+      "markdown": 178069,
       "charts": 1370396,
       "data": 139778,
-      "total_without_manifest": 1891871
+      "total_without_manifest": 1891897
     },
-    "directory_bytes": 1915529
+    "directory_bytes": 1915547
   },
   "files": [
     "Life Science and Device Intel-2026-11-02.html",
