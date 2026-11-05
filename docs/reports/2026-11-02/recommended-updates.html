@@ -67,6 +67,48 @@
 .topic-links li { padding:.65rem 0; border-bottom:1px solid var(--site-line); }
 .topic-links span { display:block; margin-top:.15rem; color:var(--site-muted); font-size:.82rem; }
 .index-empty { color:var(--site-muted); font-style:italic; }
+.index-jump { display:flex; align-items:center; gap:.4rem; flex-wrap:wrap; margin:1.2rem 0 0; }
+.index-jump span { margin-right:.2rem; color:var(--site-muted); font-size:.78rem; font-weight:600; }
+.index-jump a { padding:.3rem .65rem; border:1px solid var(--site-line); border-radius:999px;
+  background:var(--site-panel); font-size:.84rem; font-weight:600; text-decoration:none; }
+.index-jump a:hover { border-color:#9fb7c7; }
+.index-note { max-width:760px; color:#40505e; }
+.company-directory { margin-top:3.5rem; padding-top:.5rem; border-top:4px solid var(--site-gold); }
+.company-group { margin-top:2.2rem; }
+.company-group > h3 { margin:0 0 .6rem; }
+.company-coverage { margin:.9rem 0; padding:.85rem 1.1rem; border:1px solid var(--site-line);
+  border-radius:5px; background:#fbfcfd; scroll-margin-top:1rem; }
+.company-coverage:target { border-color:var(--site-gold); box-shadow:0 0 0 3px #d4a43c40; }
+.company-coverage-heading { display:flex; align-items:baseline; justify-content:space-between; gap:1rem; }
+.company-coverage h4 { margin:0; color:var(--site-navy); font:700 1.08rem/1.3 Georgia,"Times New Roman",serif; }
+.company-ticker { margin-left:.3rem; color:var(--site-muted); font:700 .76rem/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  letter-spacing:.06em; }
+.company-profile-link { flex:0 0 auto; font-size:.8rem; }
+.company-coverage-label { margin:.8rem 0 0; color:var(--site-blue); font-size:.74rem; font-weight:800;
+  letter-spacing:.09em; text-transform:uppercase; }
+.company-coverage .topic-links li { padding:.45rem 0; }
+.company-coverage .topic-links li:last-child { border-bottom:0; }
+.universe-jump ul { list-style:none; display:flex; flex-wrap:wrap; gap:.4rem; margin:1.5rem 0 0; padding:0; }
+.universe-jump a { display:inline-block; padding:.3rem .65rem; border:1px solid var(--site-line); border-radius:999px;
+  background:var(--site-panel); font-size:.82rem; font-weight:600; text-decoration:none; }
+.universe-segment { margin-top:2.6rem; scroll-margin-top:1rem; }
+.universe-segment h2 { margin-bottom:.3rem; }
+.universe-meta { margin:0 0 .8rem; color:var(--site-muted); font-size:.86rem; }
+.universe-table-wrap { overflow-x:auto; }
+.universe-table { width:100%; border-collapse:collapse; font-size:.9rem; }
+.universe-table th { padding:.5rem .6rem; color:var(--site-muted); border-bottom:2px solid var(--site-line);
+  font-size:.72rem; font-weight:800; letter-spacing:.08em; text-align:left; text-transform:uppercase; }
+.universe-table td { padding:.65rem .6rem; border-bottom:1px solid var(--site-line); vertical-align:top; }
+.universe-table tr:target td { background:#fff6df; }
+.universe-table tr { scroll-margin-top:1rem; }
+.universe-name { min-width:9rem; }
+.universe-name strong { color:var(--site-navy); }
+.universe-ticker { font-weight:700; letter-spacing:.03em; white-space:nowrap; }
+.universe-ticker a { text-decoration:none; }
+.universe-description { color:#40505e; }
+.universe-table .universe-cap { text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums; }
+.universe-coverage { min-width:8.5rem; font-size:.84rem; }
+.universe-muted { color:var(--site-muted); }
 .report-downloads { display:flex; align-items:center; gap:.42rem; flex-wrap:wrap; margin:.8rem 0 1.35rem; }
 .report-downloads-compact { flex:0 0 auto; margin:0; }
 .report-download-label { margin-right:.15rem; color:var(--site-muted); font-size:.78rem; font-weight:600; }
@@ -92,5 +134,14 @@
   .index-report-heading { display:block; }
   .report-downloads-compact { margin:.2rem 0 .8rem; }
   .site-badge { justify-self:start; margin-top:.25rem; }
+  .company-coverage-heading { display:block; }
+  .universe-table thead { display:none; }
+  .universe-table, .universe-table tbody, .universe-table tr, .universe-table td { display:block; width:auto; }
+  .universe-table tr { padding:.7rem 0; border-bottom:1px solid var(--site-line); }
+  .universe-table td { padding:.1rem 0; border:0; }
+  .universe-table .universe-name, .universe-table .universe-ticker { display:inline; }
+  .universe-table .universe-ticker { margin-left:.4rem; }
+  .universe-table .universe-cap { text-align:left; }
+  .universe-table .universe-cap::before { content:"Market cap "; color:var(--site-muted); }
 }
-</style></head><body class="public-page-body"><header class="public-site-header"><div class="public-site-header-inner"><a class="public-site-brand" href="../../">Weekly Healthcare Strategy Intelligence</a><nav class="public-site-nav" aria-label="Website navigation"><a href="../../">Latest report</a><a href="../../news/">News &amp; Earnings</a><a href="../../reports/" aria-current="page">Past reports</a><a href="../../about/">About</a><a href="../../methodology/">Methodology</a></nav></div></header><main class="public-page"><p class="site-eyebrow">Follow-up</p><h1>Recommended updates</h1><p class="site-lede">Healthcare Digest for November 2, 2026. These notes are a maintenance checklist. They do not change the published report.</p><p class="index-empty">No recommended updates. Symbols and source coverage looked complete for this report.</p><footer class="public-site-footer">Healthcare Digest uses public market and company information. It is informational and is not investment advice.</footer></main></body></html>
+</style></head><body class="public-page-body"><header class="public-site-header"><div class="public-site-header-inner"><a class="public-site-brand" href="../../">Weekly Healthcare Strategy Intelligence</a><nav class="public-site-nav" aria-label="Website navigation"><a href="../../">Latest report</a><a href="../../news/">News &amp; Earnings</a><a href="../../companies/">Companies</a><a href="../../reports/" aria-current="page">Past reports</a><a href="../../about/">About</a><a href="../../methodology/">Methodology</a></nav></div></header><main class="public-page"><p class="site-eyebrow">Follow-up</p><h1>Recommended updates</h1><p class="site-lede">Healthcare Digest for November 2, 2026. These notes are a maintenance checklist. They do not change the published report.</p><p class="index-empty">No recommended updates. Symbols and source coverage looked complete for this report.</p><footer class="public-site-footer">Healthcare Digest uses public market and company information. It is informational and is not investment advice.</footer></main></body></html>

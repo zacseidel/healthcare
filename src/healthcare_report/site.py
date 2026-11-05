@@ -15,7 +15,9 @@ import markdown
 from bs4 import BeautifulSoup
 
 from .analysis import load_snapshot, recommended_updates
-from .config import ProjectConfig
+from .cache import MarketCache
+from .company_index import CompanyMatcher
+from .config import ProjectConfig, Universe
 from .email_draft import build_combined_email_draft, build_email_draft, email_draft_name
 from .narrative import narrative_age
 from .render import embed_html_images, report_html_name
@@ -90,6 +92,48 @@ SITE_CSS = """
 .topic-links li { padding:.65rem 0; border-bottom:1px solid var(--site-line); }
 .topic-links span { display:block; margin-top:.15rem; color:var(--site-muted); font-size:.82rem; }
 .index-empty { color:var(--site-muted); font-style:italic; }
+.index-jump { display:flex; align-items:center; gap:.4rem; flex-wrap:wrap; margin:1.2rem 0 0; }
+.index-jump span { margin-right:.2rem; color:var(--site-muted); font-size:.78rem; font-weight:600; }
+.index-jump a { padding:.3rem .65rem; border:1px solid var(--site-line); border-radius:999px;
+  background:var(--site-panel); font-size:.84rem; font-weight:600; text-decoration:none; }
+.index-jump a:hover { border-color:#9fb7c7; }
+.index-note { max-width:760px; color:#40505e; }
+.company-directory { margin-top:3.5rem; padding-top:.5rem; border-top:4px solid var(--site-gold); }
+.company-group { margin-top:2.2rem; }
+.company-group > h3 { margin:0 0 .6rem; }
+.company-coverage { margin:.9rem 0; padding:.85rem 1.1rem; border:1px solid var(--site-line);
+  border-radius:5px; background:#fbfcfd; scroll-margin-top:1rem; }
+.company-coverage:target { border-color:var(--site-gold); box-shadow:0 0 0 3px #d4a43c40; }
+.company-coverage-heading { display:flex; align-items:baseline; justify-content:space-between; gap:1rem; }
+.company-coverage h4 { margin:0; color:var(--site-navy); font:700 1.08rem/1.3 Georgia,"Times New Roman",serif; }
+.company-ticker { margin-left:.3rem; color:var(--site-muted); font:700 .76rem/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  letter-spacing:.06em; }
+.company-profile-link { flex:0 0 auto; font-size:.8rem; }
+.company-coverage-label { margin:.8rem 0 0; color:var(--site-blue); font-size:.74rem; font-weight:800;
+  letter-spacing:.09em; text-transform:uppercase; }
+.company-coverage .topic-links li { padding:.45rem 0; }
+.company-coverage .topic-links li:last-child { border-bottom:0; }
+.universe-jump ul { list-style:none; display:flex; flex-wrap:wrap; gap:.4rem; margin:1.5rem 0 0; padding:0; }
+.universe-jump a { display:inline-block; padding:.3rem .65rem; border:1px solid var(--site-line); border-radius:999px;
+  background:var(--site-panel); font-size:.82rem; font-weight:600; text-decoration:none; }
+.universe-segment { margin-top:2.6rem; scroll-margin-top:1rem; }
+.universe-segment h2 { margin-bottom:.3rem; }
+.universe-meta { margin:0 0 .8rem; color:var(--site-muted); font-size:.86rem; }
+.universe-table-wrap { overflow-x:auto; }
+.universe-table { width:100%; border-collapse:collapse; font-size:.9rem; }
+.universe-table th { padding:.5rem .6rem; color:var(--site-muted); border-bottom:2px solid var(--site-line);
+  font-size:.72rem; font-weight:800; letter-spacing:.08em; text-align:left; text-transform:uppercase; }
+.universe-table td { padding:.65rem .6rem; border-bottom:1px solid var(--site-line); vertical-align:top; }
+.universe-table tr:target td { background:#fff6df; }
+.universe-table tr { scroll-margin-top:1rem; }
+.universe-name { min-width:9rem; }
+.universe-name strong { color:var(--site-navy); }
+.universe-ticker { font-weight:700; letter-spacing:.03em; white-space:nowrap; }
+.universe-ticker a { text-decoration:none; }
+.universe-description { color:#40505e; }
+.universe-table .universe-cap { text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums; }
+.universe-coverage { min-width:8.5rem; font-size:.84rem; }
+.universe-muted { color:var(--site-muted); }
 .report-downloads { display:flex; align-items:center; gap:.42rem; flex-wrap:wrap; margin:.8rem 0 1.35rem; }
 .report-downloads-compact { flex:0 0 auto; margin:0; }
 .report-download-label { margin-right:.15rem; color:var(--site-muted); font-size:.78rem; font-weight:600; }
@@ -115,6 +159,15 @@ SITE_CSS = """
   .index-report-heading { display:block; }
   .report-downloads-compact { margin:.2rem 0 .8rem; }
   .site-badge { justify-self:start; margin-top:.25rem; }
+  .company-coverage-heading { display:block; }
+  .universe-table thead { display:none; }
+  .universe-table, .universe-table tbody, .universe-table tr, .universe-table td { display:block; width:auto; }
+  .universe-table tr { padding:.7rem 0; border-bottom:1px solid var(--site-line); }
+  .universe-table td { padding:.1rem 0; border:0; }
+  .universe-table .universe-name, .universe-table .universe-ticker { display:inline; }
+  .universe-table .universe-ticker { margin-left:.4rem; }
+  .universe-table .universe-cap { text-align:left; }
+  .universe-table .universe-cap::before { content:"Market cap "; color:var(--site-muted); }
 }
 """
 
@@ -141,6 +194,8 @@ class IndexedHeadline:
     report: SiteReport
     label: str
     fragment: str
+    # The headline's section text, used to find the companies it covers.
+    text: str = ""
 
 
 @dataclass(frozen=True)
@@ -382,6 +437,7 @@ def _site_header(prefix: str, active: str) -> str:
     items = (
         ("latest", "Latest report", home),
         ("news", "News & Earnings", f"{prefix}news/"),
+        ("companies", "Companies", f"{prefix}companies/"),
         ("reports", "Past reports", f"{prefix}reports/"),
         ("about", "About", f"{prefix}about/"),
         ("methodology", "Methodology", f"{prefix}methodology/"),
@@ -693,7 +749,9 @@ def _indexed_report_content(
         fragment = str(link.get("href") or "").removeprefix("#")
         label = link.get_text(" ", strip=True)
         if fragment and label and fragment not in seen_headlines:
-            headlines.append(IndexedHeadline(report, label, fragment))
+            headlines.append(
+                IndexedHeadline(report, label, fragment, _section_text(soup, fragment, label))
+            )
             seen_headlines.add(fragment)
     earnings_calls: list[IndexedEarningsCall] = []
     seen_earnings: set[str] = set()
@@ -707,6 +765,21 @@ def _indexed_report_content(
             earnings_calls.append(IndexedEarningsCall(report, label, fragment))
             seen_earnings.add(fragment)
     return headlines, earnings_calls
+
+
+def _section_text(soup: BeautifulSoup, fragment: str, label: str) -> str:
+    """The headline plus the text beneath it, up to the next heading of its rank or a rule."""
+    heading = soup.find(id=fragment)
+    if heading is None:
+        return label
+    level = int(heading.name[1]) if re.fullmatch(r"h[1-6]", heading.name or "") else 6
+    parts = [heading.get_text(" ", strip=True)]
+    for sibling in heading.find_next_siblings():
+        name = sibling.name or ""
+        if name == "hr" or (re.fullmatch(r"h[1-6]", name) and int(name[1]) <= level):
+            break
+        parts.append(sibling.get_text(" ", strip=True))
+    return " ".join(part for part in parts if part)
 
 
 def _topic_slugs(headline: IndexedHeadline) -> tuple[str, ...]:
@@ -738,8 +811,245 @@ def _index_link_list(items: list[IndexedHeadline] | list[IndexedEarningsCall]) -
     ) + "</ul>"
 
 
-def _news_index_page(reports: list[SiteReport]) -> str:
-    indexed = [(report, *_indexed_report_content(report)) for report in reports]
+@dataclass
+class CompanyCoverage:
+    earnings: list[IndexedEarningsCall]
+    headlines: list[IndexedHeadline]
+
+    @property
+    def summary(self) -> str:
+        parts = []
+        if self.earnings:
+            parts.append(f"{len(self.earnings)} earnings call{'s' if len(self.earnings) != 1 else ''}")
+        if self.headlines:
+            parts.append(f"{len(self.headlines)} headline{'s' if len(self.headlines) != 1 else ''}")
+        return " · ".join(parts)
+
+
+def _full_universe(config: ProjectConfig) -> Universe:
+    return config.available_universe or config.universe
+
+
+def _company_anchor(ticker: str) -> str:
+    return "company-" + re.sub(r"[^a-z0-9]+", "-", ticker.lower()).strip("-")
+
+
+def _universe_anchor(ticker: str) -> str:
+    return "universe-" + re.sub(r"[^a-z0-9]+", "-", ticker.lower()).strip("-")
+
+
+def _segment_anchor(category: str) -> str:
+    return "segment-" + (re.sub(r"[^a-z0-9]+", "-", category.lower()).strip("-") or "other")
+
+
+def _company_coverage(
+    indexed: list[tuple[SiteReport, list[IndexedHeadline], list[IndexedEarningsCall]]],
+    universe: Universe,
+) -> dict[str, CompanyCoverage]:
+    """Every company's earnings calls and the headlines that name it, newest first."""
+    matcher = CompanyMatcher(universe.companies.values())
+    coverage: dict[str, CompanyCoverage] = {}
+    for _report, headlines, earnings_calls in indexed:
+        for call in earnings_calls:
+            ticker = matcher.earnings_ticker(call.label, call.fragment)
+            if ticker:
+                coverage.setdefault(ticker, CompanyCoverage([], [])).earnings.append(call)
+        for headline in headlines:
+            for ticker in matcher.matches(headline.text or headline.label):
+                entry = coverage.setdefault(ticker, CompanyCoverage([], []))
+                # A brief carried into a later week repeats its headlines; keep the newest.
+                title = _headline_title(headline.label).casefold()
+                if all(_headline_title(item.label).casefold() != title for item in entry.headlines):
+                    entry.headlines.append(headline)
+    return coverage
+
+
+def _headline_title(label: str) -> str:
+    """A headline without its position in the brief ("2. Centene ..." -> "Centene ...")."""
+    return re.sub(r"^\d+\.\s+", "", label).strip()
+
+
+def _company_directory(universe: Universe, coverage: dict[str, CompanyCoverage]) -> str:
+    groups: list[str] = []
+    placed: set[str] = set()
+    for category, members in universe.categories.items():
+        cards: list[str] = []
+        for company in members:
+            entry = coverage.get(company.ticker)
+            if entry is None or company.ticker in placed:
+                continue
+            placed.add(company.ticker)
+            earnings = "".join(
+                f'<li><a href="{html.escape(_indexed_href(item.report, item.fragment), quote=True)}">'
+                f"{_long_date(item.report.report_date)} earnings call</a>"
+                f"<span>{html.escape(item.report.report_name)}</span></li>"
+                for item in entry.earnings
+            )
+            headlines = "".join(
+                f'<li><a href="{html.escape(_indexed_href(item.report, item.fragment), quote=True)}">'
+                f"{html.escape(_headline_title(item.label))}</a>"
+                f"<span>{_long_date(item.report.report_date)} · "
+                f"{html.escape(item.report.report_name)}</span></li>"
+                for item in entry.headlines
+            )
+            cards.append(
+                f'<article class="company-coverage" id="{_company_anchor(company.ticker)}">'
+                '<div class="company-coverage-heading">'
+                f"<h4>{html.escape(company.name)} <span class=\"company-ticker\">"
+                f"{html.escape(company.ticker)}</span></h4>"
+                f'<a class="company-profile-link" href="../companies/#{_universe_anchor(company.ticker)}">'
+                "Company profile</a></div>"
+                + (
+                    f'<p class="company-coverage-label">Earnings calls</p><ul class="topic-links">{earnings}</ul>'
+                    if earnings
+                    else ""
+                )
+                + (
+                    f'<p class="company-coverage-label">In the news</p><ul class="topic-links">{headlines}</ul>'
+                    if headlines
+                    else ""
+                )
+                + "</article>"
+            )
+        if cards:
+            groups.append(
+                f'<section class="company-group"><h3>{html.escape(category)}</h3>'
+                + "".join(cards)
+                + "</section>"
+            )
+    if not groups:
+        groups.append('<p class="index-empty">No company coverage has been indexed yet.</p>')
+    return (
+        '<section class="company-directory" aria-labelledby="company-index-heading">'
+        '<p class="site-eyebrow">Company coverage</p>'
+        '<h2 id="company-index-heading">By company</h2>'
+        '<p class="index-note">Each company lists its earnings-call summaries and every headline '
+        "that names it, newest first. Headlines are matched to companies by name, so one story "
+        'can appear under several companies. See the <a href="../companies/">company universe</a> '
+        "for the full list.</p>"
+        + "".join(groups)
+        + "</section>"
+    )
+
+
+def _format_market_cap(value: Any) -> str:
+    try:
+        amount = float(value)
+    except (TypeError, ValueError):
+        return ""
+    if amount <= 0:
+        return ""
+    if amount >= 1e12:
+        return f"${amount / 1e12:.2f}T"
+    if amount >= 1e9:
+        return f"${amount / 1e9:.1f}B" if amount < 1e11 else f"${amount / 1e9:.0f}B"
+    return f"${amount / 1e6:.0f}M"
+
+
+def _market_cap(record: dict[str, Any] | None) -> float | None:
+    try:
+        value = float((record or {}).get("market_cap"))
+    except (TypeError, ValueError):
+        return None
+    return value if value > 0 else None
+
+
+def _companies_page(
+    config: ProjectConfig,
+    universe: Universe,
+    coverage: dict[str, CompanyCoverage],
+) -> str:
+    reference = MarketCache(config).reference()
+    profiles = config.settings.get("report_profiles", {})
+    digests_by_category: dict[str, list[str]] = {}
+    for scope, profile in profiles.items():
+        if isinstance(profile, dict):
+            for category in profile.get("categories") or []:
+                digests_by_category.setdefault(str(category), []).append(
+                    str(profile.get("name") or scope)
+                )
+    cap_dates = sorted(
+        str(record.get("market_cap_date"))
+        for ticker, record in reference.items()
+        if ticker in universe.companies and record.get("market_cap_date") and _market_cap(record)
+    )
+    placed: set[str] = set()
+    jump: list[str] = []
+    segments: list[str] = []
+    for category, members in universe.categories.items():
+        anchor = _segment_anchor(category)
+        jump.append(f'<li><a href="#{anchor}">{html.escape(category)}</a></li>')
+        ordered = sorted(
+            members,
+            key=lambda company: (
+                -(_market_cap(reference.get(company.ticker)) or 0),
+                company.name.casefold(),
+            ),
+        )
+        total = sum(_market_cap(reference.get(company.ticker)) or 0 for company in members)
+        rows: list[str] = []
+        for company in ordered:
+            row_id = ""
+            if company.ticker not in placed:
+                row_id = f' id="{_universe_anchor(company.ticker)}"'
+                placed.add(company.ticker)
+            entry = coverage.get(company.ticker)
+            coverage_cell = (
+                f'<a href="../news/#{_company_anchor(company.ticker)}">{html.escape(entry.summary)}</a>'
+                if entry
+                else '<span class="universe-muted">None yet</span>'
+            )
+            cap = _format_market_cap(_market_cap(reference.get(company.ticker))) or (
+                '<span class="universe-muted">n/a</span>'
+            )
+            rows.append(
+                f"<tr{row_id}>"
+                f'<td class="universe-name"><strong>{html.escape(company.name)}</strong></td>'
+                f'<td class="universe-ticker"><a href="https://www.google.com/finance/quote/'
+                f'{quote(company.ticker)}" rel="noopener">{html.escape(company.ticker)}</a></td>'
+                f'<td class="universe-description">{html.escape(company.description)}</td>'
+                f'<td class="universe-cap">{cap}</td>'
+                f'<td class="universe-coverage">{coverage_cell}</td>'
+                "</tr>"
+            )
+        digests = digests_by_category.get(category, [])
+        meta = [f"{len(members)} compan{'ies' if len(members) != 1 else 'y'}"]
+        if total:
+            meta.append(f"{_format_market_cap(total)} combined market cap")
+        if digests:
+            meta.append("Covered in " + ", ".join(html.escape(name) for name in digests))
+        segments.append(
+            f'<section class="universe-segment" id="{anchor}">'
+            f"<h2>{html.escape(category)}</h2>"
+            f'<p class="universe-meta">{" · ".join(meta)}</p>'
+            '<div class="universe-table-wrap"><table class="universe-table">'
+            "<thead><tr><th>Company</th><th>Ticker</th><th>Description</th>"
+            '<th class="universe-cap">Market cap</th><th>Coverage</th></tr></thead>'
+            f"<tbody>{''.join(rows)}</tbody></table></div></section>"
+        )
+    as_of = ""
+    if cap_dates:
+        latest = date.fromisoformat(cap_dates[-1]) if re.fullmatch(r"\d{4}-\d{2}-\d{2}", cap_dates[-1]) else None
+        if latest:
+            as_of = f" Market caps come from the market-data reference cache, most recently updated {_long_date(latest)}."
+    body = (
+        '<p class="site-eyebrow">Coverage universe</p><h1>Company universe</h1>'
+        f'<p class="site-lede">The {len(universe.companies)} companies the digests track, grouped '
+        f"into {len(universe.categories)} segments and ordered by market cap within each segment."
+        f"{as_of} Use a Coverage link to see every earnings-call summary and headline for that "
+        "company.</p>"
+        f'<nav class="universe-jump" aria-label="Segments"><ul>{"".join(jump)}</ul></nav>'
+        + "".join(segments)
+    )
+    return _page_document("Company universe", body, prefix="../", active="companies")
+
+
+def _news_index_page(
+    reports: list[SiteReport],
+    indexed: list[tuple[SiteReport, list[IndexedHeadline], list[IndexedEarningsCall]]],
+    universe: Universe,
+    coverage: dict[str, CompanyCoverage],
+) -> str:
     dates = sorted({report.report_date for report in reports}, reverse=True)
     weeks: list[str] = []
     for report_date in dates:
@@ -798,11 +1108,18 @@ def _news_index_page(reports: list[SiteReport]) -> str:
     body = (
         '<p class="site-eyebrow">Intelligence library</p><h1>News &amp; Earnings Index</h1>'
         f"{_news_index_download_links()}"
-        '<p class="site-lede">Browse weekly news headlines and earnings-call coverage, then '
-        'review news across the business topics it affects.</p>'
+        '<p class="site-lede">Browse weekly news headlines and earnings-call coverage, see '
+        'everything published about each company, then review news across the business topics '
+        'it affects.</p>'
+        '<nav class="index-jump" aria-label="Index sections"><span>Jump to</span>'
+        '<a href="#weekly-index-heading">By week</a>'
+        '<a href="#company-index-heading">By company</a>'
+        '<a href="#topic-index-heading">By topic</a></nav>'
         '<section aria-labelledby="weekly-index-heading"><h2 id="weekly-index-heading">By week</h2>'
         + "".join(weeks)
-        + '</section><section class="topic-directory" aria-labelledby="topic-index-heading">'
+        + "</section>"
+        + _company_directory(universe, coverage)
+        + '<section class="topic-directory" aria-labelledby="topic-index-heading">'
         '<p class="site-eyebrow">Business topics</p><h2 id="topic-index-heading">By topic</h2>'
         + "".join(topic_sections)
         + "</section>"
@@ -1027,8 +1344,15 @@ def build_site(config: ProjectConfig, output: Path | None = None) -> dict[str, A
         (temporary / "reports" / "index.html").write_text(
             _archive_page(reports, config), encoding="utf-8"
         )
+        universe = _full_universe(config)
+        indexed = [(report, *_indexed_report_content(report)) for report in reports]
+        coverage = _company_coverage(indexed, universe)
+        (temporary / "companies").mkdir()
+        (temporary / "companies" / "index.html").write_text(
+            _companies_page(config, universe, coverage), encoding="utf-8"
+        )
         (temporary / "news").mkdir()
-        news_index = _news_index_page(reports)
+        news_index = _news_index_page(reports, indexed, universe, coverage)
         (temporary / "news" / "index.html").write_text(news_index, encoding="utf-8")
         (temporary / "news" / _news_index_download_name()).write_text(
             news_index, encoding="utf-8"

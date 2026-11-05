@@ -363,3 +363,74 @@ def test_reports_with_saved_render_data_offer_an_email_draft(project, tmp_path):
         (output / "reports" / "2026-07-27" / "index.html").read_text(), "html.parser"
     )
     assert "Email" not in older.select_one(".report-downloads-page").get_text()
+
+
+def test_company_universe_page_links_to_grouped_company_coverage(project):
+    _fake_report(
+        project.root,
+        date(2026, 10, 12),
+        headlines=(("strategy-humana", "1. Humana retains clinic control"),),
+    )
+    _fake_report(project.root, date(2026, 10, 19), earnings=(("earnings-unh", "UnitedHealth (UNH)"),))
+    _fake_report(
+        project.root,
+        date(2026, 10, 26),
+        headlines=(
+            ("strategy-humana-again", "2. Humana retains clinic control"),
+            ("strategy-policy", "1. CMS tightens provider data rules"),
+        ),
+    )
+
+    output = project.root / "public-site"
+    build_site(project, output)
+
+    companies = BeautifulSoup((output / "companies" / "index.html").read_text(), "html.parser")
+    assert companies.select_one('nav.public-site-nav a[aria-current="page"]').get_text() == "Companies"
+    assert companies.select_one("#segment-payers h2").get_text() == "Payers"
+    unh = companies.select_one("tr#universe-unh")
+    assert "UnitedHealth" in unh.get_text(" ", strip=True)
+    assert unh.select_one('.universe-coverage a')["href"] == "../news/#company-unh"
+    assert unh.select_one(".universe-coverage").get_text(strip=True) == "1 earnings call"
+    hum = companies.select_one("tr#universe-hum .universe-coverage a")
+    assert hum["href"] == "../news/#company-hum"
+    assert hum.get_text(strip=True) == "1 headline"
+    assert companies.select_one("tr#universe-osc") is None
+    assert "None yet" in companies.select_one("tr#universe-oscr").get_text()
+
+    news = BeautifulSoup((output / "news" / "index.html").read_text(), "html.parser")
+    assert news.select_one('.index-jump a[href="#company-index-heading"]') is not None
+    unh_card = news.select_one("article#company-unh")
+    assert unh_card.select_one(".topic-links a")["href"] == "../reports/2026-10-19/#earnings-unh"
+    assert unh_card.select_one(".company-profile-link")["href"] == "../companies/#universe-unh"
+    hum_links = news.select("article#company-hum .topic-links a")
+    # The repeated headline is listed once, from the newest report, without its number.
+    assert [(link.get_text(), link["href"]) for link in hum_links] == [
+        ("Humana retains clinic control", "../reports/2026-10-26/#strategy-humana-again")
+    ]
+    assert news.select_one("article#company-cms") is None
+
+
+def test_company_matcher_uses_distinctive_names_only():
+    from healthcare_report.company_index import CompanyMatcher
+    from healthcare_report.config import Company
+
+    matcher = CompanyMatcher(
+        [
+            Company("ALHC", "Alignment Health", "Medicare Advantage plan."),
+            Company("OPCH", "Option Care Health", "Home infusion."),
+            Company("DVA", "Davita", "Dialysis."),
+            Company("HCA", "HCA Healthcare", "Hospitals."),
+            Company("EHC", "Encompass Health", "Rehabilitation."),
+            Company("ACHC", "Acadia Healthcare", "Behavioral health."),
+            Company("ACAD", "Acadia Pharmaceuticals", "Neuroscience."),
+        ]
+    )
+
+    assert matcher.matches("Better alignment with providers is an option.") == []
+    assert matcher.matches("Alignment Health and Option Care reported.") == ["ALHC", "OPCH"]
+    assert matcher.matches("DaVita said the hospital operator (NYSE: HCA) grew.") == ["DVA", "HCA"]
+    assert matcher.matches("Plans encompass more services.") == []
+    # "Acadia" alone could be either company, so only the full names count.
+    assert matcher.matches("Acadia reported results.") == []
+    assert matcher.matches("Acadia Healthcare reported results.") == ["ACHC"]
+    assert matcher.earnings_ticker("HCA Healthcare (HCA)", "earnings-hca") == "HCA"

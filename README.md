@@ -143,6 +143,15 @@ the corresponding report sections. It also collects headlines under these busine
   Clinical Decision Support;
 - Across the Business: Life Sciences, Policy & Cross-Sector, and Other.
 
+The News & Earnings page also has a By company section: each company's earnings-call summaries
+and every headline whose section names it, newest first. Earnings map by ticker; headlines map
+by company name, short name (suffixes such as Health or Group removed), and a few well-known
+brands in `src/healthcare_report/company_index.py` (for example Aetna for CVS, Optum for UNH).
+Short names that are ordinary words (Alignment, Option, Surgery) or that two companies share
+are not matched alone. The Companies page lists the full universe from `inputs/companies.md` by
+segment, ordered by market cap from the reference cache, with each company linking to its
+section of the index.
+
 Topic assignment is deterministic and based on headline wording. A headline can appear under
 multiple relevant topics; unmatched headlines appear under Other. The weekly and topic indexes are
 regenerated automatically from all saved final reports whenever `run`, `render`, or `build-site`
