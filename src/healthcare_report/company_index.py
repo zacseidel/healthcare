@@ -122,7 +122,7 @@ def company_aliases(companies: Iterable[Company]) -> dict[str, tuple[str, ...]]:
     candidates: dict[str, list[str]] = {}
     for company in companies:
         names = [company.name, *_name_variants(company.name), *EXTRA_ALIASES.get(company.ticker, ())]
-        unique = []
+        unique: list[str] = []
         for alias in names:
             alias = alias.strip()
             if len(alias) < 3 or alias.casefold() in _AMBIGUOUS:

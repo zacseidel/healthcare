@@ -2,13 +2,14 @@ name: Run full healthcare update
 
 on:
   schedule:
-    # Off the top of the hour: GitHub delays and sometimes drops scheduled runs at :00.
-    - cron: "17 5 * * 1"
+    # Sunday afternoon, producing the next day's Monday-dated report. Off the top of the
+    # hour: GitHub delays and sometimes drops scheduled runs at :00.
+    - cron: "17 14 * * 0"
       timezone: America/Denver
   workflow_dispatch:
     inputs:
       report_date:
-        description: Optional report date (YYYY-MM-DD); defaults to today in Denver
+        description: Optional Monday report date (YYYY-MM-DD); defaults to today in Denver, or tomorrow on Sundays
         required: false
         type: string
       report_scope:
@@ -64,13 +65,16 @@ jobs:
           if [ "$scope" = "all" ]; then scope=$(IFS=,; echo "${profiles[*]}"); fi
           if [ "${{ github.event_name }}" = "schedule" ]; then
             today=$(date +%F)
+            # A Sunday run creates the next day's Monday report.
+            report_day=$today
+            if [ "$(date +%u)" = "7" ]; then report_day=$(date -d tomorrow +%F); fi
             remaining=()
             for profile in "${profiles[@]}"; do
-              folder="reports/final/$profile/$today"
-              if [ "$profile" = "healthcare" ]; then folder="reports/final/$today"; fi
+              folder="reports/final/$profile/$report_day"
+              if [ "$profile" = "healthcare" ]; then folder="reports/final/$report_day"; fi
               committed=$(git log -1 --date=format-local:%F --format=%cd -- "$folder")
               if [ "$committed" = "$today" ]; then
-                echo "::notice::Skipping $profile: its $today report was already committed today."
+                echo "::notice::Skipping $profile: its $report_day report was already committed today."
               else
                 remaining+=("$profile")
               fi

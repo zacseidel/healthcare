@@ -7,6 +7,7 @@ from datetime import date, datetime
 from pathlib import Path
 
 from .config import ConfigurationError, load_config
+from .strategy import default_report_date
 
 # Profiles in run order. Provider Enablement follows Healthcare so it reuses that run's fresh
 # price, company, and earnings caches.
@@ -44,7 +45,7 @@ def build_parser() -> argparse.ArgumentParser:
     run.add_argument(
         "--date",
         type=parse_date,
-        help="Monday report date; defaults to today in Denver and must be a Monday",
+        help="Monday report date; defaults to today in Denver (tomorrow on Sundays)",
     )
     run.add_argument(
         "--report",
@@ -88,7 +89,7 @@ def build_parser() -> argparse.ArgumentParser:
     strategy.add_argument(
         "--date",
         type=parse_date,
-        help="Monday report date; defaults to today in Denver and must be a Monday",
+        help="Monday report date; defaults to today in Denver (tomorrow on Sundays)",
     )
     strategy.add_argument(
         "--report",
@@ -136,7 +137,7 @@ def main(argv: list[str] | None = None) -> int:
             from .strategy import generate_strategy_report
 
             config = config.for_scope(args.report)
-            report_date = args.date or datetime.now(config.timezone).date()
+            report_date = args.date or default_report_date(datetime.now(config.timezone).date())
             if args.dry_run:
                 result = generate_strategy_report(config, report_date, dry_run=True)
             else:
@@ -167,7 +168,7 @@ def main(argv: list[str] | None = None) -> int:
 
             result = build_site(config, args.output)
         else:
-            report_date = args.date or datetime.now(config.timezone).date()
+            report_date = args.date or default_report_date(datetime.now(config.timezone).date())
             scopes = report_scopes(args.report)
             results = []
             failures = []

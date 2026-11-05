@@ -948,7 +948,7 @@ def _format_market_cap(value: Any) -> str:
 
 def _market_cap(record: dict[str, Any] | None) -> float | None:
     try:
-        value = float((record or {}).get("market_cap"))
+        value = float((record or {}).get("market_cap") or 0)
     except (TypeError, ValueError):
         return None
     return value if value > 0 else None

@@ -56,7 +56,7 @@ Set `MASSIVE_API_KEY` and `OPENAI_API_KEY` in `.env` or export them in the shell
 the project `.env` automatically and never overrides variables already exported by the shell.
 
 Validate the project and create a report. `run` requires a Monday report date and defaults
-to today in Denver:
+to today in Denver, or to tomorrow when run on a Sunday:
 
 ```sh
 python -m healthcare_report validate
@@ -395,9 +395,11 @@ python -m healthcare_report refresh-narrative --report provider-enablement
 
 ## GitHub automation
 
-The **Run full healthcare update** workflow runs every Monday at about 5:17 AM America/Denver
+The **Run full healthcare update** workflow runs every Sunday at about 2:17 PM America/Denver
 (off the top of the hour, when GitHub most often delays or drops scheduled runs) and updates all
-three report profiles. Weekly reports are Monday-dated and compare with the previous
+three report profiles with the next day's Monday-dated reports. Prices run through Friday's close
+either way, and the strategy brief covers the seven days through the Sunday run. Weekly reports
+are Monday-dated and compare with the previous
 Monday only; mid-week strategy notes are not used as last week's published briefing. Manual
 dispatch accepts an optional Monday report date and a report scope of all, Healthcare, Life
 Science and Device, or Provider Enablement. Add both `MASSIVE_API_KEY` and `OPENAI_API_KEY`
@@ -405,9 +407,9 @@ under **Settings → Secrets and variables → Actions**, and allow GitHub Actio
 repository permissions. A manual run forces fresh earnings and strategy-narrative checks, even if
 those sources were already checked that day.
 
-The workflow runs early Monday morning in `America/Denver`; GitHub's timezone-aware schedule handles
-Mountain Time daylight-saving changes. A scheduled run skips any report profile whose report for
-today was already committed earlier the same day (for example by a manual run), and does nothing
+The workflow runs Sunday afternoon in `America/Denver`; GitHub's timezone-aware schedule handles
+Mountain Time daylight-saving changes. A scheduled run skips any report profile whose Monday report
+was already committed earlier the same day (for example by a manual run), and does nothing
 when all were. Manual runs never skip. The strategy prompt also receives a compact list of the
 week's largest watchlist movers so material names are not dropped as "already covered." A
 successful run commits the dated strategy archives, stable latest files, final market reports,

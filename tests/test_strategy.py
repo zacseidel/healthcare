@@ -12,6 +12,7 @@ from healthcare_report.strategy import (
     assemble_prompt,
     clean_citations,
     compact_prior_report,
+    default_report_date,
     discover_history,
     estimate_cost,
     format_recent_earnings,
@@ -105,8 +106,14 @@ class FakeResponse:
         }
 
 
-def test_reporting_window_is_explicit_prior_seven_days():
-    assert reporting_window(date(2026, 8, 24)) == (date(2026, 8, 17), date(2026, 8, 24))
+def test_reporting_window_is_the_seven_days_through_the_sunday_run():
+    assert reporting_window(date(2026, 8, 24)) == (date(2026, 8, 16), date(2026, 8, 23))
+
+
+def test_sunday_runs_default_to_the_next_monday_report():
+    assert default_report_date(date(2026, 11, 8)) == date(2026, 11, 9)
+    assert default_report_date(date(2026, 11, 9)) == date(2026, 11, 9)
+    assert default_report_date(date(2026, 11, 11)) == date(2026, 11, 11)
 
 
 def test_settings_load_defaults_and_environment_overrides(monkeypatch):
@@ -166,7 +173,7 @@ def test_prompt_assembly_delimits_history_and_dates():
         movers="- MRNA Moderna +129.2%",
     )
     assert "Report run date: 2026-08-24" in prompt
-    assert "Primary reporting window: 2026-08-17 through 2026-08-24" in prompt
+    assert "Primary reporting window: 2026-08-16 through 2026-08-23" in prompt
     assert "previous Monday report (2026-08-17)" in prompt
     assert '<prior_report date="2026-08-17"' in prompt
     assert "<master_brief>\nMaster instructions\n</master_brief>" in prompt

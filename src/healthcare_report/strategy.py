@@ -133,14 +133,23 @@ Markdown."""
 
 
 def reporting_window(report_date: date) -> tuple[date, date]:
-    return report_date - timedelta(days=7), report_date
+    """The seven days through the Sunday before the Monday report date.
+
+    Reports are generated Sunday afternoon, so the window ends on the run day and starts where
+    the previous week's window ended."""
+    return report_date - timedelta(days=8), report_date - timedelta(days=1)
+
+
+def default_report_date(today: date) -> date:
+    """The scheduled Sunday run produces the next day's Monday report; other days keep today."""
+    return today + timedelta(days=1) if today.weekday() == 6 else today
 
 
 def require_monday_report_date(report_date: date) -> None:
     if report_date.weekday() != 0:
         raise ValueError(
             f"{report_date.isoformat()} is not a Monday. "
-            "Weekly reports run on Mondays in America/Denver."
+            "Weekly reports are Monday-dated and generated the Sunday afternoon before in America/Denver."
         )
 
 
