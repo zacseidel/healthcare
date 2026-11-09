@@ -1,0 +1,160 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Provider Enablement Digest</title><style>
+:root { color-scheme:light; --navy:#12395b; --navy-2:#1d527e; --ink:#1d2935;
+  --muted:#64717d; --line:#d7e0e7; --panel:#f3f7fa; --paper:#fff; --accent:#c8952e; }
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; scroll-padding-top:1.25rem; }
+body { margin:0; color:var(--ink); background:#eef3f6;
+  font:16px/1.58 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+.page-shell { width:min(1500px,100%); margin:0 auto; padding:1.5rem;
+  display:grid; grid-template-columns:235px minmax(0,1120px); gap:2rem; align-items:start; }
+.report-nav { position:sticky; top:1.5rem; max-height:calc(100vh - 3rem); overflow:auto;
+  border-top:5px solid var(--navy); background:var(--paper); box-shadow:0 5px 20px #18324814;
+  padding:1rem 1rem 1.1rem; font-size:.87rem; }
+.report-nav-title { margin:0 0 .65rem; color:var(--navy); font:700 1.05rem/1.25 Georgia,serif; }
+.report-nav ul { margin:0; padding:0; list-style:none; }
+.report-nav li { margin:.25rem 0; }
+.report-nav li ul { border-left:2px solid #dce6ed; margin:.35rem 0 .55rem .25rem; padding-left:.7rem; }
+.report-nav a { color:#405466; text-decoration:none; }
+.report-nav a:hover { color:var(--navy-2); text-decoration:underline; }
+main { min-width:0; background:var(--paper); border-top:7px solid var(--navy);
+  box-shadow:0 8px 30px #18324817; padding:3rem 3.5rem 5rem; }
+h1,h2,h3,h4 { color:var(--navy); font-family:Georgia,"Times New Roman",serif; line-height:1.2; }
+h1 { margin:0; font-size:2.55rem; letter-spacing:-.025em; }
+h2 { margin-top:2.25em; padding-bottom:.35rem; border-bottom:3px solid var(--navy); font-size:1.75rem; }
+h3 { margin-top:1.8em; font-size:1.32rem; }
+h4 { font-size:1.08rem; }
+a { color:#1269a0; text-underline-offset:2px; }
+.report-meta { margin:1rem 0 1.35rem; padding:.85rem 1rem; background:var(--panel);
+  border-left:4px solid var(--navy-2); color:#40505e; }
+.report-meta span { display:block; }
+.section-jump-list { columns:2; padding:1rem 1.25rem 1rem 2.25rem; background:var(--panel); border-radius:4px; }
+.strategy-narrative-links { margin:.8rem 0 1.8rem; padding:1rem 1.25rem; background:var(--panel); border-radius:4px; }
+.strategy-narrative-links ul { margin:0; padding-left:1.25rem; }
+.strategy-narrative-links li { margin:.3rem 0; }
+.return-badge { display:inline-block; margin-left:.35rem; padding:.13rem .48rem; border-radius:999px;
+  font:700 .78rem/1.35 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; vertical-align:.12em; }
+.category-return { font-size:.76rem; }
+.table-wrap { overflow-x:auto; max-width:100%; margin:1rem 0 1.7rem; border:1px solid var(--line); border-radius:5px; }
+table { border-collapse:collapse; width:100%; margin:0; font-size:.9rem; font-variant-numeric:tabular-nums; }
+th,td { border-bottom:1px solid var(--line); padding:.53rem .62rem; text-align:right; vertical-align:top; white-space:nowrap; }
+th:first-child,td:first-child { text-align:left; }
+table:not(.sortable) { table-layout:fixed; }
+table:not(.sortable) th, table:not(.sortable) td {
+  white-space:normal; text-align:left; overflow-wrap:anywhere; word-break:break-word;
+}
+hr { border:0; border-top:1px solid var(--line); margin:2rem 0; }
+th { background:#eaf1f5; color:var(--navy); position:sticky; top:0; z-index:1; font-weight:700; }
+th.sortable-heading { cursor:pointer; user-select:none; }
+th.sortable-heading:hover { background:#dfeaf1; }
+th.sortable-heading::after { content:" ↕"; color:#718696; font-size:.78em; }
+th.sort-asc::after { content:" ↑"; color:var(--navy); }
+th.sort-desc::after { content:" ↓"; color:var(--navy); }
+tbody tr:hover td { box-shadow:inset 0 0 0 999px #ffffff26; }
+tbody tr:last-child td { border-bottom:0; }
+td.text { text-align:left; }
+td.missing { color:var(--muted); }
+blockquote { border-left:4px solid var(--accent); margin-left:0; padding:.65rem 1rem; background:#fff8e8; }
+code { background:var(--panel); padding:.1rem .25rem; }
+img { display:block; max-width:100%; height:auto; margin:1rem auto 1.7rem; }
+.metadata { color:var(--muted); margin-top:-.6rem; }
+.good {color:#167344}.bad {color:#b42318}
+.rank-change-up { color:#167344; font-weight:800; }
+.rank-change-down { color:#b42318; font-weight:800; }
+@media (max-width:1050px) {
+  .page-shell { display:block; padding:0; }
+  .report-nav { position:relative; top:0; max-height:none; border-top:0; border-bottom:4px solid var(--navy);
+    box-shadow:none; padding:.75rem 1rem; }
+  .report-nav ul { display:flex; flex-wrap:wrap; gap:.15rem 1rem; }
+  .report-nav li ul { display:none; }
+  main { box-shadow:none; border-top:0; }
+}
+@media (max-width:700px) {
+  main { padding:2rem 1rem 4rem; } h1{font-size:2rem} h2{font-size:1.45rem}
+  table{font-size:.8rem} th,td{padding:.44rem .5rem} .section-jump-list{columns:1}
+}
+@media print { body{background:#fff}.page-shell{display:block;padding:0}.report-nav{display:none}main{box-shadow:none;border:0;padding:0} }
+</style></head><body><div class="page-shell"><nav class="report-nav" aria-label="Report navigation"><p class="report-nav-title">In this report</p><ul><li><a href="#in-the-news">In the News</a></li></ul></nav><main id="main-content"><h1 id="provider-enablement-digest">Provider Enablement Digest</h1>
+<div class="report-meta"><span><strong>Week of November 9, 2026</strong></span><span>Narrative created: November 9, 2026</span></div>
+<p>Weekly strategy brief on Medicare Advantage and Medicaid risk-contracting economics, payer partners, and value-based care enablement platforms.</p>
+<h2 id="in-the-news">In the News</h2>
+<nav aria-label="Strategy narrative sections" class="strategy-narrative-links">
+<ul>
+<li><a href="#strategy-executive-summary-1-agilon-restored-margin-by-repricing-risk-and-shedding-10-of-ma-membership">1. agilon restored margin by repricing risk and shedding 10% of MA membership</a></li>
+<li><a href="#strategy-executive-summary-2-astrana-s-full-risk-conversions-nearly-doubled-care-partners-operating-income">2. Astrana’s full-risk conversions nearly doubled Care Partners operating income</a></li>
+<li><a href="#strategy-executive-summary-3-clover-combined-45-ma-growth-with-improving-medical-cost-economics">3. Clover combined 45% MA growth with improving medical-cost economics</a></li>
+<li><a href="#strategy-executive-summary-4-privia-s-attributed-life-growth-did-not-translate-linearly-into-quarterly-vbc-revenue">4. Privia’s attributed-life growth did not translate linearly into quarterly VBC revenue</a></li>
+</ul>
+</nav>
+<h3 id="executive-summary">Executive Summary</h3>
+<ul>
+<li>agilon restored full-risk profitability through payer repricing, risk-adjustment performance and contract exits, raising 2026 adjusted EBITDA guidance by $65 million at the midpoint despite a 10% decline in MA membership. (<a href="https://www.sec.gov/Archives/edgar/data/1831097/000162828026070132/agl-20260930xexx991.htm">agilon health, <em>Third Quarter 2026 Results</em>, November 4, 2026</a>)</li>
+<li>Astrana’s transition of members into full risk nearly doubled quarterly Care Partners operating income, providing new evidence that deeper risk can expand margin when cost trend remains controlled. (<a href="https://ir.astranahealth.com/sec-filings/all-sec-filings/content/0001193125-26-450556/asth-20260930.htm">Astrana Health, <em>Form 10-Q for Quarter Ended September 30, 2026</em>, November 6, 2026</a>)</li>
+<li>Clover grew MA membership 45% while lowering its benefits expense ratio by 240 basis points, demonstrating that rapid enrollment growth and improving underwriting can coexist when Stars and care-management performance support premium yield. (<a href="https://www.sec.gov/Archives/edgar/data/1801170/000180117026000291/a3q26exx991xearningsrelease.htm">Clover Health, <em>Third Quarter 2026 Results</em>, November 4, 2026</a>)</li>
+<li>Privia’s attributed lives grew 19%, but quarterly VBC revenue declined approximately 2% because shared-savings and PMPM timing offset capitation growth, tempering last week’s acquisition-per-life thesis.</li>
+<li>Overall environment: improved modestly for MA risk and VBC enablement because agilon, Astrana and Clover showed better risk economics, while Medicaid was broadly unchanged and the improvement still depends on selective contracting, quality performance and claims development.</li>
+</ul>
+<h3 id="strategy-executive-summary-1-agilon-restored-margin-by-repricing-risk-and-shedding-10-of-ma-membership">1. agilon restored margin by repricing risk and shedding 10% of MA membership</h3>
+<p><strong>What happened</strong></p>
+<p>agilon’s third-quarter medical-services expense ratio fell to 88.5% from 104.0%, and adjusted EBITDA improved to $64 million from a $91 million loss. The company raised full-year adjusted EBITDA guidance to $145 million-$155 million from $75 million-$95 million and improved its projected expense ratio to 90.3%-90.5%. MA membership nevertheless declined 10% to 454,000. (<a href="https://www.sec.gov/Archives/edgar/data/1831097/000162828026070132/agl-20260930xexx991.htm">agilon health, <em>Third Quarter 2026 Results</em>, November 4, 2026</a>)</p>
+<p>PMPM capitation increased 11%, reflecting CMS rates, higher expected risk-adjustment contribution and more favorable payer contract terms. Medical expense per member fell 6%, although favorable development from 2025 and the first half of 2026 contributed. Partner-physician incentive expense reached $54.9 million, versus negative $18.2 million a year earlier. (<a href="https://www.sec.gov/Archives/edgar/data/1831097/000162828026070141/agl-20260930.htm">agilon health, <em>Form 10-Q for Quarter Ended September 30, 2026</em>, November 4, 2026</a>)</p>
+<p><strong>Implication</strong></p>
+<p>The result resolves the immediate question of whether repricing and contract exits could restore agilon’s model. They did, and the physician-incentive accrual indicates that surplus is again flowing through to partner groups. Durability is less certain because the recovery required membership contraction and benefited from prior-period claims development.</p>
+<p><strong>Watch next</strong></p>
+<p>2027 enrollment retention, additional payer exits and whether first-quarter claims sustain the revised margin base without further membership reductions.</p>
+<hr/>
+<h3 id="strategy-executive-summary-2-astrana-s-full-risk-conversions-nearly-doubled-care-partners-operating-income">2. Astrana’s full-risk conversions nearly doubled Care Partners operating income</h3>
+<p><strong>What happened</strong></p>
+<p>Astrana’s Care Partners revenue increased 8% to $968.8 million, while segment operating income rose 94% to $49.1 million. Operating margin therefore expanded to approximately 5.1% from 2.8%. Astrana attributed the improvement primarily to members transitioning into full risk through its restricted Knox-Keene entities. (<a href="https://ir.astranahealth.com/sec-filings/all-sec-filings/content/0001193125-26-450556/asth-20260930.htm">Astrana Health, <em>Form 10-Q for Quarter Ended September 30, 2026</em>, November 6, 2026</a>)</p>
+<p>Management expects 43% of Care Partners members and 82% of capitation revenue to be in full-risk arrangements by year-end. Consolidated medical-cost trend was tracking below its approximately 5.2% full-year assumption. Astrana’s third-quarter payer mix was 61% Medicare and 26% Medicaid, although it did not disclose cost performance separately by line. (<a href="https://d1io3yog0oux5.cloudfront.net/_00c060cf9a168618cf79a7d795ba68e1/astranahealth/db/1220/12210/presentation/ASTH_Earnings_Q3_2026_Presentation_11.05.2026_vF.pdf">Astrana Health, <em>Third Quarter 2026 Earnings Presentation</em>, November 5, 2026</a>)</p>
+<p><strong>Implication</strong></p>
+<p>The quarter provides direct evidence that advancing existing members from partial to full risk can expand platform economics without relying on equivalent membership growth. The opportunity is embedded in Astrana’s remaining partial-risk population, but greater capitation also increases exposure to utilization variance and provider-network execution.</p>
+<p><strong>Watch next</strong></p>
+<p>Cost trend as the full-risk share rises, Prospect integration performance and whether Care Delivery losses increase the capital required to support risk conversion.</p>
+<hr/>
+<h3 id="strategy-executive-summary-3-clover-combined-45-ma-growth-with-improving-medical-cost-economics">3. Clover combined 45% MA growth with improving medical-cost economics</h3>
+<p><strong>What happened</strong></p>
+<p>Clover ended the quarter with 158,907 MA members, up 45% year over year. Its insurance benefits expense ratio declined to 91.1% from 93.5%, even though medical claims per member increased approximately 2%. Premium per member rose approximately 7%, partly because the PPO book was paid at four Stars rather than 3.5 Stars in the prior period. (<a href="https://www.sec.gov/Archives/edgar/data/1801170/000180117026000296/clov-20260930.htm">Clover Health, <em>Form 10-Q for Quarter Ended September 30, 2026</em>, November 6, 2026</a>)</p>
+<p>Clover recorded $6 million of quarterly GAAP net income and said its flagship PPO, representing approximately 98% of current membership, received five Stars for payment year 2028. (<a href="https://www.sec.gov/Archives/edgar/data/1801170/000180117026000291/a3q26exx991xearningsrelease.htm">Clover Health, <em>Third Quarter 2026 Results</em>, November 4, 2026</a>)</p>
+<p><strong>Implication</strong></p>
+<p>The result strengthens the economic case for an integrated MA plan and provider-enablement platform. Higher quality payments, membership scale and lower administrative cost per member can fund richer benefits and further enrollment growth, creating competitive pressure for regional plans and independent primary-care aggregators.</p>
+<p>Clover’s own MA population also provides a scaled proof environment for its technology. The remaining strategic test is whether those results translate into external platform adoption rather than remaining captive to the insurance book.</p>
+<p><strong>Watch next</strong></p>
+<p>Final 2027 enrollment, benefit-ratio performance as newer cohorts mature and disclosed external growth for Clover Assistant or Counterpart Health.</p>
+<hr/>
+<h3 id="strategy-executive-summary-4-privia-s-attributed-life-growth-did-not-translate-linearly-into-quarterly-vbc-revenue">4. Privia’s attributed-life growth did not translate linearly into quarterly VBC revenue</h3>
+<p><strong>What happened</strong></p>
+<p>Last week’s acquisition implied that Privia could add more than 36,000 MSSP beneficiaries for less than $1,000 per starting life. The earnings release added an important qualification: total attributed lives reached 1.676 million, up 19.2%, but quarterly capitation revenue increased only 9.5%, shared-savings revenue fell 13.9% and PMPM care-management revenue declined 7.6%. Summing those three categories, VBC revenue declined approximately 2% to $187.8 million, with management attributing the shared-savings and PMPM declines primarily to settlement timing. (<a href="https://ir.priviahealth.com/static-files/d36e09c0-2f2c-42f1-8b3a-b0fc2c1a77ba">Privia Health, <em>Form 10-Q for Quarter Ended September 30, 2026</em>, November 5, 2026</a>)</p>
+<p>Privia also will exit a Montana partnership supporting 69 providers and approximately $23 million of annual practice collections, with no expected material 2027 adjusted EBITDA effect. (<a href="https://ir.priviahealth.com/news-releases/news-release-details/privia-health-reports-strong-third-quarter-and-year-date-2026/">Privia Health, <em>Third Quarter and Year-to-Date 2026 Results</em>, November 5, 2026</a>)</p>
+<p><strong>Implication</strong></p>
+<p>Attributed lives are an incomplete acquisition valuation metric. Contract risk level, benchmark quality, shared-savings settlement timing and provider retention determine monetization. The Montana exit reinforces that provider count and collections can carry little incremental platform value in subscale markets.</p>
+<p><strong>Watch next</strong></p>
+<p>The acquired ACO’s January 1 launch, beneficiary retention and Privia’s disclosure of 2027 shared-savings and adjusted EBITDA contribution.</p>
+<h3 id="what-to-watch-for">What to Watch For</h3>
+<ul>
+<li>November 9, 2026: P3 Health reports third-quarter results, testing whether its payer and provider-network rationalization continues to improve medical margin and cash generation. (<a href="https://ir.p3hp.org/news-events/press-releases/detail/139/p3-health-partners-schedules-third-quarter-2026-earnings">P3 Health Partners, <em>Third Quarter 2026 Earnings Release and Conference Call</em>, October 22, 2026</a>)</li>
+<li>November 12, 2026: The MSSP Phase 2 request-for-information window closes, the final opportunity for 2027 applicants to correct Phase 2 deficiencies. (<a href="https://www.cms.gov/files/document/key-application-actions-deadlines.pdf">CMS, <em>Key Application Actions and Deadlines for Agreement Periods Beginning January 1, 2027</em>, accessed November 8, 2026</a>)</li>
+<li>December 3, 2026: CMS issues final dispositions for 2027 MSSP applications, advance investment payments, prepaid shared savings and beneficiary-incentive applications. (<a href="https://www.cms.gov/files/document/key-application-actions-deadlines.pdf">CMS, <em>Key Application Actions and Deadlines for Agreement Periods Beginning January 1, 2027</em>, accessed November 8, 2026</a>)</li>
+<li>December 11, 2026: The signing window closes for ACOs entering MSSP agreement periods on January 1, 2027. (<a href="https://www.cms.gov/files/document/key-application-actions-deadlines.pdf">CMS, <em>Key Application Actions and Deadlines for Agreement Periods Beginning January 1, 2027</em>, accessed November 8, 2026</a>)</li>
+</ul>
+<h3 id="bottom-line">Bottom Line</h3>
+<p>agilon’s margin recovery is the week’s most important change because it confirms that payer repricing and selective membership contraction can repair a full-risk platform, although the strategy limits near-term attributed-life growth. Astrana’s full-risk conversion and Clover’s quality-supported expansion deserve the closest attention. P3’s November 9 results are the next test of whether the improvement extends across other physician-risk aggregators.</p></main></div><script>
+document.querySelectorAll('table.sortable').forEach((table) => {
+  table.querySelectorAll('th[data-column]').forEach((heading) => {
+    heading.addEventListener('click', () => {
+      const index = Number(heading.dataset.column);
+      const numeric = heading.dataset.type === 'number';
+      const descending = heading.classList.contains('sort-asc');
+      table.querySelectorAll('th').forEach((item) => item.classList.remove('sort-asc','sort-desc'));
+      heading.classList.add(descending ? 'sort-desc' : 'sort-asc');
+      const rows = Array.from(table.tBodies[0].rows);
+      rows.sort((left, right) => {
+        const a = left.cells[index].dataset.sort || '';
+        const b = right.cells[index].dataset.sort || '';
+        const result = numeric ? ((Number(a) || 0) - (Number(b) || 0)) : a.localeCompare(b);
+        return descending ? -result : result;
+      });
+      rows.forEach((row) => table.tBodies[0].appendChild(row));
+    });
+  });
+});
+</script></body></html>
