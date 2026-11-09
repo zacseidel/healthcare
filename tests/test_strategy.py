@@ -123,6 +123,7 @@ def test_settings_load_defaults_and_environment_overrides(monkeypatch):
         "REPORT_HISTORY_COUNT",
         "OPENAI_MAX_OUTPUT_TOKENS",
         "OPENAI_TIMEOUT_SECONDS",
+        "OPENAI_MAX_RETRIES",
     ):
         monkeypatch.delenv(name, raising=False)
     assert StrategySettings.from_environment() == StrategySettings()
