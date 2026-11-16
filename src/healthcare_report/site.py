@@ -17,7 +17,7 @@ from bs4 import BeautifulSoup
 from .analysis import load_snapshot, recommended_updates
 from .cache import MarketCache
 from .company_index import CompanyMatcher
-from .config import ProjectConfig, Universe
+from .config import ProjectConfig, Universe, paused_notice
 from .email_draft import build_combined_email_draft, build_email_draft, email_draft_name
 from .narrative import narrative_age
 from .render import embed_html_images, report_html_name
@@ -74,6 +74,10 @@ SITE_CSS = """
 .site-badge { display:inline-block; justify-self:end; padding:.18rem .5rem; border-radius:999px;
   color:#31536b !important; background:#e7f0f5; font-size:.72rem !important; font-weight:800; text-transform:uppercase; }
 .site-badge-warning { color:#754b05 !important; background:#fff0c9; }
+.site-paused-banner { margin:1rem 0 1.25rem; padding:.75rem 1rem; border:1px solid #e9cf8a;
+  border-left:4px solid #c08a12; border-radius:6px; background:#fff7e0; color:#5c3d04;
+  font-size:.98rem; line-height:1.45; }
+.site-paused-banner strong { color:#4a3103; }
 .index-week { margin-top:2.5rem; }
 .index-week > h2 { margin-bottom:.3rem; }
 .index-report { margin:1.25rem 0 2rem; padding:1.1rem 1.25rem; border:1px solid var(--site-line);
@@ -187,6 +191,8 @@ class SiteReport:
     email_companion_name: str = ""
     # Brief-only reports have no earnings section to index.
     narrative_only: bool = False
+    # Set while the report's profile is paused; shown as a banner on its pages.
+    paused_notice: str = ""
 
 
 @dataclass(frozen=True)
@@ -412,6 +418,7 @@ def _discover_reports(config: ProjectConfig) -> list[SiteReport]:
                     else ""
                 ),
                 narrative_only=bool(manifest.get("narrative_only")),
+                paused_notice=paused_notice(config.settings, report_type),
             )
         )
     # A companion draft is only combined when that week's companion report exists.
@@ -562,8 +569,22 @@ def _decorate_report(
             if controls is not None:
                 controls["class"] = "report-downloads report-downloads-page"
                 title.insert_after(controls)
+        for existing in soup.select(".site-paused-banner"):
+            existing.decompose()
+        if title is not None and report.paused_notice:
+            anchor = title.find_next_sibling(class_="report-downloads-page") or title
+            anchor.insert_after(
+                BeautifulSoup(_paused_banner(report.paused_notice), "html.parser")
+            )
     destination.parent.mkdir(parents=True, exist_ok=True)
     destination.write_text(str(soup), encoding="utf-8")
+
+
+def _paused_banner(notice: str) -> str:
+    return (
+        '<p class="site-paused-banner" role="note"><strong>Paused.</strong> '
+        f"{html.escape(notice)}</p>"
+    )
 
 
 def _page_document(title: str, body: str, *, prefix: str, active: str) -> str:
@@ -597,6 +618,8 @@ def _archive_page(reports: list[SiteReport], config: ProjectConfig) -> str:
     ]
     sections: list[str] = []
     for report_type, heading in groups:
+        notice = paused_notice(config.settings, report_type)
+        banner = _paused_banner(notice) if notice else ""
         group_reports = [report for report in reports if report.report_type == report_type]
         rows: list[str] = []
         for index, report in enumerate(group_reports):
@@ -621,7 +644,7 @@ def _archive_page(reports: list[SiteReport], config: ProjectConfig) -> str:
             )
         listing = "".join(rows) or '<li class="report-empty">No reports published yet.</li>'
         sections.append(
-            f'<section class="report-group"><h2>{heading}</h2>'
+            f'<section class="report-group"><h2>{heading}</h2>{banner}'
             f'<ul class="report-list">{listing}</ul></section>'
         )
     listing = "".join(sections) or "<p>No final reports have been published yet.</p>"

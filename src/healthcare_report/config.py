@@ -108,6 +108,16 @@ class ProjectConfig:
         )
 
 
+def paused_notice(settings: dict[str, Any], scope: str) -> str:
+    """The notice for a paused profile, or an empty string when it is active."""
+    profile = settings.get("report_profiles", {}).get(scope)
+    if not isinstance(profile, dict) or not profile.get("paused"):
+        return ""
+    name = str(profile.get("name") or scope)
+    default = f"The {name} is paused. No new weekly issues are being published."
+    return " ".join(str(profile.get("paused_notice") or default).split())
+
+
 def project_root(start: Path | None = None) -> Path:
     current = (start or Path.cwd()).resolve()
     for candidate in (current, *current.parents):
@@ -205,6 +215,8 @@ def _validate_settings(settings: dict[str, Any]) -> None:
             raise ConfigurationError(
                 f"settings.report_profiles.{scope}.strategy_narrative is required"
             )
+        if not isinstance(profile.get("paused", False), bool):
+            raise ConfigurationError(f"settings.report_profiles.{scope}.paused must be true or false")
         companion = profile.get("companion_report")
         if companion is not None and (companion == scope or companion not in profiles):
             raise ConfigurationError(

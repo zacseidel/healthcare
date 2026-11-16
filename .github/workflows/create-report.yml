@@ -60,7 +60,8 @@ jobs:
           TZ: America/Denver
           REQUESTED_SCOPE: ${{ inputs.report_scope || 'all' }}
         run: |
-          profiles=(healthcare life-science-device provider-enablement)
+          # Life Sciences is paused in config/settings.yaml; add it back here when resuming.
+          profiles=(healthcare provider-enablement)
           scope="$REQUESTED_SCOPE"
           if [ "$scope" = "all" ]; then scope=$(IFS=,; echo "${profiles[*]}"); fi
           if [ "${{ github.event_name }}" = "schedule" ]; then

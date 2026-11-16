@@ -56,6 +56,12 @@ report_profiles:
       stale_after_days: 6
   life-science-device:
     name: Life Sciences Digest
+    # Paused: scheduled and "all" runs skip this profile, and the site marks it paused while
+    # keeping its past issues. Set to false (or remove) to resume weekly issues.
+    paused: true
+    paused_notice: >-
+      The Life Sciences Digest is paused. No new weekly issues are being published; past
+      issues remain available.
     description: >-
       Weekly review of pharmaceutical, biotech, biologics, and medical-device
       company performance, changes, earnings activity, and strategy narrative.

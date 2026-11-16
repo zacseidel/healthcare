@@ -6,7 +6,7 @@ import sys
 from datetime import date, datetime
 from pathlib import Path
 
-from .config import ConfigurationError, load_config
+from .config import ConfigurationError, load_config, paused_notice
 from .strategy import default_report_date
 
 # Profiles in run order. Provider Enablement follows Healthcare so it reuses that run's fresh
@@ -169,7 +169,17 @@ def main(argv: list[str] | None = None) -> int:
             result = build_site(config, args.output)
         else:
             report_date = args.date or default_report_date(datetime.now(config.timezone).date())
-            scopes = report_scopes(args.report)
+            requested = report_scopes(args.report)
+            # A paused profile is skipped whether named or included by "all"; its
+            # settings.yaml entry is the one switch for resuming it.
+            paused = [scope for scope in requested if paused_notice(config.settings, scope)]
+            scopes = tuple(scope for scope in requested if scope not in paused)
+            for scope in paused:
+                print(f"notice: {scope}: skipped because it is paused in settings.yaml", file=sys.stderr)
+            if not scopes:
+                raise ValueError(
+                    f"{', '.join(paused)} is paused; set paused: false in config/settings.yaml to run it"
+                )
             results = []
             failures = []
             for scope in scopes:

@@ -10,8 +10,8 @@ Each Healthcare edition brings three layers together:
 - recent earnings-call highlights and peer-relative price charts; and
 - a strategy narrative focused on the operating and policy developments shaping healthcare.
 
-A separate Life Science and Device edition covers pharmaceutical, biotech, and medical-device
-companies. The Provider Enablement edition is a strategy brief only, focused on Medicare
+A separate Life Science and Device edition covered pharmaceutical, biotech, and medical-device
+companies; it is paused for now, and its past issues remain in the archive. The Provider Enablement edition is a strategy brief only, focused on Medicare
 Advantage and Medicaid risk contracting and value-based care enablement; its email draft is
 followed by that week's full Healthcare Digest.
 
