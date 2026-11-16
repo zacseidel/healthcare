@@ -4,30 +4,18 @@
   "report_name": "Healthcare Digest",
   "report_date": "2026-11-16",
   "market_data_as_of": "2026-11-13",
-  "generated_at": "2026-11-16T01:11:01Z",
-  "rendered_at": "2026-11-16T01:11:01Z",
+  "generated_at": "2026-11-16T16:54:58Z",
+  "rendered_at": "2026-11-16T16:54:58Z",
   "baseline_report_date": "2026-10-05",
   "comparison_cadence": "monthly",
   "market_sections": false,
-  "configuration_sha256": "7be309a4ab54e9ad47a082cbf6794c40dcb38a6a69e0fcbbc4940f9c181df9f0",
+  "configuration_sha256": "df87e0ab703044e0b84f19615a15ed098c11f2fd5d276e99e71cecc80a6412c0",
   "quality": "ok",
-  "issues": [
-    "Refresh the strategy narrative: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
-    "Consider regenerating the strategy narrative: The strategy narrative was retrieved 7 days before this report date."
-  ],
+  "issues": [],
   "recommended_updates": {
     "verify_symbols": [],
     "input_updates": [],
-    "other": [
-      {
-        "title": "Refresh the strategy narrative",
-        "detail": "Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}"
-      },
-      {
-        "title": "Consider regenerating the strategy narrative",
-        "detail": "The strategy narrative was retrieved 7 days before this report date."
-      }
-    ]
+    "other": []
   },
   "sources": [
     {
@@ -909,140 +897,140 @@
     {
       "source": "earnings",
       "subject": "UNH",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "CVS",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "HUM",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "OSCR",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "MOH",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "CI",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "ELV",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "CLOV",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "CNC",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "ALHC",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "HCA",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "THC",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "UHS",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "CYH",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "ARDT",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "ENSG",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "ACHC",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "EHC",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "PACS",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "PRVA",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "ASTH",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "AGL",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "EVH",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -1053,14 +1041,14 @@
     {
       "source": "earnings",
       "subject": "DVA",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "FMS",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -1071,26 +1059,26 @@
     {
       "source": "earnings",
       "subject": "OPCH",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "LFST",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "CHE",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "ADUS",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -1101,14 +1089,14 @@
     {
       "source": "earnings",
       "subject": "USPH",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "BTSG",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -1119,14 +1107,14 @@
     {
       "source": "earnings",
       "subject": "TDOC",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "AMWL",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -1143,8 +1131,8 @@
     {
       "source": "earnings",
       "subject": "OMDA",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -1155,14 +1143,14 @@
     {
       "source": "earnings",
       "subject": "PGNY",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "CON",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -1173,20 +1161,20 @@
     {
       "source": "earnings",
       "subject": "ORCL",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "WAY",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "SOLV",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -1197,8 +1185,8 @@
     {
       "source": "earnings",
       "subject": "CCSI",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -1209,20 +1197,20 @@
     {
       "source": "earnings",
       "subject": "IQV",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "HCAT",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "DOCS",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
@@ -1233,153 +1221,151 @@
     {
       "source": "earnings",
       "subject": "OMCL",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "MCK",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "CAH",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "COR",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "AHCO",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "HSIC",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "NTRA",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "NEO",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "BLLN",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "GH",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "TEM",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "ILMN",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "TXG",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "PACB",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "QDEL",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "DGX",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "LH",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "earnings",
       "subject": "CERT",
-      "status": "skipped",
-      "detail": "not due for recheck"
+      "status": "ok",
+      "detail": ""
     },
     {
       "source": "strategy narrative",
       "subject": "OpenAI Responses API",
-      "status": "warning",
-      "detail": "Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}"
+      "status": "ok",
+      "detail": "OpenAI Responses API"
     }
   ],
   "metrics": {
     "mode": "full",
     "durations_seconds": {
-      "market_data": 52.797,
-      "analysis": 0.049,
-      "secondary_sources": 193.955,
-      "rendering": 1.878,
-      "total": 248.89
+      "market_data": 0.146,
+      "analysis": 0.03,
+      "secondary_sources": 399.573,
+      "rendering": 1.006,
+      "total": 400.787
     },
     "counts": {
       "companies": 72,
       "price_bars_loaded": 36758,
       "performance_charts": 0,
-      "earnings_charts": 5,
+      "earnings_charts": 3,
       "category_charts": 0,
       "source_statuses": {
-        "ok": 157,
-        "skipped": 61,
-        "warning": 1
+        "ok": 219
       }
     },
     "output_bytes": {
-      "html": 33085,
-      "markdown": 24266,
-      "charts": 190080,
-      "data": 166269,
-      "total_without_manifest": 425273
+      "html": 37968,
+      "markdown": 29225,
+      "charts": 112576,
+      "data": 167938,
+      "total_without_manifest": 358994
     },
     "price_retention": {
       "cutoff": "2024-10-02",
-      "files_changed": 71,
-      "bars_removed": 355,
+      "files_changed": 0,
+      "bars_removed": 0,
       "bars_retained": 38391
     },
-    "directory_bytes": 458539
+    "directory_bytes": 389498
   },
   "files": [
     "Healthcare Intel-2026-11-16.html",
@@ -1389,9 +1375,7 @@
     "changes.csv",
     "render-data.json.gz",
     "assets/earnings-sgry-3m.webp",
-    "assets/earnings-pntg-3m.webp",
     "assets/earnings-avah-3m.webp",
-    "assets/earnings-hims-3m.webp",
-    "assets/earnings-dh-3m.webp"
+    "assets/earnings-hims-3m.webp"
   ]
 }

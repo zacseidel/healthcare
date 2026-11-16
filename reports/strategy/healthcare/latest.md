@@ -1,118 +1,123 @@
 # Healthcare Strategy Brief
-## Week of November 9, 2026
+## Week of November 16, 2026
 
 ## Executive View
 
-- CMS shifted 2027 outpatient economics away from 340B drug margin and legacy off-campus departments while expanding outpatient surgical eligibility, creating substantial redistribution across hospital service lines beginning January 1. ([CMS, *CY 2027 OPPS and ASC Final Rule*, November 4, 2026](https://www.cms.gov/newsroom/fact-sheets/calendar-year-2027-hospital-outpatient-prospective-payment-system-opps-ambulatory-surgical-center-0))
-- Physician conversion factors will decline 1.83%-2.31%, but ACO participants gain a 32% E/M modifier and remote-monitoring companies retain contracted clinical-staff models through 2028. ([CMS, *CY 2027 Medicare Physician Fee Schedule Final Rule*, November 4, 2026](https://www.cms.gov/newsroom/fact-sheets/calendar-year-cy-2027-medicare-physician-fee-schedule-final-rule))
-- CVS will separate retail pharmacy, MinuteClinic and Health100 from Aetna, Caremark, specialty pharmacy and value-based care, preserving the core payer-PBM-care platform while detaching its consumer storefront. ([CVS Health, *CVS Health Announces Intent to Create Two Distinct Leaders in Healthcare*, November 4, 2026](https://investors.cvshealth.com/news/news-details/2026/CVS-Health-Announces-Intent-to-Create-Two-Distinct-Leaders-in-Healthcare/default.aspx))
-- Payer execution improved: Oscar lowered its third-quarter MLR to 84.0%, while Humana reported a 93.7% benefit ratio and medical and pharmacy trends in line to better than its high-single-digit expectation. ([Oscar Health, *Third Quarter 2026 Results*, November 5, 2026](https://ir.oscarhealth.com/sec-filings/all-sec-filings/content/0001568651-26-000082/oscarhealththirdquarter202.htm); [Humana, *Third Quarter 2026 Prepared Management Remarks*, November 6, 2026](https://humana.gcs-web.com/static-files/87a928cc-8abf-4636-9e85-370745b2ac58))
-- Overall environment: improved for payers and ACO-oriented primary care, deteriorated for physician fee-for-service and 340B-heavy providers, and mixed for health technology because remote-monitoring demand gained time while CVS’s separation creates new integration and contracting risk.
+- CMS offered states a hold-harmless period through June 30, 2027, delaying Medicaid work-requirement coverage losses while preserving eligibility assessments and systems implementation. ([CMS, *Optional Hold Harmless Period for Community Engagement Implementation*, November 13, 2026](https://www.medicaid.gov/Federal-Policy-Guidance/Downloads/smd26006.pdf))
+- HealthSpan raised its Surgery Partners offer to $25 per share and accepted stronger closing obligations after a competing proposal, increasing both the value and closing probability of the national ambulatory-surgery platform. ([SEC, *Surgery Partners Form 8-K*, November 9, 2026](https://www.sec.gov/Archives/edgar/data/1638833/000110465926124243/tm2629312d1_8k.htm))
+- CMS extended the nationwide hospice and home-health enrollment moratoria for six months but allowed enrolled operators to add locations, shifting the policy’s competitive advantage toward incumbent expansion.
+- Federal prior-authorization policy moved from technical specifications to production-like workflow testing, creating near-term integration work for payers, EHRs and intermediaries without providing a compliance safe harbor. ([ONC, *ONC and CMS Launch Industry Electronic Prior Authorization Testing Initiative*, November 12, 2026](https://healthit.gov/news/onc-and-cms-launch-industry-electronic-prior-authorization-testing-initiative/))
+- Overall environment: modestly improved for payers, providers and health technology because Medicaid coverage disruption was deferred and implementation demand increased, although entry restrictions and P3’s financing exposure show continued pressure on smaller operators.
 
-## 1. CMS redistributes outpatient margin away from 340B drugs and legacy off-campus sites
-
-**Status:** NEW
-
-**What happened**
-
-CMS finalized a 2.3% OPPS and ASC rate update for 2027, but will pay for 340B-acquired drugs at average sales price minus 28%. CMS estimates the drug policy will reduce Original Medicare payments by $4.35 billion and beneficiary payments by $1.1 billion, with Medicare savings redistributed to non-drug OPPS services through budget neutrality. Hospitals enrolled before 2018 also face a separate 2% conversion-factor reduction through 2031 to recover prior 340B remedy payments. CMS additionally applied physician-office-equivalent rates to noncontrast imaging at excepted off-campus departments and removed 637 procedures from the inpatient-only list. ([CMS, *CY 2027 OPPS and ASC Final Rule*, November 4, 2026](https://www.cms.gov/newsroom/fact-sheets/calendar-year-2027-hospital-outpatient-prospective-payment-system-opps-ambulatory-surgical-center-0))
-
-**Implication**
-
-The 2.3% headline conceals a large service-line redistribution. Systems generating disproportionate margin from 340B-infused drugs or legacy off-campus imaging will lose relative to procedure-heavy hospitals and ASCs receiving higher non-drug payments and broader surgical eligibility. Contracting, site-of-care management and service-line profitability tools become more valuable as providers reassess infusion, imaging and surgical footprints.
-
-**Watch next**
-
-Hospital legal challenges, 2027 drug-administration strategies and whether payers accelerate migration of newly eligible procedures to ASCs.
-
----
-
-## 2. Physician fee cuts coexist with richer ACO payment and a two-year remote-monitoring reprieve
+## 1. CMS turns first-half 2027 Medicaid work checks into a shadow eligibility period
 
 **Status:** NEW
 
 **What happened**
 
-CMS finalized 2027 conversion factors of $32.95 for qualifying APM participants and $32.63 for other clinicians, decreases of 1.83% and 2.31%, respectively. The rule converts G2211 into a modifier that increases associated E/M payment by 16% and creates a separate 32% modifier for practitioners participating in the Medicare Shared Savings Program or the LEAD Model. CMS also delayed until January 1, 2029, its requirement that remote physiologic and therapeutic monitoring services use clinical staff employed by the billing practice rather than contractors. ([CMS, *CY 2027 Medicare Physician Fee Schedule Final Rule*, November 4, 2026](https://www.cms.gov/newsroom/fact-sheets/calendar-year-cy-2027-medicare-physician-fee-schedule-final-rule))
+States may suspend Medicaid eligibility denials and disenrollments tied solely to community-engagement noncompliance through June 30, 2027. They must still assess qualifying activities, deemed compliance and exclusions for relevant applications and renewals beginning January 1. CMS will exclude cases handled under an approved mitigation plan from PERM, Medicaid Eligibility Quality Control and other beneficiary-eligibility audit errors. States seeking the option from January 1 should notify CMS by December 11. ([CMS, *Optional Hold Harmless Period for Community Engagement Implementation*, November 13, 2026](https://www.medicaid.gov/Federal-Policy-Guidance/Downloads/smd26006.pdf))
 
 **Implication**
 
-Independent and employed physician groups face renewed base-rate pressure, strengthening demand for coding accuracy, denial prevention and productivity automation. The ACO modifier creates a material differential for primary-care organizations operating inside accountable-care structures, although the additional payments enter assignment, benchmark and performance-year spending calculations.
+The policy defers the first wave of work-related coverage losses, supporting Medicaid MCO membership and reducing near-term uncompensated-care exposure for providers. It does not reduce implementation scope. States still need data matching, exclusion logic, notices, caseworker workflows and auditable eligibility decisions.
 
-The contractor delay preserves current RPM and RTM vendor models through 2028. Practices avoid an immediate insourcing requirement, and vendors gain two years to redesign staffing, contracting or software-only offerings.
-
-**Watch next**
-
-Specialty-level payment impacts, congressional action on the conversion-factor decline and whether CMS revisits remote-monitoring bundling before 2029.
-
----
-
-## 3. CVS preserves payer-PBM-care integration while separating the consumer front door
-
-**Status:** NEW
-
-**What happened**
-
-CVS plans to create two publicly traded companies through a tax-free separation expected in the first half of 2028. CVS Health will retain Aetna, Caremark, CVS Specialty, Oak Street Health and Signify Health. CVS Pharmacy will hold approximately 9,000 retail pharmacies, mail pharmacy, MinuteClinic, virtual care and the Health100 technology business. Both companies are expected to maintain investment-grade ratings. ([CVS Health, *CVS Health Announces Intent to Create Two Distinct Leaders in Healthcare*, November 4, 2026](https://investors.cvshealth.com/news/news-details/2026/CVS-Health-Announces-Intent-to-Create-Two-Distinct-Leaders-in-Healthcare/default.aspx))
-
-**Implication**
-
-The transaction narrows CVS’s vertical-integration thesis rather than dismantling it. Aetna will remain connected to Caremark, specialty pharmacy, primary care and home assessments, preserving the assets most directly tied to medical-cost management and pharmacy economics.
-
-Retail pharmacy and MinuteClinic become a payer-agnostic contracting platform with greater incentive to serve competing plans and PBMs. The split also creates new data, identity, referral and pharmacy-network interfaces where internal coordination previously sufficed. Vendors serving member engagement, interoperability and care navigation may gain opportunity, while CVS must prevent separation-related friction from degrading medication adherence or Aetna care coordination.
+January through June becomes a production testing period in states adopting the option. Eligibility vendors gain additional time to correct system defects, while MCOs and providers retain more opportunity to intervene before adverse determinations. Variation will remain high because states can decline the option or use it for a shorter period.
 
 **Watch next**
 
-The Form 10 allocation of shared technology, data rights, debt and corporate costs, particularly ownership and commercial terms for Health100.
+State mitigation-plan decisions by December 11 and whether CMS litigation or additional guidance changes the July 1 enforcement threshold.
 
 ---
 
-## 4. CMS gives home health a 2.4% increase while widening retroactive payment recovery
-
-**Status:** NEW
-
-**What happened**
-
-CMS estimates aggregate Medicare home-health payments will increase 2.4%, or $415 million, in 2027, while retaining a temporary 3% reduction to the base rate under its PDGM reconciliation. The rule also makes Medicare enrollment revocations retroactive to the date noncompliance began across provider and supplier types, expands grounds for denial or revocation, and requires reenrollment after certain ownership changes involving home-health, hospice and DMEPOS providers. CMS estimates the integrity provisions will save approximately $82 million annually. ([CMS, *CY 2027 Home Health Prospective Payment System Final Rule*, November 4, 2026](https://www.cms.gov/newsroom/fact-sheets/calendar-year-cy-2027-home-health-prospective-payment-system-final-rule-cms-1844-f); [CMS, *CMS Finalizes Broad Medicare Integrity Changes in Home Health Final Rule*, November 4, 2026](https://www.cms.gov/newsroom/press-releases/cms-finalizes-broad-medicare-integrity-changes-home-health-final-rule-expected-save-taxpayers-tens))
-
-**Implication**
-
-The payment update improves near-term reimbursement visibility for scaled home-health operators, but it does not end PDGM recoupment risk. Case-mix recalibration and the temporary adjustment will continue to create agency-level variance.
-
-Retroactive revocation has broader consequences. A compliance failure can now convert previously paid claims into recoverable overpayments, increasing exposure during audits, acquisitions and ownership transitions. Enrollment monitoring, credentialing and transaction diligence therefore become payment-integrity controls rather than administrative formalities.
-
-**Watch next**
-
-Sub-regulatory instructions defining recovery periods and how Medicare contractors apply the new ownership and managing-employee standards.
-
----
-
-## 5. Oscar shows Exchange underwriting can improve while hospitals absorb coverage loss
+## 2. A rival bid raises the price and closing obligations for Surgery Partners
 
 **Status:** UPDATE
 
 **What happened**
 
-Oscar’s third-quarter revenue increased to $5.14 billion from $2.99 billion, its MLR declined to 84.0% from 88.5%, and operating income improved to $178 million from a $129 million loss. Membership reached 2.69 million, and updated risk-adjustment estimates contributed $250 million to revenue. Oscar raised full-year operating-income guidance to $850 million-$950 million from $600 million-$800 million. ([Oscar Health, *Third Quarter 2026 Results*, November 5, 2026](https://ir.oscarhealth.com/sec-filings/all-sec-filings/content/0001568651-26-000082/oscarhealththirdquarter202.htm))
+HealthSpan Partners increased its offer for Surgery Partners to $25 per share, lifting enterprise value from approximately $5.7 billion to as much as $6.0 billion after Surgery Partners received an unsolicited competing proposal. The amendment adds a 10% annualized ticking fee after March 1, 2027, capped at $1.61 per share, and removes the materiality limit from HealthSpan’s obligation to take actions needed to resolve antitrust impediments. The termination fee increased to approximately $149.1 million. ([SEC, *Surgery Partners Form 8-K*, November 9, 2026](https://www.sec.gov/Archives/edgar/data/1638833/000110465926124243/tm2629312d1_8k.htm))
+
+Surgery Partners also reported 6.0% same-facility revenue growth, driven by 5.8% higher revenue per case and only 0.2% case growth. ([SEC, *Surgery Partners Third Quarter 2026 Results*, November 9, 2026](https://www.sec.gov/Archives/edgar/data/1638833/000163883326000089/exhibit991q32026earningsre.htm))
 
 **Implication**
 
-The result does not refute last week’s finding that Exchange attrition is increasing hospital uncompensated care. It localizes the economics: disciplined rate increases and favorable risk adjustment can improve carrier profitability on retained enrollment while providers bear losses when other consumers exit coverage.
+The amendment strengthens last week’s thesis that scaled ASC networks have become scarce strategic assets for health systems. Competing interest raised the purchase price despite limited underlying volume growth, indicating that geographic reach, physician relationships and site-of-care positioning carry substantial option value.
 
-The split raises the value of enrollment retention, premium-payment monitoring and eligibility intervention for both sides. Plans need accurate risk-adjustment and lapse management; hospitals need earlier identification of coverage loss before services convert to self-pay. Oscar’s $250 million adjustment also shows that risk-score performance remains a major earnings variable despite improved underlying underwriting.
+The expanded regulatory covenant improves closing certainty but may require HealthSpan to accept divestitures or operating restrictions. Payers should assess concentration and reimbursement exposure in markets where Surgery Partners overlaps with Bon Secours Mercy Health.
 
 **Watch next**
 
-Final 2027 enrollment, payment-effectuation rates and whether Oscar’s risk-adjustment advantage persists after market-wide data reconcile.
+The identity of the rival bidder, the proxy filing and any antitrust remedy affecting local ASC ownership or contracting.
+
+---
+
+## 3. CMS extends the home-health and hospice entry freeze while letting incumbents add locations
+
+**Status:** UPDATE
+
+**What happened**
+
+CMS extended nationwide moratoria on initial Medicare enrollment of home-health agencies and hospices, including certain changes in majority ownership, for another six months. Unlike the May moratoria, currently enrolled organizations may now add practice locations. CMS said an October California operation produced 145 revocations involving providers associated with more than $703 million in Medicare and Medicaid payments. ([CMS, *CMS Extends and Modifies Nationwide Freeze on New Medicare Hospice and Home Health Enrollment*, November 12, 2026](https://www.cms.gov/newsroom/press-releases/cms-extends-modifies-nationwide-freeze-new-medicare-hospice-home-health-enrollment-six-months-combat); [Federal Register, *Extension and Modification of the Nationwide Temporary Moratorium on Enrollment of Hospices*, November 16, 2026](https://public-inspection.federalregister.gov/2026-23242.pdf))
+
+**Implication**
+
+The extension adds a market-structure effect to last week’s retroactive-revocation policy. Greenfield Medicare entry and some control transactions remain blocked, while established operators can expand through additional locations. Scaled incumbents therefore gain a six-month advantage in recruiting clinicians, entering adjacent service areas and negotiating payer relationships.
+
+The ownership restriction may also complicate acquisitions structured around new billing enrollments or majority-control changes. Diligence must address enrollment continuity, managing personnel and whether a transaction falls within the moratorium rather than treating provider numbers as routine closing items.
+
+**Watch next**
+
+Access indicators in rural markets, further payment suspensions and whether CMS extends or narrows the moratoria again in May 2027.
+
+---
+
+## 4. Federal prior-authorization testing shifts the risk from APIs to end-to-end workflow
+
+**Status:** NEW
+
+**What happened**
+
+ONC and CMS launched voluntary 10- to 12-week testing sprints for payers, providers, EHR developers and intermediaries using production-like environments. Testing will cover the Da Vinci Coverage Requirements Discovery, Documentation Templates and Rules, and Prior Authorization Support implementation guides. MITRE will support recruitment and coordination, while Drummond Group will operate the FHIRplace testing environment. Organizations must express interest by November 20; participation does not constitute certification or a CMS compliance determination. ([ONC, *ONC and CMS Launch Industry Electronic Prior Authorization Testing Initiative*, November 12, 2026](https://healthit.gov/news/onc-and-cms-launch-industry-electronic-prior-authorization-testing-initiative/))
+
+**Implication**
+
+The initiative recognizes that standards conformance does not ensure an operational authorization. The remaining failure points sit between organizations: coverage-rule discovery, clinical-document generation, identity matching, attachments, exception handling and status reconciliation.
+
+That increases demand for workflow orchestration, test data, monitoring and implementation services around payer and EHR APIs. Clearinghouses and interoperability vendors can capture work that neither payer cores nor EHRs manage alone. Voluntary testing may reduce deployment risk, but organizations remain responsible for compliance and cannot treat participation as a safe harbor.
+
+**Watch next**
+
+The first-round participants, selected clinical use cases and whether sprint findings become formal implementation guidance or change enforcement expectations.
+
+---
+
+## 5. P3’s margin recovery still leaves a financing problem
+
+**Status:** NEW
+
+**What happened**
+
+P3 Health reported third-quarter adjusted EBITDA of $20.9 million versus a $45.9 million loss a year earlier. Medical margin reached $43.9 million, or $140 per member per month, but fell to $35.0 million and $111 PMPM after excluding payer settlements and prior-year development. At-risk membership declined 9% to approximately 105,000 following network and payer rationalization. ([SEC, *P3 Health Partners Third Quarter 2026 Results*, November 9, 2026](https://www.sec.gov/Archives/edgar/data/1832511/000183251126000045/piii-20261109xexx991.htm))
+
+P3 nevertheless reported $43.9 million of unrestricted cash, a $190.6 million working-capital deficit and $90.1 million of nine-month operating cash use, concluding that substantial doubt remains about its ability to continue as a going concern. ([SEC, *P3 Health Partners Form 10-Q*, November 9, 2026](https://www.sec.gov/Archives/edgar/data/1832511/000183251126000046/piii-20260930.htm))
+
+**Implication**
+
+The result strengthens the case that selective payer and provider contraction can repair value-based-care unit economics. It weakens the assumption that positive adjusted EBITDA resolves the sector’s capital problem. Settlement timing, preferred obligations, debt maturities and claims funding can still overwhelm reported operating improvement.
+
+Health-plan and physician partners should treat liquidity as a service-continuity and counterparty risk. Smaller enablement platforms may need refinancing, asset sales or strategic capital before their improved medical margins convert into sustainable cash generation.
+
+**Watch next**
+
+P3’s capital-raising or refinancing plan and recurring 2027 medical margin after prior-period benefits fall away.
 
 ## What to Watch For
 
-- December 7, 2026: Medicare open enrollment ends, providing the first firm read on Humana’s membership-growth expectations and plan switching after the 2027 Stars release. ([CMS, *Medicare Advantage and Medicare Prescription Drug Programs Expected to Remain Stable in 2027*, October 2026](https://www.cms.gov/newsroom/press-releases/medicare-advantage-medicare-prescription-drug-programs-expected-remain-stable-2027))
+- November 20, 2026: Organizations must express interest in the first ONC-CMS electronic prior-authorization testing round. ([ONC, *ONC and CMS Launch Industry Electronic Prior Authorization Testing Initiative*, November 12, 2026](https://healthit.gov/news/onc-and-cms-launch-industry-electronic-prior-authorization-testing-initiative/))
+- December 7, 2026: Medicare annual enrollment ends, providing the first firm membership read after 2027 benefit and Stars changes. ([CMS, *Medicare Advantage and Medicare Prescription Drug Programs Expected to Remain Stable in 2027*, October 2026](https://www.cms.gov/newsroom/press-releases/medicare-advantage-medicare-prescription-drug-programs-expected-remain-stable-2027))
+- December 11, 2026: States intending to use the Medicaid work-requirement hold-harmless option from January 1 are asked to notify CMS. ([CMS, *Optional Hold Harmless Period for Community Engagement Implementation*, November 13, 2026](https://www.medicaid.gov/Federal-Policy-Guidance/Downloads/smd26006.pdf))
 - December 15, 2026: Comments close on CMS’s proposed MA provider-directory and Part D PBM accountability rule. ([Federal Register, *CMS-4214-P*, October 20, 2026](https://public-inspection.federalregister.gov/2026-21420.pdf))
-- December 28, 2026: Most HTI-5 health-IT certification changes take effect. ([Federal Register, *HTI-5 Final Rule*, October 28, 2026](https://www.federalregister.gov/documents/2026/10/28/2026-21943/health-data-technology-and-interoperability-onc-deregulatory-actions-to-unleash-prosperity))
-- January 1, 2027: The 2027 OPPS, physician-fee and home-health payment policies take effect. ([CMS, *CY 2027 OPPS and ASC Final Rule*, November 4, 2026](https://www.cms.gov/newsroom/fact-sheets/calendar-year-2027-hospital-outpatient-prospective-payment-system-opps-ambulatory-surgical-center-0); [CMS, *CY 2027 Medicare Physician Fee Schedule Final Rule*, November 4, 2026](https://www.cms.gov/newsroom/fact-sheets/calendar-year-cy-2027-medicare-physician-fee-schedule-final-rule); [CMS, *CY 2027 Home Health PPS Final Rule*, November 4, 2026](https://www.cms.gov/newsroom/fact-sheets/calendar-year-cy-2027-home-health-prospective-payment-system-final-rule-cms-1844-f))
-- January 15, 2027: HealthCare.gov open enrollment for 2027 coverage closes. ([CMS, *Plan Year 2027 Marketplace Plans and Prices*, October 30, 2026](https://beta.cms.gov/newsroom/fact-sheets/plan-year-2027-marketplace-plans-prices-fact-sheet-0))
 
 ## Bottom Line
 
-CMS’s outpatient rule is the week’s largest economic change because it reallocates billions of dollars across 340B drugs, non-drug services and care sites beginning January 1. Hospital service-line exposure, especially infusion, off-campus imaging and outpatient surgery, needs the closest attention. Medicare open enrollment ending December 7 is the next event most likely to change the payer view.
+CMS’s Medicaid hold-harmless option is the week’s most important economic change because it defers first-half 2027 coverage losses while preserving the full eligibility-technology build. State implementation choices and resulting MCO membership variation need the closest attention. The December 11 notification date is the next event most likely to determine how much coverage and provider-cash exposure moves from January into the second half of 2027.

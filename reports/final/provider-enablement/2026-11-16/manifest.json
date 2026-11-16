@@ -1,0 +1,42 @@
+{
+  "schema": 2,
+  "report_type": "provider-enablement",
+  "report_name": "Provider Enablement Digest",
+  "report_date": "2026-11-16",
+  "market_data_as_of": "2026-11-13",
+  "generated_at": "2026-11-16T16:58:48Z",
+  "rendered_at": "2026-11-16T16:58:48Z",
+  "narrative_only": true,
+  "market_sections": false,
+  "configuration_sha256": "61af2b756e07940d53a73a2b50c73883311626aa6ef53ee079931e776f7e3505",
+  "quality": "ok",
+  "issues": [],
+  "recommended_updates": {
+    "verify_symbols": [],
+    "input_updates": [],
+    "other": []
+  },
+  "sources": [
+    {
+      "source": "strategy narrative",
+      "subject": "OpenAI Responses API",
+      "status": "ok",
+      "detail": "OpenAI Responses API"
+    }
+  ],
+  "metrics": {
+    "mode": "full",
+    "durations_seconds": {
+      "secondary_sources": 216.103,
+      "rendering": 0.011,
+      "total": 216.129
+    },
+    "directory_bytes": 44769
+  },
+  "files": [
+    "Provider Enablement Intel-2026-11-16.html",
+    "recommended-updates.html",
+    "report.md",
+    "render-data.json.gz"
+  ]
+}
