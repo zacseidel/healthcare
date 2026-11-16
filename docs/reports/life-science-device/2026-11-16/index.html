@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Life Sciences Digest</title><style>
+:root { color-scheme:light; --navy:#12395b; --navy-2:#1d527e; --ink:#1d2935;
+  --muted:#64717d; --line:#d7e0e7; --panel:#f3f7fa; --paper:#fff; --accent:#c8952e; }
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; scroll-padding-top:1.25rem; }
+body { margin:0; color:var(--ink); background:#eef3f6;
+  font:16px/1.58 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+.page-shell { width:min(1500px,100%); margin:0 auto; padding:1.5rem;
+  display:grid; grid-template-columns:235px minmax(0,1120px); gap:2rem; align-items:start; }
+.report-nav { position:sticky; top:1.5rem; max-height:calc(100vh - 3rem); overflow:auto;
+  border-top:5px solid var(--navy); background:var(--paper); box-shadow:0 5px 20px #18324814;
+  padding:1rem 1rem 1.1rem; font-size:.87rem; }
+.report-nav-title { margin:0 0 .65rem; color:var(--navy); font:700 1.05rem/1.25 Georgia,serif; }
+.report-nav ul { margin:0; padding:0; list-style:none; }
+.report-nav li { margin:.25rem 0; }
+.report-nav li ul { border-left:2px solid #dce6ed; margin:.35rem 0 .55rem .25rem; padding-left:.7rem; }
+.report-nav a { color:#405466; text-decoration:none; }
+.report-nav a:hover { color:var(--navy-2); text-decoration:underline; }
+main { min-width:0; background:var(--paper); border-top:7px solid var(--navy);
+  box-shadow:0 8px 30px #18324817; padding:3rem 3.5rem 5rem; }
+h1,h2,h3,h4 { color:var(--navy); font-family:Georgia,"Times New Roman",serif; line-height:1.2; }
+h1 { margin:0; font-size:2.55rem; letter-spacing:-.025em; }
+h2 { margin-top:2.25em; padding-bottom:.35rem; border-bottom:3px solid var(--navy); font-size:1.75rem; }
+h3 { margin-top:1.8em; font-size:1.32rem; }
+h4 { font-size:1.08rem; }
+a { color:#1269a0; text-underline-offset:2px; }
+.report-meta { margin:1rem 0 1.35rem; padding:.85rem 1rem; background:var(--panel);
+  border-left:4px solid var(--navy-2); color:#40505e; }
+.report-meta span { display:block; }
+.section-jump-list { columns:2; padding:1rem 1.25rem 1rem 2.25rem; background:var(--panel); border-radius:4px; }
+.strategy-narrative-links { margin:.8rem 0 1.8rem; padding:1rem 1.25rem; background:var(--panel); border-radius:4px; }
+.strategy-narrative-links ul { margin:0; padding-left:1.25rem; }
+.strategy-narrative-links li { margin:.3rem 0; }
+.return-badge { display:inline-block; margin-left:.35rem; padding:.13rem .48rem; border-radius:999px;
+  font:700 .78rem/1.35 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; vertical-align:.12em; }
+.category-return { font-size:.76rem; }
+.table-wrap { overflow-x:auto; max-width:100%; margin:1rem 0 1.7rem; border:1px solid var(--line); border-radius:5px; }
+table { border-collapse:collapse; width:100%; margin:0; font-size:.9rem; font-variant-numeric:tabular-nums; }
+th,td { border-bottom:1px solid var(--line); padding:.53rem .62rem; text-align:right; vertical-align:top; white-space:nowrap; }
+th:first-child,td:first-child { text-align:left; }
+table:not(.sortable) { table-layout:fixed; }
+table:not(.sortable) th, table:not(.sortable) td {
+  white-space:normal; text-align:left; overflow-wrap:anywhere; word-break:break-word;
+}
+hr { border:0; border-top:1px solid var(--line); margin:2rem 0; }
+th { background:#eaf1f5; color:var(--navy); position:sticky; top:0; z-index:1; font-weight:700; }
+th.sortable-heading { cursor:pointer; user-select:none; }
+th.sortable-heading:hover { background:#dfeaf1; }
+th.sortable-heading::after { content:" ↕"; color:#718696; font-size:.78em; }
+th.sort-asc::after { content:" ↑"; color:var(--navy); }
+th.sort-desc::after { content:" ↓"; color:var(--navy); }
+tbody tr:hover td { box-shadow:inset 0 0 0 999px #ffffff26; }
+tbody tr:last-child td { border-bottom:0; }
+td.text { text-align:left; }
+td.missing { color:var(--muted); }
+blockquote { border-left:4px solid var(--accent); margin-left:0; padding:.65rem 1rem; background:#fff8e8; }
+code { background:var(--panel); padding:.1rem .25rem; }
+img { display:block; max-width:100%; height:auto; margin:1rem auto 1.7rem; }
+.metadata { color:var(--muted); margin-top:-.6rem; }
+.good {color:#167344}.bad {color:#b42318}
+.rank-change-up { color:#167344; font-weight:800; }
+.rank-change-down { color:#b42318; font-weight:800; }
+@media (max-width:1050px) {
+  .page-shell { display:block; padding:0; }
+  .report-nav { position:relative; top:0; max-height:none; border-top:0; border-bottom:4px solid var(--navy);
+    box-shadow:none; padding:.75rem 1rem; }
+  .report-nav ul { display:flex; flex-wrap:wrap; gap:.15rem 1rem; }
+  .report-nav li ul { display:none; }
+  main { box-shadow:none; border-top:0; }
+}
+@media (max-width:700px) {
+  main { padding:2rem 1rem 4rem; } h1{font-size:2rem} h2{font-size:1.45rem}
+  table{font-size:.8rem} th,td{padding:.44rem .5rem} .section-jump-list{columns:1}
+}
+@media print { body{background:#fff}.page-shell{display:block;padding:0}.report-nav{display:none}main{box-shadow:none;border:0;padding:0} }
+</style><style>
+:root { --site-navy:#183e5a; --site-blue:#35647f; --site-gold:#d4a43c;
+  --site-ink:#1d2935; --site-muted:#657482; --site-line:#d8e1e8; --site-paper:#fff;
+  --site-panel:#f3f7f9; --site-header:#f7fafb; }
+.public-site-header { position:relative; z-index:20; color:var(--site-ink); background:var(--site-header);
+  border-bottom:1px solid var(--site-line); box-shadow:0 1px 8px #1832480d; }
+.public-site-header-inner { width:min(1500px,100%); min-height:60px; margin:0 auto;
+  padding:.55rem 1.5rem; display:flex; align-items:center; justify-content:space-between; gap:1.5rem; }
+.public-site-brand { color:#294f69 !important;
+  font:500 1rem/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  text-decoration:none; letter-spacing:.015em; }
+.public-site-nav { display:flex; align-items:center; gap:.25rem; flex-wrap:wrap; }
+.public-site-nav a { color:#526879 !important; padding:.45rem .68rem; border-radius:4px;
+  font:500 .86rem/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; text-decoration:none; }
+.public-site-nav a:hover,.public-site-nav a[aria-current="page"] { color:#214b68 !important;
+  background:#e7eff4; }
+.public-page-body { margin:0; color:var(--site-ink); background:#edf2f5;
+  font:16px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+.public-page { width:min(1040px,calc(100% - 2rem)); min-height:calc(100vh - 60px); margin:0 auto;
+  padding:3rem clamp(1.25rem,4vw,4rem) 5rem; background:var(--site-paper);
+  box-shadow:0 8px 30px #18324814; }
+.public-page h1,.public-page h2,.public-page h3 { color:var(--site-navy);
+  font-family:Georgia,"Times New Roman",serif; line-height:1.2; }
+.public-page h1 { margin:.15rem 0 1rem; font-size:clamp(2.05rem,5vw,3.25rem);
+  font-weight:500; letter-spacing:-.025em; }
+.public-page h2 { margin-top:2.2rem; padding-bottom:.35rem; border-bottom:2px solid var(--site-line); }
+.public-page a { color:#1269a0; text-underline-offset:2px; }
+.public-site-header + .page-shell { padding-top:1.25rem; }
+.public-site-header + .page-shell main { border-top:1px solid var(--site-line); }
+.public-site-header + .page-shell main > h1 { color:#244b65;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:clamp(2rem,4vw,2.75rem); font-weight:500; letter-spacing:-.035em; }
+.public-site-header + .page-shell .report-nav { border-top:2px solid #9fb7c7; }
+.site-eyebrow { margin:0; color:var(--site-blue); font-size:.77rem; font-weight:800;
+  letter-spacing:.13em; text-transform:uppercase; }
+.site-lede { max-width:740px; color:#40505e; font-size:1.13rem; }
+.report-list { list-style:none; margin:2rem 0 0; padding:0; border-top:1px solid var(--site-line); }
+.report-group { margin-top:2.5rem; }
+.report-group h2 { margin:0; padding-bottom:.45rem; color:var(--site-navy);
+  border-bottom:2px solid var(--site-line); font:700 1.45rem/1.2 Georgia,"Times New Roman",serif; }
+.report-group .report-list { margin-top:0; }
+.report-list li { display:flex; align-items:center; gap:.75rem; border-bottom:1px solid var(--site-line); }
+.report-list .report-list-link { min-width:0; flex:1; display:grid;
+  grid-template-columns:minmax(190px,1fr) minmax(150px,.8fr) auto;
+  gap:1rem; align-items:center; padding:1rem .2rem; color:inherit; text-decoration:none; }
+.report-list li:hover { background:var(--site-panel); }
+.report-list strong { color:var(--site-navy); font:700 1.06rem/1.3 Georgia,"Times New Roman",serif; }
+.report-list span { color:var(--site-muted); font-size:.9rem; }
+.site-badge { display:inline-block; justify-self:end; padding:.18rem .5rem; border-radius:999px;
+  color:#31536b !important; background:#e7f0f5; font-size:.72rem !important; font-weight:800; text-transform:uppercase; }
+.site-badge-warning { color:#754b05 !important; background:#fff0c9; }
+.index-week { margin-top:2.5rem; }
+.index-week > h2 { margin-bottom:.3rem; }
+.index-report { margin:1.25rem 0 2rem; padding:1.1rem 1.25rem; border:1px solid var(--site-line);
+  border-radius:5px; background:#fbfcfd; }
+.index-report-heading { display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; }
+.index-report h3 { margin:0 0 .8rem; font-size:1.22rem; }
+.index-report h4 { margin:1rem 0 .35rem; color:var(--site-blue); font-size:.82rem;
+  letter-spacing:.09em; text-transform:uppercase; }
+.index-links { margin:.35rem 0 .6rem; padding-left:1.3rem; }
+.index-links li { margin:.35rem 0; }
+.topic-directory { margin-top:3.5rem; padding-top:.5rem; border-top:4px solid var(--site-gold); }
+.topic-group { margin-top:2.5rem; }
+.topic-section { margin:1.35rem 0; }
+.topic-section h3 { margin-bottom:.4rem; }
+.topic-links { list-style:none; margin:.35rem 0 0; padding:0; }
+.topic-links li { padding:.65rem 0; border-bottom:1px solid var(--site-line); }
+.topic-links span { display:block; margin-top:.15rem; color:var(--site-muted); font-size:.82rem; }
+.index-empty { color:var(--site-muted); font-style:italic; }
+.index-jump { display:flex; align-items:center; gap:.4rem; flex-wrap:wrap; margin:1.2rem 0 0; }
+.index-jump span { margin-right:.2rem; color:var(--site-muted); font-size:.78rem; font-weight:600; }
+.index-jump a { padding:.3rem .65rem; border:1px solid var(--site-line); border-radius:999px;
+  background:var(--site-panel); font-size:.84rem; font-weight:600; text-decoration:none; }
+.index-jump a:hover { border-color:#9fb7c7; }
+.index-note { max-width:760px; color:#40505e; }
+.company-directory { margin-top:3.5rem; padding-top:.5rem; border-top:4px solid var(--site-gold); }
+.company-group { margin-top:2.2rem; }
+.company-group > h3 { margin:0 0 .6rem; }
+.company-coverage { margin:.9rem 0; padding:.85rem 1.1rem; border:1px solid var(--site-line);
+  border-radius:5px; background:#fbfcfd; scroll-margin-top:1rem; }
+.company-coverage:target { border-color:var(--site-gold); box-shadow:0 0 0 3px #d4a43c40; }
+.company-coverage-heading { display:flex; align-items:baseline; justify-content:space-between; gap:1rem; }
+.company-coverage h4 { margin:0; color:var(--site-navy); font:700 1.08rem/1.3 Georgia,"Times New Roman",serif; }
+.company-ticker { margin-left:.3rem; color:var(--site-muted); font:700 .76rem/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  letter-spacing:.06em; }
+.company-profile-link { flex:0 0 auto; font-size:.8rem; }
+.company-coverage-label { margin:.8rem 0 0; color:var(--site-blue); font-size:.74rem; font-weight:800;
+  letter-spacing:.09em; text-transform:uppercase; }
+.company-coverage .topic-links li { padding:.45rem 0; }
+.company-coverage .topic-links li:last-child { border-bottom:0; }
+.universe-jump ul { list-style:none; display:flex; flex-wrap:wrap; gap:.4rem; margin:1.5rem 0 0; padding:0; }
+.universe-jump a { display:inline-block; padding:.3rem .65rem; border:1px solid var(--site-line); border-radius:999px;
+  background:var(--site-panel); font-size:.82rem; font-weight:600; text-decoration:none; }
+.universe-segment { margin-top:2.6rem; scroll-margin-top:1rem; }
+.universe-segment h2 { margin-bottom:.3rem; }
+.universe-meta { margin:0 0 .8rem; color:var(--site-muted); font-size:.86rem; }
+.universe-table-wrap { overflow-x:auto; }
+.universe-table { width:100%; border-collapse:collapse; font-size:.9rem; }
+.universe-table th { padding:.5rem .6rem; color:var(--site-muted); border-bottom:2px solid var(--site-line);
+  font-size:.72rem; font-weight:800; letter-spacing:.08em; text-align:left; text-transform:uppercase; }
+.universe-table td { padding:.65rem .6rem; border-bottom:1px solid var(--site-line); vertical-align:top; }
+.universe-table tr:target td { background:#fff6df; }
+.universe-table tr { scroll-margin-top:1rem; }
+.universe-name { min-width:9rem; }
+.universe-name strong { color:var(--site-navy); }
+.universe-ticker { font-weight:700; letter-spacing:.03em; white-space:nowrap; }
+.universe-ticker a { text-decoration:none; }
+.universe-description { color:#40505e; }
+.universe-table .universe-cap { text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums; }
+.universe-coverage { min-width:8.5rem; font-size:.84rem; }
+.universe-muted { color:var(--site-muted); }
+.report-downloads { display:flex; align-items:center; gap:.42rem; flex-wrap:wrap; margin:.8rem 0 1.35rem; }
+.report-downloads-compact { flex:0 0 auto; margin:0; }
+.report-download-label { margin-right:.15rem; color:var(--site-muted); font-size:.78rem; font-weight:600; }
+.download-button { display:inline-flex; align-items:center; justify-content:center; min-width:3.25rem;
+  padding:.36rem .62rem; border:1px solid #b7c8d3; border-radius:4px; color:#315b75 !important;
+  background:#fff; font:600 .76rem/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  letter-spacing:.025em; text-decoration:none !important; }
+.download-button:hover { border-color:#7193a8; background:#edf4f7; }
+.report-list-actions { padding-right:.2rem; }
+.recommended-list { list-style:none; margin:.35rem 0 0; padding:0; }
+.recommended-list li { padding:.85rem 0; border-bottom:1px solid var(--site-line); }
+.recommended-list strong { display:block; color:var(--site-navy); }
+.recommended-list span { display:block; margin-top:.2rem; color:var(--site-muted); font-size:.92rem; }
+.public-site-footer { margin-top:3rem; padding-top:1rem; border-top:1px solid var(--site-line);
+  color:var(--site-muted); font-size:.84rem; }
+@media (max-width:700px) {
+  .public-site-header-inner { align-items:flex-start; flex-direction:column; gap:.45rem; }
+  .public-site-nav { margin-left:-.7rem; }
+  .public-page { width:100%; }
+  .report-list li { display:block; padding-bottom:.8rem; }
+  .report-list .report-list-link { grid-template-columns:1fr; gap:.2rem; padding-bottom:.45rem; }
+  .report-list-actions { padding:0 .2rem; }
+  .index-report-heading { display:block; }
+  .report-downloads-compact { margin:.2rem 0 .8rem; }
+  .site-badge { justify-self:start; margin-top:.25rem; }
+  .company-coverage-heading { display:block; }
+  .universe-table thead { display:none; }
+  .universe-table, .universe-table tbody, .universe-table tr, .universe-table td { display:block; width:auto; }
+  .universe-table tr { padding:.7rem 0; border-bottom:1px solid var(--site-line); }
+  .universe-table td { padding:.1rem 0; border:0; }
+  .universe-table .universe-name, .universe-table .universe-ticker { display:inline; }
+  .universe-table .universe-ticker { margin-left:.4rem; }
+  .universe-table .universe-cap { text-align:left; }
+  .universe-table .universe-cap::before { content:"Market cap "; color:var(--site-muted); }
+}
+</style></head><body><header class="public-site-header"><div class="public-site-header-inner"><a class="public-site-brand" href="../../../">Weekly Healthcare Strategy Intelligence</a><nav aria-label="Website navigation" class="public-site-nav"><a href="../../../">Latest report</a><a href="../../../news/">News &amp; Earnings</a><a href="../../../companies/">Companies</a><a aria-current="page" href="../../../reports/">Past reports</a><a href="../../../about/">About</a><a href="../../../methodology/">Methodology</a></nav></div></header><div class="page-shell"><nav aria-label="Report navigation" class="report-nav"><p class="report-nav-title">In this report</p><ul><li><a href="#in-the-news">In the News</a></li><li><a href="#recent-earnings-highlights">Recent Earnings Highlights</a><ul><li><a href="#earnings-cgon">CG Oncology (CGON)</a></li><li><a href="#earnings-ions">Ionis Pharmaceuticals (IONS)</a></li></ul></li></ul></nav><main id="main-content"><h1 id="life-sciences-digest">Life Sciences Digest</h1><div aria-label="Download Life Sciences Digest for November 16, 2026" class="report-downloads report-downloads-page"><span class="report-download-label">Download report</span><a class="download-button" download="" href="Life%20Science%20and%20Device%20Intel-2026-11-16.pdf">PDF</a><a class="download-button" download="" href="Life%20Science%20and%20Device%20Intel-2026-11-16.html">HTML</a><a class="download-button" download="" href="Life%20Science%20and%20Device%20Intel-2026-11-16.eml" title="Outlook email draft">Email</a></div>
+<div class="report-meta"><span><strong>Week of November 16, 2026</strong></span><span>Market data through: November 13, 2026</span><span>Narrative created: November 9, 2026</span></div>
+<p>Weekly review of pharmaceutical, biotech, biologics, and medical-device company performance, changes, earnings activity, and strategy narrative.</p>
+<h2 id="in-the-news">In the News</h2>
+<p>No strategy narrative is available for this week.</p>
+<h2 id="recent-earnings-highlights">Recent Earnings Highlights</h2>
+<p>Companies covered in this section:</p>
+<ul class="section-jump-list">
+<li><a href="#earnings-cgon">CG Oncology (CGON)</a></li>
+<li><a href="#earnings-ions">Ionis Pharmaceuticals (IONS)</a></li>
+</ul>
+<h3 id="earnings-cgon">CG Oncology (CGON) <span class="return-badge" style="background:#fbd5d4;color:#111820;">-0.8% Last 3m</span></h3>
+<p>CG Oncology Inc is a late-stage clinical biopharmaceutical company focused on developing and commercializing its product candidate, cretostimogene grenadenorepvec, for patients with bladder cancer. The company's candidate, cretostimogene grenadenorepvec, is a targeted oncolytic intravesically delivered immunotherapy agent that is in two phase three trials (one high-risk BCG unresponsive NMIBC trial and one intermediate-risk NMIBC trial) and a phase two clinical study with a checkpoint inhibitor for high-risk BCG unresponsive NMIBC disease.</p>
+<p><strong>Reported:</strong> November 12, 2026 · <a href="https://www.google.com/finance/quote/CGON:NASDAQ?tab=earnings&amp;hl=en">Google Finance earnings page</a></p>
+<p><img alt="CG Oncology versus category peers and the S&amp;P 500" src="assets/earnings-cgon-3m.webp"/></p>
+<h4 id="at-a-glance">At a Glance</h4>
+<ul>
+<li><strong>CG Oncology Outperforms Financial Estimates:</strong> The company reported an Adjusted EPS loss of $0.64, outperforming the estimated loss of $0.81, and delivered total revenue of $1.60 million, beating the estimated $0.53 million.</li>
+<li><strong>R&amp;D Spending Rises Amid Pipeline Expansion:</strong> Research and development expenses increased 41% year-over-year to $39.22 million, reflecting intensified clinical trial activity for its oncology pipeline compared to past periods.</li>
+<li><strong>Substantial Funding Expected Through 2029:</strong> The company highlighted a strong cash runway, with $984.5 million in cash, cash equivalents, and marketable securities, which is projected to fund its clinical operations through 2029.</li>
+<li><strong>Major Regulatory Submission Planned for Q4:</strong> CG Oncology expects to complete its Biologics License Application (BLA) submission for cretostimogene in BCG-unresponsive non-muscle-invasive bladder cancer (NMIBC) in the fourth quarter of 2026.</li>
+<li><strong>Imminent Clinical Trial Data Readouts Anticipated:</strong> Topline Phase 3 data from the PIVOT-006 trial are expected in November 2026, followed by 12-month data cohorts from BOND-003 and CORE-008 trials in December 2026.</li>
+<li><strong>Positive Market Reaction Pushes Shares Higher:</strong> Following the better-than-expected financial metrics and upcoming catalyst confirmations, investor enthusiasm drove the stock price higher, hitting an intraday peak of $80.03.</li>
+</ul>
+<h3 id="earnings-ions">Ionis Pharmaceuticals (IONS) <span class="return-badge" style="background:#c0302f;color:#ffffff;">-49.2% Last 3m</span></h3>
+<p>Ionis Pharmaceuticals is the leading developer of antisense technology to discover and develop novel drugs. Its broad clinical and preclinical pipeline targets a wide variety of diseases, with an emphasis on cardiovascular, metabolic, neurological, and rare diseases. Ionis and Biogen brought Spinraza to market in 2016 as a treatment for spinal muscular atrophy, and Biogen launched ALS drug Qalsody in 2023. Ionis brought two additional drugs to market via its cardiovascular-focused subsidiary Akcea, including ATTR amyloidosis drug Tegsedi (2018) and cardiology drug Waylivra (Europe, 2019). Ionis and AstraZeneca launched polyneuropathy drug Wainua in 2024. Ionis marked its first two independent launches in 2025 for Tryngolza (for FCS) and Dawnzera (for HAE).</p>
+<p><strong>Reported:</strong> November 11, 2026 · <a href="https://www.google.com/finance/quote/IONS:NASDAQ?tab=earnings&amp;hl=en">Google Finance earnings page</a></p>
+<p><img alt="Ionis Pharmaceuticals versus category peers and the S&amp;P 500" src="assets/earnings-ions-3m.webp"/></p>
+<h4 id="earnings-call-summary">Earnings Call Summary</h4>
+<p>Ionis reported strong financial results for Q3 2026, with revenue reaching $243 million, marking a 55% year-over-year increase compared to the same period last year (excluding a prior one-time payment). Commercial revenue grew 18% year-over-year to $136 million, outpacing R&amp;D revenue, driven primarily by strong momentum from DAWNZERA product sales.</p>
+<h4 id="at-a-glance_1">At a Glance</h4>
+<ul>
+<li><strong>Ionis Beats EPS and Revenue Estimates:</strong> Ionis Pharmaceuticals reported a reported adjusted EPS of $0 and a reported revenue of $242,721,000, strongly beating estimated adjusted EPS of -$0.934 and estimated revenue of $184,375,930.</li>
+<li><strong>Commercial Revenue Driven by DAWNZERA Growth:</strong> Total commercial revenue reached $136 million for the quarter, up 18% year-over-year, heavily supported by DAWNZERA product sales which brought in $37 million, up 40% from the previous quarter.</li>
+<li><strong>TRYNGOLZA Forecast Slashed While Reaffirming Guidance:</strong> The company slashed full-year 2026 sales guidance for TRYNGOLZA to approximately $50 million due to a slower-than-expected launch ramp, though it maintained overall total revenue guidance of $875 million to $900 million.</li>
+<li><strong>Cash Flow Breakeven Target Pushed Back:</strong> Management pushed its target timeline for sustained positive cash flow by one year from 2028 to 2029, citing the gradual TRYNGOLZA rollout and clinical Phase III disappointments in partnered programs.</li>
+<li><strong>Stock Plummets Amid Mixed Launch Progress:</strong> Despite delivering a headline earnings beat, the stock plummeted nearly 28% as investors reacted with disappointment over commercial trial roadblocks and slower product adoption updates.</li>
+</ul>
+<h4 id="key-moments-from-the-call">Key Moments from the Call</h4>
+<ul>
+<li><strong>2m 20s — TRYNGOLZA FY2026 Guidance Cut:</strong> Investors will be disappointed by Ionis lowering its full-year TRYNGOLZA revenue guidance to ~$50 million due to a slower launch ramp. While physician enthusiasm remains high, navigating a brand-new market, establishing payer coverage policies, and executing early medical exceptions are taking more time than the company initially projected.</li>
+<li><strong>18m 59s — Strong Q3 Financial Growth:</strong> Ionis delivered a solid revenue beat, reporting $243 million against estimates of $184.4 million, representing 55% organic year-over-year growth. This top-line strength, alongside an EPS miss that was much narrower than projected, showcases strong underlying commercial momentum and a valuable financial amplification from partnered program milestones.</li>
+<li><strong>20m 8s — DAWNZERA Commercial Outperformance:</strong> Investors will be pleased with DAWNZERA's substantial 40% sequential growth in Q3, generating $37 million in product sales. The launch is hitting its stride by capturing U.S. market share from therapy switches and expanding globally with a recent approval in Canada and positive reimbursement decisions across Europe.</li>
+<li><strong>35m 4s — Delayed Cash Flow Break-Even Timeline:</strong> Management adjusted its expected timeline to reach sustained positive cash flow from 2028 out to 2029. This delay will frustrate investors as it stems directly from the slower commercial ramp of TRYNGOLZA alongside recent high-profile Phase III pipeline failures for eplontersen and pelacarsen, extending the company's capital investment phase.</li>
+</ul></main></div><script>
+document.querySelectorAll('table.sortable').forEach((table) => {
+  table.querySelectorAll('th[data-column]').forEach((heading) => {
+    heading.addEventListener('click', () => {
+      const index = Number(heading.dataset.column);
+      const numeric = heading.dataset.type === 'number';
+      const descending = heading.classList.contains('sort-asc');
+      table.querySelectorAll('th').forEach((item) => item.classList.remove('sort-asc','sort-desc'));
+      heading.classList.add(descending ? 'sort-desc' : 'sort-asc');
+      const rows = Array.from(table.tBodies[0].rows);
+      rows.sort((left, right) => {
+        const a = left.cells[index].dataset.sort || '';
+        const b = right.cells[index].dataset.sort || '';
+        const result = numeric ? ((Number(a) || 0) - (Number(b) || 0)) : a.localeCompare(b);
+        return descending ? -result : result;
+      });
+      rows.forEach((row) => table.tBodies[0].appendChild(row));
+    });
+  });
+});
+</script></body></html>

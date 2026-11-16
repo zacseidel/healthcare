@@ -1702,27 +1702,29 @@
     "next_date_source": "estimated from last earnings"
   },
   "PIII": {
-    "checked_at": "2026-11-09T14:36:54Z",
-    "checked_for_date": "2026-11-09",
-    "next_event_date": "2026-11-09",
-    "next_date_source": "Yahoo Finance",
-    "next_date_status": "confirmed",
-    "next_check_date": null,
+    "checked_at": "2026-11-16T01:07:50Z",
+    "checked_for_date": "2026-11-16",
     "summary": "",
-    "at_a_glance_checked_at": "2026-11-09T14:36:53Z",
+    "at_a_glance_checked_at": "2026-11-16T01:07:49Z",
     "at_a_glance_scope": null,
     "latest_results": {
-      "fiscal_period": "Q2 2026",
+      "fiscal_period": "Q3 2026",
       "report_date": null,
-      "period_end": "2026-06-30",
+      "period_end": "2026-09-30",
       "eps": null,
       "eps_estimate": null,
       "eps_surprise": null,
-      "revenue": "386.38M",
-      "revenue_estimate": "377.80M",
-      "revenue_surprise": "+2.27%",
-      "first_seen": null
-    }
+      "revenue": "396.34M",
+      "revenue_estimate": "385.15M",
+      "revenue_surprise": "+2.91%",
+      "first_seen": "2026-11-16"
+    },
+    "last_report_date": "2026-11-09",
+    "last_report_source": "Yahoo Finance",
+    "next_event_date": "2027-02-07",
+    "next_check_date": "2027-01-17",
+    "next_date_status": "tentative",
+    "next_date_source": "estimated from last earnings"
   },
   "DVA": {
     "last_report_date": "2026-10-29",
@@ -1871,12 +1873,12 @@
     "next_date_source": "estimated from last earnings"
   },
   "SGRY": {
-    "last_report_date": "2026-08-10",
-    "checked_at": "2026-11-09T14:37:02Z",
+    "last_report_date": "2026-11-09",
+    "checked_at": "2026-11-16T01:07:54Z",
     "summary": "Surgery Partners announced a definitive agreement to sell its interests in the Idaho Falls market, including Mountain View Hospital and Idaho Falls Community Hospital, to Intermountain Health. This transaction represents the vast majority of planned portfolio optimization to sharpen focus on core short-stay surgical facilities and strengthen the balance sheet.",
-    "at_a_glance_checked_at": "2026-11-09T14:37:02Z",
-    "at_a_glance_scope": "upcoming",
-    "checked_for_date": "2026-11-09",
+    "at_a_glance_checked_at": "2026-11-16T01:07:53Z",
+    "at_a_glance_scope": "reported",
+    "checked_for_date": "2026-11-16",
     "key_moments": [
       {
         "title": "Acuity Gains and Same-Facility Rate Growth",
@@ -1901,42 +1903,42 @@
     ],
     "at_a_glance": [
       {
-        "headline": "Mixed Performance with Revenue Beat",
-        "detail": "Surgery Partners Inc. reported a Q2 2026 revenue of $848.90 million, surpassing the estimated $830,320,660, while its reported adjusted EPS was -$0.12 compared to the expected $0.063."
+        "headline": "Mixed Top-Line Results for Q3",
+        "detail": "Surgery Partners Inc reported a reported adjusted EPS of -$0.16, missing the estimated adjusted EPS of 0.127, while quarterly revenue reached $815.30 million, marginally beating the expected estimate of $814,698,720."
       },
       {
-        "headline": "Strong Same-Facility Revenue Drivers",
-        "detail": "Same-facility revenues grew 5.0% for the quarter, fueled by a 4.8% increase in net revenue per case as high-acuity surgical procedures continue to expand outpatient migration."
+        "headline": "Strong Same-Facility KPI Growth Continues",
+        "detail": "Same-facility revenues increased by 6.0% year-over-year, driven by a 5.8% increase in revenue per case and a 0.2% increase in same-facility case volumes."
       },
       {
-        "headline": "Full Year 2026 Guidance Reaffirmed",
-        "detail": "Management maintained its full-year 2026 outlook, reaffirming expected revenue of $3.35 billion to $3.45 billion and Adjusted EBITDA of at least $530 million."
+        "headline": "Forward Guidance Suspended Amid Merger",
+        "detail": "In light of its pending transaction with HealthSpan Partners, Surgery Partners has suspended its practice of providing forward-looking financial guidance and will not host future earnings calls."
       },
       {
-        "headline": "Major Strategic Idaho Divestiture Announced",
-        "detail": "The company entered into definitive agreements to sell its Idaho Falls market operations to Intermountain Health for $795 million in gross proceeds to optimize its portfolio."
+        "headline": "Merger Agreement Terms Boosted Significantly",
+        "detail": "The company announced an amendment to its merger agreement with HealthSpan Partners, increasing the cash consideration to $25.00 per share, which represents an enterprise value of approximately $6.0 billion."
       },
       {
-        "headline": "Debt Reduction Plan Targets Leverage",
-        "detail": "Net proceeds from the upcoming Idaho Falls transaction will be heavily deployed toward debt repayment, which is expected to lower balance sheet leverage by approximately 0.3 turns."
+        "headline": "Idaho Divestiture Pressures Revenue Growth",
+        "detail": "Total quarterly revenue decreased 0.8% year-over-year primarily due to the impact of the successful divestiture of the company's interests in Idaho Falls facilities completed in September 2026."
       }
     ],
-    "at_a_glance_report_date": "2026-08-10",
+    "at_a_glance_report_date": "2026-11-09",
     "next_event_date": "2026-11-16",
     "next_date_source": "Google Finance",
     "next_date_status": "confirmed",
     "next_check_date": null,
     "latest_results": {
-      "fiscal_period": "Q2 2026",
-      "report_date": "2026-08-10",
-      "period_end": "2026-06-30",
-      "eps": "0.10",
-      "eps_estimate": "0.06",
-      "eps_surprise": "+59.57%",
-      "revenue": "848.90M",
-      "revenue_estimate": "830.32M",
-      "revenue_surprise": "+2.24%",
-      "first_seen": null
+      "fiscal_period": "Q3 2026",
+      "report_date": "2026-11-09",
+      "period_end": "2026-09-30",
+      "eps": "0.16",
+      "eps_estimate": "0.13",
+      "eps_surprise": "+25.77%",
+      "revenue": "815.30M",
+      "revenue_estimate": "814.70M",
+      "revenue_surprise": "+0.07%",
+      "first_seen": "2026-11-16"
     }
   },
   "OPCH": {
@@ -2224,100 +2226,102 @@
     "checked_for_date": "2026-09-28"
   },
   "HIMS": {
-    "last_report_date": "2026-08-10",
-    "checked_at": "2026-11-09T14:37:40Z",
-    "summary": "Hims & Hers achieved nearly 40% year-over-year revenue growth in Q2 2026, exceeding $753 million, and added 300,000 net new subscribers to reach nearly 3 million globally. Domestic revenue growth accelerated to 16% year-over-year to $622 million, driven by expanding branded weight loss offerings.",
-    "at_a_glance_checked_at": "2026-11-09T14:37:39Z",
-    "at_a_glance_scope": "upcoming",
-    "checked_for_date": "2026-11-09",
+    "last_report_date": "2026-11-09",
+    "checked_at": "2026-11-16T01:08:06Z",
+    "summary": "Hims & Hers Health reported Q3 2026 revenue up 49% year-over-year to $890 million, marking its second consecutive quarter of accelerating top-line growth. Revenue excluded $18 million in deferred weight loss membership revenue, which will be recognized in Q4 2026. Subscribership grew 13% year-over-year to 2.8 million users.",
+    "at_a_glance_checked_at": "2026-11-16T01:08:06Z",
+    "at_a_glance_scope": "reported",
+    "checked_for_date": "2026-11-16",
     "key_moments": [
       {
-        "title": "Eucalyptus Acquisition Drives Global Expansion",
-        "timestamp": "16m 18s",
-        "blurb": "Closing the Eucalyptus acquisition expanded the international footprint, adding $40 million to Q2 revenue and scaling three foreign markets past a $100 million annualized run rate. This satisfies investors seeking geographic diversification and an expanded total addressable market."
+        "title": "Subscribers Decline Sequentially via Marketing Pullback",
+        "timestamp": "22m 34s",
+        "blurb": "Subscribers dropped by 100,000 sequentially to 2.8 million. Investors will note that this headwinds-driven decline was a deliberate strategic choice; management intentionally paced domestic weight loss marketing to introduce structural offerings and broader medication assortments ahead of peak seasonal interest in January."
       },
       {
-        "title": "FTC Litigation and GAAP Net Loss",
-        "timestamp": "24m 4s",
-        "blurb": "The company reported a GAAP net loss of $86 million, driven by $81 million in one-time costs, including legal contingency accruals after the FTC filed a complaint on July 29th. This regulatory hurdle and negative GAAP bottom line could worry risk-averse investors."
+        "title": "Lowered Full-Year Adjusted EBITDA Guidance",
+        "timestamp": "32m 19s",
+        "blurb": "Management reduced its full-year 2026 adjusted EBITDA guidance range to $257M–$277M. This reduction may disappoint short-term investors, as it stems from heavy pre-Q1 marketing investments to scale the Hims & Hers brands globally, aggressive strategic pricing moves in the U.K. and Germany, and an $20 million membership revenue deferral into 2027."
       },
       {
-        "title": "Gross Margin Compression from Product Mix",
-        "timestamp": "24m 53s",
-        "blurb": "Adjusted gross margins declined six points quarter-over-quarter to 64% due to scaling lower-margin branded weight loss and international segments. While this indicates robust volume growth, the prolonged margin compression below historical levels may disappoint investors focused on structural profitability."
+        "title": "Peptides Category Expansion and In-House Production",
+        "timestamp": "41m 33s",
+        "blurb": "The company will launch its Peptides+ offering later this month, expanding its focus on holistic lifestyle care. To maintain quality control over unstable raw supply chains, Hims & Hers will manufacture active pharmaceutical ingredients in-house at its Menlo Park facility, differentiating its platform on clinical safety oversight."
       },
       {
-        "title": "Raised Full-Year 2026 Guidance",
-        "timestamp": "32m 51s",
-        "blurb": "Management increased full-year 2026 revenue guidance to $3.1B–$3.3B and adjusted EBITDA guidance to $275M–$325M. This upward revision reflects strong demand in the weight loss segment and a 12-point acceleration in domestic growth, pleasing investors looking for sustained top-line momentum."
+        "title": "Expanded Weight Loss Footprint with Eli Lilly",
+        "timestamp": "45m 47s",
+        "blurb": "Hims & Hers announced a major strategic agreement with Eli Lilly to expand consumer access to branded GLP-1 medications, including Zepbound and Foundayo. This multi-brand portfolio strategy alongside existing partner Novo Nordisk positions the company to capture broader customer segments and significantly accelerate transaction volumes."
       }
     ],
     "at_a_glance": [
       {
-        "headline": "Top Line Beats with EPS Miss",
-        "detail": "Hims & Hers Health Inc. reported Q2 2026 revenue of $753.21 million, beating the estimated $730.12 million, but reported an Adjusted EPS of -$0.37, missing the estimated profit of $0.091."
+        "headline": "Hims & Hers Misses Financial Targets",
+        "detail": "For Q3 2026, Hims & Hers Health reported an Adjusted EPS of -$0.14, missing the estimated $0.154, and posted revenue of $890.37 million, which slightly missed the estimated $892.77 million."
       },
       {
-        "headline": "Subscriber Base Nears Key Milestone",
-        "detail": "The company's core KPI showed strong momentum as subscribers grew 19% year-over-year to 2.891 million, up from 2.439 million in the prior-year period."
+        "headline": "Subscribers Shrink Sequentially Despite Expansion",
+        "detail": "Total subscribers grew 13% year-over-year to 2.8 million, but experienced a sequential decline of 100,000 users from the previous quarter due to a deliberate pullback in domestic weight loss marketing."
       },
       {
-        "headline": "Full Year Revenue Guidance Raised",
-        "detail": "Management raised its full-year 2026 revenue guidance to a range of $3.1 billion to $3.3 billion, up from prior expectations, while projecting third-quarter revenue to reach between $880 million and $900 million."
+        "headline": "Full-Year Guidance Cut for EBITDA",
+        "detail": "The company narrowed its full-year 2026 revenue guidance to a range of $3.13 billion to $3.15 billion, but lowered its full-year Adjusted EBITDA forecast to $257 million to $277 million due to strategic international investments and membership revenue deferrals."
       },
       {
-        "headline": "Expansion Drives Massive International Growth",
-        "detail": "International revenue surged over 17-fold year-over-year to $131.4 million, heavily supported by the recent acquisition of Eucalyptus."
+        "headline": "Gross Margins Contract Under Pressure",
+        "detail": "Gross margin dropped significantly to 57% from 74% in the year-ago period, primarily compressed by the scaling of lower-margin branded weight loss products and expanding international operations."
       },
       {
-        "headline": "Gross Margins Experience Sharp Compression",
-        "detail": "Gross margin declined to 64% from 76% in the same quarter last year, heavily impacted by investments in lower-margin branded weight loss products and the growing international business mix."
+        "headline": "Stock Plummets Post Earnings Report",
+        "detail": "Following the earnings release, the company's stock experienced a sharp selloff, tumbling approximately 17% as investors reacted negatively to the wider quarterly net loss and declining margins."
       },
       {
-        "headline": "One Time Expenses Amplify Loss",
-        "detail": "The reported net loss of $86.3 million included $81 million in non-recurring costs, driven by acquisition expenses, restructuring, and a legal contingency accrual."
+        "headline": "International Business Run-Rate Surges High",
+        "detail": "Rest of the World revenues surged 320.7% year-over-year to $233.3 million, putting the international business on track to surpass a $1 billion revenue run-rate in 2027."
       }
     ],
-    "at_a_glance_report_date": "2026-08-10",
-    "next_event_date": "2026-11-09",
-    "next_date_source": "Yahoo Finance",
-    "next_date_status": "confirmed",
-    "next_check_date": null,
+    "at_a_glance_report_date": "2026-11-09",
     "latest_results": {
-      "fiscal_period": "Q2 2026",
-      "report_date": "2026-08-10",
-      "period_end": "2026-06-30",
-      "eps": "-0.09",
-      "eps_estimate": "0.09",
-      "eps_surprise": "-198.22%",
-      "revenue": "753.21M",
-      "revenue_estimate": "730.12M",
-      "revenue_surprise": "+3.16%",
-      "first_seen": null
-    }
+      "fiscal_period": "Q3 2026",
+      "report_date": "2026-11-09",
+      "period_end": "2026-09-30",
+      "eps": "0.03",
+      "eps_estimate": "0.15",
+      "eps_surprise": "-81.97%",
+      "revenue": "890.37M",
+      "revenue_estimate": "892.77M",
+      "revenue_surprise": "-0.27%",
+      "first_seen": "2026-11-16"
+    },
+    "next_event_date": "2027-02-07",
+    "next_check_date": "2027-01-17",
+    "next_date_status": "tentative",
+    "next_date_source": "estimated from last earnings"
   },
   "LFMD": {
-    "checked_at": "2026-11-09T14:37:44Z",
-    "checked_for_date": "2026-11-09",
-    "next_event_date": "2026-11-12",
-    "next_date_source": "Yahoo Finance",
-    "next_date_status": "confirmed",
-    "next_check_date": null,
+    "checked_at": "2026-11-16T01:08:10Z",
+    "checked_for_date": "2026-11-16",
     "summary": "",
-    "at_a_glance_checked_at": "2026-11-09T14:37:43Z",
+    "at_a_glance_checked_at": "2026-11-16T01:08:10Z",
     "at_a_glance_scope": null,
     "latest_results": {
-      "fiscal_period": "Q2 2026",
+      "fiscal_period": "Q3 2026",
       "report_date": null,
-      "period_end": "2026-06-30",
-      "eps": "-0.15",
-      "eps_estimate": "-0.05",
-      "eps_surprise": "-229.56%",
-      "revenue": "47.28M",
-      "revenue_estimate": "48.97M",
-      "revenue_surprise": "-3.46%",
-      "first_seen": null
-    }
+      "period_end": "2026-09-30",
+      "eps": "-0.10",
+      "eps_estimate": "-0.00",
+      "eps_surprise": "-1,950.00%",
+      "revenue": "44.63M",
+      "revenue_estimate": "48.85M",
+      "revenue_surprise": "-8.65%",
+      "first_seen": "2026-11-16"
+    },
+    "last_report_date": "2026-11-12",
+    "last_report_source": "Yahoo Finance",
+    "next_event_date": "2027-02-10",
+    "next_check_date": "2027-01-20",
+    "next_date_status": "tentative",
+    "next_date_source": "estimated from last earnings"
   },
   "OMDA": {
     "last_report_date": "2026-11-05",
@@ -2390,11 +2394,11 @@
   },
   "GDRX": {
     "last_report_date": "2026-08-06",
-    "checked_at": "2026-11-09T14:37:52Z",
+    "checked_at": "2026-11-16T01:08:13Z",
     "summary": "GoodRx reported Q2 2026 revenue of $200.4 million, exceeding expectations and driven by its Pharma Direct and subscriptions segments. Backed by strong first-half results, management raised its full-year 2026 revenue guidance to a range of $790 million to $805 million and its adjusted EBITDA guidance to $240 million to $250 million.",
-    "at_a_glance_checked_at": "2026-11-09T14:37:52Z",
+    "at_a_glance_checked_at": "2026-11-16T01:08:13Z",
     "at_a_glance_scope": "upcoming",
-    "checked_for_date": "2026-11-09",
+    "checked_for_date": "2026-11-16",
     "key_moments": [
       {
         "title": "CFO Leadership Transition Announced",
@@ -2444,7 +2448,7 @@
       }
     ],
     "at_a_glance_report_date": "2026-08-06",
-    "next_event_date": "2026-11-18",
+    "next_event_date": "2026-11-25",
     "next_date_source": "Google Finance",
     "next_date_status": "confirmed",
     "next_check_date": null,
@@ -2666,55 +2670,76 @@
   },
   "PHR": {
     "last_report_date": "2026-09-02",
-    "summary": "Phreesia delivered a solid second quarter for fiscal 2027, with revenue growing 10% year-over-year to $129.5 million and generating positive operating and free cash flow. This strong cash position enabled the company to reduce its debt principal by over $23 million while maintaining a robust cash balance.",
+    "summary": "Phreesia delivered a solid fiscal second quarter 2027 with 10% year-over-year revenue growth to $129.5 million and positive operating and free cash flow. This enabled the company to reduce its debt principal by over $23 million while maintaining a healthy cash balance and achieving its fifth consecutive quarter of positive net income.",
     "key_moments": [
       {
-        "title": "Debt Reduction and Cash Flow Strength",
-        "timestamp": "6m 31s",
-        "blurb": "Phreesia achieved its ninth consecutive quarter of positive operating cash flow ($18.3 million) and free cash flow ($13.8 million). Management leveraged this liquidity to reduce its debt principal by more than $23 million, strengthening its balance sheet while preserving a healthy cash runway."
+        "title": "AccessOne Integration and Growth Lever",
+        "timestamp": "9m 29s",
+        "blurb": "Management expressed high confidence in the AccessOne acquisition, citing positive client feedback and early market wins. The offering is expected to become a major growth lever over the next couple of years by filling a critical provider need for humane patient financing options."
       },
       {
-        "title": "Full-Year 2027 Guidance Reaffirmed",
-        "timestamp": "7m 20s",
-        "blurb": "Management maintained its fiscal 2027 revenue outlook ($510M–$520M) and Adjusted EBITDA outlook ($125M–$135M). This outlook absorbs a dynamic revenue mix shift, incorporating early Network Solutions traction alongside deliberate subscription pricing adjustments to support provider clients facing financial strain."
+        "title": "Network Solutions Visibility Rebound",
+        "timestamp": "10m 50s",
+        "blurb": "Phreesia indicated improved performance and business activity visibility in its Network Solutions segment compared to earlier in the year. Growth is being driven by strong traction from new products like ProviderConnect and a successful GLP-1 pilot campaign that converted new business."
       },
       {
-        "title": "AI Investments Drive Long-Term Growth",
+        "title": "Subscription Pricing Strategic Moderation",
+        "timestamp": "16m 4s",
+        "blurb": "The company is deliberately moderating subscription pricing to support provider partners facing severe economic strain from changing payer dynamics. This strategic move aims to deepen client relationships and ultimately drive higher downstream revenue across payment solutions and network growth."
+      },
+      {
+        "title": "AI Technology Transformation",
         "timestamp": "21m 2s",
-        "blurb": "Management highlighted extensive integration of AI across product lines, noting automation tools like VoiceAI and PlanMatch are transforming client workflows. CEO Chaim Indig stated that AI capability has accelerated product testing, significantly improved cost efficiency, and positioned the company to potentially accelerate growth in the future."
+        "blurb": "CEO Chaim Indig highlighted that AI integration is dramatically shortening product development lifecycles and reducing testing costs. Automation tools like PlanMatch are replacing manual processes, making leadership more optimistic about future growth acceleration than ever before."
       }
     ],
-    "checked_at": "2026-10-19T15:02:56Z",
-    "at_a_glance_checked_at": "2026-10-19T15:02:56Z",
+    "checked_at": "2026-11-16T01:08:21Z",
+    "at_a_glance_checked_at": "2026-11-16T01:08:21Z",
     "at_a_glance_scope": "reported",
     "at_a_glance": [
       {
-        "headline": "Phreesia Misses EPS But Beats Revenue",
-        "detail": "Phreesia reported a Reported Adjusted EPS of 0.03, missing the Estimated Adjusted EPS of 0.322, while its Reported Revenue of 129,458,000 slightly beat the estimated 128,989,170."
+        "headline": "Phreesia Misses EPS, Beats Revenue",
+        "detail": "Phreesia reported a significant miss on estimated adjusted EPS, posting $0.03 compared to the expected $0.322, while revenue slightly exceeded forecasts at $129.46 million versus the estimated $128.99 million."
       },
       {
-        "headline": "Client Base and Revenue Metrics Expand",
-        "detail": "Average Healthcare Services Clients (AHSC) grew 6% year-over-year to 4,744, while total revenue per AHSC increased 4% to $27,289, indicating improved monetization of its core footprint."
+        "headline": "Client Base and Revenue Metrics Rise",
+        "detail": "Average Healthcare Services Clients (AHSCs) grew 6% year-over-year to 4,744, while total revenue per AHSC increased by 4% to $27,289 despite experiencing a minor sequential seasonal decline."
       },
       {
-        "headline": "Full-Year Fiscal 2027 Outlook Maintained",
-        "detail": "Management reaffirmed its full-year fiscal 2027 revenue guidance of $510 million to $520 million and adjusted EBITDA guidance of $125 million to $135 million, reflecting stable operational expectations."
+        "headline": "Full-Year Fiscal 2027 Outlook Reaffirmed",
+        "detail": "Management maintained its fiscal 2027 revenue guidance of $510 million to $520 million and adjusted EBITDA guidance of $125 million to $135 million, indicating confidence in their commercial pipelines."
       },
       {
-        "headline": "Payment Solutions Offsets Core SaaS Decline",
-        "detail": "Payment Solutions revenue accelerated by 36% year-over-year, bolstered by the AccessOne acquisition, which effectively offset a 2% decline in core subscription software revenue."
+        "headline": "Monetization Shifts to Downstream Solutions",
+        "detail": "Subscription and related services revenue dropped 2% year-over-year to $52.7 million as management deliberately moderated SaaS pricing to drive downstream transaction growth in payment and network segments."
       },
       {
-        "headline": "Strong Cash Generation Enhances Balance Sheet",
-        "detail": "The company recorded its fifth consecutive profitable quarter with $1.9 million in net income, allowing it to execute a substantial $23.5 million reduction in debt principal."
+        "headline": "Acquisition Powers Payment Solutions Surge",
+        "detail": "Payment Solutions revenue surged 36% year-over-year, heavily supported by the successful integration and early market wins of the AccessOne patient financing acquisition."
+      },
+      {
+        "headline": "Strong Cash Flow Enables Debt Reduction",
+        "detail": "The company generated $13.8 million in free cash flow, marking its ninth consecutive quarter of positive cash generation and enabling a debt principal reduction of over $23 million."
       }
     ],
     "at_a_glance_report_date": "2026-09-02",
-    "checked_for_date": "2026-10-19",
-    "next_event_date": "2026-12-01",
-    "next_check_date": "2026-11-10",
-    "next_date_status": "tentative",
-    "next_date_source": "estimated from last earnings"
+    "checked_for_date": "2026-11-16",
+    "next_event_date": "2026-12-02",
+    "next_check_date": null,
+    "next_date_status": "confirmed",
+    "next_date_source": "Yahoo Finance",
+    "latest_results": {
+      "fiscal_period": "Q2 2027",
+      "report_date": "2026-09-02",
+      "period_end": "2026-07-31",
+      "eps": "0.28",
+      "eps_estimate": "0.32",
+      "eps_surprise": "-14.34%",
+      "revenue": "129.46M",
+      "revenue_estimate": "128.99M",
+      "revenue_surprise": "+0.36%",
+      "first_seen": null
+    }
   },
   "CCSI": {
     "last_report_date": "2026-11-05",
@@ -2786,12 +2811,12 @@
     "next_date_source": "estimated from last earnings"
   },
   "DH": {
-    "last_report_date": "2026-11-05",
-    "checked_at": "2026-11-09T14:38:25Z",
+    "last_report_date": "2026-11-12",
+    "checked_at": "2026-11-16T01:08:25Z",
     "summary": "Definitive Healthcare reported Q2 2026 revenue of $55.2 million, a 9% year-over-year decline, which met its guided range. Non-GAAP EPS was $0.05, and adjusted EBITDA reached $14.6 million. The company's diversified and provider segments, representing over 60% of revenue, are leading the recovery, while the life sciences segment remains slower to return to growth.",
-    "at_a_glance_checked_at": "2026-11-09T14:38:25Z",
+    "at_a_glance_checked_at": "2026-11-16T01:08:25Z",
     "at_a_glance_scope": "reported",
-    "checked_for_date": "2026-11-09",
+    "checked_for_date": "2026-11-16",
     "key_moments": [
       {
         "title": "Full-Year 2026 Revenue Guidance Tightened Lower",
@@ -2816,35 +2841,27 @@
     ],
     "at_a_glance": [
       {
-        "headline": "Mixed Top and Bottom Line Results",
-        "detail": "Definitive Healthcare reported a quarterly adjusted EPS of -$0.04, missing the estimated adjusted EPS of $0.042, while reported revenue slightly beat expectations at $54.65 million compared to the $54.58 million estimate."
+        "headline": "Revenue Beats Expectations Despite Decline",
+        "detail": "Definitive Healthcare reported Q3 2026 revenue of $54.65 million, slightly beating the estimated $54.58 million, while its Reported Adjusted EPS of $0 surpassed the expectations despite a 9% year-over-year revenue drop."
       },
       {
-        "headline": "Profitability Performance Outpaces Past Margins",
-        "detail": "The company recorded an Adjusted EBITDA of $15.7 million, representing 29% of revenue, down from 32% in Q3 2025 but above the high end of internal management expectations."
+        "headline": "Customer Count Shrinks as Subscriptions Decline",
+        "detail": "The company's total customer base fell to approximately 2,120 from 2,400 a year earlier, and enterprise customers declined to 471 from 520, driven by a drop in legacy subscription renewals."
       },
       {
-        "headline": "Financial Guidance Suspended Pending Buyout",
-        "detail": "Definitive Healthcare has withdrawn its full-year and fourth-quarter financial outlook and will not host an earnings call due to an ongoing non-binding acquisition proposal from Advent International."
+        "headline": "Forward Guidance Withheld Amid Buyout Proposal",
+        "detail": "Definitive Healthcare has completely suspended its full-year and fourth-quarter financial outlook, rendering the pause on forward guidance its most significant operational shift."
       },
       {
-        "headline": "Revenue Contraction Remains Core Risk",
-        "detail": "Total quarterly revenue fell 9% year-over-year from $60.0 million in Q3 2025, driven primarily by customer churn, sales execution difficulties, and broader macroeconomic headwinds."
+        "headline": "Pending Going-Private Proposal from Advent",
+        "detail": "The suspension of guidance and earnings calls follows a non-binding going-private acquisition proposal from Advent International and founder Jason Krantz received in September."
       },
       {
-        "headline": "Narrowing GAAP Net Losses Reported",
-        "detail": "The company's GAAP net loss significantly improved and narrowed by 70% to $5.4 million from a net loss of $17.8 million in the prior-year period."
-      },
-      {
-        "headline": "Persistent Top-Line Expansion Constraints",
-        "detail": "Despite highlighting new-logo additions and expansion activity during the quarter, the persistent contraction in top-line revenue triggered a 2.65% drop in after-hours stock value following the release."
+        "headline": "AI Turbo Platform Commences Select Testing",
+        "detail": "Definitive Healthcare kicked off an initial pilot program for its AI-powered Turbo healthcare intelligence platform with select strategic customers, planning a broader release later this year."
       }
     ],
     "at_a_glance_report_date": "2026-11-05",
-    "next_event_date": "2026-11-12",
-    "next_date_source": "Google Finance",
-    "next_date_status": "confirmed",
-    "next_check_date": null,
     "latest_results": {
       "fiscal_period": "Q3 2026",
       "report_date": "2026-11-05",
@@ -2856,7 +2873,12 @@
       "revenue_estimate": "54.58M",
       "revenue_surprise": "+0.12%",
       "first_seen": "2026-11-09"
-    }
+    },
+    "last_report_source": "Google Finance",
+    "next_event_date": "2027-02-10",
+    "next_check_date": "2027-01-20",
+    "next_date_status": "tentative",
+    "next_date_source": "estimated from last earnings"
   },
   "IQV": {
     "last_report_date": "2026-10-27",
@@ -3071,58 +3093,58 @@
   },
   "VEEV": {
     "last_report_date": "2026-08-26",
-    "summary": "Veeva reported strong Q2 fiscal 2027 results with total revenue of $928 million and non-GAAP operating income of $416 million, outperforming guidance. CEO Peter Gassner noted it was their best CRM quarter ever, driven by exceptional execution, acquisitions, and accelerating AI initiatives across Veeva Falcon.",
+    "summary": "Veeva Systems delivered strong Q2 2027 results, with total revenue reaching $928 million and non-GAAP operating income at $416 million, outperforming updated company guidance. Management highlighted exceptional execution across key areas, specifically noting the period as their best CRM quarter ever alongside rapid acceleration in AI development.",
     "key_moments": [
       {
-        "title": "Veeva Falcon Agentic Labor",
+        "title": "Agentic Labor Revenue Model Via Veeva Falcon",
         "timestamp": "6m 2s",
-        "blurb": "Veeva Falcon introduces 'agentic labor' as a fourth company pillar alongside cloud software, data, and consulting. It bypasses IT-heavy selling cycles to target business operational budgets directly, offering immediate cost savings and efficiency without extensive data-mapping implementations."
+        "blurb": "Veeva Falcon introduces a new category of \"agentic labor\" alongside traditional cloud software and consulting. This shift alters financial conversations by offering faster implementations without data mapping or ETL processes, and high customer interest driven by immediate compliance, efficiency, and cost savings."
       },
       {
-        "title": "CRM Competitor Win-Back Strategy",
+        "title": "CRM Competitive Win-Back Strategy",
         "timestamp": "15m 41s",
-        "blurb": "Large customers who selected Salesforce are facing project delays, creating actionable win-back opportunities for Veeva. Since the existing Veeva CRM support backstop expires in 2029, the critical window for these migrations will peak during 2027 and 2028."
+        "blurb": "Management anticipates winning back a handful of large customers that previously transitioned to Salesforce. They cited project delays and implementation struggles on the competitor's side, emphasizing that Veeva's deep product features and existing customer backstop through 2029 position them favorably for wins in 2027 and 2028."
       },
       {
-        "title": "AI Gross Margin Outlook",
-        "timestamp": "30m 28s",
-        "blurb": "Management anticipates Falcon's gross margins will align with traditional software. As AI agents mature, more processes shift to deterministic software, while underlying non-deterministic compute costs are expected to decline due to hardware improvements and open-weight models."
+        "title": "IQVIA Partnership One Year Post-Settlement",
+        "timestamp": "45m 22s",
+        "blurb": "One year after settling and partnering with IQVIA, management reported high satisfaction and customer appreciation due to reduced vendor friction. The relationship represents a massive pivot from two years ago, creating commercial synergies across data, services, and software critical to AI transformations."
       },
       {
-        "title": "IQVIA Partnership Update",
-        "timestamp": "44m 57s",
-        "blurb": "One year following the settlement and partnership with IQVIA, management reported outstanding mutual satisfaction and positive customer feedback. The collaboration minimizes marketplace friction and leverages shared data, software, and services to drive growth."
+        "title": "Aspen CRM Disruptive Value Proposition",
+        "timestamp": "58m 39s",
+        "blurb": "Veeva's Aspen initiative directly targets pain points in existing horizontal CRM platforms, including unpredictable pricing and extensive data entry requirements. Modeled after AWS, it offers transparent $50/user/month pricing with usage overages and leverages AI to eliminate manual data logging, aiming for three-month deployments."
       }
     ],
-    "checked_at": "2026-11-09T14:38:38Z",
-    "at_a_glance_checked_at": "2026-11-09T14:38:38Z",
-    "at_a_glance_scope": "upcoming",
+    "checked_at": "2026-11-16T01:08:29Z",
+    "at_a_glance_checked_at": "2026-11-16T01:08:29Z",
+    "at_a_glance_scope": "reported",
     "at_a_glance": [
       {
-        "headline": "Veeva Beats Top-Line Forecasts Handily",
-        "detail": "Veeva Systems reported a reported revenue of $927,963,000, beating the estimated revenue of $905,263,070, while its reported adjusted EPS of 1.66 fell short of the estimated adjusted EPS of 2.222."
+        "headline": "Veeva Beats EPS and Revenue Estimates",
+        "detail": "Veeva Systems reported a top-line beat for Q2 2027 with revenue reaching $927.96 million compared to estimates of $905.26 million, while posting a reported adjusted EPS of $1.66 against the expected $2.222."
       },
       {
-        "headline": "Record Milestone for Vault CRM",
-        "detail": "Subscription revenues grew 16% year-over-year to $766.8 million, driven by the company's best-ever performance in CRM migration, including key additions from top-tier biopharma companies."
+        "headline": "Subscription and CRM Reach Record Levels",
+        "detail": "Core subscription revenues grew 16% year-over-year to $766.8 million, propelled by Vault CRM which achieved its best-ever performance quarter with major customer migrations and key wins among top biopharmaceutical organizations."
       },
       {
-        "headline": "Full-Year Financial Targets Raised Higher",
-        "detail": "Management increased its fiscal year 2027 revenue guidance to a range between $3.682 billion and $3.687 billion, highlighting a positive sequential trend and strong commercial momentum."
+        "headline": "Management Ups Full-Year Guidance Metrics",
+        "detail": "Reflecting strong operational visibility, Veeva raised its fiscal year 2027 total revenue targets to between $3.682 billion and $3.687 billion and projected full-year adjusted EPS to settle at approximately $9.21."
       },
       {
-        "headline": "Strong Traction for Falcon AI",
-        "detail": "The company introduced 'agentic labor' via Veeva Falcon as its next major growth pillar, which has quickly gained early adopters and is on track for initial implementations this year."
+        "headline": "Veeva Falcon Speeds Up AI Strategy",
+        "detail": "The company reported rapid customer interest and development for Veeva Falcon, its specialized agentic AI labor platform, positioning it as an emerging fourth corporate pillar alongside software, data, and consulting."
       },
       {
-        "headline": "Positive Stock Surge After Hours",
-        "detail": "Shares of Veeva soared over 9% in after-hours trading following the announcement, reflecting positive investor response to the strong execution across its commercial and cloud portfolios."
+        "headline": "Strong Earnings Performance Triggers Stock Surge",
+        "detail": "Following the strong financial metrics and updated full-year outlook, market reactions were highly favorable as Veeva's shares surged by 15.2% on the trading print immediately after the release."
       }
     ],
     "at_a_glance_report_date": "2026-08-26",
-    "checked_for_date": "2026-11-09",
-    "next_event_date": "2026-11-19",
-    "next_date_source": "Google Finance",
+    "checked_for_date": "2026-11-16",
+    "next_event_date": "2026-12-03",
+    "next_date_source": "Yahoo Finance",
     "next_date_status": "confirmed",
     "next_check_date": null,
     "latest_results": {
@@ -3606,61 +3628,61 @@
     "next_date_source": "estimated from last earnings"
   },
   "PNTG": {
-    "last_report_date": "2026-11-05",
-    "summary": "The Pennant Group reported strong Q3 2026 results, with revenue up 32% to $302.3 million and adjusted EPS up 16.7% to $0.35. Adjusted EBITDA rose 42.4% to $24.7 million. Year-over-year, the company served nearly 40% more home health patients, 35% more hospice patients, and 10% more senior living residents.",
-    "at_a_glance_checked_at": "2026-11-09T14:37:21Z",
-    "at_a_glance_scope": null,
-    "checked_at": "2026-11-09T14:37:22Z",
-    "checked_for_date": "2026-11-09",
+    "last_report_date": "2026-11-12",
+    "summary": "The Pennant Group reported strong Q3 2026 results, with revenue up 32% year-over-year to $302.3 million, adjusted EBITDA up 42.4% to $24.7 million, and adjusted EPS increasing 16.7% to $0.35. Operations saw significant expansion, serving roughly 40% more home health patients, 35% more hospice patients, and 10% more senior living residents year-over-year.",
+    "at_a_glance_checked_at": "2026-11-16T01:07:57Z",
+    "at_a_glance_scope": "reported",
+    "checked_at": "2026-11-16T01:07:58Z",
+    "checked_for_date": "2026-11-16",
     "key_moments": [
       {
-        "title": "Full-Year Guidance Reaffirmed Despite Benefits Drag",
-        "timestamp": "5m 17s",
-        "blurb": "Management reaffirmed their full-year guidance despite an organization-wide increase in self-funded employee benefit costs that created a 50 basis point revenue headwind. The impact is expected to persist into Q4, but strong operational momentum across segments keeps full-year expectations intact."
+        "title": "Full-Year Guidance Reaffirmed Despite Cost Pressures",
+        "timestamp": "5m 16s",
+        "blurb": "Management reaffirmed its full-year guidance, expressing confidence in operational momentum despite facing higher-than-anticipated self-funded employee benefits expenses. These elevated costs created 50 basis points of margin pressure organization-wide during Q3, and management has proactively incorporated similar elevated cost expectations into its fourth-quarter projections."
       },
       {
-        "title": "Senior Living Margins Strained by Rapid Transitions",
+        "title": "Home Health Final Rule Rate Impact",
+        "timestamp": "5m 16s",
+        "blurb": "The recently released Home Health Final Rule introduces a 2.1% net increase in the payment rate, translating to approximately 1.5% for Pennant's specific claims portfolio. While CEO Brent Guerisoli noted that any increase is a step forward, he emphasized it remains insufficient to adequately cover persistent high inflation and structural underfunding."
+      },
+      {
+        "title": "Senior Living Integration and Leadership Capacity Constraints",
         "timestamp": "12m 25s",
-        "blurb": "Senior Living Adjusted EBITDA was roughly flat due to leadership capacity constraints in two key turnaround markets. A heavy influx of 16 community acquisitions since 2025 created localized operational lumpiness and occupancy declines, though management anticipates Q4 will show improvement."
+        "blurb": "Aggressive expansion in the Senior Living segment, including 16 community acquisitions since early last year, temporarily outpaced local leadership capacity in two specific markets. This bottleneck caused operational and occupancy drag in both newly transitioned and same-store communities, though management expects a Q4 recovery as local clusters stabilize."
       },
       {
-        "title": "Southeast EMR Integration Complete Ahead of Projections",
-        "timestamp": "15m 4s",
-        "blurb": "The complex EMR integration of 54 locations acquired from UnitedHealth and Amedisys in the Southeast was successfully completed on October 31. Despite temporary clinician and census disruptions common to large transitions, the operational rollouts performed ahead of internal management expectations."
-      },
-      {
-        "title": "Payer Opportunities Driven by Clinical Outperformance",
-        "timestamp": "33m 19s",
-        "blurb": "With a potentially preventable hospitalization rate of 9.9% versus the 10.8% industry average, Pennant expects to benefit from narrowing Managed Care networks. Management intends to leverage their strong quality metrics to negotiate improved reimbursement rates with payers scaling across regions."
+        "title": "Strategic Managed Care Expansion Opportunities",
+        "timestamp": "26m 47s",
+        "blurb": "While the newly acquired Southeast home health locations caused a 2.2% drop in segment revenue per episode due to lower regional Medicare wage indexes, management views the geographic expansion as a major long-term upside. The broader footprint enables Pennant to secure stronger, national managed-care contracts with network-narrowing commercial payers."
       }
     ],
     "at_a_glance": [
       {
-        "headline": "Pennant Group Outperforms Financial Estimates",
-        "detail": "The Pennant Group reported an adjusted EPS of $0.25, missing the estimated $0.33, while reported revenue reached $297,984,000, beating expectations of $288,707,430."
+        "headline": "Pennant Group Beats Revenue Estimates",
+        "detail": "Pennant Group reported Q3 2026 revenue of $302,251,000, beating the estimated $299,467,000, while reported adjusted EPS came in at $0.26 compared to the estimated adjusted EPS of 0.354."
       },
       {
-        "headline": "Operational Volumes Drive Double-Digit Growth",
-        "detail": "Total home health admissions jumped 62.3% and hospice average daily census grew 40.1% year-over-year, which reflects robust organic gains and strategic integration of acquired operations."
+        "headline": "Strong Double-Digit Patient Volume Growth",
+        "detail": "Home health admissions increased 39.4% and hospice admissions grew 31.8% year over year, showing significant volume expansion compared to historical baselines."
       },
       {
-        "headline": "Management Raises Full-Year Guidance Outlook",
-        "detail": "Fueled by strong operational momentum, the company raised its full-year 2026 outlook, now forecasting revenue between $1.17 billion and $1.19 billion and adjusted EPS of $1.34 to $1.41."
+        "headline": "Full-Year Guidance Reaffirmed Comfortably",
+        "detail": "Management reaffirmed its full-year guidance for 2026, indicating confidence in operational momentum despite facing short-term margin pressures."
       },
       {
-        "headline": "Home Health and Hospice Leads Expansion",
-        "detail": "The Home Health and Hospice Services segment achieved a 43.2% increase in revenue to $237.8 million, showing major expansion over the prior year quarter."
+        "headline": "Southeast Expansion Integrates Successfully",
+        "detail": "The company completed key integration milestones for its Southeast expansion, transitioning 54 acquired locations to its internal electronic medical record system ahead of initial expectations."
       },
       {
-        "headline": "Strategic Northeast Footprint Extension",
-        "detail": "The company expanded its strategic regional presence through a key equity investment in Hartford HealthCare at Home, establishing a platform for long-term growth in the Northeast."
+        "headline": "Employee Benefits Pressure Margins",
+        "detail": "Elevated employee benefit costs in self-funded plans acted as a clear headwind, introducing a margin drag equivalent to roughly 50 basis points of revenue."
+      },
+      {
+        "headline": "Stock Declines Post Earnings Release",
+        "detail": "The company's stock fell over 9% following the earnings release, as investors absorbed leadership strain and occupancy pressures across specific senior living markets."
       }
     ],
-    "at_a_glance_report_date": "2026-08-06",
-    "next_event_date": "2026-11-12",
-    "next_date_source": "Google Finance",
-    "next_date_status": "confirmed",
-    "next_check_date": null,
+    "at_a_glance_report_date": "2026-11-05",
     "latest_results": {
       "fiscal_period": "Q3 2026",
       "report_date": "2026-11-05",
@@ -3672,7 +3694,12 @@
       "revenue_estimate": "299.47M",
       "revenue_surprise": "+0.93%",
       "first_seen": "2026-11-09"
-    }
+    },
+    "last_report_source": "Google Finance",
+    "next_event_date": "2027-02-10",
+    "next_check_date": "2027-01-20",
+    "next_date_status": "tentative",
+    "next_date_source": "estimated from last earnings"
   },
   "USPH": {
     "last_report_date": "2026-11-05",
@@ -3817,73 +3844,77 @@
     "next_date_source": "estimated from last earnings"
   },
   "AVAH": {
-    "last_report_date": "2026-08-13",
-    "summary": "Aveanna reported Q2 2026 revenue of $670.5 million, up 13.7% year-over-year, and adjusted EBITDA of $95.4 million, up 8%, driven by an improved rate and volume environment and operational efficiencies. Management raised full-year 2026 guidance to revenue greater than $2.6 billion and adjusted EBITDA greater than $365 million.",
-    "at_a_glance_checked_at": "2026-11-09T14:37:31Z",
-    "at_a_glance_scope": "upcoming",
-    "checked_at": "2026-11-09T14:37:31Z",
-    "checked_for_date": "2026-11-09",
+    "last_report_date": "2026-11-12",
+    "summary": "Aveanna Healthcare reported strong Q3 2026 results, with revenue increasing 11.8% year-over-year to $695.5 million and adjusted EBITDA growing 25% to $100.1 million. Performance was driven by solid organic growth across all three operating segments, improvements in clinical and financial outcomes, and continued operational efficiencies.",
+    "at_a_glance_checked_at": "2026-11-16T01:08:02Z",
+    "at_a_glance_scope": "reported",
+    "checked_at": "2026-11-16T01:08:02Z",
+    "checked_for_date": "2026-11-16",
     "key_moments": [
       {
-        "title": "Long-Term Organic Growth Targets Upgraded",
-        "timestamp": "13m 44s",
-        "blurb": "Management upgraded long-term organic revenue growth guidance due to improved rate visibility post-regulatory adjustments. Private Duty Services increased to 5%-6% and Home Health and Hospice raised to 8%-10%, signaling stronger multi-year operational momentum."
+        "title": "Full-Year 2026 Guidance Raised",
+        "timestamp": "11m 16s",
+        "blurb": "Aveanna raised its full-year 2026 financial guidance to project revenue over $2.695 billion and adjusted EBITDA over $374 million, pleasing investors by demonstrating sustained organic demand, a strong pricing environment, and high operational execution across all core segments."
       },
       {
-        "title": "Full Year 2026 Outlook Raised",
-        "timestamp": "23m 39s",
-        "blurb": "Aveanna increased its full-year 2026 guidance to project revenue over $2.68 billion and adjusted EBITDA above $365 million. This upward adjustment reflects robust underlying performance across all three operating segments."
+        "title": "Home Health Growth Acceleration",
+        "timestamp": "16m 51s",
+        "blurb": "The Home Health segment delivered impressive volume growth of 24% and episodic admission growth of 19.6%. This significantly outperformed long-range targets due to a successful shift to an 80% episodic mix, accelerating margin expansion and improving clinical outcomes."
       },
       {
-        "title": "Gross Margin Percentage Trajectory Clarified",
-        "timestamp": "25m 48s",
-        "blurb": "Management clarified that long-term gross margin percentages will remain stable despite higher reimbursement rates, as incremental revenue will primarily be passed through as caregiver wages to drive volume growth."
+        "title": "California Reimbursement Clarity Shift",
+        "timestamp": "25m 56s",
+        "blurb": "Management revealed that California's planned 2027 PDN funding is currently structured as a temporary supplemental payment rather than a permanent base rate increase. This will delay planned base wage hikes for local nurses, introducing near-term labor and volume friction in that state."
       },
       {
-        "title": "Proactive California Wage Strategy",
-        "timestamp": "28m 47s",
-        "blurb": "Aveanna will proactively implement caregiver wage increases in California starting this fall, ahead of the January 1, 2027 rate hike, allowing the company to capture pent-up demand and onboard staff early."
+        "title": "Sequential Q4 Outlook Clarification",
+        "timestamp": "40m 11s",
+        "blurb": "Analysts focused on an implied sequential step-down in Q4 guidance. Management explained this is due to traditional holiday seasonality and the lapping of a 14th extra week in Q4 2025, reassuring investors that the core run-rate remains robust."
       }
     ],
     "at_a_glance": [
       {
-        "headline": "Aveanna Beats EPS and Revenue Estimates",
-        "detail": "Aveanna Healthcare reported Q2 2026 Adjusted EPS of $0.18, beating the estimated $0.167, and posted revenue of $670.48 million, which surpassed the expected $638.63 million."
+        "headline": "Aveanna Misses EPS, Beats Revenue Estimates",
+        "detail": "Aveanna Healthcare reported Q3 2026 adjusted EPS of $0.2, missing the estimated $0.207, while its reported revenue of $695.54 million beat the consensus estimate of $680.62 million."
       },
       {
-        "headline": "Segment Performance Outpaces Prior Volume Metrics",
-        "detail": "Private Duty Services revenue jumped 14% year-over-year to $553.93 million, while total billable hours grew to 12,413 hours, exceeding analyst projections."
+        "headline": "Strong Volume and Segment Growth Achieved",
+        "detail": "The company experienced an 11.8% year-over-year revenue increase driven by growth across all business lines, including a 15.6% jump in Home Health and Hospice alongside 13 million hours of care provided in Private Duty Services."
       },
       {
-        "headline": "Full Year 2026 Guidance Raised",
-        "detail": "The company increased its full-year 2026 revenue outlook to greater than $2.68 billion and its Adjusted EBITDA guidance to greater than $365 million, driven by organic core strength."
+        "headline": "Full Year 2026 Guidance Upwardly Revised",
+        "detail": "Management increased its full-year 2026 outlook, now expecting total revenue to exceed $2.695 billion and adjusted EBITDA to surpass $374 million."
       },
       {
-        "headline": "Preferred Payer Expansion Accelerates Growth",
-        "detail": "Private Duty Services increased its managed care volume tied to preferred payers to 64%, up from 60% in the previous quarter, while Home Health reached its full-year goal of 50 preferred payers."
+        "headline": "Preferred Payer Strategy Drives Efficiencies",
+        "detail": "CEO Jeff Shaner noted that directing caregiver capacity toward preferred payers willing to offer enhanced reimbursement rates substantially improved hiring, retention, and overall operational margins."
       },
       {
-        "headline": "Wage Inflation Impacts Operating Margins",
-        "detail": "Despite a double-digit top-line revenue expansion, intense caregiver wage inflation and integration costs outpaced rate enhancements, leading to a 320 basis point compression in consolidated gross margin."
+        "headline": "Strong Cash Generation Helps Deleveraging Goals",
+        "detail": "Year-to-date free cash flow rose to $141.2 million, supporting the firm's strategic goal of achieving sub-3x net leverage by 2027 despite carrying $1.52 billion in total debt."
+      },
+      {
+        "headline": "Shares Decline Despite Higher Outlook",
+        "detail": "Despite beating revenue expectations and increasing full-year guidance, Aveanna's shares fell 6.88% in early trading as investors weighed near-term seasonal headwinds against the quarterly operational beat."
       }
     ],
-    "at_a_glance_report_date": "2026-08-13",
-    "next_event_date": "2026-11-12",
-    "next_date_source": "Google Finance",
-    "next_date_status": "confirmed",
-    "next_check_date": null,
+    "at_a_glance_report_date": "2026-11-12",
     "latest_results": {
-      "fiscal_period": "Q2 2026",
-      "report_date": "2026-08-13",
-      "period_end": "2026-07-31",
-      "eps": "0.22",
-      "eps_estimate": "0.17",
-      "eps_surprise": "+31.59%",
-      "revenue": "670.48M",
-      "revenue_estimate": "638.63M",
-      "revenue_surprise": "+4.99%",
-      "first_seen": null
-    }
+      "fiscal_period": "Q3 2026",
+      "report_date": "2026-11-12",
+      "period_end": "2026-10-31",
+      "eps": "0.23",
+      "eps_estimate": "0.21",
+      "eps_surprise": "+10.90%",
+      "revenue": "695.54M",
+      "revenue_estimate": "680.62M",
+      "revenue_surprise": "+2.19%",
+      "first_seen": "2026-11-16"
+    },
+    "next_event_date": "2027-02-10",
+    "next_check_date": "2027-01-20",
+    "next_date_status": "tentative",
+    "next_date_source": "estimated from last earnings"
   },
   "PGNY": {
     "last_report_date": "2026-11-04",
@@ -4029,56 +4060,56 @@
   },
   "HQY": {
     "last_report_date": "2026-08-27",
-    "summary": "HealthEquity delivered accelerated Q2 2027 performance, with total HSA assets up 14% year-over-year, total HSAs growing 8% to 10.7 million, and a record 24% year-over-year growth in new HSAs from sales. The company achieved a record adjusted EBITDA margin of 48%, highlighting increased durability and operating cash flow efficiency.",
+    "summary": "HealthEquity delivered accelerated Q2 fiscal 2027 revenue growth of 8% year-over-year to a record $350.7M and reached a record adjusted EBITDA margin of 48%. The platform scaled with total HSA accounts increasing 8% to a record 10.7 million, supported by growing operating cash flow and disciplined capital allocation.",
     "key_moments": [
       {
-        "title": "HSA Sales and Guidance Beat Expectations",
-        "timestamp": "3m 13s",
-        "blurb": "HealthEquity outperformed Q2 2027 expectations, posting a record 24% year-over-year increase in new HSA sales outside the open enrollment period. This growth, coupled with strong cost reductions via AI tools, gave management the confidence to raise its full-year fiscal 2027 revenue and non-GAAP EPS guidance."
+        "title": "Guidance Raised Across Key Metrics",
+        "timestamp": "17m 11s",
+        "blurb": "HealthEquity raised its full-year fiscal 2027 guidance based on robust first-half execution, strong technology-driven efficiency, and reduced service costs, pleasing investors with higher projected revenue and profitability."
       },
       {
-        "title": "AI Investments Drive Down Service Costs",
-        "timestamp": "9m 53s",
-        "blurb": "Investors will be pleased by the clear operating leverage stemming from AI integrations. AI-driven routine chat resolution and phone containment led to a 25% year-over-year decline in human-handled calls, directly expanding the company's gross margin to a record 74% and lowering service costs per account."
+        "title": "Massive Efficiency Gains from Service AI",
+        "timestamp": "29m 16s",
+        "blurb": "Technology and AI integration led to a 25% year-over-year reduction in human-handled phone calls, validating management's margin expansion strategy by lowering operational service costs per account."
       },
       {
-        "title": "Marketplace Activity Inflects Service Revenue",
-        "timestamp": "19m 15s",
-        "blurb": "While currently immaterial to total revenue, the consumer Marketplace showed strong growth signs, hitting 14,000 active members. A promotional 'Health Savings Days' campaign drove over 500,000 unique visitors in one week, signaling a massive high-margin cross-sell funnel that incurs virtually zero acquisition costs."
+        "title": "Record Out-of-Season HSA Sales Growth",
+        "timestamp": "34m 8s",
+        "blurb": "New HSAs from sales jumped 24% year-over-year, marking the strongest non-open enrollment quarter in company history and proving the business can scale independently of macro labor market headwinds."
       },
       {
-        "title": "Advanced Enhanced Rate Hedging Initiated",
-        "timestamp": "59m 38s",
-        "blurb": "HealthEquity introduced an innovative expansion to its hedging strategy by locking in forward contracts tied to enhanced rate repricings for the next 12-18 months. This locks long-term yields at attractive market benchmarks, minimizing revenue volatility caused by prospective shifts in the five-year treasury curve."
+        "title": "Marketplace Strategy Validation",
+        "timestamp": "44m 4s",
+        "blurb": "Highly targeted campaigns and \"Health Savings Days\" drove record traffic, proving the platform's ability to transition users into deeper transactional engagement and unlock low-acquisition-cost monetization paths."
       }
     ],
-    "at_a_glance_checked_at": "2026-11-09T14:38:05Z",
+    "at_a_glance_checked_at": "2026-11-16T01:08:17Z",
     "at_a_glance_scope": "reported",
     "at_a_glance": [
       {
-        "headline": "HealthEquity Misses EPS But Beats Revenue",
-        "detail": "HealthEquity reported an Adjusted EPS of $0.78, missing the estimated $1.193, while quarterly revenue came in at $350.73 million, beating the analyst consensus of $349.23 million."
+        "headline": "HealthEquity Misses EPS, Beats Revenue",
+        "detail": "For the fiscal quarter Q2 2027, HealthEquity reported an Adjusted EPS of $0.78, missing the estimated $1.193, while its reported revenue of $350.73 million slightly beat expectations of $349.23 million."
       },
       {
-        "headline": "Strong Record Health Savings Account Growth",
-        "detail": "Total Health Savings Accounts (HSAs) grew 8% year-over-year to a record 10.7 million, with new HSAs from sales surging 24% to highlight accelerating demand."
+        "headline": "Strong Growth in HSA KPIs",
+        "detail": "Total Health Savings Accounts (HSAs) grew 8% year-over-year to a record 10.7 million, with new HSAs from sales expanding 24% and total HSA assets climbing 14% to $37.9 billion."
       },
       {
-        "headline": "Full Year Revenue Guidance Raised Slightly",
-        "detail": "Management increased its fiscal 2027 revenue outlook to a range of $1.411 billion to $1.421 billion, driven by robust first-half momentum."
+        "headline": "Full-Year Fiscal Guidance Raised",
+        "detail": "Management raised its full-year fiscal 2027 revenue guidance to a range of $1.411 billion to $1.421 billion and projected an improved average HSA cash yield of 3.85% to 3.90%."
       },
       {
-        "headline": "AI Enhancements Lower Total Service Costs",
-        "detail": "The deployment of AI-driven automation reduced human-handled service calls by 25% year-over-year and successfully resolved 85% of routine chat inquiries."
+        "headline": "Record EBITDA Margin via AI",
+        "detail": "The company's adjusted EBITDA margin expanded to a record 48%, largely driven by AI-driven automation that cut human-handled service calls by 25% year-over-year."
       },
       {
-        "headline": "Shares Decline Despite Revenue Beat",
-        "detail": "HealthEquity's stock dropped nearly 14% post-announcement, signaling potential investor concern over the magnitude of the full-year guidance raise and underlying valuation."
+        "headline": "Market Subdued by Consensus Matching",
+        "detail": "Despite raising guidance and beating revenue expectations, the company's stock fell 11% following the release as the updated full-year forecast merely matched preexisting market consensus."
       }
     ],
     "at_a_glance_report_date": "2026-08-27",
-    "checked_at": "2026-11-09T14:38:06Z",
-    "checked_for_date": "2026-11-09",
+    "checked_at": "2026-11-16T01:08:17Z",
+    "checked_for_date": "2026-11-16",
     "next_event_date": "2026-12-01",
     "next_check_date": null,
     "next_date_status": "confirmed",
@@ -4507,8 +4538,8 @@
         "blurb": "While operating profits grew 15% in Q1, executives noted that a portion of the top-line upside is being actively reinvested into high-growth commercial initiatives. The move maintains an estimated 50 basis point operating margin expansion for the full year, inline with balanced reinvestment strategies."
       }
     ],
-    "at_a_glance_checked_at": "2026-11-09T14:54:44Z",
-    "at_a_glance_scope": "reported",
+    "at_a_glance_checked_at": "2026-11-16T01:12:20Z",
+    "at_a_glance_scope": "upcoming",
     "at_a_glance": [
       {
         "headline": "Medtronic Toops Q1 Financial Estimates",
@@ -4532,10 +4563,10 @@
       }
     ],
     "at_a_glance_report_date": "2026-09-01",
-    "checked_at": "2026-11-09T14:54:45Z",
-    "checked_for_date": "2026-11-09",
+    "checked_at": "2026-11-16T01:12:20Z",
+    "checked_for_date": "2026-11-16",
     "next_event_date": "2026-11-24",
-    "next_date_source": "Yahoo Finance",
+    "next_date_source": "Google Finance",
     "next_date_status": "confirmed",
     "next_check_date": null,
     "latest_results": {
@@ -7296,73 +7327,74 @@
     "next_date_source": "estimated from last earnings"
   },
   "IONS": {
-    "last_report_date": "2026-11-09",
-    "summary": "expand_less",
+    "last_report_date": "2026-11-11",
+    "summary": "Ionis reported strong financial results for Q3 2026, with revenue reaching $243 million, marking a 55% year-over-year increase compared to the same period last year (excluding a prior one-time payment). Commercial revenue grew 18% year-over-year to $136 million, outpacing R&D revenue, driven primarily by strong momentum from DAWNZERA product sales.",
     "key_moments": [
       {
-        "title": "Tringolza Guidance Reduction",
-        "timestamp": "11m 9s",
-        "blurb": "Management cut full-year 2026 revenue expectations for newly launched Tringolza to ~$50 million. While fundamentals and clinical efficacy are strong, the launch faces friction as physicians take time to adopt a new treatment paradigm and navigate medical exception processes before formal payer coverage is broadly implemented."
+        "title": "TRYNGOLZA FY2026 Guidance Cut",
+        "timestamp": "2m 20s",
+        "blurb": "Investors will be disappointed by Ionis lowering its full-year TRYNGOLZA revenue guidance to ~$50 million due to a slower launch ramp. While physician enthusiasm remains high, navigating a brand-new market, establishing payer coverage policies, and executing early medical exceptions are taking more time than the company initially projected."
       },
       {
-        "title": "Partner Pipeline Delivery",
-        "timestamp": "27m 28s",
-        "blurb": "Despite two recent Phase 3 disappointments, the partner pipeline yielded the U.S. and Japan approval of Hepsago, a positive Phase 3 interim readout for Cefaxorcin in IgA nephropathy with potential 2027 U.S. approval, and positive Phase 3 top-line results for Olesnerfen in FUS-ALS."
+        "title": "Strong Q3 Financial Growth",
+        "timestamp": "18m 59s",
+        "blurb": "Ionis delivered a solid revenue beat, reporting $243 million against estimates of $184.4 million, representing 55% organic year-over-year growth. This top-line strength, alongside an EPS miss that was much narrower than projected, showcases strong underlying commercial momentum and a valuable financial amplification from partnered program milestones."
       },
       {
-        "title": "Donzera Sales Momentum Increases",
-        "timestamp": "28m 46s",
-        "blurb": "Donzera continues to act as a primary commercial growth driver, achieving $37 million in Q3 product sales, marking a sequential increase of approximately 40%. Adoption is driven by market share capture in HAE prophylaxis from switching patients as well as treatment-naive individuals."
+        "title": "DAWNZERA Commercial Outperformance",
+        "timestamp": "20m 8s",
+        "blurb": "Investors will be pleased with DAWNZERA's substantial 40% sequential growth in Q3, generating $37 million in product sales. The launch is hitting its stride by capturing U.S. market share from therapy switches and expanding globally with a recent approval in Canada and positive reimbursement decisions across Europe."
       },
       {
-        "title": "Positive Cash Flow Timeline Delayed",
-        "timestamp": "43m 34s",
-        "blurb": "Due to recent Phase 3 pipeline setbacks and the slower-than-anticipated commercial launch ramp for Tringolza, Ionis pushed its projected timeline to achieve sustained positive cash flow out by one year, moving the target from 2028 to 2029."
+        "title": "Delayed Cash Flow Break-Even Timeline",
+        "timestamp": "35m 4s",
+        "blurb": "Management adjusted its expected timeline to reach sustained positive cash flow from 2028 out to 2029. This delay will frustrate investors as it stems directly from the slower commercial ramp of TRYNGOLZA alongside recent high-profile Phase III pipeline failures for eplontersen and pelacarsen, extending the company's capital investment phase."
       }
     ],
-    "at_a_glance_checked_at": "2026-11-09T14:56:19Z",
+    "at_a_glance_checked_at": "2026-11-16T01:12:24Z",
     "at_a_glance_scope": "reported",
     "at_a_glance": [
       {
-        "headline": "Ionis Beats Revenue and EPS Estimates",
-        "detail": "Ionis Pharmaceuticals reported a reported revenue of $243 million, outperforming the estimated $184.38 million, while its adjusted EPS came in at $0.00 compared to the projected loss of $0.934."
+        "headline": "Ionis Beats EPS and Revenue Estimates",
+        "detail": "Ionis Pharmaceuticals reported a reported adjusted EPS of $0 and a reported revenue of $242,721,000, strongly beating estimated adjusted EPS of -$0.934 and estimated revenue of $184,375,930."
       },
       {
-        "headline": "Commercial Revenue Driven by DAWNZERA",
-        "detail": "Total commercial revenue grew 18% year-over-year to $136 million, led primarily by strong DAWNZERA product sales, while total net product sales hit $48 million compared to $33 million in the prior year period."
+        "headline": "Commercial Revenue Driven by DAWNZERA Growth",
+        "detail": "Total commercial revenue reached $136 million for the quarter, up 18% year-over-year, heavily supported by DAWNZERA product sales which brought in $37 million, up 40% from the previous quarter."
       },
       {
-        "headline": "TRYNGOLZA Revenue Guidance Cut Severely",
-        "detail": "Management slashed full-year 2026 revenue guidance for its flagship drug TRYNGOLZA by over 50% to approximately $50 million, though overall full-year company revenue expectations were maintained at $875 million to $900 million."
+        "headline": "TRYNGOLZA Forecast Slashed While Reaffirming Guidance",
+        "detail": "The company slashed full-year 2026 sales guidance for TRYNGOLZA to approximately $50 million due to a slower-than-expected launch ramp, though it maintained overall total revenue guidance of $875 million to $900 million."
       },
       {
-        "headline": "Pipeline Disappointments Pressure the Stock",
-        "detail": "Despite solid financial results, investor sentiment has been impacted by recent clinical setbacks, including the late-stage failure of the partnered heart drug pelacarsen with Novartis."
+        "headline": "Cash Flow Breakeven Target Pushed Back",
+        "detail": "Management pushed its target timeline for sustained positive cash flow by one year from 2028 to 2029, citing the gradual TRYNGOLZA rollout and clinical Phase III disappointments in partnered programs."
       },
       {
-        "headline": "Strong Cash Runway Maintained",
-        "detail": "Ionis closed the quarter with $1.9 billion in cash and short-term investments, reaffirming its projection to end the year with over $1.6 billion and keeping the company on its path toward cash-flow breakeven by 2028."
+        "headline": "Stock Plummets Amid Mixed Launch Progress",
+        "detail": "Despite delivering a headline earnings beat, the stock plummeted nearly 28% as investors reacted with disappointment over commercial trial roadblocks and slower product adoption updates."
       }
     ],
     "at_a_glance_report_date": "2026-11-09",
-    "checked_at": "2026-11-09T14:56:19Z",
-    "checked_for_date": "2026-11-09",
-    "next_event_date": "2026-11-11",
-    "next_check_date": null,
-    "next_date_status": "confirmed",
-    "next_date_source": "Google Finance",
+    "checked_at": "2026-11-16T01:12:24Z",
+    "checked_for_date": "2026-11-16",
     "latest_results": {
       "fiscal_period": "Q3 2026",
       "report_date": "2026-11-09",
-      "period_end": null,
+      "period_end": "2026-09-30",
       "eps": "-0.40",
       "eps_estimate": "-0.93",
       "eps_surprise": "+56.81%",
-      "revenue": "243.00M",
+      "revenue": "242.72M",
       "revenue_estimate": "184.38M",
-      "revenue_surprise": "+31.80%",
+      "revenue_surprise": "+31.64%",
       "first_seen": "2026-11-09"
-    }
+    },
+    "last_report_source": "Google Finance",
+    "next_event_date": "2027-02-09",
+    "next_check_date": "2027-01-19",
+    "next_date_status": "tentative",
+    "next_date_source": "estimated from last earnings"
   },
   "ADMA": {
     "checked_at": "2026-11-09T14:56:24Z",
@@ -7390,19 +7422,15 @@
     "next_date_source": "estimated from last earnings"
   },
   "OCUL": {
-    "checked_at": "2026-11-09T14:56:30Z",
-    "checked_for_date": "2026-11-09",
-    "next_event_date": "2026-11-09",
-    "next_date_source": "Yahoo Finance",
-    "next_date_status": "confirmed",
-    "next_check_date": null,
+    "checked_at": "2026-11-16T01:12:29Z",
+    "checked_for_date": "2026-11-16",
     "summary": "",
-    "at_a_glance_checked_at": "2026-11-09T14:56:27Z",
+    "at_a_glance_checked_at": "2026-11-16T01:12:28Z",
     "at_a_glance_scope": null,
     "latest_results": {
       "fiscal_period": "Q3 2026",
       "report_date": null,
-      "period_end": null,
+      "period_end": "2026-09-30",
       "eps": "-0.42",
       "eps_estimate": "-0.35",
       "eps_surprise": "-19.59%",
@@ -7410,7 +7438,13 @@
       "revenue_estimate": "14.30M",
       "revenue_surprise": "-9.96%",
       "first_seen": "2026-11-09"
-    }
+    },
+    "last_report_date": "2026-11-09",
+    "last_report_source": "Yahoo Finance",
+    "next_event_date": "2027-02-04",
+    "next_date_source": "Yahoo Finance",
+    "next_date_status": "tentative",
+    "next_check_date": "2027-01-14"
   },
   "NVCR": {
     "last_report_date": "2026-10-29",
@@ -7753,39 +7787,39 @@
     "next_date_source": "estimated from last earnings"
   },
   "CGON": {
-    "last_report_date": "2026-11-06",
+    "last_report_date": "2026-11-12",
     "summary": "",
-    "at_a_glance_checked_at": "2026-11-09T14:56:47Z",
+    "at_a_glance_checked_at": "2026-11-16T01:12:32Z",
     "at_a_glance_scope": "reported",
-    "checked_at": "2026-11-09T14:56:48Z",
-    "checked_for_date": "2026-11-09",
+    "checked_at": "2026-11-16T01:12:32Z",
+    "checked_for_date": "2026-11-16",
     "at_a_glance": [
       {
-        "headline": "CG Oncology Outperforms Q3 Expectations",
-        "detail": "CG Oncology reported a Q3 2026 Adjusted EPS of -$0.64, beating estimates by $0.17, while reported revenue of $1,604,000 significantly surpassed expectations of $534,480."
+        "headline": "CG Oncology Outperforms Financial Estimates",
+        "detail": "The company reported an Adjusted EPS loss of $0.64, outperforming the estimated loss of $0.81, and delivered total revenue of $1.60 million, beating the estimated $0.53 million."
       },
       {
-        "headline": "Clinical Spending Escalates Pipeline Progress",
-        "detail": "Research and development expenses rose by $11.3 million year-over-year to $39.2 million, driven by higher external clinical trial and chemistry, manufacturing, and controls (CMC) costs for cretostimogene."
+        "headline": "R&D Spending Rises Amid Pipeline Expansion",
+        "detail": "Research and development expenses increased 41% year-over-year to $39.22 million, reflecting intensified clinical trial activity for its oncology pipeline compared to past periods."
       },
       {
-        "headline": "Crucial Regulatory Milestones Near Completion",
-        "detail": "The company expects to complete its Biologics License Application (BLA) submission for cretostimogene in BCG-unresponsive non-muscle-invasive bladder cancer (NMIBC) in the fourth quarter of 2026."
+        "headline": "Substantial Funding Expected Through 2029",
+        "detail": "The company highlighted a strong cash runway, with $984.5 million in cash, cash equivalents, and marketable securities, which is projected to fund its clinical operations through 2029."
       },
       {
-        "headline": "Substantial Cash Runway Until 2029",
-        "detail": "CG Oncology concluded the quarter with $984.5 million in cash, cash equivalents, and marketable securities, which is projected to fully fund company operations through 2029."
+        "headline": "Major Regulatory Submission Planned for Q4",
+        "detail": "CG Oncology expects to complete its Biologics License Application (BLA) submission for cretostimogene in BCG-unresponsive non-muscle-invasive bladder cancer (NMIBC) in the fourth quarter of 2026."
       },
       {
-        "headline": "Strong Market Performance Following Release",
-        "detail": "The earnings beat and imminent clinical catalysts triggered robust buying interest, causing shares to gain over 5% and reach an intraday high of $80.03."
+        "headline": "Imminent Clinical Trial Data Readouts Anticipated",
+        "detail": "Topline Phase 3 data from the PIVOT-006 trial are expected in November 2026, followed by 12-month data cohorts from BOND-003 and CORE-008 trials in December 2026."
+      },
+      {
+        "headline": "Positive Market Reaction Pushes Shares Higher",
+        "detail": "Following the better-than-expected financial metrics and upcoming catalyst confirmations, investor enthusiasm drove the stock price higher, hitting an intraday peak of $80.03."
       }
     ],
     "at_a_glance_report_date": "2026-11-06",
-    "next_event_date": "2026-11-12",
-    "next_date_source": "Google Finance",
-    "next_date_status": "confirmed",
-    "next_check_date": null,
     "latest_results": {
       "fiscal_period": "Q3 2026",
       "report_date": "2026-11-06",
@@ -7797,7 +7831,12 @@
       "revenue_estimate": "534.48K",
       "revenue_surprise": "+200.10%",
       "first_seen": "2026-11-09"
-    }
+    },
+    "last_report_source": "Google Finance",
+    "next_event_date": "2027-02-10",
+    "next_check_date": "2027-01-20",
+    "next_date_status": "tentative",
+    "next_date_source": "estimated from last earnings"
   },
   "BBIO": {
     "last_report_date": "2026-10-29",
